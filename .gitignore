@@ -1,0 +1,15 @@
+.DS_Store
+node_modules/
+npm-debug.log
+bundles/
+middle-file/
+aot/
+dist/
+lib/
+proxy.config.js
+zip
+.idea
+*.swp
+*.swo
+
+typings/

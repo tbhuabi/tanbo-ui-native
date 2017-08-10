@@ -1,0 +1,37 @@
+ui-option {
+    line-height: 2em;
+    transition: all .2s;
+    display: block;
+    background: none;
+    width: 100%;
+    border: 0;
+    font-size: inherit;
+    text-align: left;
+    > .ui-option {
+        padding: 0 $grid-column-padding;
+        width: 100%;
+        border: none;
+        background: none;
+        line-height: inherit;
+        font-size: inherit;
+        cursor: inherit;
+        text-align: left;
+        > div {
+            white-space: normal;
+            overflow: hidden;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: hsla(hue($color-primary), saturation($color-primary), lightness($color-primary), .1);
+    }
+    &.selected {
+        background-color: hsla(hue($color-primary), saturation($color-primary), lightness($color-primary), .2);
+    }
+    &.disabled {
+        background-color: hsla(hue($color-default), saturation($color-default), lightness($color-default), .2);
+        cursor: not-allowed;
+        color: #fff;
+    }
+}

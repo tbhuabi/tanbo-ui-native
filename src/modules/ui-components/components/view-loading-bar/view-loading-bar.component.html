@@ -1,0 +1,7 @@
+<div class="ui-view-loading-bar"
+     [ngStyle]="{width: step + '%'}"
+     *ngIf="loadingState === 'normal'"
+     (@loadingState.done)="loaded()"
+     [@loadingState]="true">
+  <div class="ui-view-loading-bar-shadow"></div>
+</div>

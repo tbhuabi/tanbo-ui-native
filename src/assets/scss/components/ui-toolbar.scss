@@ -1,0 +1,65 @@
+ui-toolbar {
+    position: fixed;
+    right: 30px;
+    width: $toolbar-width;
+    bottom: 100px;
+    z-index: $toolbar-z-index;
+    > .ui-toolbar-to-top {
+        width: 100%;
+        padding-bottom: 100%;
+        position: relative;
+        &.visible {
+            opacity: 0;
+            visibility: hidden;
+        }
+        > .ui-toolbar-btn {
+            cursor: pointer;
+            text-align: center;
+            position: absolute;
+            overflow: hidden;
+            width: 100%;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border: none;
+            background-color: hsla(hue($color-default), saturation($color-default), lightness($color-default), .1);
+            transition: all .3s;
+            &:hover {
+                background-color: hsla(hue($color-default), saturation($color-default), lightness($color-default), .3);
+                > .ui-toolbar-icon-wrap {
+                    transform: scale(10);
+                    opacity: 0;
+                }
+                > .ui-toolbar-text {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+            > div {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+            > .ui-toolbar-icon-wrap {
+                font-size: 2em;
+                line-height: $toolbar-width;
+                transition: all .3s;
+                > .icon {
+                    color: #000;
+                    text-shadow: 0 1px 0 #fff;
+                    opacity: .2;
+                }
+            }
+            > .ui-toolbar-text {
+                padding-top: 3px;
+                transition: all .3s;
+                opacity: 0;
+                transform: scale(0);
+            }
+
+        }
+    }
+}

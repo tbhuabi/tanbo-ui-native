@@ -1,0 +1,78 @@
+@mixin table-styles {
+    &.active {
+        background-color: lighten($table-border-color, 7);
+    }
+    &.info {
+        background-color: hsla(hue($color-info), saturation($color-info), lightness($color-info), .1);
+    }
+    &.primary {
+        background-color: hsla(hue($color-primary), saturation($color-primary), lightness($color-primary), .1);
+    }
+    &.warning {
+        background-color: hsla(hue($color-warning), saturation($color-warning), lightness($color-warning), .1);
+    }
+    &.success {
+        background-color: hsla(hue($color-success), saturation($color-success), lightness($color-success), .1);
+    }
+    &.danger {
+        background-color: hsla(hue($color-danger), saturation($color-danger), lightness($color-danger), .1);
+    }
+}
+
+table.table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 100%;
+    > thead {
+        > tr {
+            @include table-styles;
+            > th {
+                @include table-styles;
+                text-align: left;
+                padding: $table-cell-padding;
+                border-bottom: 2px solid $table-border-color;
+            }
+        }
+    }
+    > tbody {
+        > tr {
+            @include table-styles;
+            > td {
+                @include table-styles;
+                padding: $table-cell-padding;
+                border-top: 1px solid $table-border-color - 10;
+            }
+        }
+    }
+    &.table-striped {
+        > tbody > tr {
+            &:nth-child(2n - 1) {
+                background-color: lighten($table-border-color, 8);
+            }
+        }
+    }
+    &.table-hover {
+        > tbody > tr {
+            &:hover {
+                background-color: lighten($table-border-color, 5);
+            }
+        }
+    }
+    &.table-condensed {
+        > thead > tr > th, > tbody > tr > td {
+            padding-top: $table-cell-padding / 2;
+            padding-bottom: $table-cell-padding / 2;
+        }
+    }
+    &.table-bordered {
+        > thead > tr > th {
+            border-width: 1px 1px 2px;
+            border-style: solid;
+            border-color: $table-border-color $table-border-color $table-border-color - 10;
+        }
+        > tbody > tr > td {
+            border: 1px solid $table-border-color;
+        }
+    }
+}

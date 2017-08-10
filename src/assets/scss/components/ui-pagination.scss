@@ -1,0 +1,74 @@
+@mixin pagination($v, $h, $radius, $font-size) {
+    > .ui-pagination {
+        font-size: $font-size;
+        > li {
+            > a {
+                padding: $v $h;
+            }
+            @if $pagination-radius-is-open {
+                &:first-child {
+                    > a {
+                        border-top-left-radius: $radius;
+                        border-bottom-left-radius: $radius;
+                        margin-left: 0;
+                    }
+                }
+                &:last-child {
+                    > a {
+                        border-top-right-radius: $radius;
+                        border-bottom-right-radius: $radius;
+                    }
+                }
+            }
+        }
+    }
+}
+
+ui-pagination {
+    display: inline-block;
+    > .ui-pagination {
+        @include list-unstyled;
+        line-height: $line-height;
+        display: inline-block;
+        margin-top: 0;
+        margin-bottom: 0;
+        > li {
+            display: inline;
+            > a {
+                text-decoration: none;
+                color: $color-default;
+                cursor: pointer;
+                float: left;
+                margin-left: -1px;
+                border: 1px solid $pagination-border-color;
+                &:hover {
+                    background-color: $pagination-hover-bg-color;
+                }
+                &.active {
+                    color: #fff;
+                    background-color: $color-primary;
+                    border-color: $color-primary;
+                    &:hover {
+                        background-color: $color-primary;
+                        cursor: default;
+                    }
+                }
+                &.disabled {
+                    background: none;
+                    color: $pagination-disabled-color;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+    @include pagination($pagination-padding-vertical, $pagination-padding-horizontal, $pagination-radius, $pagination-font-size);
+    &.pagination-sm {
+        @include pagination($pagination-padding-vertical-sm, $pagination-padding-horizontal-sm, $pagination-radius-sm, $pagination-font-size-sm);
+    }
+    &.pagination-xs {
+        @include pagination($pagination-padding-vertical-xs, $pagination-padding-horizontal-xs, $pagination-radius-xs, $pagination-font-size-xs);
+    }
+    &.pagination-lg {
+        @include pagination($pagination-padding-vertical-lg, $pagination-padding-horizontal-lg, $pagination-radius-lg, $pagination-font-size-lg);
+    }
+}

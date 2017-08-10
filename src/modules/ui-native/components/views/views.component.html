@@ -1,0 +1,10 @@
+<ui-view-group
+        *ngFor="let item of views"
+        [component]="item.viewConfig.component"
+        [ngStyle]="item.styles"
+        [@pageAnimations]="item.state"
+        (touchstart)="touch($event, item)"
+        (transitionend)="transitionEnd(item)"
+        (@pageAnimations.done)="destroy()"
+        (@pageAnimations.start)="lifeCycle(item)">
+</ui-view-group>

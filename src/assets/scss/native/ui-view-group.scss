@@ -1,0 +1,6 @@
+ui-view-group {
+    @include fill-box;
+    contain: size style layout;
+    overflow: hidden;
+    will-change: transform;
+}

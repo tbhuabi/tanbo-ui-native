@@ -1,0 +1,7 @@
+ui-back {
+    height: 100%;
+    padding-right: $grid-column-padding;
+    font-size: $icon-font-size;
+    @include flex-center;
+    white-space: nowrap;
+}

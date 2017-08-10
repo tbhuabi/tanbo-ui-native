@@ -1,0 +1,10 @@
+ui-header {
+    display: block;
+    min-height: $header-height;
+    background-color: $header-bg;
+    border-bottom: $header-border-bottom;
+    &.native {
+        min-height: $header-height + 20;
+        padding-top: 20px;
+    }
+}

@@ -1,0 +1,52 @@
+ui-slide {
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    > .ui-slide-group {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+        > ui-slide-item {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: all .3s;
+            &.active {
+                z-index: 3;
+                opacity: 1;
+            }
+        }
+    }
+    > .ui-slide-buttons {
+        text-align: center;
+        position: absolute;
+        height: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        padding: 3px $grid-column-padding;
+        > button {
+            position: relative;
+            top: -1.8em;
+            border: none;
+            background-color: hsla(hue($color-primary), saturation($color-primary), lightness($color-primary), .3);
+            width: 1em;
+            height: 1em;
+            margin-left: 3px;
+            margin-right: 3px;
+            border-radius: 50%;
+            transition: all .3s;
+            &.active {
+                background-color: hsla(hue($color-primary), saturation($color-primary), lightness($color-primary), .8);
+            }
+        }
+    }
+}

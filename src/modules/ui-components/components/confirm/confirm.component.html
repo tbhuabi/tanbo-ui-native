@@ -1,0 +1,12 @@
+<div class="ui-confirm" [@confirmContentAnimate]="animateState ? 'in' : 'out'" (@confirmContentAnimate.done)="done()">
+  <h3 class="ui-confirm-title clearfix">
+    {{title || '系统消息'}} <button (click)="publishAction(false)" type="button" class="pull-right close"><span>&times;</span></button>
+  </h3>
+  <div class="ui-confirm-body">
+    {{content}}
+  </div>
+  <div class="ui-confirm-footer text-right">
+    <button (click)="publishAction(true)" type="button" class="btn btn-success">确定</button>
+    <button (click)="publishAction(false)" type="button" class="btn btn-default">取消</button>
+  </div>
+</div>

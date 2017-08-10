@@ -1,0 +1,15 @@
+<div [@notifyState]="true" *ngFor="let config of messageList; let i = index"
+     class="ui-notify"
+     (mouseenter)="stop(config)"
+     (mouseleave)="restart(config)"
+     [ngClass]="config.type || 'default'">
+  <div class="row">
+    <div class="col-xs-10">
+      {{config.content}}
+    </div>
+    <div class="pull-right">
+      <button class="close" (click)="close(i)" type="button">&times;</button>
+    </div>
+  </div>
+  <div *ngIf="config.autoHide" class="ui-notify-time-down-bar" [ngStyle]="{width: 100 - config.proportion + '%'}"></div>
+</div>

@@ -1,0 +1,175 @@
+// 全局配置
+$font-size-base: 14px; // 基础文字大小
+$line-height: 1.6;
+$is-open-radius: false;
+
+// 辅助配置
+$container-vertical-padding: 6px;
+
+$notify-z-index: 1000;
+$toolbar-z-index: 1100;
+$confirm-z-index: 1200;
+$view-loading-bar-z-index: 1300;
+
+// 基础颜色
+$color-darker: #1c2438; // 标题颜色
+$color-dark: #495060; // 正文颜色
+$color-gray-dark: #80848f; // 图标、icon颜色
+$color-gray: #bbbec4; // 表单边框颜色
+$color-gray-light: #dddee1; // 内边线颜色
+$color-light: #e9eaec; // 布局边框颜色
+$color-lighter: #f8f8f9; // 背景颜色
+
+$color-default: $color-dark;
+$color-primary: #2d8cf0; // 主色调
+$color-info: #6ad1ec; // 信息提示颜色
+$color-success: #19be6b; // 正向操作提示颜色
+$color-warning: #ff9900; // 负面操作警告颜色
+$color-danger: #ed3f14; // 危险操作警告颜色
+
+// 基础线条颜色配置
+//$border-color-base: lighten($color-default, 22);
+//$border-color-light: lighten($border-color-base, 20);
+//$border-color-lighter: lighten($border-color-light, 28);
+
+// 栅格化配置
+$grid-columns: 12; // 栅格列数
+$grid-column-padding: 15px; // 每列的距离
+
+// 媒体查询配置
+$screen-xs-min: 320px;
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1200px;
+
+// 盒模型圆角配置
+$radius-base: 4px; // 基本圆角
+$radius-sm: $radius-base - 1px; // 小圆角
+$radius-xs: $radius-sm - 1px; // 更小的圆角
+$radius-lg: $radius-base + 2px; // 大圆角
+
+// 表单
+$form-control-padding-vertical: 5px;
+$form-control-padding-vertical-sm: $form-control-padding-vertical - 3px;
+$form-control-padding-vertical-lg: $form-control-padding-vertical + 2px;
+
+$form-control-padding-horizontal: 12px;
+$form-control-padding-horizontal-sm: $form-control-padding-horizontal - 4px;
+$form-control-padding-horizontal-lg: $form-control-padding-horizontal + 4px;
+
+$form-control-radius-is-open: $is-open-radius;
+$form-control-radius: $radius-base;
+$form-control-radius-lg: $radius-lg;
+$form-control-radius-sm: $radius-sm;
+
+$form-control-font-size-base: $font-size-base;
+$form-control-font-size-sm: $form-control-font-size-base - 1px;
+$form-control-font-size-lg: $form-control-font-size-base + 4px;
+
+$form-control-border-color: $color-gray;
+$form-control-border-color-primary: $color-primary;
+$form-control-border-color-success: $color-success;
+$form-control-border-color-info: $color-info;
+$form-control-border-color-warning: $color-warning;
+$form-control-border-color-danger: $color-danger;
+
+// 按扭
+$button-padding-vertical: 5px;
+$button-padding-vertical-sm: $button-padding-vertical - 3px;
+$button-padding-vertical-xs: $button-padding-vertical-sm - 1px;
+$button-padding-vertical-lg: $button-padding-vertical + 2px;
+
+$button-padding-horizontal: 12px;
+$button-padding-horizontal-sm: $button-padding-horizontal - 4px;
+$button-padding-horizontal-xs: $button-padding-horizontal - 2px;
+$button-padding-horizontal-lg: $button-padding-horizontal + 4px;
+
+$button-radius-is-open: $is-open-radius;
+$button-radius: $radius-base;
+$button-radius-sm: $radius-sm;
+$button-radius-xs: $radius-xs;
+$button-radius-lg: $radius-lg;
+
+$button-font-size: $font-size-base;
+$button-font-size-sm: $button-font-size - 1px;
+$button-font-size-xs: $button-font-size-sm - 1px;
+$button-font-size-lg: $button-font-size + 4px;
+
+// 分页控件
+$pagination-radius-is-open: $is-open-radius;
+$pagination-radius: $radius-base;
+$pagination-radius-sm: $pagination-radius - 1px;
+$pagination-radius-xs: $pagination-radius-sm - 1px;
+$pagination-radius-lg: $pagination-radius + 2px;
+
+$pagination-padding-vertical: 5px;
+$pagination-padding-vertical-sm: $pagination-padding-vertical - 3px;
+$pagination-padding-vertical-xs: $pagination-padding-vertical-sm - 1px;
+$pagination-padding-vertical-lg: $pagination-padding-vertical + 2px;
+
+$pagination-padding-horizontal: 12px;
+$pagination-padding-horizontal-sm: $pagination-padding-horizontal - 3px;
+$pagination-padding-horizontal-xs: $pagination-padding-horizontal-sm - 1px;
+$pagination-padding-horizontal-lg: $pagination-padding-horizontal + 2px;
+
+$pagination-font-size: $font-size-base;
+$pagination-font-size-sm: $pagination-font-size - 1px;
+$pagination-font-size-xs: $pagination-font-size-sm - 1px;
+$pagination-font-size-lg: $pagination-font-size + 4px;
+
+$pagination-border-color: lighten($color-gray-light, 5);
+$pagination-disabled-color: darken($pagination-border-color, 15);
+$pagination-disabled-bg-color: lighten($pagination-border-color, 7);
+$pagination-hover-bg-color: lighten($pagination-border-color, 2);
+
+// 表格
+$table-cell-padding: 8px;
+$table-border-color: $color-gray-light;
+
+// 列表
+$list-item-hover-bg: $color-lighter;
+$list-item-vertical-padding: .6em;
+$list-item-horizontal-padding: $grid-column-padding;
+$list-title-vertical-padding: .2em;
+$list-title-horizontal-padding: $grid-column-padding;
+
+// code
+$code-font-family: "Microsoft YaHei Mono", Menlo, Monaco, Consolas, "Courier New", monospace;;
+$code-color: $color-danger;
+$code-bg: $color-light;
+
+$kbd-color: #fff;
+$kbd-bg: $color-darker;
+
+$pre-bg: $color-lighter;
+$pre-color: $color-default;
+$pre-border-color: $color-gray-light;
+$pre-scrollable-max-height: 340px;
+
+// panel
+$panel-radius-is-open: $is-open-radius;
+$panel-radius: $radius-base;
+
+$panel-border-color: $color-light;
+
+// 模拟radio/checkbox
+$ui-input-focus-box-shadow-color: hsla(hue($color-gray-light), saturation($color-gray-light), lightness($color-gray-light), .5);
+
+// confirm
+$confirm-radius-is-open: $is-open-radius;
+
+$confirm-width: 300px;
+$confirm-height: 220px;
+
+// notify
+$notify-radius-is-open: $is-open-radius;
+
+$notify-width: 340px;
+$notify-height: 140px;
+
+// toolbar
+$toolbar-width: 40px;
+
+// editor
+$editor-radius-is-open: $is-open-radius;
+$editor-selection-color: rgba(red($color-primary), green($color-primary), blue($color-primary), .2);

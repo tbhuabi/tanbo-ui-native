@@ -1,0 +1,72 @@
+@mixin btn-size($name, $v, $h, $font-size, $radius) {
+    &.btn-#{$name} {
+        padding: $v $h;
+        font-size: $font-size;
+        @if $button-radius-is-open {
+            border-radius: $radius;
+        }
+    }
+}
+
+@mixin btn-theme($name, $color, $bg-color) {
+    &.btn-#{$name} {
+        color: $color;
+        background-color: $bg-color;
+        @if $name != default {
+            border: 1px solid $bg-color;
+        }
+        &:hover {
+            background-color: lighten($bg-color, 2);
+        }
+        &:focus {
+            background-color: darken($bg-color, 1);
+        }
+        &:active {
+            background-color: darken($bg-color, 5);
+        }
+        &.disabled, &[disabled], &[readonly] {
+            opacity: .5;
+            cursor: not-allowed;
+            &:focus, &:hover, &:active {
+                background-color: $bg-color;
+            }
+        }
+    }
+}
+
+.btn {
+    display: inline-block;
+    border: 1px solid $color-gray;
+    font-size: $button-font-size;
+    cursor: pointer;
+    line-height: $line-height;
+    text-align: center;
+    padding: $button-padding-vertical $button-padding-horizontal;
+    text-decoration: none;
+
+    @if $button-radius-is-open {
+        border-radius: $button-radius;
+    }
+
+    @include btn-size(sm, $button-padding-vertical-sm, $button-padding-horizontal-sm, $button-font-size-sm, $button-radius-sm);
+    @include btn-size(xs, $button-padding-vertical-xs, $button-padding-horizontal-xs, $button-font-size-xs, $button-radius-sm);
+    @include btn-size(lg, $button-padding-vertical-lg, $button-padding-horizontal-lg, $button-font-size-lg, $button-radius-lg);
+
+    @include btn-theme(default, $color-default, #fff);
+    @include btn-theme(primary, #fff, $color-primary);
+    @include btn-theme(success, #fff, $color-success);
+    @include btn-theme(info, #fff, $color-info);
+    @include btn-theme(danger, #fff, $color-danger);
+    @include btn-theme(warning, #fff, $color-warning);
+    &.disabled, &[disabled], &[readonly] {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+    &[readonly] {
+        cursor: default;
+    }
+    &.btn-block {
+        width: 100%;
+        display: block;
+    }
+}

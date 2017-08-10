@@ -1,0 +1,85 @@
+@mixin switch-theme($color) {
+    box-shadow: inset 0 0 0 1em $color;
+    border-color: $color;
+}
+
+ui-switch {
+    display: inline-block;
+    height: 1.4em;
+    width: 2.4em;
+    background: none;
+    box-shadow: inset 0 0 0 0.1em $color-gray-light - 20;
+    vertical-align: middle;
+    border-radius: .7em;
+    position: relative;
+    padding: 0.1em;
+    transition: all .3s;
+    cursor: pointer;
+    > input {
+        opacity: 0;
+        position: absolute;
+        width: 0;
+        height: 0;
+        z-index: 1;
+    }
+    > .ui-switch {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 2;
+        border-radius: .6em;
+        > .ui-switch-btn {
+            width: 1.2em;
+            height: 1.2em;
+            border-radius: .6em;
+            background-color: #fff;
+            border: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: all .3s;
+            box-shadow: 0 .05em .3em rgba(0, 0, 0, .4);
+            overflow: hidden;
+            > button {
+                cursor: inherit;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+            }
+        }
+    }
+
+    &.checked {
+        @include switch-theme($color-gray-light);
+        > .ui-switch > .ui-switch-btn {
+            left: 1em;
+        }
+        &.primary {
+            @include switch-theme($color-primary);
+        }
+        &.success {
+            @include switch-theme($color-success);
+        }
+        &.info {
+            @include switch-theme($color-info);
+        }
+        &.danger {
+            @include switch-theme($color-danger);
+        }
+        &.warning {
+            @include switch-theme($color-warning);
+        }
+    }
+    &[readonly] {
+        cursor: auto;
+    }
+    &.disabled, &[disabled] {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+}

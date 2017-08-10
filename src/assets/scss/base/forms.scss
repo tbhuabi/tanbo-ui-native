@@ -1,0 +1,179 @@
+@mixin input-style($border-color, $border-focus-color) {
+    border: 1px solid $border-color;
+    //&:hover:not(.disabled, [disabled]) {
+    //    border-color: darken($border-color, 20);
+    //}
+    &:focus, &.focus {
+        border-color: $border-focus-color;
+        box-shadow: inset 0 0 0 1px $border-focus-color;
+    }
+    &.disabled, &[disabled] {
+        background-color: hsla(hue($border-color), saturation($border-color), lightness($border-color), .2);
+    }
+}
+
+@mixin input-size($v, $h, $radius, $font-size) {
+    padding: $v $h;
+    line-height: $line-height;
+    font-size: $font-size;
+    @if $form-control-radius-is-open {
+        border-radius: $radius;
+    }
+    &.disabled, &[disabled] {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    background: none;
+    @include input-style($form-control-border-color, $form-control-border-color);
+    @include input-size($form-control-padding-vertical, $form-control-padding-horizontal, $form-control-radius, $form-control-font-size-base);
+    &.input-sm {
+        @include input-size($form-control-padding-vertical-sm, $form-control-padding-horizontal-sm, $form-control-radius-sm, $form-control-font-size-sm);
+    }
+    &.input-lg {
+        @include input-size($form-control-padding-vertical-lg, $form-control-padding-horizontal-lg, $form-control-radius-lg, $form-control-font-size-lg);
+    }
+    &.primary {
+        @include input-style($form-control-border-color-primary, $form-control-border-color-primary);
+    }
+    &.success {
+        @include input-style($form-control-border-color-success, $form-control-border-color-success);
+    }
+    &.info {
+        @include input-style($form-control-border-color-info, $form-control-border-color-info);
+    }
+    &.warning {
+        @include input-style($form-control-border-color-warning, $form-control-border-color-warning);
+    }
+    &.danger {
+        @include input-style($form-control-border-color-danger, $form-control-border-color-danger);
+    }
+}
+
+@mixin input-addon-style($border-color, $border-focus-color) {
+    border: 1px solid $border-color;
+    text-align: center;
+    width: 34px;
+    min-width: 34px;
+    &:first-child {
+        border-right: 0;
+    }
+    &:last-child {
+        border-left: 0;
+    }
+}
+
+.input-group {
+    position: relative;
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    > .input-addon {
+        @include input-addon-style($form-control-border-color, $form-control-border-color);
+    }
+    &.primary {
+        > .input-addon {
+            @include input-addon-style($form-control-border-color-primary, $form-control-border-color-primary);
+        }
+        > .form-control {
+            @include input-style($form-control-border-color-primary, $form-control-border-color-primary);
+        }
+    }
+    &.success {
+        > .input-addon {
+            @include input-addon-style($form-control-border-color-success, $form-control-border-color-success);
+        }
+        .form-control {
+            @include input-style($form-control-border-color-success, $form-control-border-color-success);
+        }
+    }
+    &.info {
+        > .input-addon {
+            @include input-addon-style($form-control-border-color-info, $form-control-border-color-info);
+        }
+        > .form-control {
+            @include input-style($form-control-border-color-info, $form-control-border-color-info);
+        }
+    }
+    &.warning {
+        > .input-addon {
+            @include input-addon-style($form-control-border-color-warning, $form-control-border-color-warning);
+        }
+        > .form-control {
+            @include input-style($form-control-border-color-warning, $form-control-border-color-warning);
+        }
+    }
+    &.danger {
+        > .input-addon {
+            @include input-addon-style($form-control-border-color-danger, $form-control-border-color-danger);
+        }
+        > .form-control {
+            @include input-style($form-control-border-color-danger, $form-control-border-color-danger);
+        }
+    }
+
+    > .form-control {
+        border-radius: 0;
+    }
+    > .form-control, > .input-addon {
+        display: table-cell;
+        @if $form-control-radius-is-open {
+            &:first-child {
+                border-top-left-radius: $form-control-radius;
+                border-bottom-left-radius: $form-control-radius;
+            }
+            &:last-child {
+                border-top-right-radius: $form-control-radius;
+                border-bottom-right-radius: $form-control-radius;
+            }
+        }
+    }
+    &.input-sm {
+        > .form-control {
+            @include input-size($form-control-padding-vertical-sm, $form-control-padding-horizontal-sm, 0, $form-control-font-size-sm)
+        }
+        > .form-control, > .input-addon {
+            @if $form-control-radius-is-open {
+                &:first-child {
+                    border-top-left-radius: $form-control-radius-sm;
+                    border-bottom-left-radius: $form-control-radius-sm;
+                }
+                &:last-child {
+                    border-top-right-radius: $form-control-radius-sm;
+                    border-bottom-right-radius: $form-control-radius-sm;
+                }
+            }
+        }
+    }
+    &.input-lg {
+        > .form-control {
+            @include input-size($form-control-padding-vertical-lg, $form-control-padding-horizontal-lg, 0, $form-control-font-size-lg)
+        }
+        > .form-control, > .input-addon {
+            @if $form-control-radius-is-open {
+                &:first-child {
+                    border-top-left-radius: $form-control-radius-lg;
+                    border-bottom-left-radius: $form-control-radius-lg;
+                }
+                &:last-child {
+                    border-top-right-radius: $form-control-radius-lg;
+                    border-bottom-right-radius: $form-control-radius-lg;
+                }
+            }
+        }
+    }
+}
+
+.form-inline {
+    .form-control {
+        display: inline-block;
+        width: auto;
+    }
+    .input-group {
+        width: auto;
+    }
+}

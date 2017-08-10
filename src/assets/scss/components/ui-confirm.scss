@@ -1,0 +1,47 @@
+ui-confirm {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .3);
+    z-index: $confirm-z-index;
+    display: none;
+    &.show {
+        display: block;
+    }
+    > .ui-confirm {
+        position: absolute;
+        width: $confirm-width;
+        height: $confirm-height;
+        background-color: #fff;
+        left: 50%;
+        top: 50px;
+        margin-left: -$confirm-width / 2;
+        //margin-top: -$dialog-height / 2;
+        > .ui-confirm-title {
+            padding: 10px $grid-column-padding;
+            margin-top: 0;
+            margin-bottom: 0;
+            font-weight: normal;
+            > button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                transition: all .3s;
+                &:hover {
+                    transform: rotateZ(-360deg);
+                }
+            }
+        }
+        > .ui-confirm-body {
+            height: $confirm-height - 64 - 46;
+            border-top: 1px solid $color-gray-light;
+            border-bottom: 1px solid $color-gray-light;
+            padding: $grid-column-padding;
+        }
+        > .ui-confirm-footer {
+            padding: $grid-column-padding;
+        }
+    }
+}

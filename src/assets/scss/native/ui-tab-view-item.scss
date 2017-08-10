@@ -1,0 +1,7 @@
+ui-tab-view-item {
+    @include fill-box;
+    display: none;
+    &.active {
+        display: block;
+    }
+}

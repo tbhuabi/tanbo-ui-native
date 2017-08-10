@@ -1,0 +1,53 @@
+@mixin grid($class) {
+    @for $i from 1 through $grid-columns {
+        $width: #{$i / $grid-columns * 100};
+        .col-#{$class}-#{$i} {
+            width: $width + '%';
+            float: left;
+        }
+        .col-#{$class}-offset-#{$i} {
+            margin-left: $width + '%';
+        }
+        .col-#{$class}-pull-#{$i} {
+            margin-left: -$width + '%';
+        }
+    }
+}
+
+@mixin grid-responsive($class, $screen) {
+    @media (min-width: $screen) {
+        @include grid($class);
+    }
+}
+
+.row {
+    @include clearfix;
+    margin-left: -$grid-column-padding;
+    margin-right: -$grid-column-padding;
+}
+@for $i from 1 through $grid-columns {
+    .col-xs-#{$i} {
+        min-height: 1px;
+        padding-left: $grid-column-padding;
+        padding-right: $grid-column-padding;
+    }
+    .col-sm-#{$i} {
+        min-height: 1px;
+        padding-left: $grid-column-padding;
+        padding-right: $grid-column-padding;
+    }
+    .col-md-#{$i} {
+        min-height: 1px;
+        padding-left: $grid-column-padding;
+        padding-right: $grid-column-padding;
+    }
+    .col-lg-#{$i} {
+        min-height: 1px;
+        padding-left: $grid-column-padding;
+        padding-right: $grid-column-padding;
+    }
+}
+@include grid(xs);
+@include grid-responsive(sm, $screen-sm-min);
+@include grid-responsive(md, $screen-md-min);
+@include grid-responsive(lg, $screen-lg-min);
