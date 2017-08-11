@@ -13,8 +13,8 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { DropDownFixedComponent } from './drop-down-fixed/drop-down-fixed.component';
-import { DropDownMenuComponent } from './drop-down-menu/drop-down-menu.component';
+import { DropDownFixedComponent } from '../drop-down-fixed/drop-down-fixed.component';
+import { DropDownMenuComponent } from '../drop-down-menu/drop-down-menu.component';
 
 @Component({
     selector: 'ui-drop-down',

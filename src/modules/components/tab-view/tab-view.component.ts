@@ -1,6 +1,6 @@
 import { Component, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
-import { TabService } from '../tab.service';
-import { TabViewItemComponent } from './tab-view-item/tab-view-item.component';
+import { TabService } from '../tab/tab.service';
+import { TabViewItemComponent } from '../tab-view-item/tab-view-item.component';
 
 @Component({
     selector: 'ui-tab-view',

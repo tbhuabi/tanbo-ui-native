@@ -1,5 +1,5 @@
 import { Component, ContentChildren, QueryList, AfterViewInit, Input, OnDestroy } from '@angular/core';
-import { SlideItemComponent } from './slide-item/slide-item.component';
+import { SlideItemComponent } from '../slide-item/slide-item.component';
 
 @Component({
     selector: 'ui-slide',

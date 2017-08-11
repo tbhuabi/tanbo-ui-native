@@ -7,9 +7,9 @@ import {
     OnInit
 } from '@angular/core';
 
-import { LifeCycleService } from '../life-cycle.service';
-import { Event, EventType } from '../event';
-import { ComponentHostDirective } from '../../../directives/component-host.directive';
+import { LifeCycleService } from '../views/life-cycle.service';
+import { Event, EventType } from '../views/event';
+import { ComponentHostDirective } from '../../directives/component-host.directive';
 
 @Component({
     selector: 'ui-view-group',

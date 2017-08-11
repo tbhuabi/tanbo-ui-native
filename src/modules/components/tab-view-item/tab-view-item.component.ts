@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, AfterViewInit } from '@angular/core';
 
-import { NavController } from '../../../views/navigation-controller';
+import { NavController } from '../views/navigation-controller';
 
 @Component({
     selector: 'ui-tab-view-item',

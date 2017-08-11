@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 
-import { NavController } from '../../views/navigation-controller';
+import { NavController } from '../views/navigation-controller';
 
 @Component({
     selector: 'ui-back',

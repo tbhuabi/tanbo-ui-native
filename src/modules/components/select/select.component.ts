@@ -13,7 +13,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { OptionComponent } from './option/option.component';
+import { OptionComponent } from '../option/option.component';
 
 @Component({
     selector: 'ui-select',
