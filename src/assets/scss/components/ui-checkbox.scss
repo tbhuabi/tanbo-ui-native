@@ -1,4 +1,4 @@
-@mixin input-style($name, $color) {
+@mixin checkbox-style($name, $color) {
     &.#{$name} {
         color: $color;
     }
@@ -24,11 +24,11 @@ ui-input[type=checkbox] {
         opacity: 0;
     }
 
-    @include input-style(primary, $color-primary);
-    @include input-style(info, $color-info);
-    @include input-style(warning, $color-warning);
-    @include input-style(success, $color-success);
-    @include input-style(danger, $color-danger);
+    @include checkbox-style(primary, $color-primary);
+    @include checkbox-style(info, $color-info);
+    @include checkbox-style(warning, $color-warning);
+    @include checkbox-style(success, $color-success);
+    @include checkbox-style(danger, $color-danger);
     &[disabled], &[readonly], &.disabled {
         opacity: .5;
         cursor: not-allowed;

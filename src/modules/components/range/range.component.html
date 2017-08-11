@@ -1,0 +1,16 @@
+<div class="ui-range" #rangeBar [ngStyle]="{width: position + '%'}">
+  <div class="ui-range-btn">
+    <button type="button" (touchstart)="drag($event)" (mousedown)="drag($event)"></button>
+  </div>
+</div>
+<input #rawInput class="ui-input-raw"
+       type="range"
+       [value]="value"
+       [id]="forId"
+       [name]="name"
+       [disabled]="disabled"
+       [max]="max"
+       [min]="min"
+       [step]="step"
+       [checked]="checked"
+       [readonly]="readonly">

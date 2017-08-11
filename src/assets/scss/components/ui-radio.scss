@@ -1,4 +1,4 @@
-@mixin input-style($name, $color) {
+@mixin radio-style($name, $color) {
     &.#{$name} {
         color: $color;
     }
@@ -24,11 +24,11 @@ ui-input[type=radio] {
         opacity: 0;
     }
 
-    @include input-style(primary, $color-primary);
-    @include input-style(info, $color-info);
-    @include input-style(warning, $color-warning);
-    @include input-style(success, $color-success);
-    @include input-style(danger, $color-danger);
+    @include radio-style(primary, $color-primary);
+    @include radio-style(info, $color-info);
+    @include radio-style(warning, $color-warning);
+    @include radio-style(success, $color-success);
+    @include radio-style(danger, $color-danger);
     &[disabled], &[readonly], &.disabled {
         opacity: .5;
         cursor: not-allowed;

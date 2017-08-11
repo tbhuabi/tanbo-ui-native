@@ -23,6 +23,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { PageComponent } from './components/page/page.component';
 import { RadioComponent } from './components/radio/radio.component';
+import { RangeComponent } from './components/range/range.component';
 // import { ScrollComponent } from './components/scroll/scroll.component';
 // import { SelectComponent } from './components/select/select.component';
 // import { OptionComponent } from './components/select/option/option.component';
@@ -67,6 +68,7 @@ import { ToastController } from './components/toast/toast-controller.service';
         RadioComponent,
         HeaderComponent,
         ViewsComponent,
+        RangeComponent,
         ViewGroupComponent,
         ComponentHostDirective,
         StopPropagationDirective
@@ -77,6 +79,7 @@ import { ToastController } from './components/toast/toast-controller.service';
         ContentComponent,
         HeaderComponent,
         PageComponent,
+        RangeComponent,
         RadioComponent,
         StopPropagationDirective
     ],

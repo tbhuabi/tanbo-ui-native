@@ -93,8 +93,14 @@ export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
             return;
         }
         this.rawInput.nativeElement.checked = true;
-        this.change.emit(this.value);
+        if (this.onChange) {
+            this.onChange(this.value);
+        }
+        if (this.onTouched) {
+            this.onTouched(this.value);
+        }
         this.radioStateService.publishEvent();
+        this.change.emit(this.value);
     }
 
     ngOnInit() {
