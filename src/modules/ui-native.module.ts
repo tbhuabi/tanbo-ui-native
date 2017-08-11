@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 // 组件
 import { AlertComponent } from './components/alert/alert.component';
 import { AppComponent } from './components/app/app.component';
-// import { ButtonComponent } from './components/button/button.component';
+// import { ButtonComponent } from './components/buttons/buttons.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 // import { ContentComponent } from './components/content/content.component';
 // import { DropDownComponent } from './components/drop-down/drop-down.component';
@@ -19,7 +19,7 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
 // import { DateComponent } from './components/input/date/date.component';
 // import { RadioComponent } from './components/input/radio/radio.component';
 // import { RangeComponent } from './components/input/range/range.component';
-import { NotifyComponent } from './components/notify/notify.component';
+import { ToastComponent } from './components/toast/toast.component';
 // import { PageComponent } from './components/page/page.component';
 // import { ScrollComponent } from './components/scroll/scroll.component';
 // import { SelectComponent } from './components/select/select.component';
@@ -48,7 +48,7 @@ import { ViewGroupComponent } from './components/views/view-group/view-group.com
 import { AlertController } from './components/alert/alert-controller.service';
 import { ConfirmController } from './components/confirm/confirm-controller.service';
 // import { InputStateService } from './services/input-state.service';
-import { NotifyController } from './components/notify/notify-controller.service';
+import { ToastController } from './components/toast/toast-controller.service';
 
 @NgModule({
     imports: [
@@ -58,7 +58,7 @@ import { NotifyController } from './components/notify/notify-controller.service'
         AlertComponent,
         AppComponent,
         ConfirmComponent,
-        NotifyComponent,
+        ToastComponent,
         ViewsComponent,
         ViewGroupComponent
     ],
@@ -68,7 +68,7 @@ import { NotifyController } from './components/notify/notify-controller.service'
     providers: [
         AlertController,
         ConfirmController,
-        NotifyController
+        ToastController
     ]
 })
 export class UiNativeModule {

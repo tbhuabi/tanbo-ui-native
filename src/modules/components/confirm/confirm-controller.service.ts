@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 export interface ConfirmConfig {
     title: string;
     content: string;
-    btnsText?: Array<string>
+    btnsText?: Array<string>;
 }
 
 @Injectable()

@@ -6,7 +6,7 @@ $is-open-radius: true;
 // 辅助配置
 $container-vertical-padding: 6px;
 
-$notify-z-index: 1000;
+$toast-z-index: 1000;
 $toolbar-z-index: 1100;
 $confirm-z-index: 1200;
 $alert-z-index: 1200;
@@ -170,11 +170,11 @@ $alert-radius: 13px;
 $alert-width: 270px;
 $alert-height: 220px;
 
-// notify
-$notify-radius-is-open: $is-open-radius;
+// toast
+$toast-radius-is-open: $is-open-radius;
 
-$notify-width: 270px;
-$notify-height: 140px;
+$toast-width: 270px;
+$toast-height: 140px;
 
 // toolbar
 $toolbar-width: 40px;

@@ -51,7 +51,7 @@
 
 ### 破坏性更改
 `ConfirmService`改为`ConfirmController`，且不需要在应用根模块中注册   
-`NotifyService`改为`NotifyController`，且不需要在应用根模块中注册
+`NotifyService`改为`ToastController`，且不需要在应用根模块中注册
 
 ### 新增的功能
 

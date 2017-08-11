@@ -1,0 +1,33 @@
+@mixin toast-theme($name, $color) {
+    &.#{$name} {
+        color: #fff;
+        background-color: hsla(hue($color), saturation($color), lightness($color), .9);
+    }
+}
+
+ui-toast {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    margin-left: -150px;
+    width: 300px;
+    z-index: $toast-z-index;
+
+    > .ui-toast {
+        position: absolute;
+        width: 100%;
+        padding: $grid-column-padding;
+        overflow: hidden;
+        text-align: center;
+
+        @if $toast-radius-is-open {
+            border-radius: $radius-lg;
+        }
+        @include toast-theme(default, $color-darker);
+        @include toast-theme(primary, $color-primary);
+        @include toast-theme(info, $color-info);
+        @include toast-theme(success, $color-success);
+        @include toast-theme(warning, $color-warning);
+        @include toast-theme(danger, $color-danger);
+    }
+}

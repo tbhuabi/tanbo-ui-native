@@ -1,6 +1,6 @@
 import { Component, Input, HostBinding } from '@angular/core';
 @Component({
-    selector: 'ui-loading-button',
+    selector: 'ui-button',
     templateUrl: './button.component.html'
 })
 export class ButtonComponent {

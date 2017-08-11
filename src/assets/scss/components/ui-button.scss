@@ -1,34 +1,53 @@
 ui-button {
-    width: 0;
-    height: 100%;
+    @extend .btn;
     position: relative;
-    z-index: 1;
-    display: flex;
-    &:last-child {
-        justify-content: flex-end;
-        align-items: center;
+    > .ui-button {
         position: absolute;
-        right: 10px;
-        left: auto;
+        left: 0;
         top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: inherit;
+        z-index: 1;
     }
-    &:first-child {
-        justify-content: flex-start;
-        align-items: center;
+    > .btn-text {
+        position: relative;
+        z-index: 0;
+        transition: all .2s;
+    }
+    > .btn-loading {
         position: absolute;
-        left: 10px;
-        right: auto;
+        left: 0;
         top: 0;
+        width: 100%;
+        height: 100%;
+        padding: inherit;
+        text-align: inherit;
+        line-height: inherit;
+        transform: scale(0);
+        transition: all .2s;
+        > span {
+            display: inline-block;
+            animation: btn-loading 1s infinite linear;
+        }
     }
+    &.loading {
+        opacity: .8;
+        > .btn-text {
+            transform: scale(0);
+        }
+        > .btn-loading {
+            transform: scale(1);
+        }
+    }
+}
 
-    &.pull-left {
-        left: 10px !important;
-        right: auto !important;
-        justify-content: flex-start !important;
+@keyframes btn-loading {
+    0% {
+        transform: rotateZ(0deg);
     }
-    &.pull-right {
-        right: 10px !important;
-        left: auto !important;
-        justify-content: flex-end !important;
+    100% {
+        transform: rotateZ(-360deg);
     }
 }

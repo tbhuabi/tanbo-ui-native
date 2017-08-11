@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, ConfirmController } from '../modules/index';
+import { AlertController, ConfirmController, ToastController } from '../modules/index';
 
 @Component({
     selector: 'ui-test',
@@ -10,6 +10,7 @@ export class AppComponent {
     date: string = 'fdsa';
 
     constructor(private confirmController: ConfirmController,
+                private toastController: ToastController,
                 private alertController: AlertController) {
     }
 
@@ -28,6 +29,12 @@ export class AppComponent {
             content: 'content'
         }).then(() => {
             console.log(444);
+        });
+    }
+
+    notify() {
+        this.toastController.push({
+            content: 'fdsafd'
         });
     }
 }
