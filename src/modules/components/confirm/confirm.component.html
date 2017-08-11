@@ -1,0 +1,12 @@
+<div class="ui-confirm" [@confirmContentAnimate]="animateState ? 'in' : 'out'" (@confirmContentAnimate.done)="done()">
+  <h3 class="ui-confirm-title clearfix">
+    {{title || '系统消息'}}
+  </h3>
+  <div class="ui-confirm-body">
+    {{content}}
+  </div>
+  <div class="ui-confirm-footer text-right">
+    <button (click)="publishAction(false)" type="button" class="btn btn-lg btn-default btn-block">{{btnsText[0]}}</button>
+    <button (click)="publishAction(true)" type="button" class="btn btn-lg btn-default btn-block">{{btnsText[1]}}</button>
+  </div>
+</div>

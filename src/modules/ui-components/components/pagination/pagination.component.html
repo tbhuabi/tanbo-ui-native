@@ -1,7 +1,0 @@
-<ul class="ui-pagination">
-  <li *ngFor="let item of pageList"
-      (click)="onChange(item.pageIndex)">
-    <a [ngClass]="{active: item.pageIndex === currentPage}"
-       href="javascript:;">{{item.label}}</a>
-  </li>
-</ul>

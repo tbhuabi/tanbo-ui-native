@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-
-import { TabComponent } from './tab/tab';
+import { AlertController, ConfirmController } from '../modules/index';
 
 @Component({
     selector: 'ui-test',
@@ -8,11 +7,27 @@ import { TabComponent } from './tab/tab';
     styleUrls: ['./app.scss']
 })
 export class AppComponent {
-    rootPage: any = TabComponent;
     date: string = 'fdsa';
 
-    show(event: string) {
-        this.date = event;
-        console.log(event);
+    constructor(private confirmController: ConfirmController,
+                private alertController: AlertController) {
+    }
+
+    show() {
+        this.alertController.show({
+            title: 'title',
+            content: 'content'
+        }).then(() => {
+            console.log(333);
+        });
+    }
+
+    confirm() {
+        this.confirmController.show({
+            title: 'title',
+            content: 'content'
+        }).then(() => {
+            console.log(444);
+        });
     }
 }

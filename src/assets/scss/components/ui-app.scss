@@ -1,3 +1,5 @@
 ui-app {
-    display: block;
+    @include fill-box;
+    overflow: hidden;
+    font-size: 14px;
 }

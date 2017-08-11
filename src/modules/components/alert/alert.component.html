@@ -1,0 +1,11 @@
+<div class="ui-alert" [@alertContentAnimate]="animateState ? 'in' : 'out'" (@alertContentAnimate.done)="done()">
+  <h3 class="ui-alert-title">
+    {{title || '系统消息'}}
+  </h3>
+  <div class="ui-alert-body">
+    {{content}}
+  </div>
+  <div class="ui-alert-footer text-right">
+    <button (click)="publishAction()" type="button" class="btn btn-lg btn-default btn-block">{{ btnText || '确定'}}</button>
+  </div>
+</div>

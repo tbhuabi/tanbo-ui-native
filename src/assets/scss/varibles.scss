@@ -1,7 +1,7 @@
 // 全局配置
 $font-size-base: 14px; // 基础文字大小
 $line-height: 1.6;
-$is-open-radius: false;
+$is-open-radius: true;
 
 // 辅助配置
 $container-vertical-padding: 6px;
@@ -9,6 +9,7 @@ $container-vertical-padding: 6px;
 $notify-z-index: 1000;
 $toolbar-z-index: 1100;
 $confirm-z-index: 1200;
+$alert-z-index: 1200;
 $view-loading-bar-z-index: 1300;
 
 // 基础颜色
@@ -158,13 +159,21 @@ $ui-input-focus-box-shadow-color: hsla(hue($color-gray-light), saturation($color
 // confirm
 $confirm-radius-is-open: $is-open-radius;
 
+$confirm-radius: 13px;
 $confirm-width: 300px;
 $confirm-height: 220px;
+
+// confirm
+$alert-radius-is-open: $is-open-radius;
+
+$alert-radius: 13px;
+$alert-width: 270px;
+$alert-height: 220px;
 
 // notify
 $notify-radius-is-open: $is-open-radius;
 
-$notify-width: 340px;
+$notify-width: 270px;
 $notify-height: 140px;
 
 // toolbar
@@ -173,3 +182,18 @@ $toolbar-width: 40px;
 // editor
 $editor-radius-is-open: $is-open-radius;
 $editor-selection-color: rgba(red($color-primary), green($color-primary), blue($color-primary), .2);
+
+$grid-column-padding: 15px;
+
+$header-height: 44px;
+$header-bg: #f8f8f8;
+$header-border-bottom: 1px solid rgba(0, 0, 0, .3);
+
+$footer-height: 44px;
+
+$tab-bar-height: 42px;
+$tab-bar-bg: #f8f8f8;
+$tab-bar-border-top: 1px solid rgba(0, 0, 0, .3);
+
+$icon-font-size: 1.6em;
+

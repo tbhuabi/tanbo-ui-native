@@ -1,4 +1,4 @@
-ui-confirm {
+ui-alert {
     position: fixed;
     left: 0;
     right: 0;
@@ -11,14 +11,14 @@ ui-confirm {
     &.show {
         display: flex;
     }
-    > .ui-confirm {
+    > .ui-alert {
         width: $alert-width;
         background-color: #fff;
         overflow: hidden;
         @if $alert-radius-is-open {
             border-radius: $alert-radius;
         }
-        > .ui-confirm-title {
+        > .ui-alert-title {
             text-align: center;
             padding: $grid-column-padding $grid-column-padding 7px;
             margin-top: 0;
@@ -26,13 +26,13 @@ ui-confirm {
             font-weight: 600;
             font-size: 17px;
         }
-        > .ui-confirm-body {
+        > .ui-alert-body {
             max-height: 240px;
             border-bottom: 1px solid $color-gray-light;
             padding: 0 $grid-column-padding 22px;
             text-align: center;
         }
-        > .ui-confirm-footer {
+        > .ui-alert-footer {
             display: flex;
             button {
                 color: $color-primary;
@@ -40,10 +40,6 @@ ui-confirm {
                 font-size: 17px;
                 border: none;
                 border-radius: 0;
-                &:nth-child(2) {
-                    border-left: 1px solid $color-gray-light;
-                    font-weight: 600;
-                }
             }
         }
     }
