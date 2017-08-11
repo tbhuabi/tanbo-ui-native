@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 // 组件
 import { AlertComponent } from './components/alert/alert.component';
@@ -8,9 +9,10 @@ import { AppComponent } from './components/app/app.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { ContentComponent } from './components/content/content.component';
-// import { DropDownComponent } from './components/drop-down/drop-down.component';
-// import { DropDownFixedComponent } from './components/drop-down/drop-down-fixed/drop-down-fixed.component';
-// import { DropDownMenuComponent } from './components/drop-down/drop-down-menu/drop-down-menu.component';
+import { DateComponent } from './components/date/date.component';
+import { DropDownComponent } from './components/drop-down/drop-down.component';
+import { DropDownFixedComponent } from './components/drop-down/drop-down-fixed/drop-down-fixed.component';
+import { DropDownMenuComponent } from './components/drop-down/drop-down-menu/drop-down-menu.component';
 // import { FooterComponent } from './components/footer/footer.component';
 // import { RowComponent } from './components/grid/row.component';
 // import { ColumnComponent } from './components/grid/column/column.component';
@@ -55,13 +57,18 @@ import { ToastController } from './components/toast/toast-controller.service';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        FormsModule
     ],
     declarations: [
         AlertComponent,
         AppComponent,
         CheckboxComponent,
         ConfirmComponent,
+        DateComponent,
+        DropDownComponent,
+        DropDownFixedComponent,
+        DropDownMenuComponent,
         ContentComponent,
         ToastComponent,
         PageComponent,
@@ -77,6 +84,10 @@ import { ToastController } from './components/toast/toast-controller.service';
         AppComponent,
         CheckboxComponent,
         ContentComponent,
+        DateComponent,
+        DropDownComponent,
+        DropDownFixedComponent,
+        DropDownMenuComponent,
         HeaderComponent,
         PageComponent,
         RangeComponent,
