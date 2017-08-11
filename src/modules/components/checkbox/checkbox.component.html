@@ -1,0 +1,16 @@
+<button class="ui-checkbox" type="button">
+  <div class="ui-checkbox-checked">
+    <span [ngClass]="checkedIcon || 'icon icon-checkbox-checked'"></span>
+  </div>
+  <div class="ui-checkbox-unchecked">
+    <span [ngClass]="uncheckedIcon || 'icon icon-checkbox-unchecked'"></span>
+  </div>
+</button>
+<input #rawInput class="ui-input-raw"
+       type="radio"
+       [value]="value"
+       [id]="forId"
+       [name]="name"
+       [disabled]="disabled"
+       [checked]="checked"
+       [readonly]="readonly">

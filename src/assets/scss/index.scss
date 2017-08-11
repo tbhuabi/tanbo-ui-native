@@ -10,22 +10,44 @@
 @import "common";
 
 // icons
-@import "../fonts/angular-ui/style.css";
+//@import "../fonts/angular-ui/style.css";
 
 // 扩展样式主要用于各个组件搭配使用时，样式不符合预期的修改
+
 @import "components/ui-alert";
 @import "components/ui-app";
+@import "components/ui-back";
 @import "components/ui-button";
+@import "components/ui-buttons";
+@import "components/ui-checkbox";
+@import "components/ui-column";
 @import "components/ui-confirm";
+@import "components/ui-content";
 @import "components/ui-drop-down";
 @import "components/ui-drop-down-fixed";
 @import "components/ui-drop-down-menu";
-@import "components/ui-input";
-@import "components/ui-toast";
+@import "components/ui-footer";
+@import "components/ui-header";
+//@import "components/ui-input";
+@import "components/ui-navbar";
 @import "components/ui-option";
+@import "components/ui-page";
+@import "components/ui-radio";
+@import "components/ui-row";
+@import "components/ui-scroll";
 @import "components/ui-select";
 @import "components/ui-slide";
 @import "components/ui-slide-item";
 @import "components/ui-switch";
+@import "components/ui-tab";
+@import "components/ui-tab-bar";
+@import "components/ui-tab-bar-item";
+@import "components/ui-tab-view";
+@import "components/ui-tab-view-item";
+@import "components/ui-title";
+@import "components/ui-toast";
+@import "components/ui-view-group";
 @import "components/ui-view-loading-bar";
+@import "components/ui-views";
+
 

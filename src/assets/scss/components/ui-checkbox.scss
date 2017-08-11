@@ -1,0 +1,87 @@
+@mixin input-style($name, $color) {
+    &.#{$name} {
+        color: $color;
+    }
+}
+
+ui-input[type=checkbox] {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    color: $color-default;
+    width: 1.2em;
+    height: 1.2em;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    > .ui-input-raw {
+        width: 0;
+        height: 0;
+        position: absolute;
+        overflow: hidden;
+        opacity: 0;
+    }
+
+    @include input-style(primary, $color-primary);
+    @include input-style(info, $color-info);
+    @include input-style(warning, $color-warning);
+    @include input-style(success, $color-success);
+    @include input-style(danger, $color-danger);
+    &[disabled], &[readonly], &.disabled {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+    &[readonly] {
+        cursor: default;
+    }
+    &[checked], &.checked {
+        animation: input-focus .3s;
+        > .ui-checkbox {
+            > .ui-checkbox-checked {
+                transform: scale(1);
+                opacity: 1;
+            }
+            > .ui-checkbox-unchecked {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+    }
+    > .ui-checkbox {
+        //display: none;
+        width: 100%;
+        height: 100%;
+        background: none;
+        border: none;
+        font-size: inherit;
+        line-height: inherit;
+        color: inherit;
+        cursor: inherit;
+        > .ui-checkbox-checked {
+            transform: scale(0);
+            opacity: 0;
+        }
+        > div {
+            transition: all .3s;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin-top: 1px;
+        }
+    }
+}
+
+@keyframes input-focus {
+    0% {
+        border-radius: 50%;
+        box-shadow: 0 0 0 .1em $ui-input-focus-box-shadow-color;
+    }
+    100% {
+        border-radius: 50%;
+        box-shadow: 0 0 0 .4em $ui-input-focus-box-shadow-color;
+    }
+}
