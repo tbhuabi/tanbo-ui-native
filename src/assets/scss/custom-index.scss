@@ -1,16 +1,11 @@
 @import "~normalize.css/normalize.css";
 
-@import "varibles";
-
 @import "mixins/clearfix";
 @import "mixins/fill-box";
 @import "mixins/flex-center";
 @import "mixins/list-unstyled";
 
 @import "common";
-
-// icons
-@import "../fonts/angular-ui/style.css";
 
 // 扩展样式主要用于各个组件搭配使用时，样式不符合预期的修改
 
