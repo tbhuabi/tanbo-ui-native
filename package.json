@@ -119,9 +119,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/18616392776/tanbo-ui.git"
+    "url": "git+https://github.com/18616392776/tanbo-ui-native.git"
   },
   "bugs": {
-    "url": "https://github.com/18616392776/tanbo-ui.git/issues"
+    "url": "https://github.com/18616392776/tanbo-ui-native.git/issues"
   }
 }
