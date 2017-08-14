@@ -1,8 +1,6 @@
 ui-list-item {
     display: block;
-    padding-top: $list-item-vertical-padding;
-    padding-bottom: $list-item-vertical-padding + 1px;
-    padding-left: $list-item-horizontal-padding;
+    padding: $list-item-vertical-padding $list-item-horizontal-padding $list-item-vertical-padding + 1;
     position: relative;
     &:active {
         background-color: $color-lighter;

@@ -1,7 +1,7 @@
-import { Component, Input, EventEmitter, OnInit, Output, HostBinding } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { TimeDetails, timeAnalysisByTimeString, dateStringFormat } from './date-utils';
+import { dateStringFormat, timeAnalysisByTimeString, TimeDetails } from './date-utils';
 
 @Component({
     selector: 'ui-input[type=date]',
@@ -34,6 +34,11 @@ export class DateComponent implements ControlValueAccessor, OnInit {
         let isReadonly = (this as any).hasOwnProperty('_readonly');
         return isReadonly && this._readonly !== false;
     }
+
+    @Input()
+    forId: string;
+    @Input()
+    name: string;
 
     @Input()
     placeholder: string = '';

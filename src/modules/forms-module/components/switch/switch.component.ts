@@ -1,5 +1,6 @@
-import { Component, Input, HostListener, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
 @Component({
     selector: 'ui-switch',
     templateUrl: './switch.component.html',
@@ -41,6 +42,8 @@ export class SwitchComponent implements ControlValueAccessor {
         return isChecked && this._checked !== false;
     }
 
+    @Input()
+    forId: string;
     @Input()
     value: string = '';
     @Input()
