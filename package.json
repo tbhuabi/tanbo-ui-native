@@ -1,6 +1,6 @@
 {
   "name": "tanbo-ui-native",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "angular components & directives & pipes ...",
   "main": "./bundles/index.js",
   "module": "./bundles/index.ts",
@@ -10,7 +10,7 @@
     "doc": "cross-env NODE_ENV=documentation node server/doc-server.js",
     "pack": "webpack-dev-server --inline --progress --port 8080",
     "test": "karma start",
-    "build": "rimarf dist && cross-env NODE_ENV=production webpack --config config/webpack.prod.js --progress --profile --bail --optimize-minimize",
+    "build": "rimraf dist && cross-env NODE_ENV=production webpack --config config/webpack.prod.js --progress --profile --bail --optimize-minimize",
     "build:lib": "rimraf bundles && gulp && tsc -p ts-config-build.json",
     "production": "npm run build && node server/product-server.js"
   },
