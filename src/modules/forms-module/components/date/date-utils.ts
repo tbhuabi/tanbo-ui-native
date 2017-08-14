@@ -57,6 +57,7 @@ export function timeAnalysisByTimeString(date: string): TimeDetails {
         timestamp: Date.UTC(year, month, day, hours, minutes, seconds, 0)
     };
 }
+
 /**
  * 给0-9的数字补零，转为00、01……
  * @param {number|string} n 0-9的数字
@@ -69,7 +70,7 @@ export function toDouble(n: number | string): string {
     return n > 9 ? n + '' : '0' + n;
 }
 
-export function dateStringFormat(formatString: string, selectedDate: TimeDetails): string{
+export function dateStringFormat(formatString: string, selectedDate: TimeDetails): string {
     return formatString.replace(/[yMdhms]+/g, (str: string): string => {
         switch (str) {
             case 'yy':

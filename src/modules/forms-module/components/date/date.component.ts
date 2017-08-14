@@ -84,7 +84,6 @@ export class DateComponent implements ControlValueAccessor, OnInit {
 
     showType: string = '';
 
-
     private _disabled: boolean;
     private _readonly: boolean;
     private _maxDate = '';

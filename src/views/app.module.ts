@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
-import { UiNativeModule, UiHttp } from '../modules/index';
+import { UiComponentsModule, UiFormsModule, UiHttp } from '../modules/index';
 
 import { PageTransferStationService } from '../services/page-transfer-station';
 
@@ -14,8 +14,9 @@ import { RootPageComponent } from './root-page/root-page.component';
 @NgModule({
     imports: [
         BrowserAnimationsModule,
+        UiComponentsModule,
+        UiFormsModule,
         FormsModule,
-        UiNativeModule,
         BrowserModule,
         HttpModule
     ],
