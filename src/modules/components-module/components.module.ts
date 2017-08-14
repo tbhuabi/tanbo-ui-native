@@ -14,6 +14,8 @@ import { DropDownFixedComponent } from './components/drop-down-fixed/drop-down-f
 import { DropDownMenuComponent } from './components/drop-down-menu/drop-down-menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ListComponent } from './components/list/list.component';
+import { ListItemComponent } from './components/list-item/list-item.component';
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { PageComponent } from './components/page/page.component';
 import { RowComponent } from './components/row/row.component';
@@ -56,6 +58,8 @@ import { ToastController } from './components/toast/toast-controller.service';
         DropDownMenuComponent,
         FooterComponent,
         HeaderComponent,
+        ListComponent,
+        ListItemComponent,
         NavBarComponent,
         PageComponent,
         RowComponent,
@@ -89,6 +93,8 @@ import { ToastController } from './components/toast/toast-controller.service';
         DropDownMenuComponent,
         FooterComponent,
         HeaderComponent,
+        ListComponent,
+        ListItemComponent,
         NavBarComponent,
         PageComponent,
         RowComponent,

@@ -107,9 +107,6 @@ export class RangeComponent implements ControlValueAccessor {
     @Output()
     change = new EventEmitter<string>();
 
-    @ViewChild('rawInput')
-    rawInput: ElementRef;
-
     private _disabled: boolean;
     private _readonly: boolean;
     private _min: number = 0;

@@ -3,21 +3,23 @@ ui-view-loading-bar {
     z-index: $view-loading-bar-z-index;
     left: 0;
     right: 0;
-    > .ui-view-loading-bar {
-        left: 0;
-        top: 0;
-        background-image: linear-gradient(to right, $color-primary + 60, $color-primary);
-        height: 2px;
-        transition: width .3s;
-        float: left;
-        > .ui-view-loading-bar-shadow {
-            float: right;
-            height: 100%;
-            width: 100px;
-            border-radius: inherit;
-            animation: view-loading-bar-shadow 3s infinite;
-        }
-    }
+}
+
+.ui-view-loading-bar {
+    left: 0;
+    top: 0;
+    background-image: linear-gradient(to right, $color-primary + 60, $color-primary);
+    height: 2px;
+    transition: width .3s;
+    float: left;
+}
+
+.ui-view-loading-bar-shadow {
+    float: right;
+    height: 100%;
+    width: 100px;
+    border-radius: inherit;
+    animation: view-loading-bar-shadow 3s infinite;
 }
 
 @keyframes view-loading-bar-shadow {

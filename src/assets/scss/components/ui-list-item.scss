@@ -1,0 +1,23 @@
+ui-list-item {
+    display: block;
+    &:last-child .ui-list-item-content {
+        border-bottom: 0;
+    }
+}
+
+.ui-list-item {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0 0 0 $grid-column-padding;
+    text-align: inherit;
+    &:active {
+        background-color: $color-lighter;
+    }
+}
+
+.ui-list-item-content {
+    border-bottom: 1px solid $color-gray-light;
+    padding: $list-item-vertical-padding $list-item-horizontal-padding $list-item-vertical-padding 0;
+}

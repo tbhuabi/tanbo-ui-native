@@ -14,40 +14,6 @@ ui-select {
         }
         > ui-drop-down-fixed {
             cursor: inherit;
-            > .ui-select-fixed {
-                white-space: nowrap;
-                overflow: hidden;
-                margin-right: $form-control-padding-horizontal * 1.5;
-                line-height: inherit;
-                cursor: inherit;
-                &:after {
-                    content: "";
-                    display: inline-block;
-                }
-                > input {
-                    cursor: inherit;
-                    opacity: 0;
-                    position: absolute;
-                    left: 0;
-                    right: 0;
-                    top: 0;
-                    bottom: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 2;
-                }
-                > span {
-                    position: relative;
-                    z-index: 1;
-                }
-                > .ui-select-arrow {
-                    padding: $form-control-padding-vertical $form-control-padding-horizontal;
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    bottom: 0;
-                }
-            }
         }
     }
 
@@ -63,7 +29,6 @@ ui-select {
             padding: $form-control-padding-vertical-lg $form-control-padding-horizontal-lg;
         }
     }
-
 
     &.left-bottom, &.right-bottom, &.top {
         ui-drop-down-menu {
@@ -98,4 +63,40 @@ ui-select {
         top: 100%;
         left: 0;
     }
+}
+
+.ui-select-fixed {
+    white-space: nowrap;
+    overflow: hidden;
+    margin-right: $form-control-padding-horizontal * 1.5;
+    line-height: inherit;
+    cursor: inherit;
+    &:after {
+        content: "";
+        display: inline-block;
+    }
+    > input {
+        cursor: inherit;
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+    }
+    > span {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+.ui-select-arrow {
+    padding: $form-control-padding-vertical $form-control-padding-horizontal;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }

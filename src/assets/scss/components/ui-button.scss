@@ -1,45 +1,48 @@
 ui-button {
     @extend .btn;
     position: relative;
-    > .ui-button {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        cursor: inherit;
-        z-index: 1;
-    }
-    > .btn-text {
-        position: relative;
-        z-index: 0;
-        transition: all .2s;
-    }
-    > .btn-loading {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        padding: inherit;
-        text-align: inherit;
-        line-height: inherit;
-        transform: scale(0);
-        transition: all .2s;
-        > span {
-            display: inline-block;
-            animation: btn-loading 1s infinite linear;
-        }
-    }
     &.loading {
         opacity: .8;
-        > .btn-text {
+        > .ui-button-text {
             transform: scale(0);
         }
-        > .btn-loading {
+        > .ui-button-loading {
             transform: scale(1);
         }
+    }
+}
+
+.ui-button {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: inherit;
+    z-index: 1;
+}
+
+.ui-button-text {
+    position: relative;
+    z-index: 0;
+    transition: all .2s;
+}
+
+.ui-button-loading {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    transform: scale(0);
+    transition: all .2s;
+    > span {
+        display: inline-block;
+        animation: btn-loading 1s infinite linear;
     }
 }
 
