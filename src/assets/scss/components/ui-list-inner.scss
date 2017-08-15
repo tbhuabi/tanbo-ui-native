@@ -1,0 +1,6 @@
+ui-list-inner {
+    display: block;
+    flex: 1;
+    padding: $list-item-vertical-padding $list-item-horizontal-padding $list-item-vertical-padding 0;
+    border-bottom: 1px solid $color-gray-light;
+}

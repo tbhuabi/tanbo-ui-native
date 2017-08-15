@@ -1,22 +1,10 @@
 ui-list-item {
-    display: block;
-    padding: $list-item-vertical-padding $list-item-horizontal-padding $list-item-vertical-padding + 1;
-    position: relative;
+    display: flex;
+    padding-left: $grid-column-padding;
+    &:last-child ui-list-inner {
+        border-bottom: 0;
+    }
     &:active {
         background-color: $color-lighter;
     }
-    &:last-child {
-        padding-bottom: $list-item-vertical-padding;
-        .ui-list-item-border {
-            display: none;
-        }
-    }
-}
-
-.ui-list-item-border {
-    border-bottom: 1px solid $color-gray-light;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: $list-item-horizontal-padding;
 }

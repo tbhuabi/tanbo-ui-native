@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 // 组件
 import { AlertComponent } from './components/alert/alert.component';
 import { AppComponent } from './components/app/app.component';
@@ -15,7 +14,11 @@ import { DropDownMenuComponent } from './components/drop-down-menu/drop-down-men
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ListComponent } from './components/list/list.component';
+import { ListHeaderComponent } from './components/list-header/list-header.component';
+import { ListInnerComponent } from './components/list-inner/list-inner.component';
 import { ListItemComponent } from './components/list-item/list-item.component';
+import { ListOptionComponent } from './components/list-option/list-option.component';
+import { ListThumbnailComponent } from './components/list-thumbnail/list-thumbnail.component';
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { PageComponent } from './components/page/page.component';
 import { RowComponent } from './components/row/row.component';
@@ -32,10 +35,8 @@ import { ToastComponent } from './components/toast/toast.component';
 import { ViewGroupComponent } from './components/view-group/view-group.component';
 import { ViewLoadingBarComponent } from './components/view-loading-bar/view-loading-bar.component';
 import { ViewsComponent } from './components/views/views.component';
-
 // 指令
 import { ComponentHostDirective } from './directives/component-host.directive';
-
 // 服务
 import { AlertController } from './components/alert/alert-controller.service';
 import { ConfirmController } from './components/confirm/confirm-controller.service';
@@ -59,7 +60,11 @@ import { ToastController } from './components/toast/toast-controller.service';
         FooterComponent,
         HeaderComponent,
         ListComponent,
+        ListHeaderComponent,
+        ListInnerComponent,
         ListItemComponent,
+        ListOptionComponent,
+        ListThumbnailComponent,
         NavBarComponent,
         PageComponent,
         RowComponent,
@@ -94,7 +99,11 @@ import { ToastController } from './components/toast/toast-controller.service';
         FooterComponent,
         HeaderComponent,
         ListComponent,
+        ListHeaderComponent,
+        ListInnerComponent,
         ListItemComponent,
+        ListOptionComponent,
+        ListThumbnailComponent,
         NavBarComponent,
         PageComponent,
         RowComponent,
