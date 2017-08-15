@@ -10,6 +10,8 @@ import { PageTransferStationService } from '../services/page-transfer-station';
 
 import { AppComponent } from './app';
 import { RootPageComponent } from './root-page/root-page.component';
+import { Page1Component } from './page1/page1.component';
+import { Page2Component } from './page2/page2.component';
 
 @NgModule({
     imports: [
@@ -22,11 +24,15 @@ import { RootPageComponent } from './root-page/root-page.component';
     ],
     declarations: [
         AppComponent,
-        RootPageComponent
+        RootPageComponent,
+        Page1Component,
+        Page2Component
     ],
     bootstrap: [AppComponent],
     entryComponents: [
-        RootPageComponent
+        RootPageComponent,
+        Page1Component,
+        Page2Component
     ],
     providers: [
         PageTransferStationService,
