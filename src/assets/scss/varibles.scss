@@ -1,5 +1,5 @@
 // 全局配置
-$font-size-base: 14px; // 基础文字大小
+$font-size-base: 17px; // 基础文字大小
 $line-height: 1.6;
 $is-open-radius: true;
 
@@ -45,8 +45,8 @@ $screen-lg-min: 1200px;
 
 // 盒模型圆角配置
 $radius-base: 4px; // 基本圆角
-$radius-sm: $radius-base - 1px; // 小圆角
-$radius-xs: $radius-sm - 1px; // 更小的圆角
+$radius-sm: $radius-base - 0.55px; // 小圆角
+$radius-xs: $radius-sm - 0.55px; // 更小的圆角
 $radius-lg: $radius-base + 2px; // 大圆角
 
 // 表单
@@ -64,7 +64,7 @@ $form-control-radius-lg: $radius-lg;
 $form-control-radius-sm: $radius-sm;
 
 $form-control-font-size-base: $font-size-base;
-$form-control-font-size-sm: $form-control-font-size-base - 1px;
+$form-control-font-size-sm: $form-control-font-size-base - 0.55px;
 $form-control-font-size-lg: $form-control-font-size-base + 4px;
 
 $form-control-border-color: $color-gray;
@@ -77,7 +77,7 @@ $form-control-border-color-danger: $color-danger;
 // 按扭
 $button-padding-vertical: 5px;
 $button-padding-vertical-sm: $button-padding-vertical - 3px;
-$button-padding-vertical-xs: $button-padding-vertical-sm - 1px;
+$button-padding-vertical-xs: $button-padding-vertical-sm - 0.55px;
 $button-padding-vertical-lg: $button-padding-vertical + 2px;
 
 $button-padding-horizontal: 12px;
@@ -92,30 +92,30 @@ $button-radius-xs: $radius-xs;
 $button-radius-lg: $radius-lg;
 
 $button-font-size: $font-size-base;
-$button-font-size-sm: $button-font-size - 1px;
-$button-font-size-xs: $button-font-size-sm - 1px;
+$button-font-size-sm: $button-font-size - 0.55px;
+$button-font-size-xs: $button-font-size-sm - 0.55px;
 $button-font-size-lg: $button-font-size + 4px;
 
 // 分页控件
 $pagination-radius-is-open: $is-open-radius;
 $pagination-radius: $radius-base;
-$pagination-radius-sm: $pagination-radius - 1px;
-$pagination-radius-xs: $pagination-radius-sm - 1px;
+$pagination-radius-sm: $pagination-radius - 0.55px;
+$pagination-radius-xs: $pagination-radius-sm - 0.55px;
 $pagination-radius-lg: $pagination-radius + 2px;
 
 $pagination-padding-vertical: 5px;
 $pagination-padding-vertical-sm: $pagination-padding-vertical - 3px;
-$pagination-padding-vertical-xs: $pagination-padding-vertical-sm - 1px;
+$pagination-padding-vertical-xs: $pagination-padding-vertical-sm - 0.55px;
 $pagination-padding-vertical-lg: $pagination-padding-vertical + 2px;
 
 $pagination-padding-horizontal: 12px;
 $pagination-padding-horizontal-sm: $pagination-padding-horizontal - 3px;
-$pagination-padding-horizontal-xs: $pagination-padding-horizontal-sm - 1px;
+$pagination-padding-horizontal-xs: $pagination-padding-horizontal-sm - 0.55px;
 $pagination-padding-horizontal-lg: $pagination-padding-horizontal + 2px;
 
 $pagination-font-size: $font-size-base;
-$pagination-font-size-sm: $pagination-font-size - 1px;
-$pagination-font-size-xs: $pagination-font-size-sm - 1px;
+$pagination-font-size-sm: $pagination-font-size - 0.55px;
+$pagination-font-size-xs: $pagination-font-size-sm - 0.55px;
 $pagination-font-size-lg: $pagination-font-size + 4px;
 
 $pagination-border-color: lighten($color-gray-light, 5);
@@ -129,7 +129,7 @@ $table-border-color: $color-gray-light;
 
 // 列表
 $list-item-hover-bg: $color-lighter;
-$list-item-vertical-padding: 14px;
+$list-item-vertical-padding: 12px;
 $list-item-horizontal-padding: $grid-column-padding;
 $list-header-vertical-padding: 10px;
 $list-header-horizontal-padding: $grid-column-padding;
@@ -187,13 +187,13 @@ $grid-column-padding: 15px;
 
 $header-height: 44px;
 $header-bg: #f8f8f8;
-$header-border-bottom: 1px solid rgba(0, 0, 0, .3);
+$header-border-bottom: 0.55px solid rgba(0, 0, 0, .3);
 
 $footer-height: 44px;
 
 $tab-bar-height: 42px;
 $tab-bar-bg: #f8f8f8;
-$tab-bar-border-top: 1px solid rgba(0, 0, 0, .3);
+$tab-bar-border-top: 0.55px solid rgba(0, 0, 0, .3);
 
 $icon-font-size: 1.6em;
 
