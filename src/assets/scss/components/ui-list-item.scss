@@ -1,10 +1,8 @@
 ui-list-item {
     display: flex;
-    padding-left: $grid-column-padding;
+    padding: $list-item-vertical-padding $list-header-horizontal-padding;
+    position: relative;
     &:last-child ui-list-inner {
         border-bottom: 0;
-    }
-    &:active {
-        background-color: $color-lighter;
     }
 }

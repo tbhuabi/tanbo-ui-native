@@ -2,6 +2,8 @@ ui-list-thumbnail {
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
+    margin-top: -$list-item-vertical-padding;
+    margin-bottom: -$list-item-vertical-padding;
     margin-right: $grid-column-padding;
     min-height: 56px;
     min-width: 56px;

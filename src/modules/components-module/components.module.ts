@@ -18,6 +18,7 @@ import { ListHeaderComponent } from './components/list-header/list-header.compon
 import { ListInnerComponent } from './components/list-inner/list-inner.component';
 import { ListItemComponent } from './components/list-item/list-item.component';
 import { ListOptionComponent } from './components/list-option/list-option.component';
+import { ListSlidingComponent } from './components/list-sliding/list-sliding.component';
 import { ListThumbnailComponent } from './components/list-thumbnail/list-thumbnail.component';
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { PageComponent } from './components/page/page.component';
@@ -64,6 +65,7 @@ import { ToastController } from './components/toast/toast-controller.service';
         ListInnerComponent,
         ListItemComponent,
         ListOptionComponent,
+        ListSlidingComponent,
         ListThumbnailComponent,
         NavBarComponent,
         PageComponent,
@@ -103,6 +105,7 @@ import { ToastController } from './components/toast/toast-controller.service';
         ListInnerComponent,
         ListItemComponent,
         ListOptionComponent,
+        ListSlidingComponent,
         ListThumbnailComponent,
         NavBarComponent,
         PageComponent,
