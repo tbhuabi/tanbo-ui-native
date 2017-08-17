@@ -1,5 +1,5 @@
 ui-list-thumbnail {
-    display: block;
+    @include flex-center;
     padding-top: 8px;
     padding-bottom: 8px;
     margin-top: -$list-item-vertical-padding;

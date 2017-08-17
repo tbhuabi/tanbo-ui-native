@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 
+import { PanDirective } from './directives/pan.directive';
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
 
 @NgModule({
     declarations: [
-        StopPropagationDirective
+        StopPropagationDirective,
+        PanDirective
     ],
     exports: [
-        StopPropagationDirective
+        StopPropagationDirective,
+        PanDirective
     ]
 })
 export class UiDirectivesModule {

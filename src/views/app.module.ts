@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
-import { UiComponentsModule, UiFormsModule, UiHttp } from '../modules/index';
+import { UiComponentsModule, UiDirectivesModule, UiFormsModule, UiHttp } from '../modules/index';
 
 import { PageTransferStationService } from '../services/page-transfer-station';
 
@@ -17,6 +17,7 @@ import { Page2Component } from './page2/page2.component';
     imports: [
         BrowserAnimationsModule,
         UiComponentsModule,
+        UiDirectivesModule,
         UiFormsModule,
         FormsModule,
         BrowserModule,

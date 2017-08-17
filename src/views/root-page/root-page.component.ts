@@ -15,4 +15,8 @@ export class RootPageComponent {
     goToPage1() {
         this.navController.push(Page1Component);
     }
+
+    test(a: any) {
+        console.log(a);
+    }
 }
