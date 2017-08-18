@@ -12,6 +12,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
     private subs: Array<Subscription> = [];
     private distanceX: number = 0;
     private refs: Array<ElementRef> = [];
+    private isFocus = false;
 
     constructor(private listEventService: ListEventService,
                 private elementRef: ElementRef,
@@ -24,7 +25,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
             this.refs.push(elementRef);
         }));
         this.subs.push(this.listActivatedService.activatedComponent$.subscribe((component: any) => {
-            if (component !== this) {
+            if (!this.isFocus) {
                 this.distanceX = 0;
                 this.renderer.setStyle(this.elementRef.nativeElement, 'transition-duration', '');
                 this.renderer.setStyle(this.elementRef.nativeElement, 'transform', `translateX(0px)`);
@@ -38,14 +39,9 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
         });
     }
 
-    @HostListener('document:touchstart')
-    documentTouchStart() {
-        this.listActivatedService.publish(this);
-    }
-
     @HostListener('touchstart', ['$event'])
     touchstart(event: any) {
-
+        this.isFocus = true;
         const touchPoint = event.touches[0];
 
         const startX = touchPoint.pageX;
@@ -80,11 +76,8 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
                 unBindTouchCancelFn();
                 unBindTouchMoveFn();
                 unBindTouchEndFn();
-                // this.listEventService.publishEvent(false);
                 return;
             }
-
-            document.title = this.distanceX + '';
 
             this.distanceX = moveX - startX + oldDistanceX;
             if (this.distanceX > 0) {
@@ -101,7 +94,8 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
             return false;
         });
 
-        unBindTouchEndFn = this.renderer.listen('document', 'touchend', () => {
+        const touchEndFn = function () {
+            this.isFocus = false;
             const endTime = Date.now();
             let distance = oldDistanceX - this.distanceX;
             if (endTime - startTime < 100 && Math.abs(distance) > 20) {
@@ -111,21 +105,16 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
             }
             this.renderer.setStyle(element, 'transition-duration', '');
             this.renderer.setStyle(element, 'transform', `translateX(${this.distanceX}px)`);
-            // this.listEventService.publishEvent(false);
             unBindTouchCancelFn();
             unBindTouchMoveFn();
             unBindTouchEndFn();
-        });
+        }.bind(this);
 
-        unBindTouchCancelFn = this.renderer.listen('document', 'touchcancel', () => {
-            unBindTouchCancelFn();
-            unBindTouchMoveFn();
-            unBindTouchEndFn();
-        });
+        unBindTouchEndFn = this.renderer.listen('document', 'touchend', touchEndFn);
+        unBindTouchCancelFn = this.renderer.listen('document', 'touchcancel', touchEndFn);
 
         setTimeout(() => {
             if (isClick) {
-                // this.listEventService.publishEvent(isClick);
                 unBindTouchCancelFn();
                 unBindTouchMoveFn();
                 unBindTouchEndFn();

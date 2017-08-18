@@ -2,6 +2,7 @@ import { AfterViewInit, Component, HostListener, Inject, Input, OnInit } from '@
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { NavController } from '../views/navigation-controller';
+import { ListActivatedService } from '../list-item/list-activated.service';
 
 @Component({
     selector: 'ui-app',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private defaultDocWidth: number = 320;
 
     constructor(@Inject(DOCUMENT) private document: Document,
+                private listActivatedService: ListActivatedService,
                 private navController: NavController) {
     }
 
@@ -44,8 +46,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.htmlElement.style.fontSize = `${scale * this.baseFontSize}px`;
     }
 
-    // @HostListener('document:touchmove', ['$event'])
-    // touchmove(event: any) {
-    //     event.preventDefault();
-    // }
+    @HostListener('document:touchstart')
+    documentTouchStart() {
+        this.listActivatedService.publish();
+    }
 }

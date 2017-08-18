@@ -3,15 +3,15 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class ListActivatedService {
-    activatedComponent$: Observable<any>;
+    activatedComponent$: Observable<void>;
 
-    private activatedComponentSource = new Subject<any>();
+    private activatedComponentSource = new Subject<void>();
 
     constructor() {
         this.activatedComponent$ = this.activatedComponentSource.asObservable();
     }
 
-    publish(component: any) {
-        this.activatedComponentSource.next(component);
+    publish() {
+        this.activatedComponentSource.next();
     }
 }
