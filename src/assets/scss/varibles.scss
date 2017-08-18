@@ -1,6 +1,10 @@
 // 全局配置
 $font-size-base: 14px; // 基础文字大小
+$font-size-small: 12px;
+$font-size-large: 16px;
+$font-size-larger: 17px;
 $line-height: 1.6;
+$border-width: 0.55px; // 1px 线条，为适应retina
 $is-open-radius: true;
 
 // 辅助配置
@@ -16,8 +20,8 @@ $view-loading-bar-z-index: 1300;
 $color-darker: #1c2438; // 标题颜色
 $color-dark: #495060; // 正文颜色
 $color-gray-dark: #80848f; // 图标、icon颜色
-$color-gray: #bbbec4; // 表单边框颜色
-$color-gray-light: #dddee1; // 内边线颜色
+$color-gray: #b4b7bd; // 表单边框颜色
+$color-gray-light: #c8c7cc; // 内边线颜色
 $color-light: #e9eaec; // 布局边框颜色
 $color-lighter: #f8f8f9; // 背景颜色
 
@@ -135,7 +139,8 @@ $list-header-vertical-padding: 10px;
 $list-header-horizontal-padding: $grid-column-padding;
 
 // code
-$code-font-family: "Microsoft YaHei Mono", Menlo, Monaco, Consolas, "Courier New", monospace;;
+$code-font-family: "Microsoft YaHei Mono", Menlo, Monaco, Consolas, "Courier New", monospace;
+;
 $code-color: $color-danger;
 $code-bg: $color-light;
 

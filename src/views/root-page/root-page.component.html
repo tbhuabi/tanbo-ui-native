@@ -1,5 +1,9 @@
 <ui-page>
-  <ui-header></ui-header>
+  <ui-header>
+    <ui-navbar>
+      <ui-title>标题</ui-title>
+    </ui-navbar>
+  </ui-header>
   <ui-content>
     <ui-scroll>
       <div>
@@ -23,7 +27,50 @@
             </ui-list-option>
           </ui-list-inner>
         </ui-list-item>
+        <ui-list-item>
+          <ui-list-inner>
+            <ui-list-sliding>
+              <ui-list-thumbnail>
+                <img src="../../assets/images/1.jpg" alt="">
+              </ui-list-thumbnail>按扭
+            </ui-list-sliding>
+            <ui-list-option>
+              <button type="button" (uiPan)="test($event)" class="btn btn-primary">按扭</button>
+              <button type="button" class="btn btn-success">按扭</button>
+              <button type="button" class="btn btn-danger">按扭</button>
+            </ui-list-option>
+          </ui-list-inner>
+        </ui-list-item>
+        <ui-list-item>
+          <ui-list-inner>
+            <ui-list-sliding>
+              <ui-list-thumbnail>
+                <img src="../../assets/images/1.jpg" alt="">
+              </ui-list-thumbnail>按扭
+            </ui-list-sliding>
+            <ui-list-option>
+              <button type="button" (uiPan)="test($event)" class="btn btn-primary">按扭</button>
+              <button type="button" class="btn btn-success">按扭</button>
+              <button type="button" class="btn btn-danger">按扭</button>
+            </ui-list-option>
+          </ui-list-inner>
+        </ui-list-item>
+        <ui-list-item>
+          <ui-list-inner>
+            <ui-list-sliding>
+              <ui-list-thumbnail>
+                <img src="../../assets/images/1.jpg" alt="">
+              </ui-list-thumbnail>按扭
+            </ui-list-sliding>
+            <ui-list-option>
+              <button type="button" (uiPan)="test($event)" class="btn btn-primary">按扭</button>
+              <button type="button" class="btn btn-success">按扭</button>
+              <button type="button" class="btn btn-danger">按扭</button>
+            </ui-list-option>
+          </ui-list-inner>
+        </ui-list-item>
       </ui-list>
+      <div style="height: 600px; background: #00f;"></div>
       <button (click)="goToPage1()" class="btn btn-block btn-primary">to page1</button>
     </ui-scroll>
   </ui-content>

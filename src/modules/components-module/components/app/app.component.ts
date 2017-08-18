@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener, Input, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { NavController } from '../views/navigation-controller';
@@ -14,7 +14,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     @Input()
     rootPage: any;
     @Input()
-    baseFontSize: number = 100;
+    baseFontSize: number = 10;
 
     private htmlElement: HTMLElement;
     private defaultDocWidth: number = 320;
@@ -43,4 +43,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         let scale = docWidth / this.defaultDocWidth;
         this.htmlElement.style.fontSize = `${scale * this.baseFontSize}px`;
     }
+
+    // @HostListener('document:touchmove', ['$event'])
+    // touchmove(event: any) {
+    //     event.preventDefault();
+    // }
 }

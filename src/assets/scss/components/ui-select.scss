@@ -4,7 +4,7 @@ ui-select {
     line-height: inherit;
     cursor: pointer;
     width: 8em;
-    border: 1px solid $color-gray-light;
+    border: $border-width solid $color-gray-light;
     > ui-drop-down {
         cursor: inherit;
         position: static;

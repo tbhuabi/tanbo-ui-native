@@ -18,7 +18,7 @@ export class PanDirective implements OnInit, OnDestroy {
         this.hammerInstance = new Hammer(element);
         this.hammerInstance.on('pan', (event: any) => {
             this.uiPan.emit(event);
-        })
+        });
     }
 
     ngOnDestroy() {

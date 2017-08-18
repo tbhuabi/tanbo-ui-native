@@ -1,5 +1,5 @@
 @mixin input-style($border-color, $border-focus-color) {
-    border: 1px solid $border-color;
+    border: $border-width solid $border-color;
     //&:hover:not(.disabled, [disabled]) {
     //    border-color: darken($border-color, 20);
     //}
@@ -55,7 +55,7 @@
 }
 
 @mixin input-addon-style($border-color, $border-focus-color) {
-    border: 1px solid $border-color;
+    border: $border-width solid $border-color;
     text-align: center;
     width: 34px;
     min-width: 34px;

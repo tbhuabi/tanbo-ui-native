@@ -33,7 +33,7 @@ ui-confirm {
 
 .ui-confirm-body {
     max-height: 240px;
-    border-bottom: 1px solid $color-gray-light;
+    border-bottom: $border-width solid $color-gray-light;
     padding: 0 $grid-column-padding 22px;
     text-align: center;
 }
@@ -47,7 +47,7 @@ ui-confirm {
         border: none;
         border-radius: 0;
         &:nth-child(2) {
-            border-left: 1px solid $color-gray-light;
+            border-left: $border-width solid $color-gray-light;
             font-weight: 600;
         }
     }

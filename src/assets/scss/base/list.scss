@@ -10,7 +10,7 @@
         padding: $list-item-vertical-padding $list-item-horizontal-padding;
         background-color: #fff;
         color: inherit;
-        border-bottom: 1px solid transparent;
+        border-bottom: $border-width solid transparent;
         &:last-child {
             border-bottom: none;
         }
@@ -27,7 +27,7 @@
             border-style: solid;
             border-color: transparent $color-light $color-light;
             &:first-child {
-                border-top: 1px solid $color-gray-light;
+                border-top: $border-width solid $color-gray-light;
             }
             &.active {
                 background-color: $color-primary;
@@ -57,7 +57,7 @@
                 border-style: solid;
                 border-color: transparent $color-light $color-light;
                 &:first-child {
-                    border-top: 1px solid $color-light;
+                    border-top: $border-width solid $color-light;
                 }
                 &.active {
                     background-color: $color-primary;

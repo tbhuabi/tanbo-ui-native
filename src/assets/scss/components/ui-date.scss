@@ -2,7 +2,7 @@ ui-input[type=date] {
     display: inline-block;
     cursor: pointer;
     line-height: inherit;
-    border: 1px solid $color-gray-light;
+    border: $border-width solid $color-gray-light;
     position: relative;
     > .ui-input-raw {
         width: 0;
@@ -160,8 +160,8 @@ ui-input[type=date] {
 }
 
 .ui-date-panel-week {
-    border-top: 1px solid $color-gray-light;
-    border-bottom: 1px solid $color-gray-light;
+    border-top: $border-width solid $color-gray-light;
+    border-bottom: $border-width solid $color-gray-light;
     background-color: $color-gray-light;
 }
 
@@ -177,8 +177,8 @@ ui-input[type=date] {
     position: absolute;
     left: 0;
     top: 29px;
-    border-top: 1px solid $color-gray-light;
-    border-bottom: 1px solid $color-gray-light;
+    border-top: $border-width solid $color-gray-light;
+    border-bottom: $border-width solid $color-gray-light;
     border-left: 0;
     border-right: 0;
     border-radius: 0;
@@ -227,7 +227,7 @@ ui-input[type=date] {
 
 .ui-date-container {
     width: 212px;
-    border: 1px solid $color-gray-light;
+    border: $border-width solid $color-gray-light;
     position: relative;
     font-size: 14px;
     @if $form-control-radius-is-open {
@@ -259,14 +259,14 @@ ui-input[type=date] {
         display: block;
     }
     .active .ui-date-header-content {
-        border-bottom: 1px solid #fff;
+        border-bottom: $border-width solid #fff;
     }
     td:nth-child(1).active .ui-date-header-content {
-        border-right: 1px solid $color-gray-light;
+        border-right: $border-width solid $color-gray-light;
     }
     td:nth-child(2).active .ui-date-header-content {
-        border-left: 1px solid $color-gray-light;
-        border-right: 1px solid $color-gray-light;
+        border-left: $border-width solid $color-gray-light;
+        border-right: $border-width solid $color-gray-light;
     }
 }
 
@@ -310,7 +310,7 @@ ui-input[type=date] {
         padding: 3px;
         height: 24px;
         border-radius: 3px;
-        border: 1px solid $color-gray-light;
+        border: $border-width solid $color-gray-light;
     }
 }
 

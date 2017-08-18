@@ -28,12 +28,12 @@ ui-alert {
     margin-top: 0;
     margin-bottom: 0;
     font-weight: 600;
-    font-size: 17px;
+    font-size: $font-size-larger;
 }
 
 .ui-alert-body {
     max-height: 240px;
-    border-bottom: 1px solid $color-gray-light;
+    border-bottom: $border-width solid $color-gray-light;
     padding: 0 $grid-column-padding 22px;
     text-align: center;
 }
@@ -43,7 +43,7 @@ ui-alert {
     > button {
         color: $color-primary;
         flex: 1;
-        font-size: 17px;
+        font-size: $font-size-larger;
         border: none;
         border-radius: 0;
     }

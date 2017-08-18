@@ -2,5 +2,5 @@ ui-title {
     @include flex-center;
     flex: 1;
     height: 100%;
-    font-size: 1.4em;
+    font-size: $font-size-larger;
 }

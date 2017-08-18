@@ -2,8 +2,8 @@ ui-list-header {
     display: block;
     background-color: $color-light;
     padding: $list-header-vertical-padding $list-header-horizontal-padding;
-    border-top: 1px solid $color-gray-light;
-    border-bottom: 1px solid $color-gray-light;
+    border-top: $border-width solid $color-gray-light;
+    border-bottom: $border-width solid $color-gray-light;
     font-size: 0.85em;
     ~ ui-list {
         margin-top: 0;

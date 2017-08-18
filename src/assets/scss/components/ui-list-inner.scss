@@ -6,5 +6,5 @@ ui-list-inner {
     margin-bottom: -$list-item-vertical-padding;
     margin-right: -$grid-column-padding;
     padding: $list-item-vertical-padding $list-item-horizontal-padding $list-item-vertical-padding 0;
-    border-bottom: 1px solid $color-gray-light;
+    border-bottom: $border-width solid $color-gray-light;
 }

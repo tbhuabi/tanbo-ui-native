@@ -1,4 +1,5 @@
 ui-scroll {
     @include fill-box;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
