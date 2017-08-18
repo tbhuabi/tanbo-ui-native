@@ -59,7 +59,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
             if (isScroll && Math.abs(moveX - startX) < Math.abs(moveY - startY)) {
                 unBindTouchMoveFn();
                 unBindTouchEndFn();
-                this.listEventService.publishEvent(false);
+                // this.listEventService.publishEvent(false);
                 return;
             }
 
@@ -88,14 +88,14 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
             }
             this.renderer.setStyle(element, 'transition-duration', '');
             this.renderer.setStyle(element, 'transform', `translateX(${this.distanceX}px)`);
-            this.listEventService.publishEvent(false);
+            // this.listEventService.publishEvent(false);
             unBindTouchMoveFn();
             unBindTouchEndFn();
         });
 
         setTimeout(() => {
             if (isClick) {
-                this.listEventService.publishEvent(isClick);
+                // this.listEventService.publishEvent(isClick);
                 unBindTouchMoveFn();
                 unBindTouchEndFn();
             }

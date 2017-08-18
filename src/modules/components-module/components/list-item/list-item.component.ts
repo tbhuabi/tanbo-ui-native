@@ -1,5 +1,4 @@
-import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
 
 import { ListEventService } from './list-event.service';
 
@@ -10,23 +9,5 @@ import { ListEventService } from './list-event.service';
         ListEventService
     ]
 })
-export class ListItemComponent implements OnInit, OnDestroy {
-
-    @HostBinding('class.focus')
-    isFocus: boolean = false;
-
-    private sub: Subscription;
-
-    constructor(private listEventService: ListEventService) {
-    }
-
-    ngOnInit() {
-        this.sub = this.listEventService.focusEvent$.subscribe((state: boolean) => {
-            this.isFocus = state;
-        });
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
+export class ListItemComponent {
 }

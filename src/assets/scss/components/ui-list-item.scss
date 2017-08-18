@@ -1,8 +1,26 @@
-ui-list-item {
+ui-list-item, button.ui-list-item {
     display: flex;
     padding: $list-item-vertical-padding $list-header-horizontal-padding;
     position: relative;
+    justify-content: space-between;
+    align-items: center;
+    font-size: $font-size-larger;
+    background-color: #fff;
     &:last-child ui-list-inner {
         border-bottom: 0;
+    }
+}
+
+button.ui-list-item {
+    margin: 0;
+    text-align: inherit;
+    line-height: inherit;
+    background: #fff;
+    border: 0;
+    color: inherit;
+    width: 100%;
+    transition: background-color .2s linear;
+    &:active {
+        background-color: #d9d9d9;
     }
 }
