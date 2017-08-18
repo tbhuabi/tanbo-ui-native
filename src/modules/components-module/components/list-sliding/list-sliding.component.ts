@@ -2,32 +2,50 @@ import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2 } fro
 import { Subscription } from 'rxjs';
 
 import { ListEventService } from '../list-item/list-event.service';
+import { ListActivatedService } from '../list-item/list-activated.service';
 
 @Component({
     selector: 'ui-list-sliding',
     templateUrl: './list-sliding.component.html'
 })
 export class ListSlidingComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
+    private subs: Array<Subscription> = [];
     private distanceX: number = 0;
     private refs: Array<ElementRef> = [];
 
     constructor(private listEventService: ListEventService,
+                private elementRef: ElementRef,
+                private listActivatedService: ListActivatedService,
                 private renderer: Renderer2) {
     }
 
     ngOnInit() {
-        this.sub = this.listEventService.listOptions$.subscribe((elementRef: ElementRef) => {
+        this.subs.push(this.listEventService.listOptions$.subscribe((elementRef: ElementRef) => {
             this.refs.push(elementRef);
-        });
+        }));
+        this.subs.push(this.listActivatedService.activatedComponent$.subscribe((component: any) => {
+            if (component !== this) {
+                this.distanceX = 0;
+                this.renderer.setStyle(this.elementRef.nativeElement, 'transition-duration', '');
+                this.renderer.setStyle(this.elementRef.nativeElement, 'transform', `translateX(0px)`);
+            }
+        }));
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.subs.forEach(item => {
+            item.unsubscribe();
+        });
+    }
+
+    @HostListener('document:touchstart')
+    documentTouchStart() {
+        this.listActivatedService.publish(this);
     }
 
     @HostListener('touchstart', ['$event'])
     touchstart(event: any) {
+
         const touchPoint = event.touches[0];
 
         const startX = touchPoint.pageX;
@@ -49,6 +67,8 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
         this.renderer.setStyle(element, 'transition-duration', '0s');
 
         let unBindTouchEndFn: () => void;
+        let unBindTouchCancelFn: () => void;
+
         let unBindTouchMoveFn = this.renderer.listen('document', 'touchmove', (moveEvent: any) => {
             isClick = false;
             const newTouchPoint = moveEvent.touches[0];
@@ -57,11 +77,14 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
             const moveY = newTouchPoint.pageY;
 
             if (isScroll && Math.abs(moveX - startX) < Math.abs(moveY - startY)) {
+                unBindTouchCancelFn();
                 unBindTouchMoveFn();
                 unBindTouchEndFn();
                 // this.listEventService.publishEvent(false);
                 return;
             }
+
+            document.title = this.distanceX + '';
 
             this.distanceX = moveX - startX + oldDistanceX;
             if (this.distanceX > 0) {
@@ -89,6 +112,13 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
             this.renderer.setStyle(element, 'transition-duration', '');
             this.renderer.setStyle(element, 'transform', `translateX(${this.distanceX}px)`);
             // this.listEventService.publishEvent(false);
+            unBindTouchCancelFn();
+            unBindTouchMoveFn();
+            unBindTouchEndFn();
+        });
+
+        unBindTouchCancelFn = this.renderer.listen('document', 'touchcancel', () => {
+            unBindTouchCancelFn();
             unBindTouchMoveFn();
             unBindTouchEndFn();
         });
@@ -96,6 +126,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             if (isClick) {
                 // this.listEventService.publishEvent(isClick);
+                unBindTouchCancelFn();
                 unBindTouchMoveFn();
                 unBindTouchEndFn();
             }

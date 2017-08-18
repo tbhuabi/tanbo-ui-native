@@ -41,6 +41,7 @@ import { ComponentHostDirective } from './directives/component-host.directive';
 // 服务
 import { AlertController } from './components/alert/alert-controller.service';
 import { ConfirmController } from './components/confirm/confirm-controller.service';
+import { ListActivatedService } from './components/list-item/list-activated.service';
 import { ToastController } from './components/toast/toast-controller.service';
 
 @NgModule({
@@ -127,6 +128,7 @@ import { ToastController } from './components/toast/toast-controller.service';
     providers: [
         AlertController,
         ConfirmController,
+        ListActivatedService,
         ToastController
     ]
 })
