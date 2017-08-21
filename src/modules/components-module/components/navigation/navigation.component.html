@@ -1,1 +1,6 @@
-<ui-view *ngFor="let component of views" [component]="component"></ui-view>
+<ui-view
+        *ngFor="let item of views"
+        [component]="item.component"
+        [state]="item.state"
+        (animationend)="animationEnd($event)"
+></ui-view>
