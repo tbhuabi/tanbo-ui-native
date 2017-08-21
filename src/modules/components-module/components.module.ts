@@ -21,6 +21,7 @@ import { ListOptionComponent } from './components/list-option/list-option.compon
 import { ListSlidingComponent } from './components/list-sliding/list-sliding.component';
 import { ListThumbnailComponent } from './components/list-thumbnail/list-thumbnail.component';
 import { NavBarComponent } from './components/navbar/navbar.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 import { PageComponent } from './components/page/page.component';
 import { RowComponent } from './components/row/row.component';
 import { ScrollComponent } from './components/scroll/scroll.component';
@@ -33,16 +34,10 @@ import { TabViewComponent } from './components/tab-view/tab-view.component';
 import { TabViewItemComponent } from './components/tab-view-item/tab-view-item.component';
 import { TitleComponent } from './components/title/title.component';
 import { ToastComponent } from './components/toast/toast.component';
-import { ViewGroupComponent } from './components/view-group/view-group.component';
+import { ViewComponent } from './components/view/view.component';
 import { ViewLoadingBarComponent } from './components/view-loading-bar/view-loading-bar.component';
-import { ViewsComponent } from './components/views/views.component';
 // 指令
-import { ComponentHostDirective } from './directives/component-host.directive';
-// 服务
-import { AlertController } from './components/alert/alert-controller.service';
-import { ConfirmController } from './components/confirm/confirm-controller.service';
-import { ListActivatedService } from './components/list-item/list-activated.service';
-import { ToastController } from './components/toast/toast-controller.service';
+import { ComponentHostDirective } from './components/view/component-host.directive';
 
 @NgModule({
     imports: [
@@ -69,6 +64,7 @@ import { ToastController } from './components/toast/toast-controller.service';
         ListSlidingComponent,
         ListThumbnailComponent,
         NavBarComponent,
+        NavigationComponent,
         PageComponent,
         RowComponent,
         ScrollComponent,
@@ -81,9 +77,8 @@ import { ToastController } from './components/toast/toast-controller.service';
         TabViewItemComponent,
         TitleComponent,
         ToastComponent,
-        ViewGroupComponent,
+        ViewComponent,
         ViewLoadingBarComponent,
-        ViewsComponent,
 
         // 指令
         ComponentHostDirective
@@ -109,6 +104,7 @@ import { ToastController } from './components/toast/toast-controller.service';
         ListSlidingComponent,
         ListThumbnailComponent,
         NavBarComponent,
+        NavigationComponent,
         PageComponent,
         RowComponent,
         ScrollComponent,
@@ -121,15 +117,8 @@ import { ToastController } from './components/toast/toast-controller.service';
         TabViewItemComponent,
         TitleComponent,
         ToastComponent,
-        ViewGroupComponent,
+        ViewComponent,
         ViewLoadingBarComponent,
-        ViewsComponent
-    ],
-    providers: [
-        AlertController,
-        ConfirmController,
-        ListActivatedService,
-        ToastController
     ]
 })
 

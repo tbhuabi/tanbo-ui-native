@@ -1,14 +1,21 @@
 import { AfterViewInit, Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
-import { NavController } from '../views/navigation-controller';
+import { AlertController } from '../alert/alert-controller.service';
+import { ConfirmController } from '../confirm/confirm-controller.service';
 import { ListActivatedService } from '../list-item/list-activated.service';
+import { NavController } from '../navigation/navigation-controller.service';
+import { ToastController } from '../toast/toast-controller.service';
 
 @Component({
     selector: 'ui-app',
     templateUrl: './app.component.html',
     providers: [
-        NavController
+        AlertController,
+        ConfirmController,
+        ListActivatedService,
+        NavController,
+        ToastController
     ]
 })
 export class AppComponent implements OnInit, AfterViewInit {

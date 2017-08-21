@@ -2,8 +2,8 @@ export { AlertController, AlertConfig } from './components/alert/alert-controlle
 export { ConfirmController, ConfirmConfig } from './components/confirm/confirm-controller.service';
 export { ToastController, ToastConfig, ToastType } from './components/toast/toast-controller.service';
 
-export { NavController } from './components/views/navigation-controller';
-export { PageTransition, AnimationType } from './components/views/animation-type';
-export { OnViewEnter, OnViewLeave } from './components/views/life-cycle';
+export { NavController } from './components/navigation/navigation-controller.service';
+// export { PageTransition, AnimationType } from './components/views/animation-type';
+// export { OnViewEnter, OnViewLeave } from './components/views/life-cycle';
 
 export { UiComponentsModule } from './components.module';

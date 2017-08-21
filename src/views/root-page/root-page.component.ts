@@ -4,7 +4,6 @@ import { NavController } from '../../modules/index';
 import { Page1Component } from '../page1/page1.component';
 
 @Component({
-    selector: 'ui-root',
     templateUrl: './root-page.component.html',
     styleUrls: ['./root-page.component.scss']
 })
