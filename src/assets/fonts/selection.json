@@ -1,0 +1,216 @@
+{
+  "IcoMoonType": "selection",
+  "icons": [
+    {
+      "icon": {
+        "paths": [
+          "M841.221 538.607c0.678-1.313 1.775-2.41 2.369-3.766 11.634-24.197 7.824-53.804-12.775-73.265l-466.95-441.653c-25.466-24.069-65.606-22.928-89.718 2.497-24.069 25.466-22.969 65.606 2.497 89.718l418.982 396.35-417.333 402.231c-25.211 24.321-25.972 64.465-1.648 89.718 12.436 12.942 29.060 19.417 45.685 19.417 15.863 0 31.725-5.921 44.034-17.766l462.72-445.969c0.89-0.89 1.225-2.115 2.115-3.044 0.678-0.635 1.396-1.101 2.071-1.775 3.596-3.767 5.498-8.379 7.952-12.693z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "向右1"
+        ]
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 25,
+        "id": 9,
+        "name": "arrow-right",
+        "prevSize": 32,
+        "code": 59657
+      },
+      "setIdx": 0,
+      "setId": 2,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M703.981 1023.999c-15.637 0-31.276-5.946-43.208-17.876l-447.921-447.921c-23.864-23.822-23.864-62.511 0-86.375l447.921-447.963c23.864-23.864 62.511-23.864 86.375 0 23.864 23.822 23.864 62.511 0 86.375l-404.714 404.753 404.714 404.714c23.864 23.864 23.864 62.511 0 86.375-11.891 11.973-27.531 17.918-43.168 17.918z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "向左1"
+        ]
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 17,
+        "id": 3,
+        "name": "arrow-left",
+        "prevSize": 32,
+        "code": 59653
+      },
+      "setIdx": 0,
+      "setId": 2,
+      "iconIdx": 6
+    },
+    {
+      "icon": {
+        "paths": [
+          "M896 0h-768c-70.4 0-128 57.6-128 128v768c0 70.4 57.6 128 128 128h768c70.4 0 128-57.6 128-128v-768c0-70.4-57.6-128-128-128zM448 794.51l-237.254-237.256 90.51-90.508 146.744 146.744 306.746-306.746 90.508 90.51-397.254 397.256z"
+        ],
+        "tags": [
+          "checkbox-checked",
+          "checkbox",
+          "tick",
+          "checked",
+          "selected"
+        ],
+        "defaultCode": 59986,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "checkbox-checked, checkbox",
+        "name": "checkbox-checked",
+        "order": 26,
+        "id": 339,
+        "prevSize": 32,
+        "code": 59986
+      },
+      "setIdx": 1,
+      "setId": 1,
+      "iconIdx": 338
+    },
+    {
+      "icon": {
+        "paths": [
+          "M896 0h-768c-70.4 0-128 57.6-128 128v768c0 70.4 57.6 128 128 128h768c70.4 0 128-57.6 128-128v-768c0-70.4-57.6-128-128-128zM896 896h-768v-768h768v768z"
+        ],
+        "tags": [
+          "checkbox-unchecked",
+          "checkbox",
+          "unchecked",
+          "square"
+        ],
+        "defaultCode": 59987,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "checkbox-unchecked, checkbox2",
+        "name": "checkbox-unchecked",
+        "order": 27,
+        "id": 340,
+        "prevSize": 32,
+        "code": 59987
+      },
+      "setIdx": 1,
+      "setId": 1,
+      "iconIdx": 339
+    },
+    {
+      "icon": {
+        "paths": [
+          "M512 0c-282.77 0-512 229.23-512 512s229.23 512 512 512 512-229.23 512-512-229.23-512-512-512zM512 896c-212.078 0-384-171.922-384-384s171.922-384 384-384c212.078 0 384 171.922 384 384s-171.922 384-384 384zM320 512c0-106.039 85.961-192 192-192s192 85.961 192 192c0 106.039-85.961 192-192 192s-192-85.961-192-192z"
+        ],
+        "tags": [
+          "radio-checked",
+          "radio-button"
+        ],
+        "defaultCode": 59988,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "radio-checked, radio-button",
+        "name": "radio-checked",
+        "order": 28,
+        "id": 341,
+        "prevSize": 32,
+        "code": 59988
+      },
+      "setIdx": 1,
+      "setId": 1,
+      "iconIdx": 340
+    },
+    {
+      "icon": {
+        "paths": [
+          "M512 0c-282.77 0-512 229.23-512 512s229.23 512 512 512 512-229.23 512-512-229.23-512-512-512zM512 896c-212.078 0-384-171.922-384-384s171.922-384 384-384c212.078 0 384 171.922 384 384s-171.922 384-384 384z"
+        ],
+        "tags": [
+          "radio-unchecked",
+          "radio-button",
+          "circle"
+        ],
+        "defaultCode": 59990,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "radio-unchecked, radio-button3",
+        "name": "radio-unchecked",
+        "order": 30,
+        "id": 343,
+        "prevSize": 32,
+        "code": 59990
+      },
+      "setIdx": 1,
+      "setId": 1,
+      "iconIdx": 342
+    }
+  ],
+  "height": 1024,
+  "metadata": {
+    "name": "tanbo-font"
+  },
+  "preferences": {
+    "showGlyphs": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": {
+        "fontFamily": "tanbo-font",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      "metrics": {
+        "emSize": 1024,
+        "baseline": 6.25,
+        "whitespace": 50
+      },
+      "embed": false,
+      "noie8": true,
+      "ie7": false,
+      "showSelector": false,
+      "showMetrics": false,
+      "showMetadata": false,
+      "showVersion": false,
+      "cssVars": false,
+      "cssVarsFormat": "scss"
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": true,
+      "useClassSelector": true,
+      "color": 0,
+      "bgColor": 16777215,
+      "classSelector": ".icon"
+    },
+    "historySize": 50,
+    "showCodes": true,
+    "gridSize": 16
+  }
+}

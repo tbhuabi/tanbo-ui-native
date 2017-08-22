@@ -1,47 +1,48 @@
-import { Component, ComponentFactoryResolver, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@angular/core';
 
 import { ComponentHostDirective } from './component-host.directive';
-import { ViewState } from '../navigation/view-state';
+import { ViewState, ViewStateService } from './view-state.service';
+import { NavController } from '../navigation/navigation-controller.service';
 
 @Component({
     selector: 'ui-view',
-    templateUrl: './view.component.html'
+    templateUrl: './view.component.html',
+    providers: [
+        ViewStateService
+    ]
 })
 export class ViewComponent implements OnInit {
     @Input()
     component: any;
-    @Input()
-    state: string;
     @ViewChild(ComponentHostDirective)
     componentHost: ComponentHostDirective;
 
-    @HostBinding('class.activate')
-    get activate() {
-        return this.state === ViewState.Activate;
+    @Input()
+    set state(value: ViewState) {
+        this._state = value;
+        this.viewStateService.publish(value);
     }
 
-    @HostBinding('class.reactivate')
-    get reactivate() {
-        return this.state === ViewState.Reactivate;
+    get state() {
+        return this._state;
     }
 
-    @HostBinding('class.destroy')
-    get destroy() {
-        return this.state === ViewState.Destroy;
-    }
+    private _state: ViewState;
 
-    @HostBinding('class.to-stack')
-    get toStack() {
-        return this.state === ViewState.ToStack;
-    }
-
-    constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+    constructor(private viewStateService: ViewStateService,
+                private navController: NavController,
+                private componentFactoryResolver: ComponentFactoryResolver) {
     }
 
     ngOnInit() {
+        this.viewStateService.initState = this.state;
         if (this.component) {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.component);
             this.componentHost.viewContainerRef.createComponent(componentFactory);
         }
+
+        this.viewStateService.destroyEvent$.distinctUntilChanged().subscribe(() => {
+            this.navController.destroy();
+        });
     }
 }

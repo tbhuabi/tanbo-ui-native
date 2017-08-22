@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { NavController } from './navigation-controller.service';
-import { ViewState } from './view-state';
+import { ViewState } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-navigation',
@@ -12,11 +12,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     views: Array<any> = [];
 
     private subs: Array<Subscription> = [];
-    private popAction$: Observable<void>;
-    private popActionSource = new Subject<void>();
 
     constructor(private navController: NavController) {
-        this.popAction$ = this.popActionSource.asObservable();
     }
 
     ngOnInit() {
@@ -26,7 +23,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
                 let lastView = this.views[length - 1];
                 lastView.state = ViewState.ToStack;
                 this.views.push({
-                    state: ViewState.Activate,
+                    state: ViewState.Init,
                     component
                 });
             } else {
@@ -42,11 +39,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
                 this.views[length - 1].state = ViewState.Destroy;
 
                 if (length > 1) {
-                    this.views[length - 2].state = ViewState.Reactivate;
+                    this.views[length - 2].state = null;
                 }
             }
         }));
-        this.subs.push(this.popAction$.subscribe(() => {
+        this.subs.push(this.navController.destroyAction$.subscribe(() => {
             this.views.pop();
         }));
     }
@@ -55,12 +52,5 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.subs.forEach(item => {
             item.unsubscribe();
         });
-    }
-
-    animationEnd(event: any) {
-        if (event.animationName === 'view-status-content-destroy') {
-            console.log(333);
-            this.popActionSource.next();
-        }
     }
 }

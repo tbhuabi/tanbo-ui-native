@@ -1,4 +1,4 @@
 <span class="icon-arrow-left"></span>
-<div class="ui-back-text">
+<div class="ui-back-text" [@viewState]="viewState" (@viewState.done)="done()">
   <ng-content></ng-content>
 </div>
