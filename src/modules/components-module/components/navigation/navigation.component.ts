@@ -23,7 +23,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
                 let lastView = this.views[length - 1];
                 lastView.state = ViewState.ToStack;
                 this.views.push({
-                    state: ViewState.Init,
+                    state: ViewState.Activate,
                     component
                 });
             } else {
@@ -39,7 +39,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
                 this.views[length - 1].state = ViewState.Destroy;
 
                 if (length > 1) {
-                    this.views[length - 2].state = null;
+                    this.views[length - 2].state = ViewState.Reactivate;
                 }
             }
         }));
