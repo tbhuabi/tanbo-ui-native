@@ -1,14 +1,14 @@
 import { Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
 
-import { ViewState, ViewStateService } from '../view/view-state.service';
+import { animationTime, ViewState, ViewStateService } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-footer',
     templateUrl: './footer.component.html',
     animations: [
-        trigger('viewState', [
+        trigger('viewStateFooter', [
             state(ViewState.Init, style({
                 transform: 'translateX(0)'
             })),
@@ -18,23 +18,21 @@ import { ViewState, ViewStateService } from '../view/view-state.service';
             state(ViewState.ToStack, style({
                 transform: 'translateX(-30%)'
             })),
-            transition(`* => ${ViewState.Init}`, animate(3000, keyframes([
+            transition(`* => ${ViewState.Init}`, [
                 style({
-                    transform: 'translateX(100%)',
-                    offset: 0
+                    transform: 'translateX(100%)'
                 }),
-                style({
-                    transform: 'translateX(0)',
-                    offset: 1
-                })
-            ]))),
-            transition(`* => ${ViewState.Destroy}`, animate(3000)),
-            transition(`* <=> ${ViewState.ToStack}`, animate(3000))
+                animate(animationTime, style({
+                    transform: 'translateX(0)'
+                }))
+            ]),
+            transition(`* => ${ViewState.Destroy}`, animate(animationTime)),
+            transition(`* <=> ${ViewState.ToStack}`, animate(animationTime))
         ])
     ]
 })
 export class FooterComponent implements OnInit, OnDestroy {
-    @HostBinding('@viewState')
+    @HostBinding('@viewStateFooter')
     viewState: ViewState;
     private sub: Subscription;
 
@@ -52,7 +50,7 @@ export class FooterComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    @HostListener('@viewState.done')
+    @HostListener('@viewStateFooter.done')
     done() {
         if (this.viewState === ViewState.Destroy) {
             this.viewStateService.destroy();

@@ -1,17 +1,18 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
 
 import { NavController } from '../navigation/navigation-controller.service';
-import { ViewState, ViewStateService } from '../view/view-state.service';
+import { animationTime, ViewState, ViewStateService } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-back',
     templateUrl: './back.component.html',
     animations: [
-        trigger('viewState', [
+        trigger('viewStateBack', [
             state(ViewState.Init, style({
                 transform: 'translateX(0)',
+                opacity: 1
             })),
             state(ViewState.Destroy, style({
                 transform: 'translateX(100%)',
@@ -21,20 +22,18 @@ import { ViewState, ViewStateService } from '../view/view-state.service';
                 transform: 'translateX(-100%)',
                 opacity: 0
             })),
-            transition(`* => ${ViewState.Init}`, animate(3000, keyframes([
+            transition(`* => ${ViewState.Init}`, [
                 style({
                     transform: 'translateX(100%)',
-                    opacity: 0,
-                    offset: 0
+                    opacity: 0
                 }),
-                style({
+                animate(animationTime, style({
                     transform: 'translateX(0)',
-                    opacity: 1,
-                    offset: 1
-                })
-            ]))),
-            transition(`* => ${ViewState.Destroy}`, animate(3000)),
-            transition(`* <=> ${ViewState.ToStack}`, animate(3000))
+                    opacity: 1
+                }))
+            ]),
+            transition(`* => ${ViewState.Destroy}`, animate(animationTime)),
+            transition(`* <=> ${ViewState.ToStack}`, animate(animationTime))
         ])
     ]
 })
@@ -47,6 +46,7 @@ export class BackComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
+        this.viewState = this.viewStateService.initState;
         this.sub = this.viewStateService.state$.subscribe((value: ViewState) => {
             this.viewState = value;
         });

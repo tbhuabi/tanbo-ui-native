@@ -1,14 +1,14 @@
-import { Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
+import { Component, ElementRef, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
 
-import { ViewState, ViewStateService } from '../view/view-state.service';
+import { animationTime, ViewState, ViewStateService } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-title',
     templateUrl: './title.component.html',
     animations: [
-        trigger('viewState', [
+        trigger('viewStateTitle', [
             state(ViewState.Init, style({
                 transform: 'translateX(0)'
             })),
@@ -18,32 +18,36 @@ import { ViewState, ViewStateService } from '../view/view-state.service';
             state(ViewState.ToStack, style({
                 transform: 'translateX(-30%)'
             })),
-            transition(`* => ${ViewState.Init}`, animate(3000, keyframes([
+            transition(`* => ${ViewState.Init}`, [
                 style({
                     transform: 'translateX(100%)',
                     offset: 0
-                }),
-                style({
+                }), animate(animationTime, style({
                     transform: 'translateX(0)',
                     offset: 1
-                })
-            ]))),
-            transition(`* => ${ViewState.Destroy}`, animate(3000)),
-            transition(`* <=> ${ViewState.ToStack}`, animate(3000))
+                }))
+            ]),
+            transition(`* => ${ViewState.Destroy}`, animate(animationTime)),
+            transition(`* <=> ${ViewState.ToStack}`, animate(animationTime))
         ])
     ]
 })
 export class TitleComponent implements OnInit, OnDestroy {
-    @HostBinding('@viewState')
+    @HostBinding('@viewStateTitle')
     viewState: ViewState;
     private sub: Subscription;
 
-    constructor(private viewStateService: ViewStateService) {
+    constructor(private ele: ElementRef,
+                private viewStateService: ViewStateService) {
     }
 
     ngOnInit() {
         this.viewState = this.viewStateService.initState;
+        console.log(this.ele.nativeElement.innerText);
+        console.log(this.viewState);
         this.sub = this.viewStateService.state$.subscribe((value: ViewState) => {
+            console.log(this.ele.nativeElement.innerText);
+            console.log(value);
             this.viewState = value;
         });
     }
@@ -52,7 +56,7 @@ export class TitleComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    @HostListener('@viewState.done')
+    @HostListener('@viewStateTitle.done')
     done() {
         if (this.viewState === ViewState.Destroy) {
             this.viewStateService.destroy();

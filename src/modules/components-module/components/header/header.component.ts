@@ -1,14 +1,14 @@
 import { Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
 
-import { ViewState, ViewStateService } from '../view/view-state.service';
+import { animationTime, ViewState, ViewStateService } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-header',
     templateUrl: './header.component.html',
     animations: [
-        trigger('viewState', [
+        trigger('viewStateHeader', [
             state(ViewState.Init, style({
                 opacity: 1
             })),
@@ -18,18 +18,16 @@ import { ViewState, ViewStateService } from '../view/view-state.service';
             state(ViewState.ToStack, style({
                 opacity: 1
             })),
-            transition(`* => ${ViewState.Init}`, animate(3000, keyframes([
+            transition(`* => ${ViewState.Init}`, [
                 style({
-                    opacity: 0,
-                    offset: 0
+                    opacity: 0
                 }),
-                style({
-                    opacity: 1,
-                    offset: 1
-                })
-            ]))),
-            transition(`* => ${ViewState.Destroy}`, animate(3000)),
-            transition(`* <=> ${ViewState.ToStack}`, animate(3000))
+                animate(animationTime, style({
+                    opacity: 1
+                }))
+            ]),
+            transition(`* => ${ViewState.Destroy}`, animate(animationTime)),
+            transition(`* <=> ${ViewState.ToStack}`, animate(animationTime))
         ])
     ]
 })
@@ -37,7 +35,7 @@ import { ViewState, ViewStateService } from '../view/view-state.service';
 export class HeaderComponent implements OnInit, OnDestroy {
     @HostBinding('class.native')
     isNative: boolean = process.env.ENV === 'production';
-    @HostBinding('@viewState')
+    @HostBinding('@viewStateHeader')
     viewState: ViewState;
     private sub: Subscription;
 
@@ -55,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    @HostListener('@viewState.done')
+    @HostListener('@viewStateHeader.done')
     done() {
         if (this.viewState === ViewState.Destroy) {
             this.viewStateService.destroy();

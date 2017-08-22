@@ -7,6 +7,8 @@ export enum ViewState {
     Destroy = 'Destroy'
 }
 
+export const animationTime = '1000ms';
+
 @Injectable()
 export class ViewStateService {
     initState: ViewState;
