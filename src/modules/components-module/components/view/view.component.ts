@@ -75,7 +75,6 @@ export class ViewComponent implements OnInit, OnDestroy {
     @HostListener('animationend', ['$event'])
     animationEnd(event: any) {
         if (/^ui-[-\w]+-destroy$/.test(event.animationName)) {
-            console.log(333);
             this.viewStateService.destroy();
         }
     }
