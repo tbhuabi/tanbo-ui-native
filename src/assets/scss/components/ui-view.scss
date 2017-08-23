@@ -2,7 +2,6 @@ ui-view {
     @include fill-box;
     contain: size style layout;
     overflow: hidden;
-    will-change: transform;
     &.activate {
         ui-header {
             animation: ui-header-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
