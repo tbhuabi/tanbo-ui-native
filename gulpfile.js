@@ -9,7 +9,7 @@ const gulpSourceMap = require('gulp-sourcemaps');
 
 
 gulp.task('copyFonts', function () {
-    gulp.src('./src/assets/fonts/angular-ui/fonts/**.*').pipe(gulp.dest('./bundles/fonts/'));
+    gulp.src('./src/assets/fonts/**.*').pipe(gulp.dest('./bundles/fonts/'));
     gulp.src('./src/assets/**/*').pipe(gulp.dest('./bundles/assets/'));
 });
 
@@ -34,7 +34,7 @@ gulp.task('tsCompile', function () {
     })).pipe(gulp.dest('./bundles/'));
 });
 gulp.task('baseScss', ['copyFonts'], function () {
-    return gulp.src(['./src/assets/scss/index.scss', './src/assets/fonts/angular-ui/style.css', './node_modules/normalize.css/normalize.css'])
+    return gulp.src(['./src/assets/scss/index.scss', './src/assets/fonts/style.css', './node_modules/normalize.css/normalize.css'])
         .pipe(gulpSourceMap.init())
         .pipe(gulpSass())
         .pipe(gulpAutoPrefix())

@@ -25,7 +25,7 @@ ui-view {
             animation: ui-header-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-back > .ui-back-text {
-            animation: ui-destroy-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-back-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-title {
             animation: ui-title-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
@@ -131,9 +131,6 @@ ui-view {
         opacity: 0;
         transform: translateX(100%);
     }
-    50% {
-        opacity: 1;
-    }
     100% {
         opacity: 1;
         transform: translateX(0);
@@ -145,12 +142,9 @@ ui-view {
         opacity: 1;
         transform: translateX(0);
     }
-    50% {
-        opacity: 0;
-    }
     100% {
         opacity: 0;
-        transform: translateX(100%);
+        transform: translateX(100px);
     }
 }
 
@@ -159,7 +153,7 @@ ui-view {
         opacity: 1;
         transform: translateX(0);
     }
-    50% {
+    30% {
         opacity: 0;
     }
     100% {
@@ -173,7 +167,7 @@ ui-view {
         opacity: 0;
         transform: translateX(-50%);
     }
-    50% {
+    70% {
         opacity: 1;
     }
     100% {
