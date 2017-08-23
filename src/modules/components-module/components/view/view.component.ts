@@ -28,7 +28,29 @@ export class ViewComponent implements OnInit, OnDestroy {
     componentHost: ComponentHostDirective;
 
     @Input()
-    state: ViewState;
+    set state(value) {
+        this._state = value;
+        if (this.childInstance) {
+            switch (value) {
+                case ViewState.Activate:
+                case ViewState.Reactivate:
+                    if (typeof this.childInstance['uiOnViewEnter'] === 'function') {
+                        this.childInstance['uiOnViewEnter']();
+                    }
+                    break;
+                case ViewState.ToStack:
+                case ViewState.Destroy:
+                    if (typeof this.childInstance['uiOnViewLeave'] === 'function') {
+                        this.childInstance['uiOnViewLeave']();
+                    }
+                    break;
+            }
+        }
+    }
+
+    get state() {
+        return this._state;
+    }
 
     @HostBinding('class.activate')
     get activate() {
@@ -50,7 +72,9 @@ export class ViewComponent implements OnInit, OnDestroy {
         return this.state === ViewState.Reactivate;
     }
 
+    private _state: ViewState;
     private sub: Subscription;
+    private childInstance: any;
 
     constructor(private viewStateService: ViewStateService,
                 private navController: NavController,
@@ -60,7 +84,10 @@ export class ViewComponent implements OnInit, OnDestroy {
     ngOnInit() {
         if (this.component) {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.component);
-            this.componentHost.viewContainerRef.createComponent(componentFactory);
+            this.childInstance = this.componentHost.viewContainerRef.createComponent(componentFactory).instance;
+            if (typeof this.childInstance['uiOnViewEnter'] === 'function') {
+                this.childInstance['uiOnViewEnter']();
+            }
         }
 
         this.sub = this.viewStateService.destroyEvent$.distinctUntilChanged().subscribe(() => {
