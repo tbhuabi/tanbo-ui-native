@@ -5,64 +5,64 @@ ui-view {
     will-change: transform;
     &.activate {
         ui-header {
-            animation: ui-header-activate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-header-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-back > .ui-back-text {
-            animation: ui-back-activate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-back-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-title {
-            animation: ui-title-activate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-title-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-buttons {
-            animation: ui-buttons-activate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-buttons-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-content, ui-footer {
-            animation: ui-content-activate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
     &.destroy {
         ui-header {
-            animation: ui-header-destroy 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-header-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-back > .ui-back-text {
-            animation: ui-destroy-activate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-destroy-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-title {
-            animation: ui-title-destroy 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-title-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-buttons {
-            animation: ui-buttons-destroy 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-buttons-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-content, ui-footer {
-            animation: ui-content-destroy 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
     &.to-stack {
         ui-back > .ui-back-text {
-            animation: ui-back-to-stack 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-back-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-title {
-            animation: ui-title-to-stack 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-title-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-buttons {
-            animation: ui-buttons-to-stack 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-buttons-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-content, ui-footer {
-            animation: ui-content-to-stack 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
     &.reactivate {
         ui-back > .ui-back-text {
-            animation: ui-back-reactivate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-back-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-title {
-            animation: ui-title-reactivate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-title-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-buttons {
-            animation: ui-buttons-reactivate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-buttons-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
         ui-content, ui-footer {
-            animation: ui-content-reactivate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
 }
@@ -164,14 +164,14 @@ ui-view {
     }
     100% {
         opacity: 0;
-        transform: translateX(-100%);
+        transform: translateX(-50%);
     }
 }
 
 @keyframes ui-back-reactivate {
     0% {
         opacity: 0;
-        transform: translateX(-100%);
+        transform: translateX(-50%);
     }
     50% {
         opacity: 1;
