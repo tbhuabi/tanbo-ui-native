@@ -1,204 +1,132 @@
 // 全局配置
-$font-size-base: 14px; // 基础文字大小
-$font-size-small: 12px;
-$font-size-large: 16px;
-$font-size-larger: 17px;
-$line-height: 1.6;
-$border-width: 0.55px; // 1px 线条，为适应retina
-$is-open-radius: true;
+$font-size-base: 14px !default; // 基础文字大小
+$font-size-small: 12px !default;
+$font-size-large: 16px !default;
+$font-size-larger: 17px !default;
+$line-height: 1.6 !default;
+$border-width: 0.55px !default; // 1px 线条，为适应retina
+$is-open-radius: true !default;
 
 // 辅助配置
-$container-vertical-padding: 6px;
-
-$toast-z-index: 1000;
-$toolbar-z-index: 1100;
-$confirm-z-index: 1200;
-$alert-z-index: 1200;
-$view-loading-bar-z-index: 1300;
+$container-vertical-padding: 6px !default;
+$toast-z-index: 1000 !default;
+$toolbar-z-index: 1100 !default;
+$confirm-z-index: 1200 !default;
+$alert-z-index: 1200 !default;
+$view-loading-bar-z-index: 1300 !default;
 
 // 基础颜色
-$color-darker: #1c2438; // 标题颜色
-$color-dark: #495060; // 正文颜色
-$color-gray-dark: #80848f; // 图标、icon颜色
-$color-gray: #b4b7bd; // 表单边框颜色
-$color-gray-light: #c8c7cc; // 内边线颜色
-$color-light: #e9eaec; // 布局边框颜色
-$color-lighter: #f8f8f9; // 背景颜色
+$color-darker: #1c2438 !default; // 标题颜色
+$color-dark: #495060 !default; // 正文颜色
+$color-gray-dark: #80848f !default; // 图标、icon颜色
+$color-gray: #b4b7bd !default; // 表单边框颜色
+$color-gray-light: #c8c7cc !default; // 内边线颜色
+$color-light: #e9eaec !default; // 布局边框颜色
+$color-lighter: #f8f8f9 !default; // 背景颜色
 
-$color-default: $color-dark;
-$color-primary: #2d8cf0; // 主色调
-$color-info: #6ad1ec; // 信息提示颜色
-$color-success: #19be6b; // 正向操作提示颜色
-$color-warning: #ff9900; // 负面操作警告颜色
-$color-danger: #ed3f14; // 危险操作警告颜色
-
-// 基础线条颜色配置
-//$border-color-base: lighten($color-default, 22);
-//$border-color-light: lighten($border-color-base, 20);
-//$border-color-lighter: lighten($border-color-light, 28);
+$color-default: $color-dark !default;
+$color-primary: #2d8cf0 !default; // 主色调
+$color-info: #6ad1ec !default; // 信息提示颜色
+$color-success: #19be6b !default; // 正向操作提示颜色
+$color-warning: #ff9900 !default; // 负面操作警告颜色
+$color-danger: #ed3f14 !default; // 危险操作警告颜色
 
 // 栅格化配置
-$grid-columns: 12; // 栅格列数
-$grid-column-padding: 15px; // 每列的距离
-
-// 媒体查询配置
-$screen-xs-min: 320px;
-$screen-sm-min: 768px;
-$screen-md-min: 992px;
-$screen-lg-min: 1200px;
+$grid-columns: 12 !default; // 栅格列数
+$grid-column-padding: 15px !default; // 每列的距离
 
 // 盒模型圆角配置
-$radius-base: 4px; // 基本圆角
-$radius-sm: $radius-base - 0.55px; // 小圆角
-$radius-xs: $radius-sm - 0.55px; // 更小的圆角
-$radius-lg: $radius-base + 2px; // 大圆角
+$radius-base: 4px !default; // 基本圆角
+$radius-sm: $radius-base - 0.55px !default; // 小圆角
+$radius-xs: $radius-sm - 0.55px !default; // 更小的圆角
+$radius-lg: $radius-base + 2px !default; // 大圆角
 
 // 表单
-$form-control-padding-vertical: 5px;
-$form-control-padding-vertical-sm: $form-control-padding-vertical - 3px;
-$form-control-padding-vertical-lg: $form-control-padding-vertical + 2px;
+$form-control-padding-vertical: 5px !default;
+$form-control-padding-vertical-sm: $form-control-padding-vertical - 3px !default;
+$form-control-padding-vertical-lg: $form-control-padding-vertical + 2px !default;
 
-$form-control-padding-horizontal: 12px;
-$form-control-padding-horizontal-sm: $form-control-padding-horizontal - 4px;
-$form-control-padding-horizontal-lg: $form-control-padding-horizontal + 4px;
+$form-control-padding-horizontal: 12px !default;
+$form-control-padding-horizontal-sm: $form-control-padding-horizontal - 4px !default;
+$form-control-padding-horizontal-lg: $form-control-padding-horizontal + 4px !default;
 
-$form-control-radius-is-open: $is-open-radius;
-$form-control-radius: $radius-base;
-$form-control-radius-lg: $radius-lg;
-$form-control-radius-sm: $radius-sm;
+$form-control-radius-is-open: $is-open-radius !default;
+$form-control-radius: $radius-base !default;
+$form-control-radius-lg: $radius-lg !default;
+$form-control-radius-sm: $radius-sm !default;
 
-$form-control-font-size-base: $font-size-base;
-$form-control-font-size-sm: $form-control-font-size-base - 0.55px;
-$form-control-font-size-lg: $form-control-font-size-base + 4px;
+$form-control-font-size-base: $font-size-base !default;
+$form-control-font-size-sm: $form-control-font-size-base - 0.55px !default;
+$form-control-font-size-lg: $form-control-font-size-base + 4px !default;
 
-$form-control-border-color: $color-gray;
-$form-control-border-color-primary: $color-primary;
-$form-control-border-color-success: $color-success;
-$form-control-border-color-info: $color-info;
-$form-control-border-color-warning: $color-warning;
-$form-control-border-color-danger: $color-danger;
+$form-control-border-color: $color-gray !default;
+$form-control-border-color-primary: $color-primary !default;
+$form-control-border-color-success: $color-success !default;
+$form-control-border-color-info: $color-info !default;
+$form-control-border-color-warning: $color-warning !default;
+$form-control-border-color-danger: $color-danger !default;
 
 // 按扭
-$button-padding-vertical: 5px;
-$button-padding-vertical-sm: $button-padding-vertical - 3px;
-$button-padding-vertical-xs: $button-padding-vertical-sm - 0.55px;
-$button-padding-vertical-lg: $button-padding-vertical + 2px;
+$button-padding-vertical: 5px !default;
+$button-padding-vertical-sm: $button-padding-vertical - 3px !default;
+$button-padding-vertical-xs: $button-padding-vertical-sm - 0.55px !default;
+$button-padding-vertical-lg: $button-padding-vertical + 2px !default;
 
-$button-padding-horizontal: 12px;
-$button-padding-horizontal-sm: $button-padding-horizontal - 4px;
-$button-padding-horizontal-xs: $button-padding-horizontal - 2px;
-$button-padding-horizontal-lg: $button-padding-horizontal + 4px;
+$button-padding-horizontal: 12px !default;
+$button-padding-horizontal-sm: $button-padding-horizontal - 4px !default;
+$button-padding-horizontal-xs: $button-padding-horizontal - 2px !default;
+$button-padding-horizontal-lg: $button-padding-horizontal + 4px !default;
 
-$button-radius-is-open: $is-open-radius;
-$button-radius: $radius-base;
-$button-radius-sm: $radius-sm;
-$button-radius-xs: $radius-xs;
-$button-radius-lg: $radius-lg;
+$button-radius-is-open: $is-open-radius !default;
+$button-radius: $radius-base !default;
+$button-radius-sm: $radius-sm !default;
+$button-radius-xs: $radius-xs !default;
+$button-radius-lg: $radius-lg !default;
 
-$button-font-size: $font-size-base;
-$button-font-size-sm: $button-font-size - 0.55px;
-$button-font-size-xs: $button-font-size-sm - 0.55px;
-$button-font-size-lg: $button-font-size + 4px;
-
-// 分页控件
-$pagination-radius-is-open: $is-open-radius;
-$pagination-radius: $radius-base;
-$pagination-radius-sm: $pagination-radius - 0.55px;
-$pagination-radius-xs: $pagination-radius-sm - 0.55px;
-$pagination-radius-lg: $pagination-radius + 2px;
-
-$pagination-padding-vertical: 5px;
-$pagination-padding-vertical-sm: $pagination-padding-vertical - 3px;
-$pagination-padding-vertical-xs: $pagination-padding-vertical-sm - 0.55px;
-$pagination-padding-vertical-lg: $pagination-padding-vertical + 2px;
-
-$pagination-padding-horizontal: 12px;
-$pagination-padding-horizontal-sm: $pagination-padding-horizontal - 3px;
-$pagination-padding-horizontal-xs: $pagination-padding-horizontal-sm - 0.55px;
-$pagination-padding-horizontal-lg: $pagination-padding-horizontal + 2px;
-
-$pagination-font-size: $font-size-base;
-$pagination-font-size-sm: $pagination-font-size - 0.55px;
-$pagination-font-size-xs: $pagination-font-size-sm - 0.55px;
-$pagination-font-size-lg: $pagination-font-size + 4px;
-
-$pagination-border-color: lighten($color-gray-light, 5);
-$pagination-disabled-color: darken($pagination-border-color, 15);
-$pagination-disabled-bg-color: lighten($pagination-border-color, 7);
-$pagination-hover-bg-color: lighten($pagination-border-color, 2);
-
-// 表格
-$table-cell-padding: 8px;
-$table-border-color: $color-gray-light;
+$button-font-size: $font-size-base !default;
+$button-font-size-sm: $button-font-size - 0.55px !default;
+$button-font-size-xs: $button-font-size-sm - 0.55px !default;
+$button-font-size-lg: $button-font-size + 4px !default;
 
 // 列表
-$list-item-hover-bg: $color-lighter;
-$list-item-vertical-padding: 12px;
-$list-item-horizontal-padding: $grid-column-padding;
-$list-header-vertical-padding: 10px;
-$list-header-horizontal-padding: $grid-column-padding;
-
-// code
-$code-font-family: "Microsoft YaHei Mono", Menlo, Monaco, Consolas, "Courier New", monospace;
-;
-$code-color: $color-danger;
-$code-bg: $color-light;
-
-$kbd-color: #fff;
-$kbd-bg: $color-darker;
-
-$pre-bg: $color-lighter;
-$pre-color: $color-default;
-$pre-border-color: $color-gray-light;
-$pre-scrollable-max-height: 340px;
-
-// panel
-$panel-radius-is-open: $is-open-radius;
-$panel-radius: $radius-base;
-
-$panel-border-color: $color-light;
+$list-item-hover-bg: $color-lighter !default;
+$list-item-vertical-padding: 12px !default;
+$list-item-horizontal-padding: $grid-column-padding !default;
+$list-header-vertical-padding: 10px !default;
+$list-header-horizontal-padding: $grid-column-padding !default;
 
 // 模拟radio/checkbox
-$ui-input-focus-box-shadow-color: hsla(hue($color-gray-light), saturation($color-gray-light), lightness($color-gray-light), .5);
+$ui-input-focus-box-shadow-color: hsla(hue($color-gray-light), saturation($color-gray-light), lightness($color-gray-light), .5) !default;
 
 // confirm
-$confirm-radius-is-open: $is-open-radius;
+$confirm-radius-is-open: $is-open-radius !default;
 
-$confirm-radius: 13px;
-$confirm-width: 300px;
-$confirm-height: 220px;
+$confirm-radius: 13px !default;
+$confirm-width: 300px !default;
+$confirm-height: 220px !default;
 
 // confirm
-$alert-radius-is-open: $is-open-radius;
+$alert-radius-is-open: $is-open-radius !default;
 
-$alert-radius: 13px;
-$alert-width: 270px;
-$alert-height: 220px;
+$alert-radius: 13px !default;
+$alert-width: 270px !default;
+$alert-height: 220px !default;
 
 // toast
-$toast-radius-is-open: $is-open-radius;
+$toast-radius-is-open: $is-open-radius !default;
 
-$toast-width: 270px;
-$toast-height: 140px;
+$toast-width: 270px !default;
+$toast-height: 140px !default;
 
-// toolbar
-$toolbar-width: 40px;
+$header-height: 44px !default;
+$header-bg: #f8f8f8 !default;
+$header-border-bottom: 0.55px solid rgba(0, 0, 0, .3) !default;
 
-// editor
-$editor-radius-is-open: $is-open-radius;
-$editor-selection-color: rgba(red($color-primary), green($color-primary), blue($color-primary), .2);
+$footer-height: 44px !default;
 
-$grid-column-padding: 15px;
+$tab-bar-height: 42px !default;
+$tab-bar-bg: #f8f8f8 !default;
+$tab-bar-border-top: 0.55px solid rgba(0, 0, 0, .3) !default;
 
-$header-height: 44px;
-$header-bg: #f8f8f8;
-$header-border-bottom: 0.55px solid rgba(0, 0, 0, .3);
-
-$footer-height: 44px;
-
-$tab-bar-height: 42px;
-$tab-bar-bg: #f8f8f8;
-$tab-bar-border-top: 0.55px solid rgba(0, 0, 0, .3);
-
-$icon-font-size: 1.6em;
+$icon-font-size: 1.6em !default;
 
