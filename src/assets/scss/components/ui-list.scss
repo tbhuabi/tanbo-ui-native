@@ -4,6 +4,9 @@ ui-list {
     margin-bottom: 10px;
     border-top: $border-width solid $color-gray-light;
     border-bottom: $border-width solid $color-gray-light;
+    &:first-child {
+        margin-top: 0;
+    }
 
     ~ ui-list-header {
         margin-top: -10px;

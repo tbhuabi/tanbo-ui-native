@@ -5,12 +5,13 @@ import { AlertComponent } from './components/alert/alert.component';
 import { AppComponent } from './components/app/app.component';
 import { BackComponent } from './components/back/back.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
-import { ColumnComponent } from './components/column/column.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { ContentComponent } from './components/content/content.component';
 import { DropDownComponent } from './components/drop-down/drop-down.component';
 import { DropDownFixedComponent } from './components/drop-down-fixed/drop-down-fixed.component';
 import { DropDownMenuComponent } from './components/drop-down-menu/drop-down-menu.component';
+import { FlexComponent } from './components/flex/flex.component';
+import { FlexItemComponent } from './components/flex-item/flex-item.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ListComponent } from './components/list/list.component';
@@ -23,7 +24,6 @@ import { ListThumbnailComponent } from './components/list-thumbnail/list-thumbna
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PageComponent } from './components/page/page.component';
-import { RowComponent } from './components/row/row.component';
 import { ScrollComponent } from './components/scroll/scroll.component';
 import { SlideComponent } from './components/slide/slide.component';
 import { SlideItemComponent } from './components/slide-item/slide-item.component';
@@ -48,12 +48,13 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         AppComponent,
         BackComponent,
         ButtonsComponent,
-        ColumnComponent,
         ConfirmComponent,
         ContentComponent,
         DropDownComponent,
         DropDownFixedComponent,
         DropDownMenuComponent,
+        FlexComponent,
+        FlexItemComponent,
         FooterComponent,
         HeaderComponent,
         ListComponent,
@@ -66,7 +67,6 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         NavBarComponent,
         NavigationComponent,
         PageComponent,
-        RowComponent,
         ScrollComponent,
         SlideComponent,
         SlideItemComponent,
@@ -88,7 +88,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         AppComponent,
         BackComponent,
         ButtonsComponent,
-        ColumnComponent,
+        FlexItemComponent,
         ConfirmComponent,
         ContentComponent,
         DropDownComponent,
@@ -106,7 +106,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         NavBarComponent,
         NavigationComponent,
         PageComponent,
-        RowComponent,
+        FlexComponent,
         ScrollComponent,
         SlideComponent,
         SlideItemComponent,

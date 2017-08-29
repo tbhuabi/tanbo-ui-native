@@ -1,0 +1,12 @@
+ui-flex-item {
+    flex: 1;
+    @include flex-center;
+    padding-left: $grid-column-padding;
+    padding-right: $grid-column-padding;
+    @for $i from 1 through $grid-columns {
+        &.item-#{$i} {
+            min-height: 1px;
+            flex: $i;
+        }
+    }
+}
