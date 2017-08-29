@@ -1,16 +1,16 @@
 @font-face {
-  font-family: 'tanbo-font';
+  font-family: 'tanbo-ui';
   src:
-    url('fonts/tanbo-font.ttf?3nkrye') format('truetype'),
-    url('fonts/tanbo-font.woff?3nkrye') format('woff'),
-    url('fonts/tanbo-font.svg?3nkrye#tanbo-font') format('svg');
+    url('fonts/tanbo-ui.ttf?lwec2b') format('truetype'),
+    url('fonts/tanbo-ui.woff?lwec2b') format('woff'),
+    url('fonts/tanbo-ui.svg?lwec2b#tanbo-ui') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'tanbo-font' !important;
+  font-family: 'tanbo-ui' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -28,6 +28,9 @@
 }
 .icon-arrow-left:before {
   content: "\e905";
+}
+.icon-spinner6:before {
+  content: "\e97f";
 }
 .icon-checkbox-checked:before {
   content: "\ea52";

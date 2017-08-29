@@ -20,7 +20,7 @@
         {}
       ],
       "properties": {
-        "order": 25,
+        "order": 44,
         "id": 9,
         "name": "arrow-right",
         "prevSize": 32,
@@ -28,7 +28,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 0
+      "iconIdx": 2
     },
     {
       "icon": {
@@ -49,7 +49,7 @@
         {}
       ],
       "properties": {
-        "order": 17,
+        "order": 45,
         "id": 3,
         "name": "arrow-left",
         "prevSize": 32,
@@ -57,7 +57,36 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 6
+      "iconIdx": 8
+    },
+    {
+      "icon": {
+        "paths": [
+          "M384 128c0-70.692 57.308-128 128-128s128 57.308 128 128c0 70.692-57.308 128-128 128s-128-57.308-128-128zM790.994 512c0 0 0 0 0 0 0-57.993 47.013-105.006 105.006-105.006s105.006 47.013 105.006 105.006c0 0 0 0 0 0 0 57.993-47.013 105.006-105.006 105.006s-105.006-47.013-105.006-105.006zM688.424 783.53c0-52.526 42.58-95.106 95.106-95.106s95.106 42.58 95.106 95.106c0 52.526-42.58 95.106-95.106 95.106s-95.106-42.58-95.106-95.106zM425.862 896c0-47.573 38.565-86.138 86.138-86.138s86.138 38.565 86.138 86.138c0 47.573-38.565 86.138-86.138 86.138s-86.138-38.565-86.138-86.138zM162.454 783.53c0-43.088 34.93-78.018 78.018-78.018s78.018 34.93 78.018 78.018c0 43.088-34.93 78.018-78.018 78.018s-78.018-34.93-78.018-78.018zM57.338 512c0-39.026 31.636-70.662 70.662-70.662s70.662 31.636 70.662 70.662c0 39.026-31.636 70.662-70.662 70.662s-70.662-31.636-70.662-70.662zM176.472 240.472c0 0 0 0 0 0 0-35.346 28.654-64 64-64s64 28.654 64 64c0 0 0 0 0 0 0 35.346-28.654 64-64 64s-64-28.654-64-64zM899.464 240.472c0 64.024-51.906 115.934-115.936 115.934-64.024 0-115.936-51.91-115.936-115.934 0-64.032 51.912-115.934 115.936-115.934 64.030 0 115.936 51.902 115.936 115.934z"
+        ],
+        "tags": [
+          "spinner",
+          "loading",
+          "loading-wheel",
+          "busy",
+          "wait"
+        ],
+        "defaultCode": 59775,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "spinner6, loading7",
+        "name": "spinner6",
+        "order": 36,
+        "id": 128,
+        "prevSize": 32,
+        "code": 59775
+      },
+      "setIdx": 1,
+      "setId": 1,
+      "iconIdx": 127
     },
     {
       "icon": {
@@ -79,7 +108,7 @@
       "properties": {
         "ligatures": "checkbox-checked, checkbox",
         "name": "checkbox-checked",
-        "order": 26,
+        "order": 41,
         "id": 339,
         "prevSize": 32,
         "code": 59986
@@ -107,7 +136,7 @@
       "properties": {
         "ligatures": "checkbox-unchecked, checkbox2",
         "name": "checkbox-unchecked",
-        "order": 27,
+        "order": 40,
         "id": 340,
         "prevSize": 32,
         "code": 59987
@@ -133,7 +162,7 @@
       "properties": {
         "ligatures": "radio-checked, radio-button",
         "name": "radio-checked",
-        "order": 28,
+        "order": 42,
         "id": 341,
         "prevSize": 32,
         "code": 59988
@@ -160,7 +189,7 @@
       "properties": {
         "ligatures": "radio-unchecked, radio-button3",
         "name": "radio-unchecked",
-        "order": 30,
+        "order": 43,
         "id": 343,
         "prevSize": 32,
         "code": 59990
@@ -172,7 +201,7 @@
   ],
   "height": 1024,
   "metadata": {
-    "name": "tanbo-font"
+    "name": "tanbo-ui"
   },
   "preferences": {
     "showGlyphs": true,
@@ -182,7 +211,7 @@
     "fontPref": {
       "prefix": "icon-",
       "metadata": {
-        "fontFamily": "tanbo-font",
+        "fontFamily": "tanbo-ui",
         "majorVersion": 1,
         "minorVersion": 0
       },

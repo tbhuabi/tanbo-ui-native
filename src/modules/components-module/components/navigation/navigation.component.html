@@ -1,5 +1,6 @@
 <ui-view
-        *ngFor="let item of views"
+        *ngFor="let item of views; let i = index"
         [component]="item.component"
         [state]="item.state"
+        [ngStyle]="{zIndex: i}"
 ></ui-view>

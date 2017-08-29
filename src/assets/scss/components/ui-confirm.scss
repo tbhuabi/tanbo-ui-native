@@ -28,7 +28,7 @@ ui-confirm {
     margin-top: 0;
     margin-bottom: 0;
     font-weight: 600;
-    font-size: 17px;
+    font-size: $font-size-larger;
 }
 
 .ui-confirm-body {
@@ -40,10 +40,10 @@ ui-confirm {
 
 .ui-confirm-footer {
     display: flex;
-    button {
+    .btn {
         color: $color-primary;
         flex: 1;
-        font-size: 17px;
+        font-size: $font-size-larger;
         border: none;
         border-radius: 0;
         &:nth-child(2) {

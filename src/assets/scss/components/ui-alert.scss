@@ -40,7 +40,7 @@ ui-alert {
 
 .ui-alert-footer {
     display: flex;
-    > button {
+    .btn {
         color: $color-primary;
         flex: 1;
         font-size: $font-size-larger;
