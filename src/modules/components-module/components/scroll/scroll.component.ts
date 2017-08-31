@@ -19,18 +19,22 @@ export class ScrollComponent {
     @Input()
     openInfinite: boolean = false;
 
-    // @Input()
-    // maxDistanceTop: number;
-    // @Input()
-    // maxDistanceBottom: number;
+    @Input()
+    actionDistanceTop: number = 100;
+    @Input()
+    actionDistanceBottom: number = 100;
 
     @HostBinding('style.transform')
     transform: string;
 
     @Output()
-    refresh = new EventEmitter<number>();
+    rolling = new EventEmitter<number>();
     @Output()
-    infinite = new EventEmitter<number>();
+    refresh = new EventEmitter<() => void>();
+    @Output()
+    infinite = new EventEmitter<() => void>();
+
+    private translateY: number = 0;
 
     constructor(private renderer: Renderer2,
                 private elementRef: ElementRef) {
@@ -51,6 +55,8 @@ export class ScrollComponent {
 
         this.renderer.setStyle(element, 'transitionDuration', '0ms');
 
+        const oldTranslateY = this.translateY;
+
         const cancelTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
             const newPoint = ev.touches[0];
             const newY = newPoint.pageY;
@@ -58,29 +64,22 @@ export class ScrollComponent {
 
             let translateY = 0;
 
-            if (this.openRefresh && distance > 0) {
-                const distanceTop = distance - oldScrollTop;
-                if (distanceTop > 0) {
-                    translateY = distanceTop;
-                    this.refresh.emit(distanceTop);
-                }
-            } else if (this.openInfinite && distance < 0) {
-                const distanceBottom = maxScrollHeight - oldScrollTop + distance;
+            const distanceTop = Math.ceil((distance - oldScrollTop) / 3) + oldTranslateY;
+            if (distanceTop > 0 && this.openRefresh) {
+                translateY = distanceTop;
+            } else if (this.openInfinite) {
+                const distanceBottom = Math.ceil((maxScrollHeight - oldScrollTop + distance) / 3) + oldTranslateY;
                 if (distanceBottom < 0) {
                     translateY = distanceBottom;
-                    this.infinite.emit(distanceBottom);
                 }
             }
 
-            this.transform = `translateY(${translateY}px)`;
-            if (translateY === 0) {
-                if (this.openRefresh) {
-                    this.refresh.emit(0);
-                }
-                if (this.openInfinite) {
-                    this.infinite.emit(0);
-                }
-            } else {
+            if (this.translateY !== translateY) {
+                this.translateY = translateY;
+                this.rolling.emit(translateY);
+                this.transform = `translateY(${translateY}px)`;
+            }
+            if (translateY !== 0) {
                 ev.preventDefault();
                 return false;
             }
@@ -89,9 +88,29 @@ export class ScrollComponent {
         let cancelTouchCancelFn: () => void;
         let cancelTouchEndFn: () => void;
 
-        const touchedFn = function () {
-            this.renderer.setStyle(element, 'transition-duration', '');
+        const complete = function () {
+            this.translateY = 0;
             this.transform = null;
+        }.bind(this);
+
+        const touchedFn = function () {
+            let distanceTop = Math.abs(Number(this.actionDistanceTop) || 100);
+            let distanceBottom = Math.abs(Number(this.actionDistanceBottom) || 100) * -1;
+
+            this.renderer.setStyle(element, 'transition-duration', '');
+
+            if (this.translateY > 0 && this.translateY > distanceTop) {
+                this.translateY = distanceTop;
+                this.transform = `translateY(${distanceTop}px)`;
+                this.refresh.emit(complete);
+            } else if (this.translateY < 0 && this.translateY < distanceBottom) {
+                this.translateY = distanceBottom;
+                this.transform = `translateY(${distanceBottom}px)`;
+                this.infinite.emit(complete);
+            } else {
+                this.translateY = 0;
+                this.transform = null;
+            }
             cancelTouchMoveFn();
             cancelTouchEndFn();
             cancelTouchCancelFn();
