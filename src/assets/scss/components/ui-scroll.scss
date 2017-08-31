@@ -2,5 +2,5 @@ ui-scroll {
     @include fill-box;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    transition: transform .3s;
+    transition: transform .25s;
 }

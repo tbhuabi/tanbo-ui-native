@@ -25,4 +25,8 @@ export class RootPageComponent {
             content: 'content'
         });
     }
+
+    show(event: any) {
+        console.log(event);
+    }
 }

@@ -102,12 +102,15 @@ export class ScrollComponent {
             if (this.translateY > 0 && this.translateY > distanceTop) {
                 this.translateY = distanceTop;
                 this.transform = `translateY(${distanceTop}px)`;
+                this.rolling.emit(distanceTop);
                 this.refresh.emit(complete);
             } else if (this.translateY < 0 && this.translateY < distanceBottom) {
                 this.translateY = distanceBottom;
                 this.transform = `translateY(${distanceBottom}px)`;
+                this.rolling.emit(distanceBottom);
                 this.infinite.emit(complete);
             } else {
+                this.rolling.emit(0);
                 this.translateY = 0;
                 this.transform = null;
             }

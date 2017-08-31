@@ -8,7 +8,7 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-scroll (rolling)="title = $event" [openRefresh]="true" [openInfinite]="true">
+    <ui-scroll (rolling)="show($event)" [openRefresh]="true" [openInfinite]="true">
       <div>fdsa</div>
       <button type="button" (click)="test()" class="btn-block btn primary">click</button>
       <!--<ui-list>-->
