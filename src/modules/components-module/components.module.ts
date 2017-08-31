@@ -35,7 +35,6 @@ import { TabViewItemComponent } from './components/tab-view-item/tab-view-item.c
 import { TitleComponent } from './components/title/title.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { ViewComponent } from './components/view/view.component';
-import { ViewLoadingBarComponent } from './components/view-loading-bar/view-loading-bar.component';
 // 指令
 import { ComponentHostDirective } from './components/view/component-host.directive';
 
@@ -78,7 +77,6 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         TitleComponent,
         ToastComponent,
         ViewComponent,
-        ViewLoadingBarComponent,
 
         // 指令
         ComponentHostDirective
@@ -117,8 +115,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         TabViewItemComponent,
         TitleComponent,
         ToastComponent,
-        ViewComponent,
-        ViewLoadingBarComponent,
+        ViewComponent
     ]
 })
 

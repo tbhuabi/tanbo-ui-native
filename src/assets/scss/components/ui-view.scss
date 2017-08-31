@@ -91,13 +91,13 @@ ui-view {
         transform: translateX(0)
     }
     100% {
-        transform: translateX(-30%)
+        transform: translateX(-50%)
     }
 }
 
 @keyframes ui-content-reactivate {
     0% {
-        transform: translateX(-30%)
+        transform: translateX(-50%)
     }
     100% {
         transform: translateX(0)
@@ -179,7 +179,7 @@ ui-view {
 
 @keyframes ui-title-activate {
     0% {
-        transform: translateX(50%);
+        transform: translateX(100%);
     }
     100% {
         transform: translateX(0);
@@ -191,7 +191,7 @@ ui-view {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(50%);
+        transform: translateX(100%);
     }
 }
 
