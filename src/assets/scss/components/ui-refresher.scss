@@ -1,0 +1,33 @@
+ui-refresher {
+    position: absolute;
+    min-height: 60px;
+    padding: $container-vertical-padding $grid-column-padding;
+    left: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    .progress-bar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        &.loading {
+            animation: refresher-animation 1s linear infinite;
+        }
+    }
+}
+
+@keyframes refresher-animation {
+    0% {
+        box-shadow: 0 0 0 rgba(red($color-primary), green($color-primary), blue($color-primary), 0);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 30px rgba(red($color-primary), green($color-primary), blue($color-primary), 1);
+        transform: scale(0);
+    }
+    100% {
+        box-shadow: 0 0 0 rgba(red($color-primary), green($color-primary), blue($color-primary), 0);
+        transform: scale(1);
+    }
+}

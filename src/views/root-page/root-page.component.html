@@ -8,23 +8,10 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-scroll (rolling)="show($event)" [openRefresh]="true" [openInfinite]="true">
+    <ui-refresher [progress]="progress" [loading]="isLoading"></ui-refresher>
+    <ui-scroll (rolling)="show($event)" (refresh)="refresh($event)" [openRefresh]="true" [openInfinite]="true">
       <div>fdsa</div>
       <button type="button" (click)="test()" class="btn-block btn primary">click</button>
-      <!--<ui-list>-->
-        <!--<ui-list-item>-->
-          <!--<ui-list-inner>aaa</ui-list-inner>-->
-        <!--</ui-list-item>-->
-        <!--<ui-list-item>-->
-          <!--<ui-list-inner>aaa</ui-list-inner>-->
-        <!--</ui-list-item>-->
-        <!--<ui-list-item>-->
-          <!--<ui-list-inner>aaa</ui-list-inner>-->
-        <!--</ui-list-item>-->
-        <!--<ui-list-item>-->
-          <!--<ui-list-inner>aaa</ui-list-inner>-->
-        <!--</ui-list-item>-->
-      <!--</ui-list>-->
       <ui-flex>
         <ui-flex-item class="item-3">1</ui-flex-item>
         <ui-flex-item>2</ui-flex-item>

@@ -8,6 +8,8 @@ import { Page1Component } from '../page1/page1.component';
     styleUrls: ['./root-page.component.scss']
 })
 export class RootPageComponent {
+    isLoading: boolean = false;
+    progress: number = 0;
     title: string | number = '首页';
 
     constructor(private navController: NavController,
@@ -26,7 +28,16 @@ export class RootPageComponent {
         });
     }
 
-    show(event: any) {
-        console.log(event);
+    show(event: number) {
+        this.isLoading = false;
+        this.progress = event;
+    }
+
+    refresh(fn: any) {
+        this.isLoading = true;
+        setTimeout(() => {
+            this.isLoading = false;
+            fn();
+        }, 4000);
     }
 }

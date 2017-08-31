@@ -24,6 +24,7 @@ import { ListThumbnailComponent } from './components/list-thumbnail/list-thumbna
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PageComponent } from './components/page/page.component';
+import { RefresherComponent } from './components/refresher/refresher.component';
 import { ScrollComponent } from './components/scroll/scroll.component';
 import { SlideComponent } from './components/slide/slide.component';
 import { SlideItemComponent } from './components/slide-item/slide-item.component';
@@ -66,6 +67,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         NavBarComponent,
         NavigationComponent,
         PageComponent,
+        RefresherComponent,
         ScrollComponent,
         SlideComponent,
         SlideItemComponent,
@@ -104,6 +106,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         NavBarComponent,
         NavigationComponent,
         PageComponent,
+        RefresherComponent,
         FlexComponent,
         ScrollComponent,
         SlideComponent,

@@ -20,9 +20,9 @@ export class ScrollComponent {
     openInfinite: boolean = false;
 
     @Input()
-    actionDistanceTop: number = 100;
+    actionDistanceTop: number;
     @Input()
-    actionDistanceBottom: number = 100;
+    actionDistanceBottom: number;
 
     @HostBinding('style.transform')
     transform: string;
@@ -94,8 +94,8 @@ export class ScrollComponent {
         }.bind(this);
 
         const touchedFn = function () {
-            let distanceTop = Math.abs(Number(this.actionDistanceTop) || 100);
-            let distanceBottom = Math.abs(Number(this.actionDistanceBottom) || 100) * -1;
+            let distanceTop = Math.abs(Number(this.actionDistanceTop) || 60);
+            let distanceBottom = Math.abs(Number(this.actionDistanceBottom) || 60) * -1;
 
             this.renderer.setStyle(element, 'transition-duration', '');
 
