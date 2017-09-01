@@ -40,4 +40,8 @@ export class RootPageComponent {
             fn();
         }, 4000);
     }
+
+    infinite(fn: any) {
+        console.log('infinite');
+    }
 }
