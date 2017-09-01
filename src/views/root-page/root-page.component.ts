@@ -41,7 +41,7 @@ export class RootPageComponent {
         }, 4000);
     }
 
-    infinite(event: any) {
-        console.log(event);
+    infinite() {
+        console.log('infinite');
     }
 }

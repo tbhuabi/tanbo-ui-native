@@ -21,7 +21,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
     @Input()
     actionDistanceTop: number = 60;
     @Input()
-    actionDistanceBottom: number = 100;
+    actionDistanceBottom: number = 200;
 
     @HostBinding('style.transform')
     transform: string;
@@ -51,14 +51,22 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
             this.bindingRefresher();
         }
 
+        const element = this.elementRef.nativeElement;
+        let oldScrollTop: number = null;
+
         this.sub = this.infinite$.debounceTime(300).subscribe(() => {
-            this.infinite.emit();
+            if (element.scrollTop >= oldScrollTop) {
+                oldScrollTop = null;
+                this.infinite.emit();
+            }
         });
 
-        const element = this.elementRef.nativeElement;
-        const fn = this.renderer.listen(element, 'scroll', (event: any) => {
+        const fn = this.renderer.listen(element, 'scroll', () => {
             const maxScrollY = Math.max(element.scrollHeight, element.offsetHeight) - element.offsetHeight;
             if (maxScrollY - element.scrollTop < this.actionDistanceBottom) {
+                if (oldScrollTop === null) {
+                    oldScrollTop = element.scrollTop;
+                }
                 this.infiniteSource.next();
             }
         });
