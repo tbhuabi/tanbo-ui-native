@@ -1,6 +1,8 @@
 ui-scroll {
     @include fill-box;
+    z-index: 2;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     transition: transform .25s;
+    background-color: inherit;
 }
