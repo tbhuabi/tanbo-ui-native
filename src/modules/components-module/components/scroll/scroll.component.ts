@@ -21,7 +21,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
     @Input()
     actionDistanceTop: number = 60;
     @Input()
-    actionDistanceBottom: number = 200;
+    actionDistanceBottom: number = 600;
 
     @HostBinding('style.transform')
     transform: string;
@@ -68,6 +68,8 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
                     oldScrollTop = element.scrollTop;
                 }
                 this.infiniteSource.next();
+            } else {
+                oldScrollTop = null;
             }
         });
         this.unBindFnList.push(fn);
