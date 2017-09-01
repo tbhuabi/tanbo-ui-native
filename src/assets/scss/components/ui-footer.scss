@@ -1,6 +1,7 @@
 ui-footer {
     height: $footer-height;
-    display: block;
+    display: flex;
     position: relative;
     z-index: 2;
+    background-color: #fff;
 }
