@@ -41,7 +41,7 @@ export class RootPageComponent {
         }, 4000);
     }
 
-    infinite(fn: any) {
+    infinite() {
         console.log('infinite');
     }
 }
