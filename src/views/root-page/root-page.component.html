@@ -9,7 +9,10 @@
   </ui-header>
   <ui-content>
     <ui-refresher [progress]="progress" [loading]="isLoading"></ui-refresher>
-    <ui-scroll (rolling)="show($event)" (refresh)="refresh($event)" [openRefresh]="true" [openInfinite]="true">
+    <ui-scroll (rolling)="show($event)"
+               (refresh)="refresh($event)"
+               (infinite)="infinite($event)"
+               [openRefresh]="true">
       <div>fdsa</div>
       <button type="button" (click)="test()" class="btn-block btn primary">click</button>
       <ui-flex>

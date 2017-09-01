@@ -1,28 +1,27 @@
 import {
+    AfterViewInit,
     Component,
     ElementRef,
     EventEmitter,
     HostBinding,
-    HostListener,
     Input,
+    OnDestroy,
     Output,
     Renderer2
 } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
     selector: 'ui-scroll',
     templateUrl: './scroll.component.html'
 })
-export class ScrollComponent {
+export class ScrollComponent implements AfterViewInit, OnDestroy {
     @Input()
     openRefresh: boolean = false;
     @Input()
-    openInfinite: boolean = false;
-
+    actionDistanceTop: number = 60;
     @Input()
-    actionDistanceTop: number;
-    @Input()
-    actionDistanceBottom: number;
+    actionDistanceBottom: number = 100;
 
     @HostBinding('style.transform')
     transform: string;
@@ -35,91 +34,111 @@ export class ScrollComponent {
     infinite = new EventEmitter<() => void>();
 
     private translateY: number = 0;
+    private unBindFnList: Array<() => void> = [];
+
+    private infinite$: Observable<void>;
+    private infiniteSource = new Subject<void>();
+    private sub: Subscription;
 
     constructor(private renderer: Renderer2,
                 private elementRef: ElementRef) {
+
+        this.infinite$ = this.infiniteSource.asObservable();
     }
 
-    @HostListener('touchstart', ['$event'])
-    scroll(event: any) {
-        if (!this.openInfinite && !this.openRefresh) {
-            return;
+    ngAfterViewInit() {
+        if (this.openRefresh) {
+            this.bindingRefresher();
         }
-        const oldPoint = event.touches[0];
 
-        const oldY = oldPoint.pageY;
-        const element = this.elementRef.nativeElement;
-        const oldScrollTop = element.scrollTop;
-        const containerHeight = element.offsetHeight;
-        const maxScrollHeight = Math.max(element.scrollHeight, containerHeight) - containerHeight;
-
-        this.renderer.setStyle(element, 'transitionDuration', '0ms');
-
-        const oldTranslateY = this.translateY;
-
-        const cancelTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
-            const newPoint = ev.touches[0];
-            const newY = newPoint.pageY;
-            const distance = newY - oldY;
-
-            let translateY = 0;
-
-            const distanceTop = Math.ceil((distance - oldScrollTop) / 3) + oldTranslateY;
-            if (distanceTop > 0 && this.openRefresh) {
-                translateY = distanceTop;
-            } else if (this.openInfinite) {
-                const distanceBottom = Math.ceil((maxScrollHeight - oldScrollTop + distance) / 3) + oldTranslateY;
-                if (distanceBottom < 0) {
-                    translateY = distanceBottom;
-                }
-            }
-
-            if (this.translateY !== translateY) {
-                this.translateY = translateY;
-                this.rolling.emit(translateY);
-                this.transform = `translateY(${translateY}px)`;
-            }
-            if (translateY !== 0) {
-                ev.preventDefault();
-                return false;
-            }
-
+        this.sub = this.infinite$.debounceTime(300).subscribe(() => {
+            this.infinite.emit();
         });
-        let cancelTouchCancelFn: () => void;
-        let cancelTouchEndFn: () => void;
 
-        const complete = function () {
-            this.translateY = 0;
-            this.transform = null;
-        }.bind(this);
+        const element = this.elementRef.nativeElement;
+        const fn = this.renderer.listen(element, 'scroll', (event: any) => {
+            const maxScrollY = Math.max(element.scrollHeight, element.offsetHeight) - element.offsetHeight;
+            if (maxScrollY - element.scrollTop < this.actionDistanceBottom) {
+                this.infiniteSource.next();
+            }
+        });
+        this.unBindFnList.push(fn);
+    }
 
-        const touchedFn = function () {
-            let distanceTop = Math.abs(Number(this.actionDistanceTop) || 60);
-            let distanceBottom = Math.abs(Number(this.actionDistanceBottom) || 60) * -1;
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+        this.unBindFnList.forEach(item => {
+            item();
+        });
+    }
 
-            this.renderer.setStyle(element, 'transition-duration', '');
+    bindingRefresher() {
+        const element = this.elementRef.nativeElement;
+        const fn = this.renderer.listen(element, 'touchstart', (event: any) => {
+            const oldPoint = event.touches[0];
 
-            if (this.translateY > 0 && this.translateY > distanceTop) {
-                this.translateY = distanceTop;
-                this.transform = `translateY(${distanceTop}px)`;
-                this.rolling.emit(distanceTop);
-                this.refresh.emit(complete);
-            } else if (this.translateY < 0 && this.translateY < distanceBottom) {
-                this.translateY = distanceBottom;
-                this.transform = `translateY(${distanceBottom}px)`;
-                this.rolling.emit(distanceBottom);
-                this.infinite.emit(complete);
-            } else {
-                this.rolling.emit(0);
+            const oldY = oldPoint.pageY;
+            const oldScrollTop = element.scrollTop;
+
+            this.renderer.setStyle(element, 'transitionDuration', '0ms');
+
+            const oldTranslateY = this.translateY;
+
+            const cancelTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
+                const newPoint = ev.touches[0];
+                const newY = newPoint.pageY;
+                const distance = newY - oldY;
+
+                let translateY = 0;
+
+                const distanceTop = Math.ceil((distance - oldScrollTop) / 3) + oldTranslateY;
+                if (distanceTop > 0 && this.openRefresh) {
+                    translateY = distanceTop;
+                }
+
+                if (this.translateY !== translateY) {
+                    this.translateY = translateY;
+                    this.rolling.emit(translateY);
+                    this.transform = `translateY(${translateY}px)`;
+                }
+                if (translateY !== 0) {
+                    ev.preventDefault();
+                    return false;
+                }
+
+            });
+            let cancelTouchCancelFn: () => void;
+            let cancelTouchEndFn: () => void;
+
+            const complete = function () {
                 this.translateY = 0;
                 this.transform = null;
-            }
-            cancelTouchMoveFn();
-            cancelTouchEndFn();
-            cancelTouchCancelFn();
-        }.bind(this);
+            }.bind(this);
 
-        cancelTouchCancelFn = this.renderer.listen('document', 'touchend', touchedFn);
-        cancelTouchEndFn = this.renderer.listen('document', 'touchend', touchedFn);
+            const touchedFn = function () {
+                let distanceTop = Math.abs(Number(this.actionDistanceTop));
+
+                this.renderer.setStyle(element, 'transition-duration', '');
+
+                if (this.translateY > 0 && this.translateY > distanceTop) {
+                    this.translateY = distanceTop;
+                    this.transform = `translateY(${distanceTop}px)`;
+                    this.rolling.emit(distanceTop);
+                    this.refresh.emit(complete);
+                } else {
+                    this.rolling.emit(0);
+                    this.translateY = 0;
+                    this.transform = null;
+                }
+                cancelTouchMoveFn();
+                cancelTouchEndFn();
+                cancelTouchCancelFn();
+            }.bind(this);
+
+            cancelTouchCancelFn = this.renderer.listen('document', 'touchcancel', touchedFn);
+            cancelTouchEndFn = this.renderer.listen('document', 'touchend', touchedFn);
+        });
+
+        this.unBindFnList.push(fn);
     }
 }
