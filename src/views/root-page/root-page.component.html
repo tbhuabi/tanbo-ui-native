@@ -9,7 +9,7 @@
   </ui-header>
   <ui-content>
     <ui-refresher [progress]="progress" [loading]="isLoading"></ui-refresher>
-    <ui-scroll (rolling)="show($event)"
+    <ui-scroll (rolling)="rolling($event)"
                (refresh)="refresh($event)"
                (infinite)="infinite($event)"
                [openRefresh]="true">

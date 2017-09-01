@@ -54,7 +54,6 @@ export class RefresherComponent implements AfterViewInit {
         context.clearRect(-width / 2, -height / 2, width, height);
         const progress = this.progress > this.threshold ? this.threshold : this.progress;
         context.beginPath();
-        console.log(this.toRadian(progress));
         context.arc(0, 0, width / 4, 0, this.toRadian(progress));
         context.lineWidth = width / 2;
         context.strokeStyle = this.progressColor || '#2d8cf0';

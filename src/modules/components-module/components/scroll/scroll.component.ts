@@ -81,8 +81,10 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
     }
 
     bindingRefresher() {
+        let isTouching: boolean = false;
         const element = this.elementRef.nativeElement;
         const fn = this.renderer.listen(element, 'touchstart', (event: any) => {
+            isTouching = true;
             const oldPoint = event.touches[0];
 
             const oldY = oldPoint.pageY;
@@ -119,11 +121,15 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
             let cancelTouchEndFn: () => void;
 
             const complete = function () {
+                if (isTouching) {
+                    return;
+                }
                 this.translateY = 0;
                 this.transform = null;
             }.bind(this);
 
             const touchedFn = function () {
+                isTouching = false;
                 let distanceTop = Math.abs(Number(this.actionDistanceTop));
 
                 this.renderer.setStyle(element, 'transition-duration', '');

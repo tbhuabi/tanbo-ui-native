@@ -28,12 +28,13 @@ export class RootPageComponent {
         });
     }
 
-    show(event: number) {
+    rolling(event: number) {
         this.isLoading = false;
         this.progress = event;
     }
 
     refresh(fn: any) {
+        console.log(4444);
         this.isLoading = true;
         setTimeout(() => {
             this.isLoading = false;
