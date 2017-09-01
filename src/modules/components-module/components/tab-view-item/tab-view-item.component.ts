@@ -14,7 +14,7 @@ export class TabViewItemComponent implements AfterViewInit {
     rootPage: any;
 
     @HostBinding('class.active')
-    isActive: boolean = false;
+    active: boolean = false;
 
     constructor(private navController: NavController) {
     }

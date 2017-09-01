@@ -5,6 +5,7 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular
     templateUrl: './refresher.component.html'
 })
 export class RefresherComponent implements AfterViewInit {
+    // 进度条进度
     @Input()
     set progress(value: number) {
         this._progress = value;
@@ -16,13 +17,16 @@ export class RefresherComponent implements AfterViewInit {
     get progress() {
         return this._progress;
     }
-
+    // 进度条到100%的临界值
     @Input()
     threshold: number = 60;
+    // 开始触发进度条的临界值
     @Input()
     startThreshold = 30;
+    // 是否为loading状态
     @Input()
     loading: boolean = false;
+    // 进度条颜色
     @Input()
     progressColor: string;
     @ViewChild('canvas')

@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
 
-import { ConfirmController, ConfirmConfig } from './confirm-controller.service';
+import { ConfirmConfig, ConfirmController } from './confirm-controller.service';
 
 @Component({
     selector: 'ui-confirm',
@@ -58,10 +58,13 @@ export class ConfirmComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        // 订阅用户事件
         this.sub = this.confirmService.confirmConfig$.subscribe((params: ConfirmConfig) => {
+            // 设置动画状态
             this.isShow = true;
             this.animateState = true;
 
+            // 赋值相应参数
             this.title = params.title;
             this.content = params.content;
             if (params.btnsText) {
@@ -75,12 +78,14 @@ export class ConfirmComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    publishAction(result: boolean) {
+    checked(result: boolean) {
+        // 当用户点击按扭时，关闭弹窗
         this.animateState = false;
         this.result = result;
     }
 
     done() {
+        // 当弹窗关闭动画完成时，发布相应事件
         if (!this.animateState) {
             this.isShow = false;
             this.confirmService.publishAction(this.result);

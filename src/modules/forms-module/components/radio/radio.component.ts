@@ -1,14 +1,14 @@
 import {
     Component,
-    Input,
-    Output,
-    EventEmitter,
-    HostListener,
-    HostBinding,
-    ViewChild,
     ElementRef,
+    EventEmitter,
+    HostBinding,
+    HostListener,
+    Input,
+    OnDestroy,
     OnInit,
-    OnDestroy
+    Output,
+    ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -99,11 +99,13 @@ export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
         if (this.onTouched) {
             this.onTouched(this.value);
         }
+        // 当自身被点击时，发布事件，更新其它radio状态
         this.radioStateService.publishEvent();
         this.change.emit(this.value);
     }
 
     ngOnInit() {
+        // 当某一个radio被点击时，更新其它radio状态
         this.sub = this.radioStateService.state$.subscribe(() => {
             this.checked = this.rawInput.nativeElement.checked;
         });

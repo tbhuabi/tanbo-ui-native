@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
 
-import { AlertController, AlertConfig } from './alert-controller.service';
+import { AlertConfig, AlertController } from './alert-controller.service';
 
 @Component({
     selector: 'ui-alert',
@@ -56,7 +56,9 @@ export class AlertComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        // 订阅alert事件
         this.sub = this.alertController.alertConfig$.subscribe((params: AlertConfig) => {
+            // 设置状态，以弹出对话框
             this.isShow = true;
             this.animateState = true;
 
@@ -70,11 +72,13 @@ export class AlertComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    publishAction() {
+    checked() {
+        // 当点击确认按扭时关闭弹窗
         this.animateState = false;
     }
 
     done() {
+        // 当弹窗动画完成时，发布事件
         if (!this.animateState) {
             this.isShow = false;
             this.alertController.publishAction();

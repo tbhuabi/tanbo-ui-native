@@ -30,6 +30,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     @Input()
     set state(value) {
         this._state = value;
+        // 根据视图不同状态，调用生命周期勾子
         if (this.childInstance) {
             switch (value) {
                 case ViewState.Activate:

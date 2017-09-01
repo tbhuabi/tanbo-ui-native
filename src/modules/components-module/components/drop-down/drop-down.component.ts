@@ -1,15 +1,15 @@
 import {
+    AfterContentInit,
     Component,
+    ContentChildren,
+    EventEmitter,
     HostBinding,
     Input,
-    OnInit,
-    QueryList,
-    AfterContentInit,
-    EventEmitter,
-    Output,
     OnDestroy,
-    Renderer2,
-    ContentChildren
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -41,6 +41,7 @@ export class DropDownComponent implements AfterContentInit, OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        // 当页面被点击时，关闭下拉框，同时排除是自己点击
         this.renderer.listen('document', 'click', () => {
             if (this.isTriggerEvent) {
                 this.isTriggerEvent = false;
@@ -51,6 +52,7 @@ export class DropDownComponent implements AfterContentInit, OnInit, OnDestroy {
     }
 
     ngAfterContentInit() {
+        // 订阅固定按扭部分被点击的事件，并修改状态，防止事件冒泡到全局，误隐藏下拉展开部分
         this.fixed.forEach(item => {
             let sub = item.trigger.subscribe(() => {
                 this.isTriggerEvent = true;

@@ -1,4 +1,4 @@
-import { Component, ContentChildren, QueryList, AfterContentInit, Input, OnDestroy } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, OnDestroy, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { TabService } from '../tab/tab.service';
@@ -22,15 +22,17 @@ export class TabBarComponent implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
+        // 当用户点击或选中某一个按扭时，发布相应事件
         this.tabBarItems.forEach((item: TabBarItemComponent, index: number) => {
             let sub = item.selected.subscribe(() => {
                 this.tabService.publishIndex(index);
             });
             this.subs.push(sub);
         });
+        // 当用户切换tab时，显示/隐藏对应视图
         this.sub = this.tabService.tabIndex$.subscribe((index: number) => {
             this.tabBarItems.forEach((item: TabBarItemComponent, i: number) => {
-                item.isActive = i === index;
+                item.active = i === index;
             });
         });
 

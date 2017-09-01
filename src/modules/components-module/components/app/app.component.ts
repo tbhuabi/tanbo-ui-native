@@ -39,12 +39,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         if (this.rootPage) {
+            // 当页面初始化时，主动添加根页面
             this.navController.push(this.rootPage);
         }
     }
 
     @HostListener('window:resize')
     resize() {
+        // 通过当前视口的宽度，动态设置 css rem 值的大小
         if (!this.htmlElement) {
             return;
         }
@@ -55,6 +57,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     @HostListener('document:touchstart')
     documentTouchStart() {
+        // 当页面有 list 组件时，如果其中某一项已打开 sliding，当用户点击其它地方时，需要发布全局事件，来收起 sliding
         this.listActivatedService.publish();
     }
 }

@@ -21,10 +21,12 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        // 拿到当前 list-item 组件下，所有的 list-options 组件，以便在划动时，计算 dom 的宽度
         this.subs.push(this.listEventService.listOptions$.subscribe((elementRef: ElementRef) => {
             this.refs.push(elementRef);
         }));
-        this.subs.push(this.listActivatedService.activatedComponent$.subscribe((component: any) => {
+        // 订阅选中事件，并判断用户操作的 list-sliding 是不是自身，如果不是自身，则修改自身相应样式
+        this.subs.push(this.listActivatedService.activatedComponent$.subscribe(() => {
             if (!this.isFocus) {
                 this.distanceX = 0;
                 this.renderer.setStyle(this.elementRef.nativeElement, 'transition-duration', '');
@@ -60,6 +62,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
         let isClick = true;
         let isScroll = true;
 
+        // 设置当前元素的 css 动画时间为0，防止有迟滞感
         this.renderer.setStyle(element, 'transition-duration', '0s');
 
         let unBindTouchEndFn: () => void;
@@ -72,6 +75,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
             const moveX = newTouchPoint.pageX;
             const moveY = newTouchPoint.pageY;
 
+            // 当用户触摸的纵向距离大于横向距离，能忽略此次划动，不触发各左滑动的动作
             if (isScroll && Math.abs(moveX - startX) < Math.abs(moveY - startY)) {
                 unBindTouchCancelFn();
                 unBindTouchMoveFn();
@@ -79,6 +83,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
                 return;
             }
 
+            // 计算向左滑动的距离
             this.distanceX = moveX - startX + oldDistanceX;
             if (this.distanceX > 0) {
                 this.distanceX = 0;
@@ -87,6 +92,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
                 this.distanceX = -maxDistance;
             }
 
+            // 设置相应样式，并阻止事件冒泡和默认事件
             this.renderer.setStyle(element, 'transform', `translateX(${this.distanceX}px)`);
             isScroll = false;
             moveEvent.preventDefault();
@@ -98,9 +104,11 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
             this.isFocus = false;
             const endTime = Date.now();
             let distance = oldDistanceX - this.distanceX;
+            // 当用户触摸完成后，时间小于 100ms，并且距离大于20，则认为是惯性触摸
             if (endTime - startTime < 100 && Math.abs(distance) > 20) {
                 this.distanceX = distance < 0 ? 0 : -maxDistance;
             } else {
+                // 否则按 50% 区分向左还是向右
                 this.distanceX = this.distanceX > maxDistance / -2 ? 0 : -maxDistance;
             }
             this.renderer.setStyle(element, 'transition-duration', '');

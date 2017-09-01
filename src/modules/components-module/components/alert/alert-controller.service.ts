@@ -20,6 +20,7 @@ export class AlertController {
     }
 
     show(params: AlertConfig): Promise<any> {
+        // 当接收到用户事件时，发布相应事件，并返回 promise，当用户点击确定时，resolve 当前 promise;
         this.alertConfigSource.next(params);
         return new Promise((resolve) => {
             const sub = this.alertAction$.subscribe(() => {
@@ -30,6 +31,7 @@ export class AlertController {
     }
 
     publishAction() {
+        // 发布用户点击弹出框的确认按扭事件
         this.alertActionSource.next();
     }
 }

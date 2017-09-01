@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, Output, EventEmitter, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, Renderer2, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -97,11 +97,6 @@ export class RangeComponent implements ControlValueAccessor {
         return this._value;
     }
 
-    @Input()
-    checkedIcon: string;
-    @Input()
-    uncheckedIcon: string;
-
     position: number = 50;
 
     @Output()
@@ -140,28 +135,10 @@ export class RangeComponent implements ControlValueAccessor {
         let maxWidth = this.elementRef.nativeElement.offsetWidth;
         let nowWidth = this.rangeBar.nativeElement.offsetWidth;
 
-        let eventType = event.type;
-        let moveEventType: string = '';
-        let endEventType: string = '';
-        let oldX: number;
-        if (eventType === 'mousedown') {
-            moveEventType = 'mousemove';
-            endEventType = 'mouseup';
-            oldX = event.clientX;
-        } else if (eventType === 'touchstart') {
-            moveEventType = 'touchmove';
-            endEventType = 'touchend';
-            oldX = event.touches[0].clientX;
-        }
+        let oldX: number = event.touches[0].clientX;
 
-        function move(ev: any) {
-
-            let dragDistance: number = 0;
-            if (eventType === 'mousedown') {
-                dragDistance = ev.clientX - oldX;
-            } else if (eventType === 'touchstart') {
-                dragDistance = ev.touches[0].clientX - oldX;
-            }
+        let unbindTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
+            let dragDistance: number = ev.touches[0].clientX - oldX;
             let proportion = (nowWidth + dragDistance) / maxWidth;
             let temporaryValue = Math.floor(section * proportion / this.step) * this.step;
 
@@ -180,12 +157,19 @@ export class RangeComponent implements ControlValueAccessor {
                 this.onTouched(value);
             }
             this.change.emit(value);
-        }
+        });
+        let unbindTouchEndFn: () => void;
+        let unbindTouchCancelFn: () => void;
 
-        let moveUnbindFn = this.renderer.listen('document', moveEventType, move.bind(this));
-        let upUnbindFn = this.renderer.listen('document', endEventType, () => {
-            moveUnbindFn();
-            upUnbindFn();
+        unbindTouchEndFn = this.renderer.listen('document', 'touchend', () => {
+            unbindTouchMoveFn();
+            unbindTouchEndFn();
+            unbindTouchCancelFn();
+        });
+        unbindTouchCancelFn = this.renderer.listen('document', 'touchcancel', () => {
+            unbindTouchMoveFn();
+            unbindTouchEndFn();
+            unbindTouchCancelFn();
         });
     }
 

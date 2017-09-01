@@ -11,6 +11,7 @@ export class ListOptionComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
+        // 发布当前组件的 dom 元素，以便让 list-sliding 组件在划动时，计算最大划动宽度
         this.listEventService.addOption(this.elementRef);
     }
 }

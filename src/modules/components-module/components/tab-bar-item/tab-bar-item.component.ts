@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, HostListener, Input, HostBinding } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'ui-tab-bar-item',
@@ -7,7 +7,7 @@ import { Component, Output, EventEmitter, HostListener, Input, HostBinding } fro
 export class TabBarItemComponent {
     @HostBinding('class.active')
     @Input()
-    isActive: boolean = false;
+    active: boolean = false;
     @Output()
     selected = new EventEmitter();
 

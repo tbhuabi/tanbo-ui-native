@@ -13,6 +13,7 @@ export class BackComponent {
 
     @HostListener('click')
     click() {
+        // 当用户点击组件时，触发视图返回上一页
         this.navController.pop();
     }
 }

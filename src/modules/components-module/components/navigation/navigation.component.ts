@@ -17,6 +17,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        // 订阅导航事件，并设置相应动画状态
         this.subs.push(this.navController.pushEvent$.subscribe((component: any) => {
             const length = this.views.length;
             if (length) {
@@ -33,6 +34,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
                 });
             }
         }));
+        // 当导航回退时，设置相应动画状态
         this.subs.push(this.navController.popEvent$.subscribe(() => {
             const length = this.views.length;
             if (length) {
@@ -43,6 +45,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
                 }
             }
         }));
+        // 当回退动画完成时，删除对应视图
         this.subs.push(this.navController.destroyAction$.subscribe(() => {
             this.views.pop();
         }));
