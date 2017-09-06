@@ -92,35 +92,35 @@ export class UiHttp {
 
     get(url: string, options: UiRequestOptions = {}): Promise<any> {
         const _options = UiHttp.requestHandle(options);
-        const _url = _options.withCredentials ? UiHttp.apiPrefix + url : url;
+        const _url = _options.withCredentials ? url : UiHttp.apiPrefix + url;
         const result: Observable<Response> = this.http.get(_url, _options);
         return UiHttp.responseHandle(result);
     }
 
     post(url: string, options: UiRequestOptions = {}): Promise<any> {
         const _options = UiHttp.requestHandle(options);
-        const _url = _options.withCredentials ? UiHttp.apiPrefix + url : url;
+        const _url = _options.withCredentials ? url : UiHttp.apiPrefix + url;
         const result: Observable<Response> = this.http.post(_url, options.body, _options);
         return UiHttp.responseHandle(result);
     }
 
     put(url: string, options: UiRequestOptions = {}): Promise<any> {
         const _options = UiHttp.requestHandle(options);
-        const _url = _options.withCredentials ? UiHttp.apiPrefix + url : url;
+        const _url = _options.withCredentials ? url : UiHttp.apiPrefix + url;
         const result: Observable<Response> = this.http.put(_url, options.body, _options);
         return UiHttp.responseHandle(result);
     }
 
     delete(url: string, options: UiRequestOptions = {}): Promise<any> {
         const _options = UiHttp.requestHandle(options);
-        const _url = _options.withCredentials ? UiHttp.apiPrefix + url : url;
+        const _url = _options.withCredentials ? url : UiHttp.apiPrefix + url;
         const result: Observable<Response> = this.http.delete(_url, _options);
         return UiHttp.responseHandle(result);
     }
 
     upload(url: string, options: UiRequestOptions = {}): Promise<any> {
         const _options = UiHttp.requestHandle(options);
-        const _url = _options.withCredentials ? UiHttp.apiPrefix + url : url;
+        const _url = _options.withCredentials ? url : UiHttp.apiPrefix + url;
         const result: Observable<Response> = this.http.post(_url, options.body, _options);
         return UiHttp.responseHandle(result);
     }
