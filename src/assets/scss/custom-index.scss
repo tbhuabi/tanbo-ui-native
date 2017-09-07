@@ -8,16 +8,15 @@
 @import "common";
 
 // 扩展样式主要用于各个组件搭配使用时，样式不符合预期的修改
-
+// components
 @import "components/ui-alert";
 @import "components/ui-app";
 @import "components/ui-back";
-@import "components/ui-button";
 @import "components/ui-buttons";
-@import "components/ui-checkbox";
+@import "components/ui-collection";
+@import "components/ui-collection-item";
 @import "components/ui-confirm";
 @import "components/ui-content";
-@import "components/ui-date";
 @import "components/ui-drop-down";
 @import "components/ui-drop-down-fixed";
 @import "components/ui-drop-down-menu";
@@ -34,16 +33,11 @@
 @import "components/ui-list-thumbnail";
 @import "components/ui-navbar";
 @import "components/ui-navigation";
-@import "components/ui-option";
 @import "components/ui-page";
-@import "components/ui-radio";
-@import "components/ui-range";
 @import "components/ui-refresher";
 @import "components/ui-scroll";
-@import "components/ui-select";
 @import "components/ui-slide";
 @import "components/ui-slide-item";
-@import "components/ui-switch";
 @import "components/ui-tab";
 @import "components/ui-tab-bar";
 @import "components/ui-tab-bar-item";
@@ -52,3 +46,13 @@
 @import "components/ui-title";
 @import "components/ui-toast";
 @import "components/ui-view";
+
+// forms
+@import "forms/ui-button";
+@import "forms/ui-checkbox";
+@import "forms/ui-date";
+@import "forms/ui-option";
+@import "forms/ui-radio";
+@import "forms/ui-range";
+@import "forms/ui-select";
+@import "forms/ui-switch";

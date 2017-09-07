@@ -5,6 +5,8 @@ import { AlertComponent } from './components/alert/alert.component';
 import { AppComponent } from './components/app/app.component';
 import { BackComponent } from './components/back/back.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
+import { CollectionComponent } from './components/collection/collection.component';
+import { CollectionItemComponent } from './components/collection-item/collection-item.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { ContentComponent } from './components/content/content.component';
 import { DropDownComponent } from './components/drop-down/drop-down.component';
@@ -48,6 +50,8 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         AppComponent,
         BackComponent,
         ButtonsComponent,
+        CollectionComponent,
+        CollectionItemComponent,
         ConfirmComponent,
         ContentComponent,
         DropDownComponent,
@@ -88,12 +92,15 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         AppComponent,
         BackComponent,
         ButtonsComponent,
-        FlexItemComponent,
+        CollectionComponent,
+        CollectionItemComponent,
         ConfirmComponent,
         ContentComponent,
         DropDownComponent,
         DropDownFixedComponent,
         DropDownMenuComponent,
+        FlexComponent,
+        FlexItemComponent,
         FooterComponent,
         HeaderComponent,
         ListComponent,
@@ -107,7 +114,6 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         NavigationComponent,
         PageComponent,
         RefresherComponent,
-        FlexComponent,
         ScrollComponent,
         SlideComponent,
         SlideItemComponent,
