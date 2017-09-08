@@ -3,24 +3,35 @@ import {
     Component,
     ContentChildren,
     ElementRef,
+    EventEmitter,
     HostBinding,
     Input,
+    OnDestroy,
+    Output,
     QueryList,
     Renderer2
 } from '@angular/core';
 import { CollectionItemComponent } from '../collection-item/collection-item.component';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
     selector: 'ui-collection',
     templateUrl: './collection.component.html'
 })
-export class CollectionComponent implements AfterContentInit {
+export class CollectionComponent implements AfterContentInit, OnDestroy {
+    // 拖动事件
+    @Output()
+    sliding = new EventEmitter<number>();
+    // 拖动完成事件
+    @Output()
+    slidingFinish = new EventEmitter<number>();
     @Input()
     @HostBinding('class.vertical')
     vertical: boolean = false;
     @ContentChildren(CollectionItemComponent)
     items: QueryList<CollectionItemComponent>;
 
+    // 通过子级的多少，计算自身的盒子大小
     @HostBinding('style.width')
     get width() {
         return this.vertical ? 'auto' : this.childrenLength * 100 + '%';
@@ -33,143 +44,116 @@ export class CollectionComponent implements AfterContentInit {
 
     childrenLength: number = 0;
 
-    private x: number = 0;
-    private y: number = 0;
+    // 记录已拖动的距离
+    private distance: number = 0;
+    private slidingEvent$: Observable<number>;
+    private slidingEventSource = new Subject<number>();
+
+    private sub: Subscription;
+;
 
     constructor(private renderer: Renderer2,
                 private elementRef: ElementRef) {
+        this.slidingEvent$ = this.slidingEventSource.asObservable();
     }
 
     ngAfterContentInit() {
-        this.childrenLength = this.items.toArray().length;
-        if (this.vertical) {
-            this.bindingVerticalDragEvent();
-        } else {
-            this.bindingHorizontalDragEvent();
-        }
-    }
-
-    bindingHorizontalDragEvent() {
-        let element = this.elementRef.nativeElement;
-        this.renderer.listen(element, 'touchstart', (event: any) => {
-            const point = event.touches[0];
-            const startX = point.pageX;
-            const startY = point.pageY;
-            this.renderer.setStyle(element, 'transition-duration', '0s');
-            const oldX = this.x;
-
-            let unTouchMoveFn: () => void;
-            let unTouchEndFn: () => void;
-            let unTouchCancelFn: () => void;
-
-            const itemWidth = element.offsetWidth / this.childrenLength;
-            const minDistance = itemWidth - element.offsetWidth;
-
-            const unbindFn = function () {
-                unTouchMoveFn();
-                unTouchEndFn();
-                unTouchCancelFn();
-
-                const targetIndex = Math.ceil(this.x / itemWidth);
-                const offsetX = Math.abs(this.x % itemWidth);
-
-                let translateX: number;
-                if (offsetX < (itemWidth / 2)) {
-                    translateX = targetIndex * itemWidth;
-                } else {
-                    translateX = targetIndex * itemWidth - itemWidth;
-                }
-
-                this.x = translateX;
-                this.renderer.setStyle(element, 'transition-duration', '');
-                this.renderer.setStyle(element, 'transform', `translateX(${translateX}px)`);
-
-            }.bind(this);
-
-            unTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
-                const point = ev.touches[0];
-
-                if (Math.abs(point.pageX - startX) < Math.abs(point.pageY - startY)) {
-                    unbindFn();
-                    return;
-                }
-
-                let distance = oldX + point.pageX - startX;
-                if (distance > 0) {
-                    distance = 0;
-                }
-
-                if (distance < minDistance) {
-                    distance = minDistance;
-                }
-                this.x = distance;
-
-                this.renderer.setStyle(element, 'transform', `translateX(${distance}px)`);
-                ev.preventDefault();
-                return false;
-            });
-            unTouchEndFn = this.renderer.listen('document', 'touchend', unbindFn);
-            unTouchCancelFn = this.renderer.listen('document', 'touchcance', unbindFn);
+        this.sub = this.slidingEvent$.distinctUntilChanged().subscribe((n: number) => {
+            this.sliding.emit(n);
         });
+        this.childrenLength = this.items.toArray().length;
+        this.bindingDragEvent();
     }
 
-    bindingVerticalDragEvent() {
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
+
+    bindingDragEvent() {
         let element = this.elementRef.nativeElement;
         this.renderer.listen(element, 'touchstart', (event: any) => {
+
             const point = event.touches[0];
             const startX = point.pageX;
             const startY = point.pageY;
             this.renderer.setStyle(element, 'transition-duration', '0s');
-
-            const oldY = this.y;
+            const oldDistance = this.distance;
 
             let unTouchMoveFn: () => void;
             let unTouchEndFn: () => void;
             let unTouchCancelFn: () => void;
 
-            const itemHeight = element.offsetHeight / this.childrenLength;
-            const minDistance = itemHeight - element.offsetHeight;
+            let boxSize: number;
+            let maxDistance: number;
+            if (this.vertical) {
+                const offsetHeight = element.offsetHeight;
+                boxSize = offsetHeight / this.childrenLength;
+                maxDistance = boxSize - offsetHeight;
+            } else {
+                const offsetWidth = element.offsetWidth;
+                boxSize = offsetWidth / this.childrenLength;
+                maxDistance = boxSize - offsetWidth;
+            }
 
+            let isMoved: boolean = false;
             const unbindFn = function () {
+                isMoved = false;
                 unTouchMoveFn();
                 unTouchEndFn();
                 unTouchCancelFn();
 
-                const targetIndex = Math.ceil(this.y / itemHeight);
-                const offsetY = Math.abs(this.y % itemHeight);
+                const targetIndex = Math.ceil(this.distance / boxSize);
+                const offset = Math.abs(this.distance % boxSize);
 
-                let translateY: number;
-                if (offsetY < (itemHeight / 2)) {
-                    translateY = targetIndex * itemHeight;
+                let translate: number;
+                if (offset < (boxSize / 2)) {
+                    translate = targetIndex * boxSize;
                 } else {
-                    translateY = targetIndex * itemHeight - itemHeight;
+                    translate = targetIndex * boxSize - boxSize;
                 }
 
-                this.y = translateY;
+                this.distance = translate;
                 this.renderer.setStyle(element, 'transition-duration', '');
-                this.renderer.setStyle(element, 'transform', `translateY(${translateY}px)`);
+                this.renderer.setStyle(element, 'transform', `translate${this.vertical ? 'Y' : 'X'}(${translate}px)`);
+                // 发送事件，并传出当前滑动到了第几屏
+                this.slidingFinish.emit(this.distance / boxSize * -1);
 
             }.bind(this);
 
+
             unTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
-
                 const point = ev.touches[0];
-
-                if (Math.abs(point.pageX - startX) > Math.abs(point.pageY - startY)) {
-                    unbindFn();
-                    return;
+                let distance: number;
+                // 如果开启的是垂直方向拖动，则比较 Y 轴距离，否则比较 X 轴距离
+                if (this.vertical) {
+                    if ((Math.abs(point.pageX - startX) > Math.abs(point.pageY - startY)) && !isMoved) {
+                        unbindFn();
+                        return;
+                    } else {
+                        isMoved = true;
+                    }
+                    distance = oldDistance + point.pageY - startY;
+                } else {
+                    if ((Math.abs(point.pageX - startX) < Math.abs(point.pageY - startY)) && !isMoved) {
+                        unbindFn();
+                        return;
+                    } else {
+                        isMoved = true;
+                    }
+                    distance = oldDistance + point.pageX - startX;
                 }
-                let distance = oldY + point.pageY - startY;
                 if (distance > 0) {
                     distance = 0;
                 }
 
-                if (distance < minDistance) {
-                    distance = minDistance;
+                if (distance < maxDistance) {
+                    distance = maxDistance;
                 }
-                this.y = distance;
-                this.renderer.setStyle(element, 'transform', `translateY(${distance}px)`);
+                this.distance = distance;
+                this.renderer.setStyle(element, 'transform', `translate${this.vertical ? 'Y' : 'X'}(${distance}px)`);
                 ev.preventDefault();
+                // 发送事件，并传出当前已滑动到第几屏的进度
+                this.slidingEventSource.next(distance / boxSize * -1);
                 return false;
             });
             unTouchEndFn = this.renderer.listen('document', 'touchend', unbindFn);

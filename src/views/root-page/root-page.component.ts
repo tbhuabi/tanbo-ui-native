@@ -20,4 +20,8 @@ export class RootPageComponent implements OnInit {
             })
         }
     }
+
+    show(str: string) {
+        console.log(str);
+    }
 }

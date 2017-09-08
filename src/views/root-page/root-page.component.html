@@ -8,7 +8,9 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-collection [vertical]="false">
+    <ui-collection (sliding)="show('sliding: ' + $event)"
+                   (slidingFinish)="show('slidingFinish: '+$event)"
+                   [vertical]="false">
       <ui-collection-item [ngStyle]="item" *ngFor="let item of items; let i = index">{{i}}</ui-collection-item>
     </ui-collection>
   </ui-content>
