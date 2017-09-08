@@ -1,7 +1,7 @@
 <ui-page>
   <ui-header>
     <ui-navbar>
-      <ui-title>{{title}}</ui-title>
+      <ui-title>首页</ui-title>
       <ui-buttons (click)="change()">
         按扭
       </ui-buttons>
@@ -12,7 +12,12 @@
                    [index]="test"
                    (slidingFinish)="show('slidingFinish: '+$event)"
                    [vertical]="false">
-      <ui-collection-item [ngStyle]="item" *ngFor="let item of items; let i = index">{{i}}</ui-collection-item>
+      <ui-collection-item [ngStyle]="item" *ngFor="let item of items; let i = index">
+        <ui-refresher [progress]="progress"></ui-refresher>
+        <ui-scroll [openRefresh]="true" (rolling)="rolling($event)">
+          fdsafdsa
+        </ui-scroll>
+      </ui-collection-item>
     </ui-collection>
   </ui-content>
   <ui-footer>

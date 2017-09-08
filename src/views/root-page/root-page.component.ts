@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController, ConfirmController, NavController } from '../../modules/index';
+
+import { Page1Component } from '../page1/page1.component';
 
 @Component({
     templateUrl: './root-page.component.html',
@@ -6,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RootPageComponent implements OnInit {
     items: Array<any> = [];
-    test: number = 2;
+    test: number = 0;
+    progress: number = 0;
+
+    constructor(private navController: NavController,
+                private alertController: AlertController,
+                private confirmController: ConfirmController) {
+    }
 
     ngOnInit() {
 
@@ -21,6 +30,9 @@ export class RootPageComponent implements OnInit {
             })
         }
     }
+    rolling(progress: number) {
+        this.progress = progress;
+    }
 
     show(str: string) {
         // console.log(str);
@@ -33,5 +45,9 @@ export class RootPageComponent implements OnInit {
         setTimeout(() => {
             console.log(this.test);
         }, 300)
+    }
+
+    goToPage1() {
+        this.navController.push(Page1Component);
     }
 }
