@@ -8,53 +8,9 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-refresher [progress]="progress" [loading]="isLoading"></ui-refresher>
-    <ui-scroll (rolling)="rolling($event)"
-               (refresh)="refresh($event)"
-               (infinite)="infinite($event)"
-               [openRefresh]="true">
-      <div>fdsa</div>
-      <button type="button" (click)="test()" class="btn-block btn primary">click</button>
-      <ui-flex>
-        <ui-flex-item class="item-3">1</ui-flex-item>
-        <ui-flex-item>2</ui-flex-item>
-        <ui-flex-item>3</ui-flex-item>
-        <ui-flex-item>4</ui-flex-item>
-      </ui-flex>
-      <ui-button [loading]="true">login</ui-button>
-      <div>
-        <P>1</P>
-        <P>2</P>
-        <P>3</P>
-        <P>4</P>
-        <P>5</P>
-        <P>6</P>
-        <P>7</P>
-        <P>8</P>
-        <P>9</P>
-        <P>10</P>
-        <P>11</P>
-        <P>12</P>
-        <P>13</P>
-        <P>14</P>
-        <P>15</P>
-        <P>16</P>
-        <P>17</P>
-        <P>18</P>
-        <P>19</P>
-        <P>20</P>
-        <P>21</P>
-        <P>22</P>
-        <P>23</P>
-        <P>24</P>
-        <P>25</P>
-        <P>26</P>
-        <P>27</P>
-        <P>28</P>
-        <P>29</P>
-        <P>30</P>
-      </div>
-    </ui-scroll>
+    <ui-collection [vertical]="false">
+      <ui-collection-item [ngStyle]="item" *ngFor="let item of items; let i = index">{{i}}</ui-collection-item>
+    </ui-collection>
   </ui-content>
   <ui-footer>
     <button type="button" class="btn btn-success btn-block active" (click)="goToPage1()">下一页</button>

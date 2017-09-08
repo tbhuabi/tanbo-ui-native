@@ -1,3 +1,8 @@
 ui-collection {
-
+    @include fill-box;
+    display: flex;
+    transition: transform .3s;
+    &.vertical {
+        flex-direction: column;
+    }
 }
