@@ -1,5 +1,6 @@
 import {
     AfterContentInit,
+    AfterViewInit,
     Component,
     ContentChildren,
     ElementRef,
@@ -18,7 +19,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
     selector: 'ui-collection',
     templateUrl: './collection.component.html'
 })
-export class CollectionComponent implements AfterContentInit, OnDestroy {
+export class CollectionComponent implements AfterContentInit, OnDestroy, AfterViewInit {
     // 拖动事件
     @Output()
     sliding = new EventEmitter<number>();
@@ -28,6 +29,20 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     @Input()
     @HostBinding('class.vertical')
     vertical: boolean = false;
+
+    @Input()
+    set index(value: number) {
+        this._index = value;
+        if (this.items) {
+            this.renderer.setStyle(this.element, 'transition-duration', '');
+            this.setPosition();
+        }
+    }
+
+    get index() {
+        return this._index;
+    }
+
     @ContentChildren(CollectionItemComponent)
     items: QueryList<CollectionItemComponent>;
 
@@ -50,7 +65,8 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     private slidingEventSource = new Subject<number>();
 
     private sub: Subscription;
-;
+    private element: HTMLElement;
+    private _index: number = 1;
 
     constructor(private renderer: Renderer2,
                 private elementRef: ElementRef) {
@@ -58,6 +74,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
+        this.element = this.elementRef.nativeElement;
         this.sub = this.slidingEvent$.distinctUntilChanged().subscribe((n: number) => {
             this.sliding.emit(n);
         });
@@ -65,12 +82,30 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
         this.bindingDragEvent();
     }
 
+    ngAfterViewInit() {
+        this.renderer.setStyle(this.element, 'transition-duration', '0s');
+        this.setPosition();
+    }
+
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
 
+    setPosition() {
+        let element = this.element;
+        let itemWidth: number;
+        if (this.vertical) {
+            itemWidth = element.offsetHeight / this.childrenLength;
+        } else {
+            itemWidth = element.offsetWidth / this.childrenLength;
+        }
+        this.distance = this.index * -1 * itemWidth;
+        const style = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}px)`;
+        this.renderer.setStyle(element, 'transform', style);
+    }
+
     bindingDragEvent() {
-        let element = this.elementRef.nativeElement;
+        let element = this.element;
         this.renderer.listen(element, 'touchstart', (event: any) => {
 
             const startTime = Date.now();
@@ -167,7 +202,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
                 return false;
             });
             unTouchEndFn = this.renderer.listen('document', 'touchend', unbindFn);
-            unTouchCancelFn = this.renderer.listen('document', 'touchcance', unbindFn);
+            unTouchCancelFn = this.renderer.listen('document', 'touchcancel', unbindFn);
         });
     }
 }

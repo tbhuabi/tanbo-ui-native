@@ -2,13 +2,14 @@
   <ui-header>
     <ui-navbar>
       <ui-title>{{title}}</ui-title>
-      <ui-buttons>
+      <ui-buttons (click)="change()">
         按扭
       </ui-buttons>
     </ui-navbar>
   </ui-header>
   <ui-content>
     <ui-collection (sliding)="show('sliding: ' + $event)"
+                   [index]="test"
                    (slidingFinish)="show('slidingFinish: '+$event)"
                    [vertical]="false">
       <ui-collection-item [ngStyle]="item" *ngFor="let item of items; let i = index">{{i}}</ui-collection-item>

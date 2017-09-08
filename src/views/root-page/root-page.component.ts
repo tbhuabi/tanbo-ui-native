@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RootPageComponent implements OnInit {
     items: Array<any> = [];
+    test: number = 2;
 
     ngOnInit() {
 
@@ -22,6 +23,15 @@ export class RootPageComponent implements OnInit {
     }
 
     show(str: string) {
-        console.log(str);
+        // console.log(str);
+    }
+
+    change() {
+        console.log('change');
+        this.test = 0;
+
+        setTimeout(() => {
+            console.log(this.test);
+        }, 300)
     }
 }
