@@ -73,6 +73,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
         let element = this.elementRef.nativeElement;
         this.renderer.listen(element, 'touchstart', (event: any) => {
 
+            const startTime = Date.now();
             const point = event.touches[0];
             const startX = point.pageX;
             const startY = point.pageY;
@@ -97,6 +98,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
 
             let isMoved: boolean = false;
             const unbindFn = function () {
+                const endTime = Date.now();
                 isMoved = false;
                 unTouchMoveFn();
                 unTouchEndFn();
@@ -106,10 +108,19 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
                 const offset = Math.abs(this.distance % boxSize);
 
                 let translate: number;
-                if (offset < (boxSize / 2)) {
-                    translate = targetIndex * boxSize;
+                // 如果拖动的时间小于 200ms，且距离大于100px，则按当前拖动的方向计算，并直接设置对应的值
+                if (endTime - startTime < 200 && offset > 100) {
+                    if (oldDistance < this.distance) {
+                        translate = targetIndex * boxSize;
+                    } else {
+                        translate = targetIndex * boxSize - boxSize;
+                    }
                 } else {
-                    translate = targetIndex * boxSize - boxSize;
+                    if (offset < (boxSize / 2)) {
+                        translate = targetIndex * boxSize;
+                    } else {
+                        translate = targetIndex * boxSize - boxSize;
+                    }
                 }
 
                 this.distance = translate;
@@ -119,7 +130,6 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
                 this.slidingFinish.emit(this.distance / boxSize * -1);
 
             }.bind(this);
-
 
             unTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
                 const point = ev.touches[0];
