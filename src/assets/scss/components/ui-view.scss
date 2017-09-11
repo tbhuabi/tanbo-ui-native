@@ -12,11 +12,11 @@ ui-view {
         ui-title {
             animation: ui-title-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
-        ui-buttons {
-            animation: ui-buttons-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
+        //ui-buttons {
+        //    animation: ui-buttons-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+        //}
         ui-content, ui-footer {
-            animation: ui-content-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-activate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
     &.destroy {
@@ -29,11 +29,11 @@ ui-view {
         ui-title {
             animation: ui-title-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
-        ui-buttons {
-            animation: ui-buttons-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
+        //ui-buttons {
+        //    animation: ui-buttons-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+        //}
         ui-content, ui-footer {
-            animation: ui-content-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-destroy 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
     &.to-stack {
@@ -43,11 +43,11 @@ ui-view {
         ui-title {
             animation: ui-title-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
-        ui-buttons {
-            animation: ui-buttons-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
+        //ui-buttons {
+        //    animation: ui-buttons-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+        //}
         ui-content, ui-footer {
-            animation: ui-content-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-to-stack 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
     &.reactivate {
@@ -57,11 +57,11 @@ ui-view {
         ui-title {
             animation: ui-title-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
-        ui-buttons {
-            animation: ui-buttons-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
+        //ui-buttons {
+        //    animation: ui-buttons-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+        //}
         ui-content, ui-footer {
-            animation: ui-content-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-reactivate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
 }
@@ -225,46 +225,46 @@ ui-view {
 
 // ui-buttons
 
-@keyframes ui-buttons-activate {
-    0% {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes ui-buttons-destroy {
-    0% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-}
-
-@keyframes ui-buttons-to-stack {
-    0% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-}
-
-@keyframes ui-buttons-reactivate {
-    0% {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
+//@keyframes ui-buttons-activate {
+//    0% {
+//        opacity: 0;
+//        transform: translateX(100%);
+//    }
+//    100% {
+//        opacity: 1;
+//        transform: translateX(0);
+//    }
+//}
+//
+//@keyframes ui-buttons-destroy {
+//    0% {
+//        opacity: 1;
+//        transform: translateX(0);
+//    }
+//    100% {
+//        opacity: 0;
+//        transform: translateX(100%);
+//    }
+//}
+//
+//@keyframes ui-buttons-to-stack {
+//    0% {
+//        opacity: 1;
+//        transform: translateX(0);
+//    }
+//    100% {
+//        opacity: 0;
+//        transform: translateX(-100%);
+//    }
+//}
+//
+//@keyframes ui-buttons-reactivate {
+//    0% {
+//        opacity: 0;
+//        transform: translateX(-100%);
+//    }
+//    100% {
+//        opacity: 1;
+//        transform: translateX(0);
+//    }
+//}
