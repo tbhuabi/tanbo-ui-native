@@ -97,17 +97,32 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
             const oldPoint = event.touches[0];
 
             const oldY = oldPoint.pageY;
+            const oldX = oldPoint.pageX;
             const oldScrollTop = element.scrollTop;
+
+            let isScroll = true;
 
             this.renderer.setStyle(element, 'transitionDuration', '0ms');
 
             // 记录上一次未还原的偏移值
             const oldTranslateY = this.translateY;
 
+            let cancelTouchCancelFn: () => void;
+            let cancelTouchEndFn: () => void;
+            let touchedFn: () => void;
+
             const cancelTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
                 const newPoint = ev.touches[0];
                 const newY = newPoint.pageY;
+                const newX = newPoint.pageX;
                 const distance = newY - oldY;
+
+                if(isScroll && Math.abs(newX - oldX) >= Math.abs(newY - oldY)){
+                    touchedFn();
+                    return;
+                }
+
+                isScroll = false;
 
                 let translateY = 0;
 
@@ -129,8 +144,6 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
                 }
 
             });
-            let cancelTouchCancelFn: () => void;
-            let cancelTouchEndFn: () => void;
 
             const complete = function () {
                 if (isTouching) {
@@ -140,7 +153,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
                 this.transform = null;
             }.bind(this);
 
-            const touchedFn = function () {
+            touchedFn = function () {
                 isTouching = false;
                 let distanceTop = Math.abs(Number(this.actionDistanceTop));
                 this.renderer.setStyle(element, 'transition-duration', '');
