@@ -117,7 +117,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
                 const newX = newPoint.pageX;
                 const distance = newY - oldY;
 
-                if(isScroll && Math.abs(newX - oldX) >= Math.abs(newY - oldY)){
+                if (isScroll && Math.abs(newX - oldX) >= Math.abs(newY - oldY)) {
                     touchedFn();
                     return;
                 }

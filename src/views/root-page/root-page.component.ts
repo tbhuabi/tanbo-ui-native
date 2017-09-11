@@ -27,7 +27,7 @@ export class RootPageComponent implements OnInit {
 
             this.items.push({
                 background: `rgb(${getNumber()},${getNumber()},${getNumber()})`
-            })
+            });
         }
     }
     rolling(progress: number) {
@@ -44,7 +44,7 @@ export class RootPageComponent implements OnInit {
 
         setTimeout(() => {
             console.log(this.test);
-        }, 300)
+        }, 300);
     }
 
     goToPage1() {
