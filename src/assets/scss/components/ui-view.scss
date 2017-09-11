@@ -16,7 +16,7 @@ ui-view {
         //    animation: ui-buttons-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         //}
         ui-content, ui-footer {
-            animation: ui-content-activate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-activate 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
     &.destroy {
@@ -33,7 +33,7 @@ ui-view {
         //    animation: ui-buttons-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         //}
         ui-content, ui-footer {
-            animation: ui-content-destroy 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-destroy 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
     &.to-stack {
@@ -47,7 +47,7 @@ ui-view {
         //    animation: ui-buttons-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         //}
         ui-content, ui-footer {
-            animation: ui-content-to-stack 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-to-stack 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
     &.reactivate {
@@ -61,7 +61,7 @@ ui-view {
         //    animation: ui-buttons-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
         //}
         ui-content, ui-footer {
-            animation: ui-content-reactivate 0.5s cubic-bezier(0.36, 0.66, 0.4, 1);
+            animation: ui-content-reactivate 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
         }
     }
 }
@@ -179,7 +179,7 @@ ui-view {
 
 @keyframes ui-title-activate {
     0% {
-        transform: translateX(100%);
+        transform: translateX(60%);
     }
     100% {
         transform: translateX(0);
@@ -191,7 +191,7 @@ ui-view {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(100%);
+        transform: translateX(60%);
     }
 }
 
