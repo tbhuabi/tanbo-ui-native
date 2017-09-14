@@ -23,9 +23,11 @@ export class RefresherComponent implements AfterViewInit {
     // 开始触发进度条的临界值
     @Input()
     startThreshold = 30;
+
     // 是否为loading状态
-    @Input()
-    loading: boolean = false;
+    get loading() {
+        return this.progress >= this.threshold;
+    }
     // 进度条颜色
     @Input()
     progressColor: string;
