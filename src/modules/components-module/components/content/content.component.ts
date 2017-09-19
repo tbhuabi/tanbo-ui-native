@@ -8,10 +8,9 @@ import { ViewStateService } from '../view/view-state.service';
     templateUrl: './content.component.html'
 })
 export class ContentComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
-
     @HostBinding('class.has-popover')
     state: boolean = false;
+    private sub: Subscription;
 
     constructor(private viewStateService: ViewStateService) {
     }
