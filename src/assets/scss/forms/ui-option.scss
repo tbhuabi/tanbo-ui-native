@@ -1,18 +1,15 @@
 ui-option {
-    line-height: 2em;
+    line-height: 3em;
+    font-size: $font-size-larger;
+    text-align: center;
     transition: all .2s;
     display: block;
-    background: none;
     width: 100%;
     border: 0;
-    font-size: inherit;
-    text-align: left;
-    &:hover {
-        cursor: pointer;
-        background-color: hsla(hue($color-primary), saturation($color-primary), lightness($color-primary), .1);
-    }
-    &.selected {
-        background-color: hsla(hue($color-primary), saturation($color-primary), lightness($color-primary), .2);
+    background-color: #fff;
+    border-bottom: 1px solid $color-gray-light;
+    &:last-child {
+        border-bottom: 0;
     }
     &.disabled {
         background-color: hsla(hue($color-default), saturation($color-default), lightness($color-default), .2);
@@ -29,7 +26,8 @@ ui-option {
     line-height: inherit;
     font-size: inherit;
     cursor: inherit;
-    text-align: left;
+    text-align: inherit;
+    color: $color-primary;
     > div {
         white-space: normal;
         overflow: hidden;

@@ -8,17 +8,15 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-collection (sliding)="show('sliding: ' + $event)"
-                   [index]="test"
-                   (slidingFinish)="show('slidingFinish: '+$event)"
-                   [vertical]="false">
-      <ui-collection-item [ngStyle]="item" *ngFor="let item of items; let i = index">
-        <ui-refresher [progress]="progress"></ui-refresher>
-        <ui-scroll [openRefresh]="true" (rolling)="rolling($event)">
-          fdsafdsa
-        </ui-scroll>
-      </ui-collection-item>
-    </ui-collection>
+    <ui-scroll class="container">
+      <ui-select>
+        <ui-option>aaa</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+      </ui-select>
+    </ui-scroll>
   </ui-content>
   <ui-footer>
     <button type="button" class="btn btn-success btn-block active" (click)="goToPage1()">下一页</button>

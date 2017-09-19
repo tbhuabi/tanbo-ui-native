@@ -6,6 +6,7 @@ import { ConfirmController } from '../confirm/confirm-controller.service';
 import { ListActivatedService } from '../list-item/list-activated.service';
 import { NavController } from '../navigation/navigation-controller.service';
 import { ToastController } from '../toast/toast-controller.service';
+import { ViewStateService } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-app',
@@ -15,7 +16,8 @@ import { ToastController } from '../toast/toast-controller.service';
         ConfirmController,
         ListActivatedService,
         NavController,
-        ToastController
+        ToastController,
+        ViewStateService
     ]
 })
 export class AppComponent implements OnInit, AfterViewInit {

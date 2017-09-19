@@ -12,17 +12,15 @@
     &.#{$name} {
         color: $color;
         background-color: $bg-color;
-        @if $name != default {
-            border: $border-width solid $bg-color;
-        }
+        border: 1px solid $bg-color;
         &:hover {
             background-color: lighten($bg-color, 2);
         }
         &:focus {
-            background-color: darken($bg-color, 1);
+            background-color: darken($bg-color, 5);
         }
         &:active {
-            background-color: darken($bg-color, 5);
+            background-color: darken($bg-color, 10);
         }
         &.disabled, &[disabled], &[readonly] {
             opacity: .5;
@@ -31,12 +29,35 @@
                 background-color: $bg-color;
             }
         }
+
+    }
+    &.#{$name}-outline {
+        color: darken($bg-color, 10);
+        background-color: #fff;
+        border: 1px solid $bg-color;
+        //&:hover {
+        //    background-color: $color-gray-light;
+        //}
+        //&:focus {
+        //    background-color: darken($color-gray-light, 5);
+        //}
+        &:active {
+            background-color: $bg-color;
+            color: #fff;
+        }
+        &.disabled, &[disabled], &[readonly] {
+            opacity: .5;
+            cursor: not-allowed;
+            &:focus, &:hover, &:active {
+                background-color: $color-gray-light;
+            }
+        }
     }
 }
 
 .btn {
     display: inline-block;
-    border: $border-width solid $color-gray;
+    border: none;
     font-size: $button-font-size;
     cursor: pointer;
     line-height: $line-height;
@@ -52,7 +73,7 @@
     @include btn-size(xs, $button-padding-vertical-xs, $button-padding-horizontal-xs, $button-font-size-xs, $button-radius-sm);
     @include btn-size(lg, $button-padding-vertical-lg, $button-padding-horizontal-lg, $button-font-size-lg, $button-radius-lg);
 
-    @include btn-theme(default, $color-default, #fff);
+    @include btn-theme(default, #fff, $color-gray);
     @include btn-theme(primary, #fff, $color-primary);
     @include btn-theme(success, #fff, $color-success);
     @include btn-theme(info, #fff, $color-info);

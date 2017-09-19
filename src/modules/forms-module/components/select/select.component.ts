@@ -1,19 +1,21 @@
 import {
-    Component,
-    ContentChildren,
-    QueryList,
-    Input,
-    Output,
-    OnDestroy,
     AfterContentInit,
     ChangeDetectorRef,
+    Component,
+    ContentChildren,
     EventEmitter,
-    HostBinding
+    HostBinding,
+    Input,
+    OnDestroy,
+    Output,
+    QueryList
 } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { OptionComponent } from '../option/option.component';
+import { ViewStateService } from '../../../components-module/index';
 
 @Component({
     selector: 'ui-select',
@@ -22,7 +24,25 @@ import { OptionComponent } from '../option/option.component';
         provide: NG_VALUE_ACCESSOR,
         useExisting: SelectComponent,
         multi: true
-    }]
+    }],
+    animations: [
+        trigger('optionsContentAnimate', [
+            state('in', style({
+                transform: 'translateY(0)'
+            })),
+            state('out', style({
+                transform: 'translateY(100%)'
+            })),
+            transition('out <=> in', animate('0.2s ease-out'))
+        ]),
+        trigger('optionsBgAnimate', [state('*', style({
+            opacity: 0
+        })), state('in', style({
+            opacity: 1
+        })), state('out', style({
+            opacity: 0
+        })), transition('in <=> out', animate('0.2s'))])
+    ]
 })
 export class SelectComponent implements ControlValueAccessor, AfterContentInit, OnDestroy {
     @ContentChildren(OptionComponent)
@@ -41,7 +61,11 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     @Input()
     selectedIndex: number = 0;
 
-    open: boolean = false;
+    get optionsBgState() {
+        return this.animateState ? 'in' : 'out';
+    }
+
+    animateState: boolean = false;
     text: string = '';
 
     private value: string = '';
@@ -49,7 +73,32 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     private onTouched: (_: any) => any;
     private subs: Array<Subscription> = [];
 
-    constructor(private changeDetectorRef: ChangeDetectorRef) {
+    constructor(private changeDetectorRef: ChangeDetectorRef,
+                private viewStateService: ViewStateService) {
+    }
+
+    showOptions() {
+        let isReadonly = (this as any).hasOwnProperty('readonly');
+        isReadonly = isReadonly && this.readonly !== false;
+        let isDisabled = (this as any).hasOwnProperty('disabled');
+        isDisabled = isDisabled && this.disabled !== false;
+        if (!isDisabled && !isReadonly) {
+            this.focus = true;
+            this.animateState = true;
+            this.viewStateService.isShowPopover(true);
+        }
+    }
+
+    done() {
+        // 当弹窗动画完成时，发布事件
+        if (!this.animateState) {
+            this.focus = false;
+            this.viewStateService.isShowPopover(false);
+        }
+    }
+
+    hideOptions() {
+        this.animateState = false;
     }
 
     ngAfterContentInit() {
@@ -63,8 +112,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
             let sub = option.checked.subscribe((params: OptionComponent) => {
                 this.value = params.value;
                 this.text = params.text;
-                this.focus = false;
-                this.open = false;
+                this.animateState = false;
                 this.options.forEach((o: OptionComponent, i: number) => {
                     o.selected = false;
                     if (o === params) {
@@ -139,21 +187,5 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
 
     setDisabledState(isDisabled: boolean) {
         this.disabled = isDisabled;
-    }
-
-    trigger() {
-        let isReadonly = (this as any).hasOwnProperty('readonly');
-        isReadonly = isReadonly && this.readonly !== false;
-        let isDisabled = (this as any).hasOwnProperty('disabled');
-        isDisabled = isDisabled && this.disabled !== false;
-        if (!isDisabled && !isReadonly) {
-            this.open = !this.open;
-            this.focus = true;
-        }
-    }
-
-    escape() {
-        this.open = false;
-        this.focus = false;
     }
 }

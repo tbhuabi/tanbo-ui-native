@@ -4,7 +4,7 @@ ui-confirm {
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, .3);
+    background-color: $mask-background-color;
     z-index: $alert-z-index;
     @include flex-center;
     display: none;

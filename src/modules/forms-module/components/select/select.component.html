@@ -1,20 +1,15 @@
-<ui-drop-down [open]="open" (trigger)="trigger()" (escape)="escape()">
-  <ui-drop-down-fixed>
-    <div class="ui-select-fixed" renderTo="fixed">
-      <input [disabled]="disabled"
-             [name]="name"
-             readonly
-             type="text"
-             [value]="text">
-      <span>{{text}}</span>
-      <div class="ui-select-arrow">
-        <span class="caret"></span>
-      </div>
-    </div>
-  </ui-drop-down-fixed>
-  <ui-drop-down-menu>
-    <div class="ui-select-menu" renderTo="menu">
-      <ng-content selector="ui-option"></ng-content>
-    </div>
-  </ui-drop-down-menu>
-</ui-drop-down>
+<div class="ui-select-fixed" (click)="showOptions()">
+  <input [disabled]="disabled"
+         [name]="name"
+         readonly
+         type="text"
+         [value]="text">
+  <div class="ui-select-arrow">
+    <span class="caret"></span>
+  </div>
+</div>
+<div class="ui-select-modal" (click)="hideOptions()" [@optionsBgAnimate]="optionsBgState" (@optionsBgAnimate.done)="done()">
+  <div class="ui-select-options" [@optionsContentAnimate]="optionsBgState">
+    <ng-content></ng-content>
+  </div>
+</div>
