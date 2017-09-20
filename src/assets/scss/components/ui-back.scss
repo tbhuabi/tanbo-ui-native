@@ -7,7 +7,13 @@ ui-back {
     width: 0;
     position: relative;
     z-index: 1;
+    color: $color-primary;
+    cursor: pointer;
     .ui-back-text {
         font-size: $font-size-larger;
+    }
+
+    &:active {
+        opacity: .5;
     }
 }
