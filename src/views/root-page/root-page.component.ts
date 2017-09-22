@@ -8,6 +8,8 @@ import { Page1Component } from '../page1/page1.component';
     styleUrls: ['./root-page.component.scss']
 })
 export class RootPageComponent implements OnInit {
+
+    isShow: boolean = false;
     items: Array<any> = [];
     test: number = 0;
     progress: number = 0;
@@ -38,13 +40,10 @@ export class RootPageComponent implements OnInit {
         // console.log(str);
     }
 
-    change() {
-        console.log('change');
-        this.test = 0;
 
-        setTimeout(() => {
-            console.log(this.test);
-        }, 300);
+
+    change() {
+        this.isShow = !this.isShow;
     }
 
     goToPage1() {

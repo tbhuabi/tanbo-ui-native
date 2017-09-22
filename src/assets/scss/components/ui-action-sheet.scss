@@ -1,0 +1,16 @@
+ui-action-sheet {
+    &.show {
+        .ui-action-sheet {
+            transform: translateY(0);
+        }
+    }
+    .ui-action-sheet {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transform: translateY(100%);
+        transition: transform .3s;
+        z-index: $mask-z-index + 1;
+    }
+}

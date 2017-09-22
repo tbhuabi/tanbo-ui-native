@@ -14,6 +14,7 @@
 
 // 扩展样式主要用于各个组件搭配使用时，样式不符合预期的修改
 // components
+@import "components/ui-action-sheet";
 @import "components/ui-alert";
 @import "components/ui-app";
 @import "components/ui-back";
@@ -33,6 +34,7 @@
 @import "components/ui-list-option";
 @import "components/ui-list-sliding";
 @import "components/ui-list-thumbnail";
+@import "components/ui-mask";
 @import "components/ui-navbar";
 @import "components/ui-navigation";
 @import "components/ui-page";

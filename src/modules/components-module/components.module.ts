@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // 组件
+import { ActionSheetComponent } from './components/action-sheet/action-sheet.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AppComponent } from './components/app/app.component';
 import { BackComponent } from './components/back/back.component';
@@ -20,6 +21,7 @@ import { ListItemComponent } from './components/list-item/list-item.component';
 import { ListOptionComponent } from './components/list-option/list-option.component';
 import { ListSlidingComponent } from './components/list-sliding/list-sliding.component';
 import { ListThumbnailComponent } from './components/list-thumbnail/list-thumbnail.component';
+import { MaskComponent } from './components/mask/mask.component';
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PageComponent } from './components/page/page.component';
@@ -43,6 +45,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         CommonModule
     ],
     declarations: [
+        ActionSheetComponent,
         AlertComponent,
         AppComponent,
         BackComponent,
@@ -62,6 +65,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         ListOptionComponent,
         ListSlidingComponent,
         ListThumbnailComponent,
+        MaskComponent,
         NavBarComponent,
         NavigationComponent,
         PageComponent,
@@ -82,6 +86,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         ComponentHostDirective
     ],
     exports: [
+        ActionSheetComponent,
         AlertComponent,
         AppComponent,
         BackComponent,
@@ -101,6 +106,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         ListOptionComponent,
         ListSlidingComponent,
         ListThumbnailComponent,
+        MaskComponent,
         NavBarComponent,
         NavigationComponent,
         PageComponent,
