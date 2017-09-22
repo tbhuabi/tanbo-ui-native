@@ -36,8 +36,11 @@ export class RootPageComponent implements OnInit {
         this.progress = progress;
     }
 
-    show(str: string) {
-        // console.log(str);
+    show() {
+        this.confirmController.show({
+            title: 'title',
+            content: 'content'
+        });
     }
 
 

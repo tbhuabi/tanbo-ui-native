@@ -46,6 +46,7 @@ ui-confirm {
         font-size: $font-size-larger;
         border: none;
         border-radius: 0;
+        background-color: #fff;
         &:nth-child(2) {
             border-left: $border-width solid $color-gray-light;
             font-weight: 600;
