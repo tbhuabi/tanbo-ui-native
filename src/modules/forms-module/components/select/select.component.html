@@ -8,8 +8,10 @@
     <span class="caret"></span>
   </div>
 </div>
-<div class="ui-select-modal" (click)="hideOptions()" [@optionsBgAnimate]="optionsBgState" (@optionsBgAnimate.done)="done()">
-  <div class="ui-select-options" [@optionsContentAnimate]="optionsBgState">
-    <ng-content></ng-content>
+<ui-mask [show]="focus" (hide)="hide()" (click)="hideOptions()">
+  <div class="ui-select-modal">
+    <div class="ui-select-options">
+      <ng-content></ng-content>
+    </div>
   </div>
-</div>
+</ui-mask>
