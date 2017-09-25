@@ -43,8 +43,6 @@ export class RootPageComponent implements OnInit {
         });
     }
 
-
-
     change() {
         this.isShow = !this.isShow;
     }
