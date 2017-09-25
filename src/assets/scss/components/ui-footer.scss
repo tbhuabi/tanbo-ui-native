@@ -4,4 +4,5 @@ ui-footer {
     position: relative;
     z-index: 2;
     background-color: #fff;
+    contain: size style layout;
 }

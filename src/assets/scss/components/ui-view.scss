@@ -1,6 +1,6 @@
 ui-view {
     @include fill-box;
-    contain: size style layout;
+    contain: size style;
     overflow: hidden;
     &.activate {
         ui-header {
