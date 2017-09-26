@@ -6,7 +6,6 @@ ui-content {
     contain: size style layout;
     &.has-popover {
         z-index: 4;
-        box-shadow: none;
     }
     > .ui-content-shadow {
         z-index: -1;
