@@ -5,7 +5,8 @@ export enum ViewState {
     Activate = 'Activate',
     ToStack = 'ToStack',
     Destroy = 'Destroy',
-    Reactivate = 'Reactivate'
+    Reactivate = 'Reactivate',
+    Sleep = 'Sleep'
 }
 
 @Injectable()

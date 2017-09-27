@@ -73,6 +73,11 @@ export class ViewComponent implements OnInit, OnDestroy {
         return this.state === ViewState.Reactivate;
     }
 
+    @HostBinding('class.sleep')
+    get sleep() {
+        return this.state === ViewState.Sleep;
+    }
+
     private _state: ViewState;
     private sub: Subscription;
     private childInstance: any;

@@ -9,7 +9,6 @@ export class ActionSheetComponent {
     @Input()
     @HostBinding('class.show')
     set show(value: boolean) {
-        console.log(value);
         this._show = value;
         if (value) {
             this.viewStateService.isShowPopover(value);

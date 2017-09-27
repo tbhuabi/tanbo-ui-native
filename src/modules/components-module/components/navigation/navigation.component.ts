@@ -33,6 +33,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
                     component
                 });
             }
+
+            let sleepViewSize = this.views.length - 3;
+            while (sleepViewSize > -1) {
+                this.views[sleepViewSize].state = ViewState.Sleep;
+                sleepViewSize--;
+            }
         }));
         // 当导航回退时，设置相应动画状态
         this.subs.push(this.navController.popEvent$.subscribe(() => {
