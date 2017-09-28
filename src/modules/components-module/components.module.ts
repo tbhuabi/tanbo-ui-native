@@ -10,6 +10,7 @@ import { CollectionComponent } from './components/collection/collection.componen
 import { CollectionItemComponent } from './components/collection-item/collection-item.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { ContentComponent } from './components/content/content.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 import { FlexComponent } from './components/flex/flex.component';
 import { FlexItemComponent } from './components/flex-item/flex-item.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -54,6 +55,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         CollectionItemComponent,
         ConfirmComponent,
         ContentComponent,
+        DialogComponent,
         FlexComponent,
         FlexItemComponent,
         FooterComponent,
@@ -95,6 +97,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         CollectionItemComponent,
         ConfirmComponent,
         ContentComponent,
+        DialogComponent,
         FlexComponent,
         FlexItemComponent,
         FooterComponent,

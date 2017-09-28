@@ -8,7 +8,7 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-scroll class="container">
+    <ui-scroll class="container" (click)="change()">
       <ui-select>
         <ui-option>aaa</ui-option>
         <ui-option>bbb</ui-option>
@@ -16,11 +16,14 @@
         <ui-option>bbb</ui-option>
         <ui-option>bbb</ui-option>
       </ui-select>
-      <button type="button" class="btn primary" (click)="change()">bottom-sheet</button>
-      <ui-action-sheet [show]="isShow" (click)="change()">
-        <div class="action-sheet">fdsfdsa</div>
-      </ui-action-sheet>
+      <!--<button type="button" class="btn primary" (click)="change()">bottom-sheet</button>-->
+      <!--<ui-action-sheet [show]="isShow" (click)="change()">-->
+        <!--<div class="action-sheet">fdsfdsa</div>-->
+      <!--</ui-action-sheet>-->
       <button type="button" class="btn primary" (click)="show()"> confirm </button>
+      <!--<ui-dialog [show]="isShow">-->
+        <!--<div>testtes</div>-->
+      <!--</ui-dialog>-->
     </ui-scroll>
   </ui-content>
   <ui-footer>

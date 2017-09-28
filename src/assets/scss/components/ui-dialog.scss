@@ -1,0 +1,7 @@
+ui-dialog {
+    .ui-dialog {
+        @include fill-box;
+        @include flex-center;
+        z-index: $mask-z-index + 1;
+    }
+}
