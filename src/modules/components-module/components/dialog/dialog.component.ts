@@ -31,7 +31,6 @@ import { ViewStateService } from '../view/view-state.service';
 export class DialogComponent {
     @Input()
     set show(value: boolean) {
-        console.log(value);
         this._show = value;
         if (value) {
             this.viewStateService.isShowPopover(value);

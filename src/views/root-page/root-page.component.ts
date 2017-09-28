@@ -40,8 +40,6 @@ export class RootPageComponent implements OnInit {
         this.confirmController.show({
             title: 'title',
             content: 'content'
-        }).then(() => {
-            alert(333);
         });
     }
 
