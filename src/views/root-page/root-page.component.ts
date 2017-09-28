@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ConfirmController, NavController } from '../../modules/index';
+import { AlertController, ConfirmController, ContentLoadingController, NavController } from '../../modules/index';
 
 import { Page1Component } from '../page1/page1.component';
 
@@ -16,6 +16,7 @@ export class RootPageComponent implements OnInit {
 
     constructor(private navController: NavController,
                 private alertController: AlertController,
+                private pageLoadingController: ContentLoadingController,
                 private confirmController: ConfirmController) {
     }
 
@@ -32,8 +33,17 @@ export class RootPageComponent implements OnInit {
             });
         }
     }
+
     rolling(progress: number) {
         this.progress = progress;
+    }
+
+    showLoading() {
+        this.pageLoadingController.show();
+    }
+
+    hideLoading() {
+        this.pageLoadingController.hide();
     }
 
     show() {

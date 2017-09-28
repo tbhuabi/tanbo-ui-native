@@ -13,12 +13,14 @@ import { Subscription } from 'rxjs';
 import { ComponentHostDirective } from './component-host.directive';
 import { ViewState, ViewStateService } from './view-state.service';
 import { NavController } from '../navigation/navigation-controller.service';
+import { ContentLoadingController } from '../content-loading/content-loading.service';
 
 @Component({
     selector: 'ui-view',
     templateUrl: './view.component.html',
     providers: [
-        ViewStateService
+        ViewStateService,
+        ContentLoadingController
     ]
 })
 export class ViewComponent implements OnInit, OnDestroy {

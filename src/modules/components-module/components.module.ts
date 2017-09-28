@@ -10,6 +10,7 @@ import { CollectionComponent } from './components/collection/collection.componen
 import { CollectionItemComponent } from './components/collection-item/collection-item.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { ContentComponent } from './components/content/content.component';
+import { ContentLoadingComponent } from './components/content-loading/content-loading.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { FlexComponent } from './components/flex/flex.component';
 import { FlexItemComponent } from './components/flex-item/flex-item.component';
@@ -22,6 +23,7 @@ import { ListItemComponent } from './components/list-item/list-item.component';
 import { ListOptionComponent } from './components/list-option/list-option.component';
 import { ListSlidingComponent } from './components/list-sliding/list-sliding.component';
 import { ListThumbnailComponent } from './components/list-thumbnail/list-thumbnail.component';
+import { LoadingComponent } from './components/loading/loading.component';
 import { MaskComponent } from './components/mask/mask.component';
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -55,6 +57,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         CollectionItemComponent,
         ConfirmComponent,
         ContentComponent,
+        ContentLoadingComponent,
         DialogComponent,
         FlexComponent,
         FlexItemComponent,
@@ -67,6 +70,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         ListOptionComponent,
         ListSlidingComponent,
         ListThumbnailComponent,
+        LoadingComponent,
         MaskComponent,
         NavBarComponent,
         NavigationComponent,
@@ -97,6 +101,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         CollectionItemComponent,
         ConfirmComponent,
         ContentComponent,
+        ContentLoadingComponent,
         DialogComponent,
         FlexComponent,
         FlexItemComponent,
@@ -109,6 +114,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         ListOptionComponent,
         ListSlidingComponent,
         ListThumbnailComponent,
+        LoadingComponent,
         MaskComponent,
         NavBarComponent,
         NavigationComponent,
