@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
-import { ViewStateService } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-dialog',
@@ -30,24 +29,10 @@ import { ViewStateService } from '../view/view-state.service';
 })
 export class DialogComponent {
     @Input()
-    set show(value: boolean) {
-        this._show = value;
-        if (value) {
-            this.viewStateService.isShowPopover(value);
-        }
-    }
-
-    get show() {
-        return this._show;
-    }
+    show: boolean = false;
 
     @Output()
     hide = new EventEmitter<void>();
-
-    private _show: boolean = false;
-
-    constructor(private viewStateService: ViewStateService) {
-    }
 
     animationEnd() {
         this.hide.emit();

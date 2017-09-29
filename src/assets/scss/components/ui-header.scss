@@ -4,7 +4,6 @@ ui-header {
     background-color: $header-bg;
     border-bottom: $header-border-bottom;
     position: relative;
-    z-index: 2;
     &.native {
         min-height: $header-height + 20;
         padding-top: 20px;

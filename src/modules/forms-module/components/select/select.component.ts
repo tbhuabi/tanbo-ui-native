@@ -14,7 +14,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { OptionComponent } from '../option/option.component';
-import { ViewStateService } from '../../../components-module/index';
 
 @Component({
     selector: 'ui-select',
@@ -49,8 +48,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     private onTouched: (_: any) => any;
     private subs: Array<Subscription> = [];
 
-    constructor(private changeDetectorRef: ChangeDetectorRef,
-                private viewStateService: ViewStateService) {
+    constructor(private changeDetectorRef: ChangeDetectorRef) {
     }
 
     showOptions() {
@@ -60,12 +58,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
         isDisabled = isDisabled && this.disabled !== false;
         if (!isDisabled && !isReadonly) {
             this.focus = true;
-            this.viewStateService.isShowPopover(true);
         }
-    }
-
-    hide() {
-        this.viewStateService.isShowPopover(false);
     }
 
     hideOptions() {

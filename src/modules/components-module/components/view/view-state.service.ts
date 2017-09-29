@@ -12,20 +12,13 @@ export enum ViewState {
 @Injectable()
 export class ViewStateService {
     destroyEvent$: Observable<void>;
-    popoverState$: Observable<boolean>;
     private destroyEventSource = new Subject<void>();
-    private popoverStateSource = new Subject<boolean>();
 
     constructor() {
         this.destroyEvent$ = this.destroyEventSource.asObservable();
-        this.popoverState$ = this.popoverStateSource.asObservable();
     }
 
     destroy() {
         this.destroyEventSource.next();
-    }
-
-    isShowPopover(state: boolean) {
-        this.popoverStateSource.next(state);
     }
 }
