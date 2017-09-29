@@ -36,14 +36,14 @@ $grid-column-padding: 15px !default; // 每列的距离
 
 // 盒模型圆角配置
 $radius-base: 4px !default; // 基本圆角
-$radius-sm: $radius-base - 0.55px !default; // 小圆角
-$radius-xs: $radius-sm - 0.55px !default; // 更小的圆角
+$radius-sm: $radius-base - $border-width !default; // 小圆角
+$radius-xs: $radius-sm - $border-width !default; // 更小的圆角
 $radius-lg: $radius-base + 2px !default; // 大圆角
 
 // 按扭
 $button-padding-vertical: 5px !default;
 $button-padding-vertical-sm: $button-padding-vertical - 3px !default;
-$button-padding-vertical-xs: $button-padding-vertical-sm - 0.55px !default;
+$button-padding-vertical-xs: $button-padding-vertical-sm - $border-width !default;
 $button-padding-vertical-lg: $button-padding-vertical + 2px !default;
 
 $button-padding-horizontal: 12px !default;
@@ -58,8 +58,8 @@ $button-radius-xs: $radius-xs !default;
 $button-radius-lg: $radius-lg !default;
 
 $button-font-size: $font-size-base !default;
-$button-font-size-sm: $button-font-size - 0.55px !default;
-$button-font-size-xs: $button-font-size-sm - 0.55px !default;
+$button-font-size-sm: $button-font-size - $border-width !default;
+$button-font-size-xs: $button-font-size-sm - $border-width !default;
 $button-font-size-lg: $button-font-size + 4px !default;
 
 // 列表
@@ -94,13 +94,13 @@ $toast-height: 140px !default;
 
 $header-height: 44px !default;
 $header-bg: #f8f8f8 !default;
-$header-border-bottom: 0.55px solid rgba(0, 0, 0, .3) !default;
+$header-border-bottom: $border-width solid rgba(0, 0, 0, .3) !default;
 
 $footer-height: 44px !default;
 
 $tab-bar-height: 42px !default;
 $tab-bar-bg: #f8f8f8 !default;
-$tab-bar-border-top: 0.55px solid rgba(0, 0, 0, .3) !default;
+$tab-bar-border-top: $border-width solid rgba(0, 0, 0, .3) !default;
 
 $icon-font-size: 1.6em !default;
 
