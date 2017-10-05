@@ -61,7 +61,7 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
         return this.state === ViewState.Sleep;
     }
 
-    private _state: ViewState;
+    private _state: ViewState = ViewState.Sleep;
     private sub: Subscription;
     private childInstance: any;
 
@@ -90,7 +90,7 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
 
     createTweenFactor() {
         if (this.state === ViewState.Sleep) {
-            return
+            return;
         }
         if (this.state === null) {
             this.viewStateService.publish({
@@ -103,7 +103,7 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
         let i = 0;
         const self = this;
         const fn = function () {
-            i += 3;
+            i += 4;
             if (i > 100) {
                 if (self.state === ViewState.Destroy) {
                     self.viewStateService.destroy();

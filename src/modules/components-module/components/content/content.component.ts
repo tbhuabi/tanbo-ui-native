@@ -30,7 +30,10 @@ export class ContentComponent implements OnDestroy, OnInit {
                     this.translate = `translateX(${progress * 100 / -2}%)`;
                     break;
                 case ViewState.Reactivate:
-                    this.translate = `translateX(${-50 + progress * 100 / 2}%)`;
+                    let n = -50 + progress * 100 / 2;
+                    // 当dom元素的style有transform属性时，会导致子级元素 position: fixed 全屏失效
+                    // 会跟着有定位的父级同样大小
+                    this.translate = n === 0 ? '' : `translateX(${n}%)`;
                     break;
             }
         });
