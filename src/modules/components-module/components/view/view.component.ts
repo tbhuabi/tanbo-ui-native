@@ -1,8 +1,8 @@
 import {
+    AfterViewInit,
     Component,
     ComponentFactoryResolver,
     HostBinding,
-    HostListener,
     Input,
     OnDestroy,
     OnInit,
@@ -23,7 +23,7 @@ import { ContentLoadingController } from '../content-loading/content-loading.ser
         ContentLoadingController
     ]
 })
-export class ViewComponent implements OnInit, OnDestroy {
+export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input()
     component: any;
     @ViewChild(ComponentHostDirective)
@@ -34,6 +34,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         this._state = value;
         // 根据视图不同状态，调用生命周期勾子
         if (this.childInstance) {
+            this.createTweenFactor();
             switch (value) {
                 case ViewState.Activate:
                 case ViewState.Reactivate:
@@ -103,14 +104,42 @@ export class ViewComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
+    ngAfterViewInit() {
+        this.createTweenFactor();
     }
 
-    @HostListener('animationend', ['$event'])
-    animationEnd(event: any) {
-        if (/^ui-[-\w]+-destroy$/.test(event.animationName)) {
-            this.viewStateService.destroy();
+    createTweenFactor() {
+        if (this.state === ViewState.Sleep) {
+            return
         }
+        if (this.state === null) {
+            this.viewStateService.publish({
+                state: null,
+                progress: 100
+            });
+            return;
+        }
+
+        let i = 0;
+        const self = this;
+        const fn = function () {
+            i += 1;
+            if (i > 100) {
+                if (self.state === ViewState.Destroy) {
+                    self.viewStateService.destroy();
+                }
+                return;
+            }
+            self.viewStateService.publish({
+                state: self.state,
+                progress: i
+            });
+            requestAnimationFrame(fn);
+        };
+        requestAnimationFrame(fn);
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 }

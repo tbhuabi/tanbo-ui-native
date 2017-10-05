@@ -5,68 +5,68 @@ ui-view {
     &.sleep {
         display: none;
     }
-    &.activate {
-        ui-header {
-            animation: ui-header-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-        ui-back > .ui-back-text {
-            animation: ui-back-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-        ui-title {
-            animation: ui-title-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-        //ui-buttons {
-        //    animation: ui-buttons-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        //}
-        ui-content, ui-footer {
-            animation: ui-content-activate 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-    }
-    &.destroy {
-        ui-header {
-            animation: ui-header-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-        ui-back > .ui-back-text {
-            animation: ui-back-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-        ui-title {
-            animation: ui-title-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-        //ui-buttons {
-        //    animation: ui-buttons-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        //}
-        ui-content, ui-footer {
-            animation: ui-content-destroy 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-    }
-    &.to-stack {
-        ui-back > .ui-back-text {
-            animation: ui-back-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-        ui-title {
-            animation: ui-title-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-        //ui-buttons {
-        //    animation: ui-buttons-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        //}
-        ui-content, ui-footer {
-            animation: ui-content-to-stack 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-    }
-    &.reactivate {
-        ui-back > .ui-back-text {
-            animation: ui-back-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-        ui-title {
-            animation: ui-title-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-        //ui-buttons {
-        //    animation: ui-buttons-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
-        //}
-        ui-content, ui-footer {
-            animation: ui-content-reactivate 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
-        }
-    }
+    //&.activate {
+    //    ui-header {
+    //        animation: ui-header-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //    ui-back > .ui-back-text {
+    //        animation: ui-back-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //    ui-title {
+    //        animation: ui-title-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //    //ui-buttons {
+    //    //    animation: ui-buttons-activate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    //}
+    //    ui-content, ui-footer {
+    //        animation: ui-content-activate 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //}
+    //&.destroy {
+    //    ui-header {
+    //        animation: ui-header-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //    ui-back > .ui-back-text {
+    //        animation: ui-back-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //    ui-title {
+    //        animation: ui-title-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //    //ui-buttons {
+    //    //    animation: ui-buttons-destroy 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    //}
+    //    ui-content, ui-footer {
+    //        animation: ui-content-destroy 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //}
+    //&.to-stack {
+    //    ui-back > .ui-back-text {
+    //        animation: ui-back-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //    ui-title {
+    //        animation: ui-title-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //    //ui-buttons {
+    //    //    animation: ui-buttons-to-stack 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    //}
+    //    ui-content, ui-footer {
+    //        animation: ui-content-to-stack 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //}
+    //&.reactivate {
+    //    ui-back > .ui-back-text {
+    //        animation: ui-back-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //    ui-title {
+    //        animation: ui-title-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //    //ui-buttons {
+    //    //    animation: ui-buttons-reactivate 0.4s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    //}
+    //    ui-content, ui-footer {
+    //        animation: ui-content-reactivate 0.45s cubic-bezier(0.36, 0.66, 0.4, 1);
+    //    }
+    //}
 }
 
 // ui-content

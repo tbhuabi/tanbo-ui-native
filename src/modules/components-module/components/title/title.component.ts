@@ -1,8 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
+
+const TWEEN = require('tween.js');
 
 @Component({
     selector: 'ui-title',
     templateUrl: './title.component.html'
 })
-export class TitleComponent {
+export class TitleComponent implements OnDestroy, OnInit {
+    @HostBinding('style.transform')
+    translate: string;
+    @HostBinding('style.opacity')
+    opacity: number;
+    private sub: Subscription;
+
+    constructor(private viewStateService: ViewStateService) {
+    }
+
+    ngOnInit() {
+        this.sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
+            const progress = TWEEN.Easing.Cubic.Out(status.progress / 100);
+            let n: number;
+            switch (status.state) {
+                case ViewState.Activate:
+                    this.translate = `translateX(${60 - progress * 60}%)`;
+                    break;
+                case ViewState.Destroy:
+                    this.translate = `translateX(${progress * 60}%)`;
+                    break;
+                case ViewState.ToStack:
+                    this.translate = `translateX(${progress * 120 / -2}%)`;
+                    n = 1 - progress * 2;
+                    this.opacity = n < 0 ? 0 : n;
+                    break;
+                case ViewState.Reactivate:
+                    this.translate = `translateX(${-40 + progress * 80 / 2}%)`;
+                    n = progress * 2;
+                    this.opacity = n > 1 ? 1 : n;
+                    break;
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
 }
