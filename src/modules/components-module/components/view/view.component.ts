@@ -56,26 +56,6 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
         return this._state;
     }
 
-    @HostBinding('class.activate')
-    get activate() {
-        return this.state === ViewState.Activate;
-    }
-
-    @HostBinding('class.destroy')
-    get destroy() {
-        return this.state === ViewState.Destroy;
-    }
-
-    @HostBinding('class.to-stack')
-    get toStack() {
-        return this.state === ViewState.ToStack;
-    }
-
-    @HostBinding('class.reactivate')
-    get reactivate() {
-        return this.state === ViewState.Reactivate;
-    }
-
     @HostBinding('class.sleep')
     get sleep() {
         return this.state === ViewState.Sleep;
@@ -123,11 +103,16 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
         let i = 0;
         const self = this;
         const fn = function () {
-            i += 1;
+            i += 3;
             if (i > 100) {
                 if (self.state === ViewState.Destroy) {
                     self.viewStateService.destroy();
                 }
+                i = 100;
+                self.viewStateService.publish({
+                    state: self.state,
+                    progress: i
+                });
                 return;
             }
             self.viewStateService.publish({

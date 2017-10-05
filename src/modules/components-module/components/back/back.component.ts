@@ -28,6 +28,8 @@ export class BackComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
             const progress = TWEEN.Easing.Cubic.Out(status.progress / 100);
+            let n: number = status.progress / 50;
+            let m: number;
             switch (status.state) {
                 case ViewState.Activate:
                     this.translate = `translateX(${100 - progress * 100}%)`;
@@ -35,12 +37,13 @@ export class BackComponent implements OnInit, OnDestroy {
                     break;
                 case ViewState.Destroy:
                     this.translate = `translateX(${progress * 100}%)`;
-                    const n = 1 - TWEEN.Easing.Linear.None(status.progress / 100) * 2;
-                    this.opacity = n < 0 ? 0 : n;
+                    m = 1 - n;
+                    this.opacity = m < 0 ? 0 : m;
                     break;
                 case ViewState.ToStack:
                     this.translate = `translateX(${progress * 100 / -2}%)`;
-                    this.opacity = 1 - progress;
+                    m = 1 - n;
+                    this.opacity = m < 0 ? 0 : m;
                     break;
                 case ViewState.Reactivate:
                     this.translate = `translateX(${-50 + progress * 100 / 2}%)`;

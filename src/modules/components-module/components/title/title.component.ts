@@ -30,8 +30,8 @@ export class TitleComponent implements OnDestroy, OnInit {
                     this.translate = `translateX(${progress * 60}%)`;
                     break;
                 case ViewState.ToStack:
-                    this.translate = `translateX(${progress * 120 / -2}%)`;
-                    n = 1 - progress * 2;
+                    this.translate = `translateX(${status.progress * -0.8}%)`;
+                    n = 1 - progress * 1.3;
                     this.opacity = n < 0 ? 0 : n;
                     break;
                 case ViewState.Reactivate:
