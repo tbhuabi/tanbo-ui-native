@@ -41,13 +41,14 @@ export class BackComponent implements OnInit, OnDestroy {
                     this.opacity = m < 0 ? 0 : m;
                     break;
                 case ViewState.ToStack:
-                    this.translate = `translateX(${progress * 100 / -2}%)`;
+                    this.translate = `translateX(${status.progress / -2}%)`;
                     m = 1 - n;
                     this.opacity = m < 0 ? 0 : m;
                     break;
                 case ViewState.Reactivate:
-                    this.translate = `translateX(${-50 + progress * 100 / 2}%)`;
-                    this.opacity = progress;
+                    this.translate = `translateX(${-50 + progress * 50}%)`;
+                    m = progress * 2;
+                    this.opacity = m > 1 ? 1 : m;
                     break;
             }
         });

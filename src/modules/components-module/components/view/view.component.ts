@@ -108,7 +108,7 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
         let i = 0;
         const self = this;
         const fn = function () {
-            i += 4;
+            i += 3.6;
             if (i > 100) {
                 if (self.state === ViewState.Destroy) {
                     self.viewStateService.destroy();

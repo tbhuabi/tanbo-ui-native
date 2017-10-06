@@ -24,18 +24,18 @@ export class TitleComponent implements OnDestroy, OnInit {
             let n: number;
             switch (status.state) {
                 case ViewState.Activate:
-                    this.translate = `translateX(${60 - progress * 60}%)`;
+                    this.translate = `translateX(${70 - progress * 70}%)`;
                     break;
                 case ViewState.Destroy:
-                    this.translate = `translateX(${progress * 60}%)`;
+                    this.translate = `translateX(${progress * 70}%)`;
                     break;
                 case ViewState.ToStack:
-                    this.translate = `translateX(${status.progress * -0.8}%)`;
+                    this.translate = `translateX(${progress * -48}%)`;
                     n = 1 - progress * 1.3;
                     this.opacity = n < 0 ? 0 : n;
                     break;
                 case ViewState.Reactivate:
-                    this.translate = `translateX(${-40 + progress * 80 / 2}%)`;
+                    this.translate = `translateX(${-48 + progress * 48}%)`;
                     n = progress * 2;
                     this.opacity = n > 1 ? 1 : n;
                     break;

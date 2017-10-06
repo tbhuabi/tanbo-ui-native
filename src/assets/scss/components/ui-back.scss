@@ -9,6 +9,7 @@ ui-back {
     z-index: 1;
     color: $color-primary;
     cursor: pointer;
+    transition: opacify .3s;
     .ui-back-text {
         font-size: $font-size-larger;
     }
