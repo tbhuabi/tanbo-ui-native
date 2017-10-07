@@ -1,8 +1,8 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
+import * as TWEEN from '@tweenjs/tween.js';
 
-const TWEEN = require('tween.js');
+import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-header',

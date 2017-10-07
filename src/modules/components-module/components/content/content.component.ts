@@ -1,9 +1,9 @@
 import { Component, ElementRef, HostBinding, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import * as TWEEN from '@tweenjs/tween.js';
+
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
 import { NavController } from '../navigation/navigation-controller.service';
-
-const TWEEN = require('tween.js');
 
 @Component({
     selector: 'ui-content',

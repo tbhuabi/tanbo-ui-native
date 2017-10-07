@@ -1,6 +1,6 @@
 {
   "name": "tanbo-ui-native",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "angular components & directives & pipes ...",
   "main": "./bundles/index.js",
   "module": "./bundles/index.ts",
@@ -39,11 +39,11 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@tweenjs/tween.js": "^17.1.1",
     "@types/tween.js": "^16.6.1",
     "core-js": "^2.4.0",
     "normalize.css": "^7.0.0",
     "rxjs": "^5.4.2",
-    "tween.js": "^16.6.0",
     "zone.js": "^0.8.12"
   },
   "devDependencies": {
