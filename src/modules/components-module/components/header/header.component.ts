@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     opacity: number = 1;
 
     private sub: Subscription;
+    private state: ViewState;
 
     constructor(private viewStateService: ViewStateService) {
     }
@@ -25,10 +26,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
             switch (status.state) {
                 case ViewState.Activate:
+                    this.state = status.state;
                     this.opacity = TWEEN.Easing.Linear.None(status.progress / 100);
                     break;
                 case ViewState.Destroy:
+                    this.state = status.state;
                     this.opacity = TWEEN.Easing.Linear.None(1 - status.progress / 100);
+                    break;
+                case ViewState.ToStack:
+                case ViewState.Reactivate:
+                    this.state = status.state;
+                    break;
+                case ViewState.Moving:
+                    if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
+                        this.opacity = TWEEN.Easing.Linear.None(1 - status.progress / 100);
+                    }
                     break;
             }
         });

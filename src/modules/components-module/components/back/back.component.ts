@@ -14,6 +14,7 @@ export class BackComponent implements OnInit, OnDestroy {
     translate: string;
 
     private sub: Subscription;
+    private state: ViewState;
 
     constructor(private navController: NavController,
                 private viewStateService: ViewStateService) {
@@ -32,23 +33,38 @@ export class BackComponent implements OnInit, OnDestroy {
             let m: number;
             switch (status.state) {
                 case ViewState.Activate:
+                    this.state = status.state;
                     this.translate = `translateX(${100 - progress * 100}%)`;
                     this.opacity = progress;
                     break;
                 case ViewState.Destroy:
+                    this.state = status.state;
                     this.translate = `translateX(${progress * 100}%)`;
                     m = 1 - n;
                     this.opacity = m < 0 ? 0 : m;
                     break;
                 case ViewState.ToStack:
+                    this.state = status.state;
                     this.translate = `translateX(${status.progress / -2}%)`;
                     m = 1 - n;
                     this.opacity = m < 0 ? 0 : m;
                     break;
                 case ViewState.Reactivate:
+                    this.state = status.state;
                     this.translate = `translateX(${-50 + progress * 50}%)`;
                     m = progress * 2;
                     this.opacity = m > 1 ? 1 : m;
+                    break;
+                case ViewState.Moving:
+                    if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
+                        this.translate = `translateX(${status.progress}%)`;
+                        m = 1 - n;
+                        this.opacity = m < 0 ? 0 : m;
+                    } else if (this.state === ViewState.ToStack) {
+                        this.translate = `translateX(${-50 + status.progress / 2}%)`;
+                        m = progress * 2;
+                        this.opacity = m > 1 ? 1 : m;
+                    }
                     break;
             }
         });

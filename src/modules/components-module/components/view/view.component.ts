@@ -26,8 +26,10 @@ import { ContentLoadingController } from '../content-loading/content-loading.ser
 export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input()
     component: any;
-    @ViewChild(ComponentHostDirective)
-    componentHost: ComponentHostDirective;
+    @Input()
+    openAnimation: boolean = true;
+    @Input()
+    viewIndex: number;
 
     @Input()
     set state(value) {
@@ -52,6 +54,9 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
+    @ViewChild(ComponentHostDirective)
+    componentHost: ComponentHostDirective;
+
     get state() {
         return this._state;
     }
@@ -61,13 +66,8 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
         return this.state === ViewState.Sleep;
     }
 
-    @HostBinding('class.activate')
-    get activate() {
-        return this.state === ViewState.Activate;
-    }
-
     private _state: ViewState;
-    private sub: Subscription;
+    private subs: Array<Subscription> = [];
     private childInstance: any;
 
     constructor(private viewStateService: ViewStateService,
@@ -84,9 +84,21 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         }
 
-        this.sub = this.viewStateService.destroyEvent$.distinctUntilChanged().subscribe(() => {
+        this.subs.push(this.viewStateService.destroyEvent$.distinctUntilChanged().subscribe(() => {
             this.navController.destroy();
-        });
+        }));
+
+        this.subs.push(this.navController.moveBackProgress$.subscribe((progress: number) => {
+            if (this.viewIndex === 0) {
+                if (this.state === ViewState.Reactivate || this.state === ViewState.Activate || this.state === null) {
+                    return;
+                }
+            }
+            this.viewStateService.publish({
+                state: ViewState.Moving,
+                progress
+            });
+        }));
     }
 
     ngAfterViewInit() {
@@ -100,6 +112,14 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.state === null) {
             this.viewStateService.publish({
                 state: null,
+                progress: 100
+            });
+            return;
+        }
+
+        if (!this.openAnimation) {
+            this.viewStateService.publish({
+                state: this.state,
                 progress: 100
             });
             return;
@@ -130,6 +150,8 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.subs.forEach(item => {
+            item.unsubscribe();
+        });
     }
 }

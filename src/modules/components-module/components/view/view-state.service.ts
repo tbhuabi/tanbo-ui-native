@@ -6,7 +6,8 @@ export enum ViewState {
     ToStack = 'ToStack',
     Destroy = 'Destroy',
     Reactivate = 'Reactivate',
-    Sleep = 'Sleep'
+    Sleep = 'Sleep',
+    Moving = 'Moving'
 }
 
 export interface ViewAnimationStatus {

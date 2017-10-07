@@ -5,23 +5,4 @@ ui-view {
     &.sleep {
         display: none;
     }
-
-    &.activate {
-        ui-header {
-            opacity: 0;
-        }
-
-        ui-back > .ui-back-text {
-            opacity: 0;
-            transform: translateX(100%);
-        }
-
-        ui-title {
-            transform: translateX(60%);
-        }
-
-        ui-content, ui-footer {
-            transform: translateX(100%);
-        }
-    }
 }
