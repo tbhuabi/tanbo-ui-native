@@ -119,7 +119,7 @@ export class ContentComponent implements OnDestroy, OnInit {
         };
 
         let increasing = function () {
-            progress += 3;
+            progress += 4;
             if (progress > 100) {
                 progress = 100;
                 self.navController.publishMoveBackEvent(progress);
