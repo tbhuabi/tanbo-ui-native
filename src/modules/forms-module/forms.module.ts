@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { UiDirectivesModule } from '../directives-module/directives.module';
-import { UiComponentsModule } from '../components-module/components.module';
+import { UIDirectivesModule } from '../directives-module/directives.module';
+import { UIComponentsModule } from '../components-module/components.module';
 // 组件
 import { ButtonComponent } from './components/button/button.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
@@ -22,8 +22,8 @@ import { RadioStateService } from './components/radio/radio-state.service';
 @NgModule({
     imports: [
         CommonModule,
-        UiDirectivesModule,
-        UiComponentsModule,
+        UIDirectivesModule,
+        UIComponentsModule,
         FormsModule
     ],
     declarations: [
@@ -61,5 +61,5 @@ import { RadioStateService } from './components/radio/radio-state.service';
     ]
 })
 
-export class UiFormsModule {
+export class UIFormsModule {
 }

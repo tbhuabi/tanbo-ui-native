@@ -134,5 +134,5 @@ import { ComponentHostDirective } from './components/view/component-host.directi
     ]
 })
 
-export class UiComponentsModule {
+export class UIComponentsModule {
 }

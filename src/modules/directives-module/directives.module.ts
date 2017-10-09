@@ -10,5 +10,5 @@ import { StopPropagationDirective } from './directives/stop-propagation.directiv
         StopPropagationDirective
     ]
 })
-export class UiDirectivesModule {
+export class UIDirectivesModule {
 }

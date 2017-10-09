@@ -7,4 +7,4 @@ export { ContentLoadingController } from './components/content-loading/content-l
 export { NavController } from './components/navigation/navigation-controller.service';
 export { OnViewEnter, OnViewLeave } from './components/view/view-life-cycle';
 
-export { UiComponentsModule } from './components.module';
+export { UIComponentsModule } from './components.module';

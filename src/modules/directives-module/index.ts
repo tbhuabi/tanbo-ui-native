@@ -1,1 +1,1 @@
-export { UiDirectivesModule } from './directives.module';
+export { UIDirectivesModule } from './directives.module';
