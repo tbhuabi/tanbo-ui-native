@@ -80,6 +80,7 @@ export class ContentComponent implements OnDestroy, OnInit {
 
         const maxWidth = this.elementRef.nativeElement.offsetWidth;
         const self = this;
+        const startTime = Date.now();
 
         let isBack = false;
         let progress = 0;
@@ -130,12 +131,18 @@ export class ContentComponent implements OnDestroy, OnInit {
         };
 
         unbindFn = function () {
+
             unbindTouchMoveFn();
             unbindTouchEndFn();
             if (progress === 0) {
                 return;
             }
 
+            const endTime = Date.now();
+            if (endTime - startTime < 100 && progress > 20) {
+                requestAnimationFrame(increasing);
+                return;
+            }
             if (progress < 40) {
                 requestAnimationFrame(diminishing);
             } else {
