@@ -10,8 +10,13 @@ ui-back {
     color: $color-primary;
     cursor: pointer;
     transition: opacify .3s;
+    > .icon-arrow-left {
+        transform: translateX(-4px);
+    }
     .ui-back-text {
         font-size: $font-size-larger;
+        position: relative;
+        margin-left: -4px;
     }
 
     &:active {

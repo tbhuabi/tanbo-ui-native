@@ -34,34 +34,34 @@ export class BackComponent implements OnInit, OnDestroy {
             switch (status.state) {
                 case ViewState.Activate:
                     this.state = status.state;
-                    this.translate = `translateX(${100 - progress * 100}%)`;
+                    this.translate = `translate3d(${100 - progress * 100}%, 0, 0)`;
                     this.opacity = progress;
                     break;
                 case ViewState.Destroy:
                     this.state = status.state;
-                    this.translate = `translateX(${progress * 100}%)`;
+                    this.translate = `translate3d(${progress * 100}%, 0, 0)`;
                     m = 1 - n;
                     this.opacity = m < 0 ? 0 : m;
                     break;
                 case ViewState.ToStack:
                     this.state = status.state;
-                    this.translate = `translateX(${status.progress / -2}%)`;
+                    this.translate = `translate3d(${status.progress / -2}%, 0, 0)`;
                     m = 1 - n;
                     this.opacity = m < 0 ? 0 : m;
                     break;
                 case ViewState.Reactivate:
                     this.state = status.state;
-                    this.translate = `translateX(${-50 + progress * 50}%)`;
+                    this.translate = `translate3d(${-50 + progress * 50}%, 0, 0)`;
                     m = progress * 2;
                     this.opacity = m > 1 ? 1 : m;
                     break;
                 case ViewState.Moving:
                     if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
-                        this.translate = `translateX(${status.progress}%)`;
+                        this.translate = `translate3d(${status.progress}%, 0, 0)`;
                         m = 1 - n;
                         this.opacity = m < 0 ? 0 : m;
                     } else if (this.state === ViewState.ToStack) {
-                        this.translate = `translateX(${-50 + status.progress / 2}%)`;
+                        this.translate = `translate3d(${-50 + status.progress / 2}%, 0, 0)`;
                         m = progress * 2;
                         this.opacity = m > 1 ? 1 : m;
                     }
