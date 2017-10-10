@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, HostListener, Inject, Input, OnInit } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 import { AlertController } from '../alert/alert-controller.service';
 import { ConfirmController } from '../confirm/confirm-controller.service';
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.htmlElement = this.document.querySelector('html');
+        this.htmlElement = this.document.body;
         this.resize();
     }
 
@@ -52,7 +52,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (!this.htmlElement) {
             return;
         }
-        let docWidth = this.htmlElement.getBoundingClientRect().width;
+        // this.document.querySelector('html').getBoundingClientRect().width;
+        let docWidth = this.htmlElement.offsetWidth;
         let scale = docWidth / this.defaultDocWidth;
         this.htmlElement.style.fontSize = `${scale * this.baseFontSize}px`;
     }

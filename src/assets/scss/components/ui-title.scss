@@ -4,7 +4,7 @@ ui-title {
     height: 100%;
     font-size: $font-size-larger;
     font-weight: 600;
-    margin-left: 2em;
-    margin-right: 2em;
+    margin-left: $title-horizontal-distance;
+    margin-right: $title-horizontal-distance;
     contain: size style layout;
 }

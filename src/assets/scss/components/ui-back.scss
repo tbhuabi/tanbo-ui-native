@@ -10,13 +10,18 @@ ui-back {
     color: $color-primary;
     cursor: pointer;
     transition: opacify .3s;
-    > .icon-arrow-left {
-        transform: translateX(-4px);
+    .icon-arrow-left {
+        width: $title-horizontal-distance;
+        display: flex;
+        font-size: 22px;
+        &:before {
+            position: relative;
+            left: -4px;
+        }
     }
     .ui-back-text {
         font-size: $font-size-larger;
         position: relative;
-        margin-left: -4px;
     }
 
     &:active {

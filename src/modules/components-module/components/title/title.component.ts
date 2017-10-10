@@ -1,4 +1,13 @@
-import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    HostBinding,
+    HostListener,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import * as TWEEN from '@tweenjs/tween.js';
 
@@ -8,16 +17,29 @@ import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-s
     selector: 'ui-title',
     templateUrl: './title.component.html'
 })
-export class TitleComponent implements OnDestroy, OnInit {
+export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
     @HostBinding('style.transform')
     translate: string;
     @HostBinding('style.opacity')
     opacity: number;
 
+    @ViewChild('content')
+    contentElement: ElementRef;
+
     private sub: Subscription;
     private state: ViewState;
+    private docWidth: number;
+    private contentWidth: number = 0;
+    private translateDistance: number;
 
-    constructor(private viewStateService: ViewStateService) {
+    constructor(private elementRef: ElementRef,
+                private viewStateService: ViewStateService) {
+    }
+
+    @HostListener('window:resize')
+    resize() {
+        this.docWidth = this.elementRef.nativeElement.offsetWidth;
+        this.translateDistance = this.docWidth / 2 - this.contentWidth / 2;
     }
 
     ngOnInit() {
@@ -35,13 +57,13 @@ export class TitleComponent implements OnDestroy, OnInit {
                     break;
                 case ViewState.ToStack:
                     this.state = status.state;
-                    this.translate = `translate3d(${progress * -48}%, 0, 0)`;
+                    this.translate = `translate3d(${-progress * this.translateDistance}px, 0, 0)`;
                     n = 1 - progress * 1.3;
                     this.opacity = n < 0 ? 0 : n;
                     break;
                 case ViewState.Reactivate:
                     this.state = status.state;
-                    this.translate = `translate3d(${-48 + progress * 48}%, 0, 0)`;
+                    this.translate = `translate3d(${-this.translateDistance + this.translateDistance * progress}px, 0, 0)`;
                     n = progress * 2;
                     this.opacity = n > 1 ? 1 : n;
                     break;
@@ -49,13 +71,19 @@ export class TitleComponent implements OnDestroy, OnInit {
                     if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
                         this.translate = `translate3d(${status.progress * 0.7}%, 0, 0)`;
                     } else if (this.state === ViewState.ToStack) {
-                        this.translate = `translate3d(${-50 + status.progress / 2}%, 0, 0)`;
+                        this.translate = `translate3d(${-this.translateDistance + this.translateDistance * status.progress / 100}px, 0, 0)`;
                         this.opacity = 0.9 + 0.1 * status.progress / 100;
                     }
                     break;
 
             }
         });
+    }
+
+    ngAfterViewInit() {
+        this.docWidth = this.elementRef.nativeElement.offsetWidth;
+        this.contentWidth = this.contentElement.nativeElement.offsetWidth;
+        this.translateDistance = this.docWidth / 2 - this.contentWidth / 2;
     }
 
     ngOnDestroy() {
