@@ -4,6 +4,7 @@ import {
     ElementRef,
     HostListener,
     Inject,
+    Input,
     OnDestroy,
     OnInit,
     ViewChild
@@ -24,6 +25,9 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     translate: string;
     @ViewChild('text')
     textElement: ElementRef;
+
+    @Input()
+    icon: string = 'ui-icon-arrow-back';
 
     private sub: Subscription;
     private state: ViewState;

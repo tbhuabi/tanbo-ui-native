@@ -10,7 +10,7 @@ ui-back {
     color: $color-primary;
     cursor: pointer;
     transition: opacify .3s;
-    .icon-arrow-left {
+    .ui-icon-arrow-back {
         width: $title-horizontal-distance;
         display: flex;
         &:before {
