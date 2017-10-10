@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.htmlElement = this.document.body;
+        this.htmlElement = this.document.querySelector('html');
         this.resize();
     }
 
@@ -52,8 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (!this.htmlElement) {
             return;
         }
-        // this.document.querySelector('html').getBoundingClientRect().width;
-        let docWidth = this.htmlElement.offsetWidth;
+        let docWidth = this.htmlElement.getBoundingClientRect().width;
         let scale = docWidth / this.defaultDocWidth;
         this.htmlElement.style.fontSize = `${scale * this.baseFontSize}px`;
     }
