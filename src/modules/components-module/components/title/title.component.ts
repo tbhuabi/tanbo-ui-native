@@ -46,6 +46,7 @@ export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
         this.sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
             const progress = TWEEN.Easing.Cubic.Out(status.progress / 100);
             let n: number;
+            let translate: number;
             switch (status.state) {
                 case ViewState.Activate:
                     this.state = status.state;
@@ -63,7 +64,8 @@ export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
                     break;
                 case ViewState.Reactivate:
                     this.state = status.state;
-                    this.translate = `translate3d(${-this.translateDistance + this.translateDistance * progress}px, 0, 0)`;
+                    translate = -this.translateDistance + this.translateDistance * progress;
+                    this.translate = `translate3d(${translate}px, 0, 0)`;
                     n = progress * 2;
                     this.opacity = n > 1 ? 1 : n;
                     break;
@@ -71,7 +73,8 @@ export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
                     if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
                         this.translate = `translate3d(${status.progress * 0.7}%, 0, 0)`;
                     } else if (this.state === ViewState.ToStack) {
-                        this.translate = `translate3d(${-this.translateDistance + this.translateDistance * status.progress / 100}px, 0, 0)`;
+                        translate = -this.translateDistance + this.translateDistance * status.progress / 100;
+                        this.translate = `translate3d(${translate}px, 0, 0)`;
                         this.opacity = 0.9 + 0.1 * status.progress / 100;
                     }
                     break;
