@@ -15,7 +15,7 @@ export class ContentComponent implements OnDestroy, OnInit {
     @HostBinding('style.opacity')
     opacity: number;
     private sub: Subscription;
-    private state: ViewState = null;
+    private state: ViewState = ViewState.Activate;
 
     constructor(private viewStateService: ViewStateService,
                 private elementRef: ElementRef,
@@ -71,7 +71,7 @@ export class ContentComponent implements OnDestroy, OnInit {
         const startX = startPoint.pageX;
         const startY = startPoint.pageY;
 
-        if (startX > 100 && this.state !== null && this.state !== ViewState.Sleep) {
+        if (startX > 100 && this.state !== ViewState.Sleep) {
             return;
         }
         let unbindTouchMoveFn: () => void;

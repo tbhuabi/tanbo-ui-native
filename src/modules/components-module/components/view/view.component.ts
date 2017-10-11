@@ -1,5 +1,5 @@
 import {
-    AfterViewInit,
+    AfterContentInit,
     Component,
     ComponentFactoryResolver,
     HostBinding,
@@ -23,7 +23,7 @@ import { ContentLoadingController } from '../content-loading/content-loading.ser
         ContentLoadingController
     ]
 })
-export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ViewComponent implements OnInit, OnDestroy, AfterContentInit {
     @Input()
     component: any;
     @Input()
@@ -90,7 +90,7 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
 
         this.subs.push(this.navController.moveBackProgress$.subscribe((progress: number) => {
             if (this.viewIndex === 0) {
-                if (this.state === ViewState.Reactivate || this.state === ViewState.Activate || this.state === null) {
+                if (this.state === ViewState.Reactivate || this.state === ViewState.Activate) {
                     return;
                 }
             }
@@ -101,7 +101,7 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
         }));
     }
 
-    ngAfterViewInit() {
+    ngAfterContentInit() {
         this.createTweenFactor();
     }
 
@@ -109,9 +109,9 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.state === ViewState.Sleep) {
             return;
         }
-        if (this.state === null) {
+        if (this.state === ViewState.Activate && this.viewIndex === 0) {
             this.viewStateService.publish({
-                state: null,
+                state: this.state,
                 progress: 100
             });
             return;

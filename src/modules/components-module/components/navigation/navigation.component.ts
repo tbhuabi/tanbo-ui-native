@@ -25,16 +25,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
             if (length) {
                 let lastView = this.views[length - 1];
                 lastView.state = ViewState.ToStack;
-                this.views.push({
-                    state: ViewState.Activate,
-                    component
-                });
-            } else {
-                this.views.push({
-                    state: null,
-                    component
-                });
+
             }
+            this.views.push({
+                state: ViewState.Activate,
+                component
+            });
 
             let sleepViewSize = this.views.length - 3;
             while (sleepViewSize > -1) {

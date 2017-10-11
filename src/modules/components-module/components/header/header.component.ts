@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     @HostBinding('class.native')
     isNative: boolean = process.env.ENV === 'production';
     @HostBinding('style.opacity')
-    opacity: number = 1;
+    opacity: number;
 
     private sub: Subscription;
     private state: ViewState;
