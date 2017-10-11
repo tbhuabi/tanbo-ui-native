@@ -42,12 +42,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.subs.push(this.navController.popEvent$.subscribe(() => {
             this.openAnimation = true;
             const length = this.views.length;
-            if (length) {
+            if (length > 1) {
                 this.views[length - 1].state = ViewState.Destroy;
-
-                if (length > 1) {
-                    this.views[length - 2].state = ViewState.Reactivate;
-                }
+                this.views[length - 2].state = ViewState.Reactivate;
+            } else {
+                this.navController.quit();
             }
         }));
         // 当回退动画完成时，删除对应视图
