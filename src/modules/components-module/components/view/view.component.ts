@@ -127,26 +127,25 @@ export class ViewComponent implements OnInit, OnDestroy, AfterViewInit {
 
         let i = 0;
         const self = this;
+
         const fn = function () {
-            i += 3.6;
-            if (i > 100) {
+            if (i >= 100) {
+                i = 100;
                 if (self.state === ViewState.Destroy) {
                     self.viewStateService.destroy();
                 }
-                i = 100;
-                self.viewStateService.publish({
-                    state: self.state,
-                    progress: i
-                });
-                return;
+            } else {
+                requestAnimationFrame(fn);
             }
             self.viewStateService.publish({
                 state: self.state,
                 progress: i
             });
-            requestAnimationFrame(fn);
+
+            i += 3.6;
         };
-        requestAnimationFrame(fn);
+
+        fn();
     }
 
     ngOnDestroy() {
