@@ -28,6 +28,9 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input()
     icon: string = 'ui-icon-arrow-back';
 
+    @Input()
+    closeBackHandle: boolean = false;
+
     private sub: Subscription;
     private state: ViewState;
     private docWidth: number;
@@ -49,7 +52,9 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     @HostListener('click')
     click() {
         // 当用户点击组件时，触发视图返回上一页
-        this.location.back();
+        if (!this.closeBackHandle) {
+            this.location.back();
+        }
     }
 
     ngOnInit() {
