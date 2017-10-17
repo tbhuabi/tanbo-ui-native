@@ -4,7 +4,6 @@ export { ToastController, ToastConfig, ToastType } from './components/toast/toas
 export { ViewStateService, ViewState } from './components/view/view-state.service';
 export { ContentLoadingController } from './components/content-loading/content-loading.service';
 
-export { NavController } from './components/navigation/navigation-controller.service';
 export { OnViewEnter, OnViewLeave } from './components/view/view-life-cycle';
 
 export { UIComponentsModule } from './components.module';

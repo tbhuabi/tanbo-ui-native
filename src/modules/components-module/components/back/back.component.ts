@@ -9,12 +9,11 @@ import {
     OnInit,
     ViewChild
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import * as TWEEN from '@tweenjs/tween.js';
 
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
-import { NavController } from '../navigation/navigation-controller.service';
 
 @Component({
     selector: 'ui-back',
@@ -37,7 +36,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     private translateDistance: number;
 
     constructor(@Inject(DOCUMENT) private document: Document,
-                private navController: NavController,
+                private location: Location,
                 private viewStateService: ViewStateService) {
     }
 
@@ -50,7 +49,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     @HostListener('click')
     click() {
         // 当用户点击组件时，触发视图返回上一页
-        this.navController.pop();
+        this.location.back();
     }
 
     ngOnInit() {

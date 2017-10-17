@@ -3,6 +3,9 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
+import { routes } from './app.routing';
 
 import { UIComponentsModule, UIDirectivesModule, UIFormsModule, UIHttp } from '../modules/index';
 
@@ -15,6 +18,7 @@ import { Page2Component } from './page2/page2.component';
 
 @NgModule({
     imports: [
+        RouterModule.forRoot(routes),
         BrowserAnimationsModule,
         UIComponentsModule,
         UIDirectivesModule,

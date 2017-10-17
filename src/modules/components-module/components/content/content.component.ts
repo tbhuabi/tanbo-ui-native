@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import * as TWEEN from '@tweenjs/tween.js';
 
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
-import { NavController } from '../navigation/navigation-controller.service';
+import { RouterService } from '../router/router.service';
 
 @Component({
     selector: 'ui-content',
@@ -19,7 +19,7 @@ export class ContentComponent implements OnDestroy, OnInit {
 
     constructor(private viewStateService: ViewStateService,
                 private elementRef: ElementRef,
-                private navController: NavController,
+                private routerService: RouterService,
                 private renderer: Renderer2) {
     }
 
@@ -105,17 +105,17 @@ export class ContentComponent implements OnDestroy, OnInit {
             } else if (progress > 100) {
                 progress = 100;
             }
-            this.navController.publishMoveBackEvent(progress);
+            this.routerService.publishAnimationProgress(progress);
         });
 
         let diminishing = function () {
             progress -= 4;
             if (progress < 0) {
                 progress = 0;
-                self.navController.publishMoveBackEvent(progress);
+                self.routerService.publishAnimationProgress(progress);
                 return;
             }
-            self.navController.publishMoveBackEvent(progress);
+            self.routerService.publishAnimationProgress(progress);
             requestAnimationFrame(diminishing);
         };
 
@@ -123,10 +123,10 @@ export class ContentComponent implements OnDestroy, OnInit {
             progress += 4;
             if (progress > 100) {
                 progress = 100;
-                self.navController.publishMoveBackEvent(progress);
+                self.routerService.publishAnimationProgress(progress);
                 return;
             }
-            self.navController.publishMoveBackEvent(progress);
+            self.routerService.publishAnimationProgress(progress);
             requestAnimationFrame(increasing);
         };
 

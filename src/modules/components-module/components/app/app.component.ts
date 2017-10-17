@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, HostListener, Inject, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 import { AlertController } from '../alert/alert-controller.service';
 import { ConfirmController } from '../confirm/confirm-controller.service';
 import { ListActivatedService } from '../list-item/list-activated.service';
-import { NavController } from '../navigation/navigation-controller.service';
 import { ToastController } from '../toast/toast-controller.service';
 import { ViewStateService } from '../view/view-state.service';
 
@@ -15,35 +14,26 @@ import { ViewStateService } from '../view/view-state.service';
         AlertController,
         ConfirmController,
         ListActivatedService,
-        NavController,
         ToastController,
         ViewStateService
     ]
 })
-export class AppComponent implements OnInit, AfterViewInit {
-    @Input()
-    rootPage: any;
+export class AppComponent implements OnInit {
     @Input()
     baseFontSize: number = 10;
+    @Input()
+    name: string;
 
     private htmlElement: HTMLElement;
     private defaultDocWidth: number = 320;
 
     constructor(@Inject(DOCUMENT) private document: Document,
-                private listActivatedService: ListActivatedService,
-                private navController: NavController) {
+                private listActivatedService: ListActivatedService) {
     }
 
     ngOnInit() {
         this.htmlElement = this.document.querySelector('html');
         this.resize();
-    }
-
-    ngAfterViewInit() {
-        if (this.rootPage) {
-            // 当页面初始化时，主动添加根页面
-            this.navController.push(this.rootPage);
-        }
     }
 
     @HostListener('window:resize')

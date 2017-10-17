@@ -18,17 +18,10 @@ export interface ViewAnimationStatus {
 @Injectable()
 export class ViewStateService {
     state$: Observable<ViewAnimationStatus>;
-    destroyEvent$: Observable<void>;
-    private destroyEventSource = new Subject<void>();
     private stateSource = new Subject<ViewAnimationStatus>();
 
     constructor() {
-        this.destroyEvent$ = this.destroyEventSource.asObservable();
         this.state$ = this.stateSource.asObservable();
-    }
-
-    destroy() {
-        this.destroyEventSource.next();
     }
 
     publish(state: ViewAnimationStatus) {

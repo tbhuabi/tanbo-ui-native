@@ -1,36 +1,10 @@
 <ui-page>
   <ui-header>
     <ui-navbar>
-      <ui-back>返回</ui-back>
-      <ui-title>首页</ui-title>
-      <ui-buttons (click)="change()">
-        按扭
-      </ui-buttons>
+      <ui-title>root</ui-title>
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-scroll class="container" (click)="change()">
-      <ui-select>
-        <ui-option>aaa</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-      </ui-select>
-      <!--<button type="button" class="btn primary" (click)="change()">bottom-sheet</button>-->
-      <!--<ui-action-sheet [show]="isShow" (click)="change()">-->
-        <!--<div class="action-sheet">fdsfdsa</div>-->
-      <!--</ui-action-sheet>-->
-      <button type="button" class="btn primary" (click)="show()"> confirm </button>
-      <button type="button" class="btn primary" (click)="showLoading()"> showLoading </button>
-      <button type="button" class="btn primary" (click)="hideLoading()"> hideLoading </button>
-      <!--<ui-dialog [show]="isShow">-->
-        <!--<div>testtes</div>-->
-      <!--</ui-dialog>-->
-      <!--<ui-loading [color]="'#f00'" [scale]="3"></ui-loading>-->
-    </ui-scroll>
+    <a routerLink="/page1">page1</a>
   </ui-content>
-  <ui-footer>
-    <button type="button" class="btn btn-success btn-block active" (click)="goToPage1()">下一页</button>
-  </ui-footer>
 </ui-page>
