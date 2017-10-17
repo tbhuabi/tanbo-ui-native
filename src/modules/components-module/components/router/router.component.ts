@@ -73,7 +73,9 @@ export class RouterComponent implements OnInit, OnDestroy {
 
     @HostListener('window:popstate')
     pop() {
-        // TODO 由于浏览器限制，暂时无法实现，当点击浏览器前进按扭时，加载新的页面
+        // TODO 由于浏览器限制，暂时无法实现以下功能：
+        // 1、当点击浏览器前进按扭时，加载新的页面
+        // 2、当浏览器刷新后，点击后退时，由于没有缓存上一级页面，所以无法加载上一页面
         this.isBack++;
     }
 
