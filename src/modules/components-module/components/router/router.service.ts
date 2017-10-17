@@ -3,14 +3,17 @@ import { Subject, Observable } from 'rxjs';
 
 @Injectable()
 export class RouterService {
+    moveBackProgress$: Observable<number>;
     animationProgress$: Observable<number>;
     activated$: Observable<ComponentRef<any>>;
     private activatedSource = new Subject<ComponentRef<any>>();
     private animationProgressSource = new Subject<number>();
+    private moveBackProgressSource = new Subject<number>();
 
     constructor() {
         this.activated$ = this.activatedSource.asObservable();
         this.animationProgress$ = this.animationProgressSource.asObservable();
+        this.moveBackProgress$ = this.moveBackProgressSource.asObservable();
     }
 
     publish(activateView: ComponentRef<any>) {
@@ -19,5 +22,9 @@ export class RouterService {
 
     publishAnimationProgress(progress: number) {
         this.animationProgressSource.next(progress);
+    }
+
+    publishMoveBackProgress(progress: number) {
+        this.moveBackProgressSource.next(progress);
     }
 }

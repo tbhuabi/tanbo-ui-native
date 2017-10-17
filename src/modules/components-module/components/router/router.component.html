@@ -1,8 +1,7 @@
 <ui-view
         *ngFor="let item of views; let i = index"
         [component]="item.component"
-        [openAnimation]="openAnimation"
-        [viewIndex]="i"
+        [openMoveBack]="openMoveBack"
         [state]="item.state"
         [ngStyle]="{zIndex: i}">
 </ui-view>

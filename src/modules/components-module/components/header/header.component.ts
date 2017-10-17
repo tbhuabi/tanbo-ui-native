@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 case ViewState.ToStack:
                 case ViewState.Reactivate:
                     this.state = status.state;
+                    this.opacity = 1;
                     break;
                 case ViewState.Moving:
                     if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {

@@ -26,14 +26,18 @@ import { RouterService } from '../router/router.service';
 export class ViewComponent implements OnInit, OnDestroy {
     @Input()
     component: any;
+
     @Input()
-    openAnimation: boolean = true;
-    @Input()
-    viewIndex: number;
+    openMoveBack: boolean = false;
 
     @Input()
     set state(value) {
         this._state = value;
+
+        this.viewStateService.publish({
+            state: value,
+            progress: 100
+        });
         // 根据视图不同状态，调用生命周期勾子
         if (this.childInstance) {
             switch (value) {
@@ -67,7 +71,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     private _state: ViewState;
-    private sub: Subscription;
+    private subs: Array<Subscription> = [];
     private childInstance: any;
     private componentRef: ComponentRef<any>;
 
@@ -86,15 +90,27 @@ export class ViewComponent implements OnInit, OnDestroy {
                 this.childInstance['uiOnViewEnter']();
             }
         }
-        this.sub = this.routerService.animationProgress$.subscribe(progress => {
-            this.viewStateService.publish({
-                state: this.state,
-                progress
-            });
-        });
+        this.subs.push(this.routerService.animationProgress$.subscribe(progress => {
+            if (this.state !== ViewState.Sleep) {
+                this.viewStateService.publish({
+                    state: this.state,
+                    progress
+                });
+            }
+        }));
+        this.subs.push(this.routerService.moveBackProgress$.subscribe(progress => {
+            if (this.state !== ViewState.Sleep && this.openMoveBack) {
+                this.viewStateService.publish({
+                    state: ViewState.Moving,
+                    progress
+                });
+            }
+        }));
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.subs.forEach(item => {
+            item.unsubscribe();
+        });
     }
 }

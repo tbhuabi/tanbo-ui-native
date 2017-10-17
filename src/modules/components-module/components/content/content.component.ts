@@ -105,17 +105,17 @@ export class ContentComponent implements OnDestroy, OnInit {
             } else if (progress > 100) {
                 progress = 100;
             }
-            this.routerService.publishAnimationProgress(progress);
+            this.routerService.publishMoveBackProgress(progress);
         });
 
         let diminishing = function () {
             progress -= 4;
             if (progress < 0) {
                 progress = 0;
-                self.routerService.publishAnimationProgress(progress);
+                self.routerService.publishMoveBackProgress(progress);
                 return;
             }
-            self.routerService.publishAnimationProgress(progress);
+            self.routerService.publishMoveBackProgress(progress);
             requestAnimationFrame(diminishing);
         };
 
@@ -123,10 +123,10 @@ export class ContentComponent implements OnDestroy, OnInit {
             progress += 4;
             if (progress > 100) {
                 progress = 100;
-                self.routerService.publishAnimationProgress(progress);
+                self.routerService.publishMoveBackProgress(progress);
                 return;
             }
-            self.routerService.publishAnimationProgress(progress);
+            self.routerService.publishMoveBackProgress(progress);
             requestAnimationFrame(increasing);
         };
 
