@@ -14,6 +14,9 @@ export const routes: Routes = [{
     path: 'page2',
     component: Page2Component
 }, {
+    path: 'child',
+    loadChildren: './test-module/test.module#TestModule'
+}, {
     path: '',
     redirectTo: '/root',
     pathMatch: 'full'

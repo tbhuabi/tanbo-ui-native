@@ -6,7 +6,8 @@ import {
     Output,
     EventEmitter,
     ComponentRef,
-    HostListener
+    HostListener,
+    ComponentFactoryResolver
 } from '@angular/core';
 import { ChildrenOutletContexts, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
 import { Location } from '@angular/common';
@@ -67,6 +68,7 @@ export class RouterComponent implements OnInit, OnDestroy {
 
     constructor(private parentContexts: ChildrenOutletContexts,
                 private routerService: RouterService,
+                private resolver: ComponentFactoryResolver,
                 private location: Location) {
         parentContexts.onChildOutletCreated(this.name, this as any);
     }
@@ -84,7 +86,7 @@ export class RouterComponent implements OnInit, OnDestroy {
         if (!this.activated) {
             const context = this.parentContexts.getContext(this.name);
             if (context && context.route) {
-                this.activateWith(context.route);
+                this.activateWith(context.route, context.resolver || null);
             }
         }
 
@@ -108,7 +110,7 @@ export class RouterComponent implements OnInit, OnDestroy {
         });
     }
 
-    activateWith(activatedRoute: ActivatedRoute) {
+    activateWith(activatedRoute: ActivatedRoute, resolver: ComponentFactoryResolver | null) {
         this._activatedRoute = activatedRoute;
 
         if (this.isBack) {
@@ -137,6 +139,8 @@ export class RouterComponent implements OnInit, OnDestroy {
             const snapshot = (activatedRoute as any)._futureSnapshot;
             const component = snapshot.routeConfig.component;
             const length = this.views.length;
+
+            resolver = resolver || this.resolver;
             // 设置视图状态
             if (length) {
                 let lastView = this.views[length - 1];
@@ -145,7 +149,7 @@ export class RouterComponent implements OnInit, OnDestroy {
             }
             this.views.push({
                 state: ViewState.Activate,
-                component
+                componentFactory: resolver.resolveComponentFactory(component)
             });
 
             let sleepViewSize = this.views.length - 3;

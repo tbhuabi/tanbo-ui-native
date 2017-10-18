@@ -1,6 +1,5 @@
 import {
     Component,
-    ComponentFactoryResolver,
     HostBinding,
     Input,
     OnDestroy,
@@ -25,7 +24,7 @@ import { RouterService } from '../router/router.service';
 })
 export class ViewComponent implements OnInit, OnDestroy {
     @Input()
-    component: any;
+    componentFactory: any;
 
     @Input()
     openMoveBack: boolean = false;
@@ -76,14 +75,12 @@ export class ViewComponent implements OnInit, OnDestroy {
     private componentRef: ComponentRef<any>;
 
     constructor(private viewStateService: ViewStateService,
-                private componentFactoryResolver: ComponentFactoryResolver,
                 private routerService: RouterService) {
     }
 
     ngOnInit() {
-        if (this.component) {
-            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.component);
-            this.componentRef = this.componentHost.viewContainerRef.createComponent(componentFactory);
+        if (this.componentFactory) {
+            this.componentRef = this.componentHost.viewContainerRef.createComponent(this.componentFactory);
             this.childInstance = this.componentRef.instance;
             this.routerService.publish(this.componentRef);
             if (typeof this.childInstance['uiOnViewEnter'] === 'function') {
