@@ -5,8 +5,11 @@ import {
     OnDestroy,
     OnInit,
     ViewChild,
-    ComponentRef
+    Injector,
+    ComponentRef,
+    ViewContainerRef
 } from '@angular/core';
+import { ActivatedRoute, ChildrenOutletContexts } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { ComponentHostDirective } from './component-host.directive';
@@ -25,9 +28,14 @@ import { RouterService } from '../router/router.service';
 export class ViewComponent implements OnInit, OnDestroy {
     @Input()
     componentFactory: any;
-
     @Input()
     openMoveBack: boolean = false;
+    @Input()
+    parentContexts: any;
+    @Input()
+    activatedRoute: ActivatedRoute;
+    @Input()
+    name: string;
 
     @Input()
     set state(value) {
@@ -75,12 +83,21 @@ export class ViewComponent implements OnInit, OnDestroy {
     private componentRef: ComponentRef<any>;
 
     constructor(private viewStateService: ViewStateService,
+                private viewContainerRef: ViewContainerRef,
+                private _activatedRoute: ActivatedRoute,
                 private routerService: RouterService) {
     }
 
     ngOnInit() {
         if (this.componentFactory) {
-            this.componentRef = this.componentHost.viewContainerRef.createComponent(this.componentFactory);
+            const injector = new ViewInjector(
+                this.activatedRoute || this._activatedRoute,
+                this.parentContexts,
+                this.viewContainerRef.injector);
+            this.componentRef = this.componentHost.viewContainerRef.createComponent(
+                this.componentFactory,
+                this.componentHost.viewContainerRef.length,
+                injector);
             this.childInstance = this.componentRef.instance;
             this.routerService.publish(this.componentRef);
             if (typeof this.childInstance['uiOnViewEnter'] === 'function') {
@@ -109,5 +126,23 @@ export class ViewComponent implements OnInit, OnDestroy {
         this.subs.forEach(item => {
             item.unsubscribe();
         });
+    }
+}
+
+class ViewInjector implements Injector {
+    constructor(private route: ActivatedRoute, private childContexts: ChildrenOutletContexts,
+                private parent: Injector) {
+    }
+
+    get(token: any, notFoundValue?: any): any {
+        if (token === ActivatedRoute) {
+            return this.route;
+        }
+
+        if (token === ChildrenOutletContexts) {
+            return this.childContexts;
+        }
+
+        return this.parent.get(token, notFoundValue);
     }
 }

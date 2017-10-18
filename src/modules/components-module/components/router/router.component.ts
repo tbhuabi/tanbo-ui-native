@@ -7,6 +7,7 @@ import {
     EventEmitter,
     ComponentRef,
     HostListener,
+    ComponentFactory,
     ComponentFactoryResolver
 } from '@angular/core';
 import { ChildrenOutletContexts, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
@@ -15,6 +16,13 @@ import { Subscription } from 'rxjs';
 
 import { ViewState } from '../view/view-state.service';
 import { RouterService } from './router.service';
+
+export interface RouterItemConfig {
+    state: ViewState;
+    componentFactory: ComponentFactory<any>;
+    activatedRoute: ActivatedRoute;
+    childContexts: ChildrenOutletContexts;
+}
 
 @Component({
     selector: 'ui-router',
@@ -33,7 +41,7 @@ export class RouterComponent implements OnInit, OnDestroy {
     @Input()
     name = PRIMARY_OUTLET;
 
-    views: Array<any> = [];
+    views: Array<RouterItemConfig> = [];
 
     get openMoveBack(): boolean {
         return this.views.length > 1;
@@ -147,9 +155,13 @@ export class RouterComponent implements OnInit, OnDestroy {
                 lastView.state = ViewState.ToStack;
 
             }
+
+            const childContexts = this.parentContexts.getOrCreateContext(this.name).children;
             this.views.push({
                 state: ViewState.Activate,
-                componentFactory: resolver.resolveComponentFactory(component)
+                componentFactory: resolver.resolveComponentFactory(component),
+                childContexts: childContexts,
+                activatedRoute
             });
 
             let sleepViewSize = this.views.length - 3;

@@ -1,7 +1,10 @@
 <ui-view
         *ngFor="let item of views; let i = index"
-        [componentFactory]="item.componentFactory"
         [openMoveBack]="openMoveBack"
+        [componentFactory]="item.componentFactory"
+        [activatedRoute]="item.activatedRoute"
+        [parentContexts]="item.childContexts"
         [state]="item.state"
+        [name]="name"
         [ngStyle]="{zIndex: i}">
 </ui-view>
