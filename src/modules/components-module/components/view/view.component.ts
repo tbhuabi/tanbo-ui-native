@@ -34,8 +34,6 @@ export class ViewComponent implements OnInit, OnDestroy {
     parentContexts: any;
     @Input()
     activatedRoute: ActivatedRoute;
-    @Input()
-    name: string;
 
     @Input()
     set state(value) {
