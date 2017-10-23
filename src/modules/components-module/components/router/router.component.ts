@@ -132,7 +132,9 @@ export class RouterComponent implements OnInit, OnDestroy {
         if (this.isBack) {
             this.setViewState([ViewState.ToStack, ViewState.Reactivate, ViewState.Destroy]);
             this.isBack--;
-
+            setTimeout(() => {
+                this.setupRouterAnimation();
+            });
         } else {
             const snapshot = (activatedRoute as any)._futureSnapshot;
             const component = snapshot.routeConfig.component;
@@ -149,9 +151,8 @@ export class RouterComponent implements OnInit, OnDestroy {
                 childContexts: childContexts,
                 activatedRoute
             });
+            this.setupRouterAnimation();
         }
-
-        this.setupRouterAnimation();
     }
 
     deactivate() {
