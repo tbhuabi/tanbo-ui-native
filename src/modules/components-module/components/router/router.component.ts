@@ -121,40 +121,26 @@ export class RouterComponent implements OnInit, OnDestroy {
     activateWith(activatedRoute: ActivatedRoute, resolver: ComponentFactoryResolver | null) {
         this._activatedRoute = activatedRoute;
 
+        if (this.isMoveBack) {
+            this.views.pop();
+            this.isMoveBack = false;
+            this.isBack--;
+            this.setViewState([ViewState.ToStack, ViewState.Reactivate]);
+            return;
+        }
+
         if (this.isBack) {
-            const activateComponentIndex = this.views.length - this.isBack;
-
-            if (this.views[activateComponentIndex - 2]) {
-                this.views[activateComponentIndex - 2].state = ViewState.ToStack;
-            }
-
-            if (this.views[activateComponentIndex - 1]) {
-                this.views[activateComponentIndex - 1].state = ViewState.Reactivate;
-            }
-
-            if (this.isMoveBack) {
-                this.views.pop();
-                this.isMoveBack = false;
-                this.isBack--;
-                return;
-            } else {
-                for (let i = activateComponentIndex; i < this.views.length; i++) {
-                    this.views[i].state = ViewState.Destroy;
-                }
-            }
+            this.setViewState([ViewState.ToStack, ViewState.Reactivate, ViewState.Destroy]);
+            this.isBack--;
 
         } else {
             const snapshot = (activatedRoute as any)._futureSnapshot;
             const component = snapshot.routeConfig.component;
-            const length = this.views.length;
 
             resolver = resolver || this.resolver;
             // 设置视图状态
-            if (length) {
-                let lastView = this.views[length - 1];
-                lastView.state = ViewState.ToStack;
 
-            }
+            this.setViewState([ViewState.ToStack]);
 
             const childContexts = this.parentContexts.getOrCreateContext(this.name).children;
             this.views.push({
@@ -163,12 +149,6 @@ export class RouterComponent implements OnInit, OnDestroy {
                 childContexts: childContexts,
                 activatedRoute
             });
-
-            let sleepViewSize = this.views.length - 3;
-            while (sleepViewSize > -1) {
-                this.views[sleepViewSize].state = ViewState.Sleep;
-                sleepViewSize--;
-            }
         }
 
         this.setupRouterAnimation();
@@ -196,7 +176,15 @@ export class RouterComponent implements OnInit, OnDestroy {
         // this.location.insert(ref.hostView);
     }
 
-    setupRouterAnimation() {
+    private setViewState(status: Array<ViewState>) {
+        let i = this.views.length - 1;
+        while (i >= 0) {
+            this.views[i].state = status.pop() || ViewState.Sleep;
+            i--;
+        }
+    }
+
+    private setupRouterAnimation() {
         if (this.views.length === 1) {
             this.routerService.publishAnimationProgress(100);
             return;
@@ -210,7 +198,7 @@ export class RouterComponent implements OnInit, OnDestroy {
                 i = 100;
                 if (this.views[this.views.length - 1].state === ViewState.Destroy) {
                     this.views.pop();
-                    this.isBack--;
+                    this.setViewState([ViewState.ToStack, ViewState.Reactivate]);
                 }
             } else {
                 requestAnimationFrame(fn);
