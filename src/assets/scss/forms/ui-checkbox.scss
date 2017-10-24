@@ -37,7 +37,6 @@ ui-input[type=checkbox] {
         cursor: default;
     }
     &[checked], &.checked {
-        animation: input-focus .3s;
         .ui-checkbox {
             .ui-checkbox-checked {
                 transform: scale(1);
@@ -75,15 +74,4 @@ ui-input[type=checkbox] {
     right: 0;
     bottom: 0;
     margin-top: 1px;
-}
-
-@keyframes input-focus {
-    0% {
-        border-radius: 50%;
-        box-shadow: 0 0 0 .1em $ui-input-focus-box-shadow-color;
-    }
-    100% {
-        border-radius: 50%;
-        box-shadow: 0 0 0 .4em $ui-input-focus-box-shadow-color;
-    }
 }

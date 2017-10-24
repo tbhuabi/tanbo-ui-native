@@ -66,9 +66,9 @@ export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
     }
 
     @Input()
-    checkedIcon: string;
+    checkedIcon: string = 'ui-icon-radio-checked';
     @Input()
-    uncheckedIcon: string;
+    uncheckedIcon: string = 'ui-icon-radio-unchecked';
 
     @Output()
     change = new EventEmitter<string>();

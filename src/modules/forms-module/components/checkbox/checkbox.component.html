@@ -1,13 +1,13 @@
 <button class="ui-checkbox" type="button">
   <div class="ui-checkbox-checked">
-    <span [ngClass]="checkedIcon || 'ui-icon-checkbox-checked'"></span>
+    <span [ngClass]="checkedIcon"></span>
   </div>
   <div class="ui-checkbox-unchecked">
-    <span [ngClass]="uncheckedIcon || 'ui-icon-checkbox-unchecked'"></span>
+    <span [ngClass]="uncheckedIcon"></span>
   </div>
 </button>
 <input class="ui-input-raw"
-       type="radio"
+       type="checkbox"
        [value]="value"
        [id]="forId"
        [name]="name"

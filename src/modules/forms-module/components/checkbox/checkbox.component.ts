@@ -51,9 +51,9 @@ export class CheckboxComponent implements ControlValueAccessor {
     }
 
     @Input()
-    checkedIcon: string;
+    checkedIcon: string = 'ui-icon-checkbox-checked';
     @Input()
-    uncheckedIcon: string;
+    uncheckedIcon: string = 'ui-icon-checkbox-unchecked';
 
     @Output()
     change = new EventEmitter<boolean>();
