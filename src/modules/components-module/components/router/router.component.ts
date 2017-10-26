@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs';
 
 import { ViewState } from '../view/view-state.service';
 import { RouterService } from './router.service';
+import { UIRouter } from './router';
 
 export interface RouterItemConfig {
     state: ViewState;
@@ -28,7 +29,8 @@ export interface RouterItemConfig {
     selector: 'ui-router',
     templateUrl: './router.component.html',
     providers: [
-        RouterService
+        RouterService,
+        UIRouter
     ]
 })
 export class RouterComponent implements OnInit, OnDestroy {
@@ -76,6 +78,7 @@ export class RouterComponent implements OnInit, OnDestroy {
 
     constructor(private parentContexts: ChildrenOutletContexts,
                 private routerService: RouterService,
+                private uiRouter: UIRouter,
                 private resolver: ComponentFactoryResolver,
                 private location: Location) {
         parentContexts.onChildOutletCreated(this.name, this as any);
@@ -120,6 +123,7 @@ export class RouterComponent implements OnInit, OnDestroy {
 
     activateWith(activatedRoute: ActivatedRoute, resolver: ComponentFactoryResolver | null) {
         this._activatedRoute = activatedRoute;
+        this.uiRouter.updateActivateRoute(activatedRoute);
 
         if (this.isMoveBack) {
             this.views.pop();

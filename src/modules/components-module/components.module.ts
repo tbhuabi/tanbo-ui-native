@@ -42,6 +42,10 @@ import { ToastComponent } from './components/toast/toast.component';
 import { ViewComponent } from './components/view/view.component';
 // 指令
 import { ComponentHostDirective } from './components/view/component-host.directive';
+import { UIRouterLinkDirective, UIRouterLinkWithHrefDirective } from './components/router/ui-router-link.directive';
+
+// 服务
+import { UIRouter } from './components/router/router';
 
 @NgModule({
     imports: [
@@ -89,7 +93,9 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         ViewComponent,
 
         // 指令
-        ComponentHostDirective
+        ComponentHostDirective,
+        UIRouterLinkDirective,
+        UIRouterLinkWithHrefDirective
     ],
     exports: [
         ActionSheetComponent,
@@ -130,7 +136,14 @@ import { ComponentHostDirective } from './components/view/component-host.directi
         TabViewItemComponent,
         TitleComponent,
         ToastComponent,
-        ViewComponent
+        ViewComponent,
+
+        // 指令
+        UIRouterLinkDirective,
+        UIRouterLinkWithHrefDirective
+    ],
+    providers: [
+        UIRouter
     ]
 })
 
