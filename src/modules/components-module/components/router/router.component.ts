@@ -133,22 +133,34 @@ export class RouterComponent implements OnInit, OnDestroy {
             return;
         }
 
+        const snapshot = (activatedRoute as any)._futureSnapshot;
+        const component = snapshot.routeConfig.component;
+
+        resolver = resolver || this.resolver;
+        const childContexts = this.parentContexts.getOrCreateContext(this.name).children;
+
         if (this.isBack) {
-            this.setViewState([ViewState.ToStack, ViewState.Reactivate, ViewState.Destroy]);
             this.isBack--;
-            setTimeout(() => {
+            if (this.views.length > 1) {
+                this.setViewState([ViewState.ToStack, ViewState.Reactivate, ViewState.Destroy]);
+
+                setTimeout(() => {
+                    this.setupRouterAnimation();
+                });
+            } else {
+                // 设置视图状态
+                this.setViewState([ViewState.Destroy]);
+                this.views.unshift({
+                    state: ViewState.Reactivate,
+                    componentFactory: resolver.resolveComponentFactory(component),
+                    childContexts: childContexts,
+                    activatedRoute
+                });
                 this.setupRouterAnimation();
-            });
+            }
         } else {
-            const snapshot = (activatedRoute as any)._futureSnapshot;
-            const component = snapshot.routeConfig.component;
-
-            resolver = resolver || this.resolver;
             // 设置视图状态
-
             this.setViewState([ViewState.ToStack]);
-
-            const childContexts = this.parentContexts.getOrCreateContext(this.name).children;
             this.views.push({
                 state: ViewState.Activate,
                 componentFactory: resolver.resolveComponentFactory(component),
