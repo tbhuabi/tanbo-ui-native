@@ -132,6 +132,9 @@ export class RouterComponent implements OnInit, OnDestroy {
             this.isMoveBack = false;
             this.isBack--;
             this.setViewState([ViewState.ToStack, ViewState.Reactivate]);
+            setTimeout(() => {
+                this.routerService.publishAnimationProgress(100);
+            });
             return;
         }
 
