@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 import { ViewState } from '../view/view-state.service';
 import { RouterService } from './router.service';
 import { UIRouter } from './router';
+import { AppController } from '../app/app-controller.service';
 
 export interface RouterItemConfig {
     state: ViewState;
@@ -80,6 +81,7 @@ export class RouterComponent implements OnInit, OnDestroy {
                 private routerService: RouterService,
                 private uiRouter: UIRouter,
                 private resolver: ComponentFactoryResolver,
+                private appController: AppController,
                 private location: Location) {
         parentContexts.onChildOutletCreated(this.name, this as any);
     }
@@ -88,8 +90,8 @@ export class RouterComponent implements OnInit, OnDestroy {
     pop() {
         // TODO 由于浏览器限制，暂时无法实现以下功能：
         // 1、当点击浏览器前进按扭时，加载新的页面
-        // 2、当浏览器刷新后，点击后退时，由于没有缓存上一级页面，所以无法加载上一页面
         this.isBack++;
+        this.appController.hasHistory(true);
     }
 
     ngOnInit() {

@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import * as TWEEN from '@tweenjs/tween.js';
 
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
+import { AppController } from '../app/app-controller.service';
 
 @Component({
     selector: 'ui-back',
@@ -31,15 +32,17 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input()
     closeBackHandle: boolean = false;
 
-    private sub: Subscription;
+    private subs: Array<Subscription> = [];
     private state: ViewState;
     private docWidth: number;
     private contentWidth: number;
     private leftDistance: number;
     private translateDistance: number;
+    private isQuit: boolean = false;
 
     constructor(@Inject(DOCUMENT) private document: Document,
                 private location: Location,
+                private appController: AppController,
                 private viewStateService: ViewStateService) {
     }
 
@@ -53,12 +56,19 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     click() {
         // 当用户点击组件时，触发视图返回上一页
         if (!this.closeBackHandle) {
+            this.isQuit = false;
             this.location.back();
+
+            setTimeout(() => {
+                if (!this.isQuit) {
+                    this.appController.quit();
+                }
+            }, 300);
         }
     }
 
     ngOnInit() {
-        this.sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
+        const sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
             const progress = TWEEN.Easing.Cubic.Out(status.progress / 100);
 
             let n: number = status.progress / 50;
@@ -98,6 +108,11 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
                     break;
             }
         });
+
+        this.subs.push(sub);
+        this.subs.push(this.appController.hasHistory$.subscribe((n: boolean) => {
+            this.isQuit = n;
+        }));
     }
 
     ngAfterViewInit() {
@@ -108,6 +123,8 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.subs.forEach(item => {
+            item.unsubscribe();
+        });
     }
 }

@@ -46,6 +46,7 @@ import { UIRouterLinkDirective, UIRouterLinkWithHrefDirective } from './componen
 
 // 服务
 import { UIRouter } from './components/router/router';
+import { AppController } from './components/app/app-controller.service';
 
 @NgModule({
     imports: [
@@ -143,7 +144,8 @@ import { UIRouter } from './components/router/router';
         UIRouterLinkWithHrefDirective
     ],
     providers: [
-        UIRouter
+        UIRouter,
+        AppController
     ]
 })
 
