@@ -1,4 +1,5 @@
 import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
+import { PRIMARY_OUTLET } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 
 import { AlertController } from '../alert/alert-controller.service';
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
     @Input()
     baseFontSize: number = 10;
     @Input()
-    name: string;
+    name: string = PRIMARY_OUTLET;
 
     private htmlElement: HTMLElement;
     private defaultDocWidth: number = 320;

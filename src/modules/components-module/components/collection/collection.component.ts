@@ -66,7 +66,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
 
     private sub: Subscription;
     private element: HTMLElement;
-    private _index: number = 1;
+    private _index: number = 0;
 
     constructor(private renderer: Renderer2,
                 private elementRef: ElementRef) {

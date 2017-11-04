@@ -2,7 +2,7 @@ const ip = require('ip');
 const isDoc = process.env.NODE_ENV === 'documentation';
 const path = require('path');
 const localIp = ip.address();
-const port = isDoc ? '1234' : '4321';
+const port = isDoc ? '3234' : '4325';
 const buildPath = path.resolve(__dirname, isDoc ? 'doc-build' : 'dist');
 const appPath = path.resolve(__dirname, isDoc ? 'docs' : 'src');
 const localPath = 'http://' + localIp + ':' + port + '/';

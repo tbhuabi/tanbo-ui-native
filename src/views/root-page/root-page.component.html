@@ -1,12 +1,12 @@
-<ui-page>
-  <ui-header>
-    <ui-navbar>
-      <ui-back></ui-back>
-      <ui-title>root</ui-title>
-    </ui-navbar>
-  </ui-header>
-  <ui-content>
-    <a routerLink="/page1">page1</a>
-    <ui-input type="checkbox" [checkedIcon]="'ui-icon-arrow-right'" [uncheckedIcon]="'ui-icon-arrow-left'"></ui-input>
-  </ui-content>
-</ui-page>
+<ui-tab>
+  <ui-tab-view>
+    <ui-tab-view-item name="route1"></ui-tab-view-item>
+    <ui-tab-view-item name="route2"></ui-tab-view-item>
+    <ui-tab-view-item name="route3"></ui-tab-view-item>
+  </ui-tab-view>
+  <ui-tab-bar>
+    <ui-tab-bar-item>tab1</ui-tab-bar-item>
+    <ui-tab-bar-item>tab2</ui-tab-bar-item>
+    <ui-tab-bar-item>tab3</ui-tab-bar-item>
+  </ui-tab-bar>
+</ui-tab>

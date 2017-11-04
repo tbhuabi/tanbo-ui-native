@@ -3,6 +3,7 @@ import {
     OnInit,
     OnDestroy,
     Input,
+    Attribute,
     Output,
     EventEmitter,
     ComponentRef,
@@ -41,8 +42,9 @@ export class RouterComponent implements OnInit, OnDestroy {
     @Output('deactivate')
     deactivateEvents = new EventEmitter<any>();
     /* tslint:enable */
+
     @Input()
-    name = PRIMARY_OUTLET;
+    name: string = PRIMARY_OUTLET;
 
     views: Array<RouterItemConfig> = [];
 
@@ -83,7 +85,6 @@ export class RouterComponent implements OnInit, OnDestroy {
                 private resolver: ComponentFactoryResolver,
                 private appController: AppController,
                 private location: Location) {
-        parentContexts.onChildOutletCreated(this.name, this as any);
     }
 
     @HostListener('window:popstate')
@@ -95,6 +96,7 @@ export class RouterComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.parentContexts.onChildOutletCreated(this.name, this as any);
 
         if (!this.activated) {
             const context = this.parentContexts.getContext(this.name);
