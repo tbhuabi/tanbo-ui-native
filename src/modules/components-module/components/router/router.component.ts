@@ -3,7 +3,6 @@ import {
     OnInit,
     OnDestroy,
     Input,
-    Attribute,
     Output,
     EventEmitter,
     ComponentRef,
