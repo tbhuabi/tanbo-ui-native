@@ -37,7 +37,7 @@ export class UIRouter {
 
     private navExtrasHandler(extras?: UINavigationExtras): NavigationExtras {
         if (!extras) {
-            return null;
+            return;
         }
         return {
             queryParams: extras.queryParams,
