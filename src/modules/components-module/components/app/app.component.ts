@@ -2,22 +2,11 @@ import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { PRIMARY_OUTLET } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 
-import { AlertController } from '../alert/alert-controller.service';
-import { ConfirmController } from '../confirm/confirm-controller.service';
 import { ListActivatedService } from '../list-item/list-activated.service';
-import { ToastController } from '../toast/toast-controller.service';
-import { ViewStateService } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-app',
-    templateUrl: './app.component.html',
-    providers: [
-        AlertController,
-        ConfirmController,
-        ListActivatedService,
-        ToastController,
-        ViewStateService
-    ]
+    templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
     @Input()

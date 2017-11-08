@@ -48,6 +48,12 @@ import { UIRouterLinkDirective, UIRouterLinkWithHrefDirective } from './componen
 import { UIRouter } from './components/router/router';
 import { AppController } from './components/app/app-controller.service';
 
+import { AlertController } from './components/alert/alert-controller.service';
+import { ConfirmController } from './components/confirm/confirm-controller.service';
+import { ListActivatedService } from './components/list-item/list-activated.service';
+import { ToastController } from './components/toast/toast-controller.service';
+import { ViewStateService } from './components/view/view-state.service';
+
 @NgModule({
     imports: [
         CommonModule
@@ -145,7 +151,13 @@ import { AppController } from './components/app/app-controller.service';
     ],
     providers: [
         UIRouter,
-        AppController
+        AppController,
+
+        AlertController,
+        ConfirmController,
+        ListActivatedService,
+        ToastController,
+        ViewStateService
     ]
 })
 
