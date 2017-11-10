@@ -82,7 +82,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
         this.sub = this.slidingEvent$.distinctUntilChanged().subscribe((n: number) => {
             this.sliding.emit(n);
         });
-        this.childrenLength = this.items.toArray().length;
+        this.childrenLength = this.items.length;
         this.bindingDragEvent();
     }
 
