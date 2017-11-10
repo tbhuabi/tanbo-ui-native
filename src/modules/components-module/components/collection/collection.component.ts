@@ -35,7 +35,10 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
     set index(value: number) {
         this._index = value;
         if (this.items) {
-            this.setPosition();
+            cancelAnimationFrame(this.animationId);
+            const boxSize: number = this.vertical ? this.element.offsetHeight : this.element.offsetWidth;
+            const itemWidth: number = boxSize / this.items.length;
+            this.autoUpdateStyle(this.element, itemWidth * value * -1, itemWidth);
         }
     }
 
@@ -66,6 +69,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
 
     private sub: Subscription;
     private element: HTMLElement;
+    private animationId: number;
     private _index: number = 0;
 
     constructor(private renderer: Renderer2,
@@ -106,11 +110,9 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
     bindingDragEvent() {
         let element = this.element;
 
-        let animationId: number;
-
         this.renderer.listen(element, 'touchstart', (event: any) => {
 
-            cancelAnimationFrame(animationId);
+            cancelAnimationFrame(this.animationId);
 
             const startTime = Date.now();
             const point = event.touches[0];
@@ -161,34 +163,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
                     }
                 }
 
-                const max = 20;
-                let step = 0;
-
-                const distance = translateDistance - this.distance;
-
-                if (distance === 0) {
-                    return;
-                }
-
-                const rawDistance = this.distance;
-
-                const moveToTarget = function () {
-                    step++;
-                    const translate = rawDistance + TWEEN.Easing.Cubic.Out(step / max) * distance;
-                    this.distance = translate;
-                    const style = `translate${this.vertical ? 'Y' : 'X'}(${translate}px)`;
-
-                    this.renderer.setStyle(element, 'transform', style);
-                    this.slidingEventSource.next(translate / boxSize * -1);
-                    if (step < max) {
-                        animationId = requestAnimationFrame(moveToTarget);
-                    } else {
-                        // 发送事件，并传出当前滑动到了第几屏
-                        this.slidingFinish.emit(this.distance / boxSize * -1);
-                    }
-                }.bind(this);
-
-                animationId = requestAnimationFrame(moveToTarget);
+                this.autoUpdateStyle(element, translateDistance, boxSize);
             }.bind(this);
 
             unTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
@@ -231,5 +206,36 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
             unTouchEndFn = this.renderer.listen('document', 'touchend', unbindFn);
             unTouchCancelFn = this.renderer.listen('document', 'touchcancel', unbindFn);
         });
+    }
+
+    private autoUpdateStyle(element: HTMLElement, translateDistance: number, boxSize: number) {
+        const max = 20;
+        let step = 0;
+
+        const distance = translateDistance - this.distance;
+
+        if (distance === 0) {
+            return;
+        }
+
+        const rawDistance = this.distance;
+
+        const moveToTarget = function () {
+            step++;
+            const translate = rawDistance + TWEEN.Easing.Cubic.Out(step / max) * distance;
+            this.distance = translate;
+            const style = `translate${this.vertical ? 'Y' : 'X'}(${translate}px)`;
+
+            this.renderer.setStyle(element, 'transform', style);
+            this.slidingEventSource.next(translate / boxSize * -1);
+            if (step < max) {
+                this.animationId = requestAnimationFrame(moveToTarget);
+            } else {
+                // 发送事件，并传出当前滑动到了第几屏
+                this.slidingFinish.emit(this.distance / boxSize * -1);
+            }
+        }.bind(this);
+
+        this.animationId = requestAnimationFrame(moveToTarget);
     }
 }
