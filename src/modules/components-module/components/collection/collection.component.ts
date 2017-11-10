@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { CollectionItemComponent } from '../collection-item/collection-item.component';
 import { Observable, Subject, Subscription } from 'rxjs';
+import * as TWEEN from '@tweenjs/tween.js';
 
 @Component({
     selector: 'ui-collection',
@@ -34,7 +35,6 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
     set index(value: number) {
         this._index = value;
         if (this.items) {
-            this.renderer.setStyle(this.element, 'transition-duration', '');
             this.setPosition();
         }
     }
@@ -83,7 +83,6 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
     }
 
     ngAfterViewInit() {
-        this.renderer.setStyle(this.element, 'transition-duration', '0s');
         this.setPosition();
     }
 
@@ -106,13 +105,17 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
 
     bindingDragEvent() {
         let element = this.element;
+
+        let animationId: number;
+
         this.renderer.listen(element, 'touchstart', (event: any) => {
+
+            cancelAnimationFrame(animationId);
 
             const startTime = Date.now();
             const point = event.touches[0];
             const startX = point.pageX;
             const startY = point.pageY;
-            this.renderer.setStyle(element, 'transition-duration', '0s');
             const oldDistance = this.distance;
 
             let unTouchMoveFn: () => void;
@@ -142,35 +145,58 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
                 const targetIndex = Math.ceil(this.distance / boxSize);
                 const offset = Math.abs(this.distance % boxSize);
 
-                let translate: number;
+                let translateDistance: number;
                 // 如果拖动的时间小于 200ms，且距离大于100px，则按当前拖动的方向计算，并直接设置对应的值
                 if (endTime - startTime < 200 && offset > 100) {
                     if (oldDistance < this.distance) {
-                        translate = targetIndex * boxSize;
+                        translateDistance = targetIndex * boxSize;
                     } else {
-                        translate = targetIndex * boxSize - boxSize;
+                        translateDistance = targetIndex * boxSize - boxSize;
                     }
                 } else {
                     if (offset < (boxSize / 2)) {
-                        translate = targetIndex * boxSize;
+                        translateDistance = targetIndex * boxSize;
                     } else {
-                        translate = targetIndex * boxSize - boxSize;
+                        translateDistance = targetIndex * boxSize - boxSize;
                     }
                 }
 
-                this.distance = translate;
-                this.renderer.setStyle(element, 'transition-duration', '');
-                this.renderer.setStyle(element, 'transform', `translate${this.vertical ? 'Y' : 'X'}(${translate}px)`);
-                // 发送事件，并传出当前滑动到了第几屏
-                this.slidingFinish.emit(this.distance / boxSize * -1);
+                const max = 20;
+                let step = 0;
 
+                const distance = translateDistance - this.distance;
+
+                if (distance === 0) {
+                    return;
+                }
+
+                const rawDistance = this.distance;
+
+                const moveToTarget = function () {
+                    step++;
+                    const translate = rawDistance + TWEEN.Easing.Cubic.Out(step / max) * distance;
+                    this.distance = translate;
+                    const style = `translate${this.vertical ? 'Y' : 'X'}(${translate}px)`;
+
+                    this.renderer.setStyle(element, 'transform', style);
+                    this.slidingEventSource.next(translate / boxSize * -1);
+                    if (step < max) {
+                        animationId = requestAnimationFrame(moveToTarget);
+                    } else {
+                        // 发送事件，并传出当前滑动到了第几屏
+                        this.slidingFinish.emit(this.distance / boxSize * -1);
+                    }
+                }.bind(this);
+
+                animationId = requestAnimationFrame(moveToTarget);
             }.bind(this);
 
             unTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
                 const point = ev.touches[0];
                 let distance: number;
-                // 如果开启的是垂直方向拖动，则比较 Y 轴距离，否则比较 X 轴距离
+
                 if (this.vertical) {
+                    // 如果开启的是垂直方向拖动，但 x 轴的距离大于 y 轴，则取消触摸
                     if ((Math.abs(point.pageX - startX) > Math.abs(point.pageY - startY)) && !isMoved) {
                         unbindFn();
                         return;
@@ -179,6 +205,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
                     }
                     distance = oldDistance + point.pageY - startY;
                 } else {
+                    // 如果开启的是水平方向拖动，但 y 轴的距离大于 x 轴，则取消触摸
                     if ((Math.abs(point.pageX - startX) < Math.abs(point.pageY - startY)) && !isMoved) {
                         unbindFn();
                         return;
