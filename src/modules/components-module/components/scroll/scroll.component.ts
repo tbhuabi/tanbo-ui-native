@@ -84,6 +84,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
             const maxScrollY = Math.max(element.scrollHeight, element.offsetHeight) - element.offsetHeight;
             // 如果当前滚动距离小于上拉刷新临界值，则记录相应值，并就广播相应事件
             if (maxScrollY - element.scrollTop < this.doLoadingDistance) {
+                this.isLoading = true;
                 this.infiniteSource.next();
             }
         });
