@@ -47,6 +47,8 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
     // 记录用户是否正在触摸
     private isTouching: boolean = false;
 
+    private isLoading: boolean = false;
+
     constructor(private renderer: Renderer2,
                 private elementRef: ElementRef) {
 
@@ -65,11 +67,16 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
         this.sub = this.infinite$.debounceTime(300).subscribe(() => {
             if (element.scrollTop >= oldScrollTop) {
                 oldScrollTop = null;
-                this.infinite.emit();
+                this.infinite.emit(() => {
+                    this.isLoading = false;
+                });
             }
         });
 
         const fn = this.renderer.listen(element, 'scroll', () => {
+            if (this.isLoading) {
+                return;
+            }
             // 计算最大滚动距离
             const maxScrollY = Math.max(element.scrollHeight, element.offsetHeight) - element.offsetHeight;
             // 如果当前滚动距离小于上拉刷新临界值，则记录相应值，并就广播相应事件

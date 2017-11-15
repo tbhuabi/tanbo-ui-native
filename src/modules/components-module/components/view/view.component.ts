@@ -7,9 +7,7 @@ import {
     ViewChild,
     Injector,
     ComponentRef,
-    ViewContainerRef,
-    ChangeDetectorRef,
-    ChangeDetectionStrategy
+    ViewContainerRef
 } from '@angular/core';
 import { ActivatedRoute, ChildrenOutletContexts } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -25,8 +23,7 @@ import { RouterService } from '../router/router.service';
     providers: [
         ViewStateService,
         ContentLoadingController
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    ]
 })
 export class ViewComponent implements OnInit, OnDestroy {
     @Input()
@@ -81,8 +78,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     constructor(private viewStateService: ViewStateService,
                 private viewContainerRef: ViewContainerRef,
                 private _activatedRoute: ActivatedRoute,
-                private routerService: RouterService,
-                private changeDetectorRef: ChangeDetectorRef) {
+                private routerService: RouterService) {
     }
 
     ngOnInit() {
@@ -107,7 +103,6 @@ export class ViewComponent implements OnInit, OnDestroy {
                     state: this.state,
                     progress
                 });
-                this.changeDetectorRef.detectChanges();
             }
         }));
         this.subs.push(this.routerService.moveBackProgress$.subscribe(progress => {
@@ -116,7 +111,6 @@ export class ViewComponent implements OnInit, OnDestroy {
                     state: ViewState.Moving,
                     progress
                 });
-                this.changeDetectorRef.detectChanges();
             }
         }));
     }
