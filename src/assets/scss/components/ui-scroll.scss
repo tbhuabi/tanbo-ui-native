@@ -2,6 +2,5 @@ ui-scroll {
     @include fill-box;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-    transition: transform .25s;
     background-color: inherit;
 }

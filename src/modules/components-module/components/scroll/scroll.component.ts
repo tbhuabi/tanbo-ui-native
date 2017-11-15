@@ -10,6 +10,7 @@ import {
     Renderer2
 } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
+import * as TWEEN from '@tweenjs/tween.js';
 
 @Component({
     selector: 'ui-scroll',
@@ -30,7 +31,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
     transform: string;
 
     @Output()
-    rolling = new EventEmitter<number>();
+    dragging = new EventEmitter<number>();
     @Output()
     refresh = new EventEmitter<() => void>();
     @Output()
@@ -42,6 +43,9 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
     private infinite$: Observable<void>;
     private infiniteSource = new Subject<void>();
     private sub: Subscription;
+    private animationId: number;
+    // 记录用户是否正在触摸
+    private isTouching: boolean = false;
 
     constructor(private renderer: Renderer2,
                 private elementRef: ElementRef) {
@@ -89,11 +93,11 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
     }
 
     bindingRefresher() {
-        // 记录用户是否正在触摸
-        let isTouching: boolean = false;
         const element = this.elementRef.nativeElement;
         const fn = this.renderer.listen(element, 'touchstart', (event: any) => {
-            isTouching = true;
+            cancelAnimationFrame(this.animationId);
+
+            this.isTouching = true;
             const oldPoint = event.touches[0];
 
             const oldY = oldPoint.pageY;
@@ -101,8 +105,6 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
             const oldScrollTop = element.scrollTop;
 
             let isScroll = true;
-
-            this.renderer.setStyle(element, 'transitionDuration', '0ms');
 
             // 记录上一次未还原的偏移值
             const oldTranslateY = this.translateY;
@@ -135,7 +137,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
                 // 如果偏移值发生改变，则改变样式
                 if (this.translateY !== translateY) {
                     this.translateY = translateY;
-                    this.rolling.emit(translateY);
+                    this.dragging.emit(translateY);
                     this.transform = `translateY(${translateY}px)`;
                 }
                 if (translateY !== 0) {
@@ -145,29 +147,23 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
 
             });
 
-            const complete = function () {
-                if (isTouching) {
+            const complete = () => {
+                if (this.isTouching) {
                     return;
                 }
-                this.translateY = 0;
-                this.transform = null;
-            }.bind(this);
+                this.scroll(this.translateY, 0);
+            };
 
             touchedFn = function () {
-                isTouching = false;
+                this.isTouching = false;
                 let distanceTop = Math.abs(Number(this.actionDistanceTop));
-                this.renderer.setStyle(element, 'transition-duration', '');
 
                 // 当用户取消触摸时，根据当前距离，判断是否触发刷新事件
                 if (this.translateY > 0 && this.translateY > distanceTop) {
-                    this.translateY = distanceTop;
-                    this.transform = `translateY(${distanceTop}px)`;
-                    this.rolling.emit(distanceTop);
+                    this.scroll(this.translateY, distanceTop);
                     this.refresh.emit(complete);
                 } else {
-                    this.rolling.emit(0);
-                    this.translateY = 0;
-                    this.transform = null;
+                    this.scroll(this.translateY, 0);
                 }
                 cancelTouchMoveFn();
                 cancelTouchEndFn();
@@ -179,5 +175,29 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
         });
 
         this.unBindFnList.push(fn);
+    }
+
+    private scroll(start: number, target: number) {
+        const max = 20;
+        let step = 0;
+
+        const distance = target - start;
+
+        const animationFn = function () {
+            if (this.isTouching) {
+                return;
+            }
+            step++;
+            const distanceTop = TWEEN.Easing.Cubic.Out(step / max) * distance + start;
+            this.translateY = distanceTop;
+            this.transform = `translateY(${distanceTop}px)`;
+            this.dragging.emit(distanceTop);
+            if (step < max) {
+                this.animationId = requestAnimationFrame(animationFn);
+            }
+
+        }.bind(this);
+
+        this.animationId = requestAnimationFrame(animationFn);
     }
 }

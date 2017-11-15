@@ -2,7 +2,6 @@ ui-view {
     @include fill-box;
     contain: size style layout;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 0);
     &.sleep {
         display: none;
     }
