@@ -1,7 +1,8 @@
-import { Component, ElementRef, HostBinding, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostBinding, HostListener, OnDestroy, OnInit, Renderer2, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import * as TWEEN from '@tweenjs/tween.js';
 
+import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
 import { RouterService } from '../router/router.service';
 
@@ -20,12 +21,14 @@ export class ContentComponent implements OnDestroy, OnInit {
     constructor(private viewStateService: ViewStateService,
                 private elementRef: ElementRef,
                 private routerService: RouterService,
-                private renderer: Renderer2) {
+                private renderer: Renderer2,
+                @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number) {
     }
 
     ngOnInit() {
+        const steps = this.steps;
         this.sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
-            const progress = TWEEN.Easing.Cubic.Out(status.progress / 100);
+            const progress = TWEEN.Easing.Cubic.Out(status.progress / steps);
 
             switch (status.state) {
                 case ViewState.Activate:
@@ -39,7 +42,7 @@ export class ContentComponent implements OnDestroy, OnInit {
                 case ViewState.ToStack:
                     this.state = status.state;
                     this.translate = `translate3d(${progress * 100 / -2}%, 0, 0)`;
-                    this.opacity = 1 - 0.1 * status.progress / 100;
+                    this.opacity = 1 - 0.1 * status.progress / steps;
                     break;
                 case ViewState.Reactivate:
                     this.state = status.state;
@@ -51,10 +54,10 @@ export class ContentComponent implements OnDestroy, OnInit {
                     break;
                 case ViewState.Moving:
                     if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
-                        this.translate = `translate3d(${status.progress}%, 0, 0)`;
+                        this.translate = `translate3d(${status.progress / steps * 100}%, 0, 0)`;
                     } else if (this.state === ViewState.ToStack) {
-                        this.translate = `translate3d(${-50 + status.progress / 2}%, 0, 0)`;
-                        this.opacity = 0.9 + 0.1 * status.progress / 100;
+                        this.translate = `translate3d(${-50 + 50 * status.progress / steps}%, 0, 0)`;
+                        this.opacity = 0.9 + 0.1 * status.progress / steps;
                     }
                     break;
             }
@@ -99,17 +102,17 @@ export class ContentComponent implements OnDestroy, OnInit {
             }
 
             isBack = true;
-            progress = distanceX / maxWidth * 100;
+            progress = distanceX / maxWidth * this.steps;
             if (progress < 0) {
                 progress = 0;
-            } else if (progress > 100) {
-                progress = 100;
+            } else if (progress > this.steps) {
+                progress = this.steps;
             }
             this.routerService.publishMoveBackProgress(progress);
         });
 
         let diminishing = function () {
-            progress -= 4;
+            progress--;
             if (progress < 0) {
                 progress = 0;
                 self.routerService.publishMoveBackProgress(progress);
@@ -120,15 +123,15 @@ export class ContentComponent implements OnDestroy, OnInit {
         };
 
         let increasing = function () {
-            progress += 4;
-            if (progress > 100) {
-                progress = 100;
+            progress++;
+            if (progress > this.steps) {
+                progress = this.steps;
                 self.routerService.publishMoveBackProgress(progress);
                 return;
             }
             self.routerService.publishMoveBackProgress(progress);
             requestAnimationFrame(increasing);
-        };
+        }.bind(this);
 
         unbindFn = function () {
 
@@ -139,16 +142,16 @@ export class ContentComponent implements OnDestroy, OnInit {
             }
 
             const endTime = Date.now();
-            if (endTime - startTime < 100 && progress > 20) {
+            if (endTime - startTime < 100 && progress > this.steps * 0.2) {
                 requestAnimationFrame(increasing);
                 return;
             }
-            if (progress < 40) {
+            if (progress < this.steps * 0.4) {
                 requestAnimationFrame(diminishing);
             } else {
                 requestAnimationFrame(increasing);
             }
-        };
+        }.bind(this);
 
         unbindTouchEndFn = this.renderer.listen('document', 'touchend', unbindFn);
     }

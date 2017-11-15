@@ -54,6 +54,8 @@ import { ListActivatedService } from './components/list-item/list-activated.serv
 import { ToastController } from './components/toast/toast-controller.service';
 import { ViewStateService } from './components/view/view-state.service';
 
+import { UI_ROUTER_ANIMATION_STEPS } from './config';
+
 @NgModule({
     imports: [
         CommonModule
@@ -157,7 +159,11 @@ import { ViewStateService } from './components/view/view-state.service';
         ConfirmController,
         ListActivatedService,
         ToastController,
-        ViewStateService
+        ViewStateService,
+        {
+            provide: UI_ROUTER_ANIMATION_STEPS,
+            useValue: 25
+        }
     ]
 })
 

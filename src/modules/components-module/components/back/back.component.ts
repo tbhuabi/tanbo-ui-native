@@ -13,6 +13,7 @@ import { DOCUMENT, Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import * as TWEEN from '@tweenjs/tween.js';
 
+import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
 import { AppController } from '../app/app-controller.service';
 
@@ -41,6 +42,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     private isQuit: boolean = false;
 
     constructor(@Inject(DOCUMENT) private document: Document,
+                @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number,
                 private location: Location,
                 private appController: AppController,
                 private viewStateService: ViewStateService) {
@@ -68,8 +70,9 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnInit() {
+        const steps = this.steps;
         const sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
-            const progress = TWEEN.Easing.Cubic.Out(status.progress / 100);
+            const progress = TWEEN.Easing.Cubic.Out(status.progress / steps);
 
             let n: number = status.progress / 50;
             let m: number;
@@ -85,7 +88,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
                     break;
                 case ViewState.ToStack:
                     this.state = status.state;
-                    this.translate = `translate3d(${-status.progress}%, 0, 0)`;
+                    this.translate = `translate3d(${-status.progress / steps * 100}%, 0, 0)`;
                     m = 1 - n;
                     this.opacity = m < 0 ? 0 : m;
                     break;
@@ -97,11 +100,11 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
                     break;
                 case ViewState.Moving:
                     if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
-                        this.translate = `translate3d(${status.progress / 100 * this.translateDistance}px, 0, 0)`;
+                        this.translate = `translate3d(${status.progress / steps * this.translateDistance}px, 0, 0)`;
                         m = 1 - n;
                         this.opacity = m < 0 ? 0 : m;
                     } else if (this.state === ViewState.ToStack) {
-                        this.translate = `translate3d(${-50 + status.progress / 2}%, 0, 0)`;
+                        this.translate = `translate3d(${-50 + 50 * status.progress / steps}%, 0, 0)`;
                         m = progress * 2;
                         this.opacity = m > 1 ? 1 : m;
                     }

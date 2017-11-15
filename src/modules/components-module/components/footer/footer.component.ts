@@ -1,7 +1,8 @@
-import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import * as TWEEN from '@tweenjs/tween.js';
 
+import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
 
 @Component({
@@ -17,12 +18,14 @@ export class FooterComponent implements OnDestroy, OnInit {
     private sub: Subscription;
     private state: ViewState;
 
-    constructor(private viewStateService: ViewStateService) {
+    constructor(private viewStateService: ViewStateService,
+                @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number) {
     }
 
     ngOnInit() {
+        const steps = this.steps;
         this.sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
-            const progress = TWEEN.Easing.Cubic.Out(status.progress / 100);
+            const progress = TWEEN.Easing.Cubic.Out(status.progress / steps);
             switch (status.state) {
                 case ViewState.Activate:
                     this.state = status.state;
@@ -35,7 +38,7 @@ export class FooterComponent implements OnDestroy, OnInit {
                 case ViewState.ToStack:
                     this.state = status.state;
                     this.translate = `translate3d(${progress * 100 / -2}%, 0, 0)`;
-                    this.opacity = 1 - 0.1 * status.progress / 100;
+                    this.opacity = 1 - 0.1 * status.progress / steps;
                     break;
                 case ViewState.Reactivate:
                     this.state = status.state;
@@ -47,10 +50,10 @@ export class FooterComponent implements OnDestroy, OnInit {
                     break;
                 case ViewState.Moving:
                     if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
-                        this.translate = `translate3d(${status.progress}%, 0, 0)`;
+                        this.translate = `translate3d(${status.progress / steps * 100}%, 0, 0)`;
                     } else if (this.state === ViewState.ToStack) {
-                        this.translate = `translate3d(${-50 + status.progress / 2}%, 0, 0)`;
-                        this.opacity = 0.9 + 0.1 * status.progress / 100;
+                        this.translate = `translate3d(${-50 + 50 * status.progress / steps}%, 0, 0)`;
+                        this.opacity = 0.9 + 0.1 * status.progress / steps;
                     }
                     break;
             }

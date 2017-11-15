@@ -8,12 +8,14 @@ import {
     ComponentRef,
     HostListener,
     ComponentFactory,
-    ComponentFactoryResolver
+    ComponentFactoryResolver,
+    Inject
 } from '@angular/core';
 import { ChildrenOutletContexts, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
+import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
 import { ViewState } from '../view/view-state.service';
 import { RouterService } from './router.service';
 import { UIRouter } from './router';
@@ -83,7 +85,8 @@ export class RouterComponent implements OnInit, OnDestroy {
                 private uiRouter: UIRouter,
                 private resolver: ComponentFactoryResolver,
                 private appController: AppController,
-                private location: Location) {
+                private location: Location,
+                @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number) {
     }
 
     @HostListener('window:popstate')
@@ -110,7 +113,7 @@ export class RouterComponent implements OnInit, OnDestroy {
         }));
 
         this.subs.push(this.routerService.moveBackProgress$.subscribe(progress => {
-            if (progress >= 100 && this.openMoveBack) {
+            if (progress >= this.steps && this.openMoveBack) {
                 this.isMoveBack = true;
                 this.location.back();
             }
@@ -134,7 +137,7 @@ export class RouterComponent implements OnInit, OnDestroy {
             this.isBack--;
             this.setViewState([ViewState.ToStack, ViewState.Reactivate]);
             setTimeout(() => {
-                this.routerService.publishAnimationProgress(100);
+                this.routerService.publishAnimationProgress(this.steps);
             });
             return;
         }
@@ -209,16 +212,13 @@ export class RouterComponent implements OnInit, OnDestroy {
 
     private setupRouterAnimation() {
         if (this.views.length === 1) {
-            this.routerService.publishAnimationProgress(100);
+            this.routerService.publishAnimationProgress(this.steps);
             return;
         }
         let i = 0;
-
-        const step = 3.6;
-
         const fn = function () {
-            if (i >= 100) {
-                i = 100;
+            if (i >= this.steps) {
+                i = this.steps;
                 if (this.views[this.views.length - 1].state === ViewState.Destroy) {
                     this.views.pop();
                     this.setViewState([ViewState.ToStack, ViewState.Reactivate]);
@@ -228,7 +228,7 @@ export class RouterComponent implements OnInit, OnDestroy {
             }
             this.routerService.publishAnimationProgress(i);
 
-            i += step;
+            i++;
         }.bind(this);
 
         fn();

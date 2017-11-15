@@ -3,7 +3,7 @@ import {
     Component,
     ElementRef,
     HostBinding,
-    HostListener,
+    HostListener, Inject,
     OnDestroy,
     OnInit,
     ViewChild
@@ -11,6 +11,7 @@ import {
 import { Subscription } from 'rxjs';
 import * as TWEEN from '@tweenjs/tween.js';
 
+import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
 
 @Component({
@@ -32,7 +33,8 @@ export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
     private contentWidth: number = 0;
     private translateDistance: number;
 
-    constructor(private elementRef: ElementRef,
+    constructor(@Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number,
+                private elementRef: ElementRef,
                 private viewStateService: ViewStateService) {
     }
 
@@ -43,8 +45,9 @@ export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+        const steps = this.steps;
         this.sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
-            const progress = TWEEN.Easing.Cubic.Out(status.progress / 100);
+            const progress = TWEEN.Easing.Cubic.Out(status.progress / steps);
             let n: number;
             let translate: number;
             switch (status.state) {
@@ -71,11 +74,11 @@ export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
                     break;
                 case ViewState.Moving:
                     if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
-                        this.translate = `translate3d(${status.progress * 0.7}%, 0, 0)`;
+                        this.translate = `translate3d(${status.progress / steps * 100 * 0.7}%, 0, 0)`;
                     } else if (this.state === ViewState.ToStack) {
-                        translate = -this.translateDistance + this.translateDistance * status.progress / 100;
+                        translate = -this.translateDistance + this.translateDistance * status.progress / steps;
                         this.translate = `translate3d(${translate}px, 0, 0)`;
-                        this.opacity = 0.9 + 0.1 * status.progress / 100;
+                        this.opacity = 0.9 + 0.1 * status.progress / steps;
                     }
                     break;
 
