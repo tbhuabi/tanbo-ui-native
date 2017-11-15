@@ -20,12 +20,15 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
     // 是否开启下拉刷新
     @Input()
     openRefresh: boolean = false;
+    // 是否开启下拉刷新
+    @Input()
+    openInfinite: boolean = false;
     // 触发下拉刷新临界距离
     @Input()
-    actionDistanceTop: number = 60;
+    doRefreshDistance: number = 60;
     // 触发上拉加载临界距离
     @Input()
-    actionDistanceBottom: number = 600;
+    doLoadingDistance: number = 600;
 
     @HostBinding('style.transform')
     transform: string;
@@ -60,17 +63,17 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
             this.bindingRefresher();
         }
 
+        if (!this.openInfinite) {
+            return;
+        }
+
         const element = this.elementRef.nativeElement;
-        // 记录上一次有效距离
-        let oldScrollTop: number = null;
+
         // 当触发滚动，且是向上拉的情况，触发加载事件
-        this.sub = this.infinite$.debounceTime(300).subscribe(() => {
-            if (element.scrollTop >= oldScrollTop) {
-                oldScrollTop = null;
-                this.infinite.emit(() => {
-                    this.isLoading = false;
-                });
-            }
+        this.sub = this.infinite$.subscribe(() => {
+            this.infinite.emit(() => {
+                this.isLoading = false;
+            });
         });
 
         const fn = this.renderer.listen(element, 'scroll', () => {
@@ -80,13 +83,8 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
             // 计算最大滚动距离
             const maxScrollY = Math.max(element.scrollHeight, element.offsetHeight) - element.offsetHeight;
             // 如果当前滚动距离小于上拉刷新临界值，则记录相应值，并就广播相应事件
-            if (maxScrollY - element.scrollTop < this.actionDistanceBottom) {
-                if (oldScrollTop === null) {
-                    oldScrollTop = element.scrollTop;
-                }
+            if (maxScrollY - element.scrollTop < this.doLoadingDistance) {
                 this.infiniteSource.next();
-            } else {
-                oldScrollTop = null;
             }
         });
         this.unBindFnList.push(fn);
@@ -161,9 +159,9 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
                 this.scroll(this.translateY, 0);
             };
 
-            touchedFn = function () {
+            touchedFn = () => {
                 this.isTouching = false;
-                let distanceTop = Math.abs(Number(this.actionDistanceTop));
+                let distanceTop = Math.abs(Number(this.doRefreshDistance));
 
                 // 当用户取消触摸时，根据当前距离，判断是否触发刷新事件
                 if (this.translateY > 0 && this.translateY > distanceTop) {
@@ -175,7 +173,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
                 cancelTouchMoveFn();
                 cancelTouchEndFn();
                 cancelTouchCancelFn();
-            }.bind(this);
+            };
 
             cancelTouchCancelFn = this.renderer.listen('document', 'touchcancel', touchedFn);
             cancelTouchEndFn = this.renderer.listen('document', 'touchend', touchedFn);
@@ -190,7 +188,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
 
         const distance = target - start;
 
-        const animationFn = function () {
+        const animationFn = () => {
             if (this.isTouching) {
                 return;
             }
@@ -203,7 +201,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
                 this.animationId = requestAnimationFrame(animationFn);
             }
 
-        }.bind(this);
+        };
 
         this.animationId = requestAnimationFrame(animationFn);
     }
