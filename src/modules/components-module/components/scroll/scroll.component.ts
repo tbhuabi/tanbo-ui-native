@@ -92,7 +92,9 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
         this.unBindFnList.forEach(item => {
             item();
         });
@@ -167,6 +169,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
                 // 当用户取消触摸时，根据当前距离，判断是否触发刷新事件
                 if (this.translateY > 0 && this.translateY > distanceTop) {
                     this.scroll(this.translateY, distanceTop);
+                    this.isLoading = false;
                     this.refresh.emit(complete);
                 } else {
                     this.scroll(this.translateY, 0);
