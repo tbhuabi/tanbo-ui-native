@@ -4,6 +4,9 @@ ui-select {
     .ui-select-fixed {
         height: 100%;
         display: flex;
+        input {
+            flex: 1;
+        }
     }
 
     .ui-select-arrow {
