@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, Params, ActivatedRoute, UrlTree, NavigationExtras } from '@angular/router';
 import { QueryParamsHandling } from '@angular/router/src/config';
+import { Observable, Subject } from 'rxjs';
 
 export interface UINavigationExtras {
     queryParams?: Params | null;
@@ -15,8 +16,12 @@ export interface UINavigationExtras {
 
 @Injectable()
 export class UIRouter {
+    childrenActivatedRoutes$: Observable<Array<ActivatedRoute>>;
+    private routesSource = new Subject<Array<ActivatedRoute>>();
+
     constructor(private router: Router,
                 private activatedRoute: ActivatedRoute) {
+        this.childrenActivatedRoutes$ = this.routesSource.asObservable();
     }
 
     getActivatedRoute(): ActivatedRoute {
@@ -25,6 +30,9 @@ export class UIRouter {
 
     updateActivateRoute(route: ActivatedRoute) {
         this.activatedRoute = route;
+        if (route.children.length) {
+            this.routesSource.next(route.children);
+        }
     }
 
     navigateByUrl(url: string | UrlTree, extras?: UINavigationExtras): Promise<boolean> {

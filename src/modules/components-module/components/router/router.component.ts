@@ -9,6 +9,7 @@ import {
     HostListener,
     ComponentFactory,
     ComponentFactoryResolver,
+    ViewContainerRef,
     Inject
 } from '@angular/core';
 import { ChildrenOutletContexts, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
@@ -86,6 +87,7 @@ export class RouterComponent implements OnInit, OnDestroy {
                 private resolver: ComponentFactoryResolver,
                 private appController: AppController,
                 private location: Location,
+                private viewContainerRef: ViewContainerRef,
                 @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number) {
     }
 
@@ -116,6 +118,20 @@ export class RouterComponent implements OnInit, OnDestroy {
             if (progress >= this.steps && this.openMoveBack) {
                 this.isMoveBack = true;
                 this.location.back();
+            }
+        }));
+
+        const parentUIRouter = this.viewContainerRef.parentInjector.get(UIRouter);
+        if (!parentUIRouter) {
+            return;
+        }
+        this.subs.push(parentUIRouter.childrenActivatedRoutes$.subscribe((routes: Array<ActivatedRoute>) => {
+            for (let i = 0; i < routes.length; i++) {
+                if (routes[i].outlet === this.activatedRoute.outlet) {
+                    this._activatedRoute = routes[i];
+                    this.uiRouter.updateActivateRoute(this._activatedRoute);
+                    return;
+                }
             }
         }));
     }
@@ -181,8 +197,8 @@ export class RouterComponent implements OnInit, OnDestroy {
     }
 
     deactivate() {
-        this.activated = null;
-        this._activatedRoute = null;
+        // this.activated = null;
+        // this._activatedRoute = null;
     }
 
     // 从子树分离时调用
