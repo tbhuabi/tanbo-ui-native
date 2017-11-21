@@ -20,6 +20,7 @@ import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
 import { ViewState } from '../view/view-state.service';
 import { RouterService } from './router.service';
 import { UIRouter } from './router';
+import { RouterPatchService } from './router-patch.service';
 import { AppController } from '../app/app-controller.service';
 
 export interface RouterItemConfig {
@@ -88,6 +89,7 @@ export class RouterComponent implements OnInit, OnDestroy {
                 private appController: AppController,
                 private location: Location,
                 private viewContainerRef: ViewContainerRef,
+                private routerPatchService: RouterPatchService,
                 @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number) {
     }
 
@@ -108,6 +110,12 @@ export class RouterComponent implements OnInit, OnDestroy {
                 this.activateWith(context.route, context.resolver || null);
             }
         }
+
+        this.subs.push(this.routerPatchService.back$.subscribe(arg => {
+            if (arg !== this && this.isBack > 0) {
+                this.isBack--;
+            }
+        }));
 
         // 订阅当前活动的组件
         this.subs.push(this.routerService.activated$.subscribe((componentRef: ComponentRef<any>) => {
@@ -144,6 +152,7 @@ export class RouterComponent implements OnInit, OnDestroy {
     }
 
     activateWith(activatedRoute: ActivatedRoute, resolver: ComponentFactoryResolver | null) {
+        this.routerPatchService.publish(this);
         this._activatedRoute = activatedRoute;
         this.uiRouter.updateActivateRoute(activatedRoute);
 
@@ -167,7 +176,7 @@ export class RouterComponent implements OnInit, OnDestroy {
         if (this.isBack) {
             this.isBack--;
             if (this.views.length > 1) {
-                this.setViewState([ViewState.ToStack, ViewState.Reactivate, ViewState.Destroy]);
+                this.setViewState([ViewState.Reactivate, ViewState.Destroy]);
 
                 setTimeout(() => {
                     this.setupRouterAnimation();
