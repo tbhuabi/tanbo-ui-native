@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouteReuseStrategy } from '@angular/router';
 // 组件
 import { ActionSheetComponent } from './components/action-sheet/action-sheet.component';
 import { AlertComponent } from './components/alert/alert.component';
@@ -42,18 +43,17 @@ import { ToastComponent } from './components/toast/toast.component';
 import { ViewComponent } from './components/view/view.component';
 // 指令
 import { ComponentHostDirective } from './components/view/component-host.directive';
-import { UIRouterLinkDirective, UIRouterLinkWithHrefDirective } from './components/router/ui-router-link.directive';
 
 // 服务
-import { UIRouter } from './components/router/router';
-import { AppController } from './components/app/app-controller.service';
+import { RouteCacheController } from './components/router/route-cache-controller';
+import { AppController } from './components/app/app-controller';
 
 import { AlertController } from './components/alert/alert-controller.service';
 import { ConfirmController } from './components/confirm/confirm-controller.service';
 import { ListActivatedService } from './components/list-item/list-activated.service';
 import { ToastController } from './components/toast/toast-controller.service';
 import { ViewStateService } from './components/view/view-state.service';
-import { RouterPatchService } from './components/router/router-patch.service';
+import { UIRouteReuseStrategy } from './components/router/route-reuse-strategy';
 
 import { UI_ROUTER_ANIMATION_STEPS } from './config';
 
@@ -103,9 +103,7 @@ import { UI_ROUTER_ANIMATION_STEPS } from './config';
         ViewComponent,
 
         // 指令
-        ComponentHostDirective,
-        UIRouterLinkDirective,
-        UIRouterLinkWithHrefDirective
+        ComponentHostDirective
     ],
     exports: [
         ActionSheetComponent,
@@ -146,14 +144,10 @@ import { UI_ROUTER_ANIMATION_STEPS } from './config';
         TabViewItemComponent,
         TitleComponent,
         ToastComponent,
-        ViewComponent,
-
-        // 指令
-        UIRouterLinkDirective,
-        UIRouterLinkWithHrefDirective
+        ViewComponent
     ],
     providers: [
-        UIRouter,
+        RouteCacheController,
         AppController,
 
         AlertController,
@@ -161,10 +155,13 @@ import { UI_ROUTER_ANIMATION_STEPS } from './config';
         ListActivatedService,
         ToastController,
         ViewStateService,
-        RouterPatchService,
         {
             provide: UI_ROUTER_ANIMATION_STEPS,
             useValue: 25
+        },
+        {
+            provide: RouteReuseStrategy,
+            useClass: UIRouteReuseStrategy
         }
     ]
 })

@@ -7,7 +7,7 @@
   </ui-header>
   <ui-content>
     <ui-scroll [openRefresh]="true" (dragging)="dragging($event)" (refresh)="refresh($event)">
-      <p><a uiRouterLink="../page2">page2</a></p>
+      <p><a routerLink="../page2">page2</a></p>
       <p>
         <button (click)="toPage()">page2</button>
       </p>

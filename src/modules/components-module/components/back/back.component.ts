@@ -10,12 +10,13 @@ import {
     ViewChild
 } from '@angular/core';
 import { DOCUMENT, Location } from '@angular/common';
+import { Router, Event, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 import * as TWEEN from '@tweenjs/tween.js';
 
 import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
-import { AppController } from '../app/app-controller.service';
+import { AppController } from '../app/app-controller';
 
 @Component({
     selector: 'ui-back',
@@ -39,11 +40,13 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     private contentWidth: number;
     private leftDistance: number;
     private translateDistance: number;
-    private isQuit: boolean = false;
+
+    private timer: any = null;
 
     constructor(@Inject(DOCUMENT) private document: Document,
                 @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number,
                 private location: Location,
+                private router: Router,
                 private appController: AppController,
                 private viewStateService: ViewStateService) {
     }
@@ -57,19 +60,22 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     @HostListener('click')
     click() {
         // 当用户点击组件时，触发视图返回上一页
+        clearTimeout(this.timer);
         if (!this.closeBackHandle) {
-            this.isQuit = false;
-            this.location.back();
-
-            setTimeout(() => {
-                if (!this.isQuit) {
-                    this.appController.quit();
-                }
+            this.timer = setTimeout(() => {
+                this.appController.quit();
             }, 300);
+            this.location.back();
         }
     }
 
     ngOnInit() {
+        this.subs.push(this.router.events.subscribe((event: Event) => {
+            if (event instanceof NavigationStart) {
+                clearTimeout(this.timer);
+            }
+        }));
+
         const steps = this.steps;
         const sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
             const progress = TWEEN.Easing.Cubic.Out(status.progress / steps);
@@ -113,9 +119,6 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
         });
 
         this.subs.push(sub);
-        this.subs.push(this.appController.hasHistory$.subscribe((n: boolean) => {
-            this.isQuit = n;
-        }));
     }
 
     ngAfterViewInit() {

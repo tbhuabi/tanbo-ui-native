@@ -1,15 +1,16 @@
 <ui-page>
   <ui-header>
     <ui-navbar>
+      <ui-back></ui-back>
       <ui-title>tab1 index</ui-title>
     </ui-navbar>
   </ui-header>
   <ui-content>
     <!--<button [routerLink]="['/root',{outlets: {route1:['page1'],route2:['tab2'], route3:['tab3'] }}]">to page1</button>-->
-    <button [uiRouterLink]="'../page1'">to page1</button>
+    <button [routerLink]="'../page1'">to page1</button>
 
     <p>
-      <a uiRouterLink="/async">async-module</a>
+      <a routerLink="/async">async-module</a>
     </p>
   </ui-content>
 </ui-page>

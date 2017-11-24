@@ -4,8 +4,8 @@ export { ToastController, ToastConfig, ToastType } from './components/toast/toas
 export { ViewStateService, ViewState } from './components/view/view-state.service';
 export { ContentLoadingController } from './components/content-loading/content-loading.service';
 export { RouterService } from './components/router/router.service';
-export { UINavigationExtras, UIRouter } from './components/router/router';
-export { AppController } from './components/app/app-controller.service';
+export { RouteCacheController } from './components/router/route-cache-controller';
+export { AppController } from './components/app/app-controller';
 
 export { OnViewEnter, OnViewLeave } from './components/view/view-life-cycle';
 

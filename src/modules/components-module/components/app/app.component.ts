@@ -1,14 +1,16 @@
-import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnInit, OnDestroy } from '@angular/core';
 import { PRIMARY_OUTLET } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 import { ListActivatedService } from '../list-item/list-activated.service';
+import { RouteCacheController } from '../router/route-cache-controller';
 
 @Component({
     selector: 'ui-app',
     templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
     @Input()
     baseFontSize: number = 10;
     @Input()
@@ -17,13 +19,25 @@ export class AppComponent implements OnInit {
     private htmlElement: HTMLElement;
     private defaultDocWidth: number = 320;
 
+    private sub: Subscription;
+
     constructor(@Inject(DOCUMENT) private document: Document,
+                private routeCacheController: RouteCacheController,
+                private location: Location,
                 private listActivatedService: ListActivatedService) {
     }
 
     ngOnInit() {
+        this.sub = this.location.subscribe(() => {
+            this.routeCacheController.isCacheCurrentView(false);
+        }) as Subscription;
+
         this.htmlElement = this.document.querySelector('html');
         this.resize();
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 
     @HostListener('window:resize')
