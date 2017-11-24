@@ -35,6 +35,9 @@ export const routes: Routes = [{
     path: 'async',
     component: Page2Component
 }, {
+    path: 'child',
+    loadChildren: './test-module/test.module#TestModule'
+}, {
     path: '',
     redirectTo: '/root/(route1:tab1//route2:tab2//route3:tab3)',
     pathMatch: 'full'
