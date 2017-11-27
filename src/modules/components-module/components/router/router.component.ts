@@ -201,12 +201,12 @@ export class RouterComponent implements OnInit, OnDestroy {
         }
         let i = 0;
         const fn = function () {
-            if (i >= this.steps) {
-                i = this.steps;
+            if (i > this.steps) {
                 if (this.views[this.views.length - 1].state === ViewState.Destroy) {
                     this.views.pop();
                     this.setViewState([ViewState.ToStack, ViewState.Reactivate]);
                 }
+                return;
             } else {
                 requestAnimationFrame(fn);
             }
