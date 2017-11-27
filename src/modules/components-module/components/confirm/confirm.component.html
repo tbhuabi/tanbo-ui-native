@@ -1,14 +1,14 @@
 <ui-dialog [show]="show" (hide)="hide()">
   <div class="ui-confirm">
     <h3 class="ui-confirm-title clearfix">
-      {{title || '系统消息'}}
+      {{ title || '系统消息' }}
     </h3>
     <div class="ui-confirm-body">
-      {{content}}
+      {{ content }}
     </div>
     <div class="ui-confirm-footer text-right">
-      <button (click)="checked(false)" type="button" class="btn lg block">{{btnsText[0]}}</button>
-      <button (click)="checked(true)" type="button" class="btn lg block">{{btnsText[1]}}</button>
+      <button (click)="checked(false)" type="button" class="btn lg block">{{ btnsText[0] }}</button>
+      <button (click)="checked(true)" type="button" class="btn lg block">{{ btnsText[1] }}</button>
     </div>
   </div>
 </ui-dialog>

@@ -5,9 +5,10 @@ import { RouteCacheController } from './route-cache-controller';
 
 @Injectable()
 export class UIRouteReuseStrategy implements RouteReuseStrategy {
-    private caches: { [key: string]: DetachedRouteHandle } = {};
+    private caches: { [key: string]: Array<DetachedRouteHandle> } = {};
 
     private isCache: boolean = false;
+    private routerSequence: Array<string> = [];
 
     private static getRouteIdentifier(route: ActivatedRouteSnapshot) {
         const urls = [];
@@ -26,19 +27,39 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
     }
 
     // 是否缓存路由
-    shouldDetach(route: ActivatedRouteSnapshot) {
+    shouldDetach(route: ActivatedRouteSnapshot): boolean {
         return this.isCache;
     }
 
     // 存储路由
     store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle) {
-        this.caches[UIRouteReuseStrategy.getRouteIdentifier(route)] = handle;
+        const url = UIRouteReuseStrategy.getRouteIdentifier(route);
+        if (handle) {
+            this.routerSequence.push(url);
+            if (!this.caches[url]) {
+                this.caches[url] = [];
+            }
+            this.caches[url].push(handle);
+            return;
+        }
+        const caches = this.caches[url];
+        if (caches.length) {
+            caches.pop();
+        } else {
+            delete this.caches[url];
+        }
+
     }
 
     // 是否还原当前路由
-    shouldAttach(route: ActivatedRouteSnapshot) {
-        return !!UIRouteReuseStrategy.getRouteIdentifier(route) &&
-            !!this.caches[UIRouteReuseStrategy.getRouteIdentifier(route)];
+    shouldAttach(route: ActivatedRouteSnapshot): boolean {
+        const url = UIRouteReuseStrategy.getRouteIdentifier(route);
+        const lastUrl = this.routerSequence[this.routerSequence.length - 1];
+        if (url && this.caches[url] && url === lastUrl) {
+            this.routerSequence.pop();
+            return true;
+        }
+        return false;
     }
 
     // 取得之前缓存的路由
@@ -46,11 +67,14 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
         if (!route.routeConfig) {
             return null;
         }
-        return this.caches[UIRouteReuseStrategy.getRouteIdentifier(route)];
+        const caches = this.caches[UIRouteReuseStrategy.getRouteIdentifier(route)] || [];
+        return caches[caches.length - 1];
     }
 
     // 是否重用路由
-    shouldReuseRoute(future: ActivatedRouteSnapshot, current: ActivatedRouteSnapshot) {
-        return UIRouteReuseStrategy.getRouteIdentifier(future) === UIRouteReuseStrategy.getRouteIdentifier(current);
+    shouldReuseRoute(future: ActivatedRouteSnapshot, current: ActivatedRouteSnapshot): boolean {
+        const futureUrl = UIRouteReuseStrategy.getRouteIdentifier(future);
+        const lastUrl = this.routerSequence[this.routerSequence.length - 1];
+        return futureUrl === UIRouteReuseStrategy.getRouteIdentifier(current) && futureUrl === lastUrl;
     }
 }

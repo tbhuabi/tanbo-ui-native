@@ -14,5 +14,9 @@
   },
   "include": [
     "src/"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "genDir": "",
+    "skipMetadataEmit" : true
+  }
 }
