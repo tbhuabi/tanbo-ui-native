@@ -79,15 +79,15 @@ module.exports = {
                         }
                     }
                 }].concat(`${cssConfig.language ? cssConfig.language + '-loader' : ''}`)
-            }) : ['style-loader', 'css-loader?sourceMap', {
+            }) : ['style-loader', 'css-loader', {
                 loader: 'postcss-loader',
                 options: {
                     plugins() {
                         return [require('autoprefixer')];
                     },
-                    sourceMap: true
+                    sourceMap: false
                 }
-            }].concat(`${cssConfig.language ? cssConfig.language + '-loader?sourceMap' : ''}`)
+            }].concat(`${cssConfig.language ? cssConfig.language + '-loader' : ''}`)
         }, {
             test: cssTest(cssConfig.language),
             exclude: publicPaths,

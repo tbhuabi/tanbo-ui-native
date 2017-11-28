@@ -9,9 +9,7 @@ export class Page1Component implements OnInit {
     index: number = 0;
 
     ngOnInit() {
-        setInterval(() => {
-            this.index++;
-        }, 1000);
+
     }
 
     dragging(progress: number) {
