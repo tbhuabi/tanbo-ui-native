@@ -7,6 +7,7 @@
   </ui-header>
   <ui-content>
     <ui-scroll [openRefresh]="true" (dragging)="dragging($event)" (refresh)="refresh($event)">
+      <p>index {{ index }}</p>
       <p><a routerLink="../page2">page2</a></p>
       <p><a routerLink="../tab1">tab1</a></p>
       <p>
