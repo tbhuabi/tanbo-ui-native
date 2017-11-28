@@ -4,52 +4,27 @@
     {
       "icon": {
         "paths": [
-          "M512 88c232.385 0 424 191.615 424 424s-191.615 424-424 424-424-191.615-424-424 191.615-424 424-424zM512 850.385c187.538 0 338.385-150.846 338.385-338.385s-150.846-338.385-338.385-338.385-338.385 150.846-338.385 338.385 150.846 338.385 338.385 338.385z"
+          "M384 128c0-70.692 57.308-128 128-128s128 57.308 128 128c0 70.692-57.308 128-128 128s-128-57.308-128-128zM790.994 512c0 0 0 0 0 0 0-57.993 47.013-105.006 105.006-105.006s105.006 47.013 105.006 105.006c0 0 0 0 0 0 0 57.993-47.013 105.006-105.006 105.006s-105.006-47.013-105.006-105.006zM688.424 783.53c0-52.526 42.58-95.106 95.106-95.106s95.106 42.58 95.106 95.106c0 52.526-42.58 95.106-95.106 95.106s-95.106-42.58-95.106-95.106zM425.862 896c0-47.573 38.565-86.138 86.138-86.138s86.138 38.565 86.138 86.138c0 47.573-38.565 86.138-86.138 86.138s-86.138-38.565-86.138-86.138zM162.454 783.53c0-43.088 34.93-78.018 78.018-78.018s78.018 34.93 78.018 78.018c0 43.088-34.93 78.018-78.018 78.018s-78.018-34.93-78.018-78.018zM57.338 512c0-39.026 31.636-70.662 70.662-70.662s70.662 31.636 70.662 70.662c0 39.026-31.636 70.662-70.662 70.662s-70.662-31.636-70.662-70.662zM176.472 240.472c0 0 0 0 0 0 0-35.346 28.654-64 64-64s64 28.654 64 64c0 0 0 0 0 0 0 35.346-28.654 64-64 64s-64-28.654-64-64zM899.464 240.472c0 64.024-51.906 115.934-115.936 115.934-64.024 0-115.936-51.91-115.936-115.934 0-64.032 51.912-115.934 115.936-115.934 64.030 0 115.936 51.902 115.936 115.934z"
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "ion-android-radio-button-off"
+          "spinner6"
         ],
-        "defaultCode": 62374,
+        "defaultCode": 59775,
         "grid": 0
       },
       "properties": {
-        "id": 99,
-        "order": 46,
+        "id": 1,
+        "order": 68,
         "ligatures": "",
         "prevSize": 32,
-        "name": "radio-unchecked",
-        "code": 62374
+        "name": "spinner6",
+        "code": 59775
       },
       "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 98
-    },
-    {
-      "icon": {
-        "paths": [
-          "M512 304c114 0 208 94 208 208s-94 208-208 208-208-94-208-208 94-208 208-208zM512 96c228 0 416 188 416 416s-188 416-416 416-416-188-416-416 188-416 416-416zM512 844c184 0 332-148 332-332s-148-332-332-332-332 148-332 332 148 332 332 332z"
-        ],
-        "isMulticolor": false,
-        "isMulticolor2": false,
-        "tags": [
-          "ion-android-radio-button-on"
-        ],
-        "defaultCode": 62375,
-        "grid": 0
-      },
-      "properties": {
-        "id": 100,
-        "order": 47,
-        "ligatures": "",
-        "prevSize": 32,
-        "name": "radio-checked",
-        "code": 62375
-      },
-      "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 99
+      "setId": 4,
+      "iconIdx": 0
     },
     {
       "icon": {
@@ -59,22 +34,22 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "ion-chevron-down"
+          "arrow-down"
         ],
         "defaultCode": 61731,
         "grid": 0
       },
       "properties": {
-        "id": 188,
-        "order": 50,
+        "id": 2,
+        "order": 69,
         "ligatures": "",
         "prevSize": 32,
         "name": "arrow-down",
         "code": 61731
       },
       "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 187
+      "setId": 4,
+      "iconIdx": 1
     },
     {
       "icon": {
@@ -84,22 +59,22 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "ion-chevron-left"
+          "arrow-left"
         ],
         "defaultCode": 61732,
         "grid": 0
       },
       "properties": {
-        "id": 189,
-        "order": 51,
+        "id": 3,
+        "order": 70,
         "ligatures": "",
         "prevSize": 32,
         "name": "arrow-left",
         "code": 61732
       },
       "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 188
+      "setId": 4,
+      "iconIdx": 2
     },
     {
       "icon": {
@@ -109,22 +84,22 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "ion-chevron-right"
+          "arrow-right"
         ],
         "defaultCode": 61733,
         "grid": 0
       },
       "properties": {
-        "id": 190,
-        "order": 52,
+        "id": 4,
+        "order": 71,
         "ligatures": "",
         "prevSize": 32,
         "name": "arrow-right",
         "code": 61733
       },
       "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 189
+      "setId": 4,
+      "iconIdx": 3
     },
     {
       "icon": {
@@ -134,22 +109,72 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "ion-chevron-up"
+          "arrow-up"
         ],
         "defaultCode": 61734,
         "grid": 0
       },
       "properties": {
-        "id": 191,
-        "order": 53,
+        "id": 5,
+        "order": 72,
         "ligatures": "",
         "prevSize": 32,
         "name": "arrow-up",
         "code": 61734
       },
       "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 190
+      "setId": 4,
+      "iconIdx": 4
+    },
+    {
+      "icon": {
+        "paths": [
+          "M512 88c232.385 0 424 191.615 424 424s-191.615 424-424 424-424-191.615-424-424 191.615-424 424-424zM512 850.385c187.538 0 338.385-150.846 338.385-338.385s-150.846-338.385-338.385-338.385-338.385 150.846-338.385 338.385 150.846 338.385 338.385 338.385z"
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": [
+          "radio-unchecked"
+        ],
+        "defaultCode": 62374,
+        "grid": 0
+      },
+      "properties": {
+        "id": 6,
+        "order": 73,
+        "ligatures": "",
+        "prevSize": 32,
+        "name": "radio-unchecked",
+        "code": 62374
+      },
+      "setIdx": 0,
+      "setId": 4,
+      "iconIdx": 5
+    },
+    {
+      "icon": {
+        "paths": [
+          "M512 304c114 0 208 94 208 208s-94 208-208 208-208-94-208-208 94-208 208-208zM512 96c228 0 416 188 416 416s-188 416-416 416-416-188-416-416 188-416 416-416zM512 844c184 0 332-148 332-332s-148-332-332-332-332 148-332 332 148 332 332 332z"
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": [
+          "radio-checked"
+        ],
+        "defaultCode": 62375,
+        "grid": 0
+      },
+      "properties": {
+        "id": 7,
+        "order": 74,
+        "ligatures": "",
+        "prevSize": 32,
+        "name": "radio-checked",
+        "code": 62375
+      },
+      "setIdx": 0,
+      "setId": 4,
+      "iconIdx": 6
     },
     {
       "icon": {
@@ -159,22 +184,22 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "ion-ios-arrow-back"
+          "arrow-back"
         ],
         "defaultCode": 62415,
         "grid": 0
       },
       "properties": {
-        "id": 264,
-        "order": 54,
+        "id": 8,
+        "order": 75,
         "ligatures": "",
         "prevSize": 32,
         "name": "arrow-back",
         "code": 62415
       },
       "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 263
+      "setId": 4,
+      "iconIdx": 7
     },
     {
       "icon": {
@@ -184,101 +209,79 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "ion-ios-arrow-forward"
+          "arrow-forward"
         ],
         "defaultCode": 62417,
         "grid": 0
       },
       "properties": {
-        "id": 266,
-        "order": 55,
+        "id": 9,
+        "order": 76,
         "ligatures": "",
         "prevSize": 32,
         "name": "arrow-forward",
         "code": 62417
       },
       "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 265
+      "setId": 4,
+      "iconIdx": 8
     },
     {
       "icon": {
         "paths": [
-          "M512 96c230 0 416 186 416 416s-186 416-416 416-416-186-416-416 186-416 416-416zM448 660l268-270-36-36-250 252-94-94-36 36 112 112c4 4 12 8 18 8s14-4 18-8z"
-        ],
-        "isMulticolor": false,
-        "isMulticolor2": false,
-        "tags": [
-          "ion-ios-checkmark"
-        ],
-        "defaultCode": 62463,
-        "grid": 0
-      },
-      "properties": {
-        "id": 312,
-        "order": 60,
-        "ligatures": "",
-        "prevSize": 32,
-        "name": "checkbox-checked",
-        "code": 62463
-      },
-      "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 311
-    },
-    {
-      "icon": {
-        "paths": [
-          "M512 96c230 0 416 186 416 416s-186 416-416 416-416-186-416-416 186-416 416-416zM512 894c210 0 382-172 382-382s-172-382-382-382-382 172-382 382 172 382 382 382z"
-        ],
-        "isMulticolor": false,
-        "isMulticolor2": false,
-        "tags": [
-          "ion-ios-circle-outline"
-        ],
-        "defaultCode": 62465,
-        "grid": 0
-      },
-      "properties": {
-        "id": 314,
-        "order": 59,
-        "ligatures": "",
-        "prevSize": 32,
-        "name": "checkbox-unchecked",
-        "code": 62465
-      },
-      "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 313
-    },
-    {
-      "icon": {
-        "paths": [
-          "M384 128c0-70.692 57.308-128 128-128s128 57.308 128 128c0 70.692-57.308 128-128 128s-128-57.308-128-128zM790.994 512c0 0 0 0 0 0 0-57.993 47.013-105.006 105.006-105.006s105.006 47.013 105.006 105.006c0 0 0 0 0 0 0 57.993-47.013 105.006-105.006 105.006s-105.006-47.013-105.006-105.006zM688.424 783.53c0-52.526 42.58-95.106 95.106-95.106s95.106 42.58 95.106 95.106c0 52.526-42.58 95.106-95.106 95.106s-95.106-42.58-95.106-95.106zM425.862 896c0-47.573 38.565-86.138 86.138-86.138s86.138 38.565 86.138 86.138c0 47.573-38.565 86.138-86.138 86.138s-86.138-38.565-86.138-86.138zM162.454 783.53c0-43.088 34.93-78.018 78.018-78.018s78.018 34.93 78.018 78.018c0 43.088-34.93 78.018-78.018 78.018s-78.018-34.93-78.018-78.018zM57.338 512c0-39.026 31.636-70.662 70.662-70.662s70.662 31.636 70.662 70.662c0 39.026-31.636 70.662-70.662 70.662s-70.662-31.636-70.662-70.662zM176.472 240.472c0 0 0 0 0 0 0-35.346 28.654-64 64-64s64 28.654 64 64c0 0 0 0 0 0 0 35.346-28.654 64-64 64s-64-28.654-64-64zM899.464 240.472c0 64.024-51.906 115.934-115.936 115.934-64.024 0-115.936-51.91-115.936-115.934 0-64.032 51.912-115.934 115.936-115.934 64.030 0 115.936 51.902 115.936 115.934z"
+          "M824 96h-624c-57.2 0-104 46.8-104 104v624c0 57.2 46.8 104 104 104h624c57.2 0 104-46.8 104-104v-624c0-57.2-46.8-104-104-104zM460 741.539l-192.77-192.771 73.539-73.537 119.229 119.229 249.23-249.23 73.537 73.539-322.77 322.77z"
         ],
         "tags": [
-          "spinner",
-          "loading",
-          "loading-wheel",
-          "busy",
-          "wait"
+          "checkbox-checked",
+          "checkbox",
+          "tick",
+          "checked",
+          "selected"
         ],
-        "defaultCode": 59775,
+        "defaultCode": 59986,
         "grid": 16,
         "attrs": []
       },
       "attrs": [],
       "properties": {
-        "ligatures": "spinner6, loading7",
-        "name": "spinner6",
-        "order": 61,
-        "id": 128,
+        "ligatures": "checkbox-checked, checkbox",
+        "name": "checkbox-checked",
+        "order": 64,
+        "id": 339,
         "prevSize": 32,
-        "code": 59775
+        "code": 59986
       },
-      "setIdx": 2,
+      "setIdx": 3,
       "setId": 1,
-      "iconIdx": 127
+      "iconIdx": 338
+    },
+    {
+      "icon": {
+        "paths": [
+          "M824 96h-624c-57.2 0-104 46.8-104 104v624c0 57.2 46.8 104 104 104h624c57.2 0 104-46.8 104-104v-624c0-57.2-46.8-104-104-104zM824 824h-624v-624h624v624z"
+        ],
+        "tags": [
+          "checkbox-unchecked",
+          "checkbox",
+          "unchecked",
+          "square"
+        ],
+        "defaultCode": 59987,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "checkbox-unchecked, checkbox2",
+        "name": "checkbox-unchecked",
+        "order": 65,
+        "id": 340,
+        "prevSize": 32,
+        "code": 59987
+      },
+      "setIdx": 3,
+      "setId": 1,
+      "iconIdx": 339
     }
   ],
   "height": 1024,

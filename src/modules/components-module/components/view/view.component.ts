@@ -7,7 +7,8 @@ import {
     ViewChild,
     Injector,
     ComponentRef,
-    ViewContainerRef
+    ViewContainerRef,
+    ChangeDetectorRef
 } from '@angular/core';
 import { ActivatedRoute, ChildrenOutletContexts } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -55,6 +56,11 @@ export class ViewComponent implements OnInit, OnDestroy {
                     }
                     break;
             }
+            if (value === ViewState.Sleep) {
+                this.changeDetectorRef.detach();
+            } else {
+                this.changeDetectorRef.reattach();
+            }
         }
     }
 
@@ -78,6 +84,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     constructor(private viewStateService: ViewStateService,
                 private viewContainerRef: ViewContainerRef,
                 private _activatedRoute: ActivatedRoute,
+                private changeDetectorRef: ChangeDetectorRef,
                 private routerService: RouterService) {
     }
 
