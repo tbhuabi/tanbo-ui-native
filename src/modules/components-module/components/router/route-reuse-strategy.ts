@@ -74,7 +74,7 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
     // 是否重用路由
     shouldReuseRoute(future: ActivatedRouteSnapshot, current: ActivatedRouteSnapshot): boolean {
         const futureUrl = UIRouteReuseStrategy.getRouteIdentifier(future);
-        const lastUrl = this.routerSequence[this.routerSequence.length - 1];
-        return futureUrl === UIRouteReuseStrategy.getRouteIdentifier(current) && futureUrl === lastUrl;
+        const currentUrl = UIRouteReuseStrategy.getRouteIdentifier(current);
+        return futureUrl === currentUrl;
     }
 }
