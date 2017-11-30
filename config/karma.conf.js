@@ -7,7 +7,7 @@ module.exports = function (config) {
         frameworks: ['jasmine'],
 
         files: [
-            {pattern: './config/karma-test-shim.js', watched: false}
+            {pattern: './config/karma-test-shim.js', watched: true}
         ],
 
         preprocessors: {
@@ -29,8 +29,8 @@ module.exports = function (config) {
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: false,
-        browsers: ['PhantomJS'],
-        singleRun: true
+        browsers: ['Chrome'],
+        singleRun: false
     };
 
     config.set(_config);
