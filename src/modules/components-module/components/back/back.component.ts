@@ -14,7 +14,7 @@ import { Router, Event, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 import * as TWEEN from '@tweenjs/tween.js';
 
-import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
+import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME } from '../../config';
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
 import { AppController } from '../app/app-controller';
 
@@ -29,7 +29,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     textElement: ElementRef;
 
     @Input()
-    icon: string = 'ui-icon-arrow-back';
+    icon: string = '';
 
     @Input()
     closeBackHandle: boolean = false;
@@ -45,10 +45,12 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
 
     constructor(@Inject(DOCUMENT) private document: Document,
                 @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number,
+                @Inject(UI_BACK_ICON_CLASSNAME) iconName: string,
                 private location: Location,
                 private router: Router,
                 private appController: AppController,
                 private viewStateService: ViewStateService) {
+        this.icon = iconName || '';
     }
 
     @HostListener('window:resize')

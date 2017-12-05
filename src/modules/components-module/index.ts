@@ -9,6 +9,6 @@ export { AppController } from './components/app/app-controller';
 
 export { OnViewEnter, OnViewLeave } from './components/view/view-life-cycle';
 
-export { UI_ROUTER_ANIMATION_STEPS } from './config';
+export * from './config';
 
 export { UIComponentsModule } from './components.module';

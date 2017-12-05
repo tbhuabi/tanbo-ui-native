@@ -55,7 +55,7 @@ import { ToastController } from './components/toast/toast-controller.service';
 import { ViewStateService } from './components/view/view-state.service';
 import { UIRouteReuseStrategy } from './components/router/route-reuse-strategy';
 
-import { UI_ROUTER_ANIMATION_STEPS } from './config';
+import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME } from './config';
 
 @NgModule({
     imports: [
@@ -155,14 +155,10 @@ import { UI_ROUTER_ANIMATION_STEPS } from './config';
         ListActivatedService,
         ToastController,
         ViewStateService,
-        {
-            provide: UI_ROUTER_ANIMATION_STEPS,
-            useValue: 25
-        },
-        {
-            provide: RouteReuseStrategy,
-            useClass: UIRouteReuseStrategy
-        }
+
+        {provide: UI_ROUTER_ANIMATION_STEPS, useValue: 25},
+        {provide: UI_BACK_ICON_CLASSNAME, useValue: 'ui-icon-arrow-back'},
+        {provide: RouteReuseStrategy, useClass: UIRouteReuseStrategy}
     ]
 })
 
