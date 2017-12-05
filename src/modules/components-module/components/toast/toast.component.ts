@@ -10,9 +10,9 @@ import { ToastConfig, ToastController, ToastType } from './toast-controller.serv
         trigger('toastState', [state('*', style({
             transform: 'translateY(0)'
         })), transition(':leave', animate('.15s', style({
-            transform: 'translateY(-60px)',
+            transform: 'translateY(-120px)',
         }))), transition(':enter', [style({
-            transform: 'translateY(-60px)',
+            transform: 'translateY(-120px)',
         }), animate('.15s', style({
             transform: 'translateY(0)',
         }))])])
