@@ -14,7 +14,7 @@ gulp.task('copyFonts', function () {
 });
 
 gulp.task('tsCompile', function () {
-    return gulp.src('./src/modules/**/*.ts')
+    return gulp.src(['./src/modules/**/*.ts', '!./src/modules/**/*.spec.ts'])
         .pipe(gulpInlineNg2Template({
         useRelativePaths: true,
         templateProcessor(path, ext, file, cb) {
