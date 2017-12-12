@@ -1,20 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ToastController } from '../../modules/index';
 
 @Component({
     templateUrl: './page1.component.html'
 })
-export class Page1Component implements OnInit {
+export class Page1Component {
     progress: number = 0;
 
     index: number = 0;
 
-
     constructor(private toast: ToastController) {
-    }
-
-    ngOnInit() {
-
     }
 
     dragging(progress: number) {

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouteReuseStrategy } from '@angular/router';
 // 组件
@@ -147,8 +147,18 @@ import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME } from './config';
         ViewComponent
     ],
     providers: [
-        RouteCacheController,
-        AppController,
+        RouteCacheController, {
+            provide: AppController,
+            useFactory(appController?: AppController): AppController {
+                if (appController) {
+                    return appController;
+                }
+                return new AppController();
+            },
+            deps: [
+                [AppController, new Optional(), new SkipSelf()]
+            ]
+        },
 
         AlertController,
         ConfirmController,
