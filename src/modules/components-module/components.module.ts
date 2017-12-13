@@ -147,7 +147,8 @@ import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME } from './config';
         ViewComponent
     ],
     providers: [
-        RouteCacheController, {
+        RouteCacheController,
+        {
             provide: AppController,
             useFactory(appController?: AppController): AppController {
                 if (appController) {
@@ -166,9 +167,44 @@ import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME } from './config';
         ToastController,
         ViewStateService,
 
-        {provide: UI_ROUTER_ANIMATION_STEPS, useValue: 25},
-        {provide: UI_BACK_ICON_CLASSNAME, useValue: 'ui-icon-arrow-back'},
-        {provide: RouteReuseStrategy, useClass: UIRouteReuseStrategy}
+        {
+            provide: UI_ROUTER_ANIMATION_STEPS,
+            useFactory(steps?: number): number {
+                if (typeof steps === 'number' && steps >= 0) {
+                    return steps;
+                }
+                return 25;
+            },
+            deps: [
+                [UI_ROUTER_ANIMATION_STEPS, new Optional(), new SkipSelf()]
+            ]
+        },
+        {
+            provide: UI_BACK_ICON_CLASSNAME,
+            useFactory(name?: string): string {
+                if (name) {
+                    return name;
+                }
+                return 'ui-icon-arrow-back';
+            },
+            deps: [
+                [UI_BACK_ICON_CLASSNAME, new Optional(), new SkipSelf()]
+            ]
+        },
+        {
+            provide: RouteReuseStrategy,
+            useFactory(routeCacheController: RouteCacheController,
+                       routeReuseStrategy?: UIRouteReuseStrategy): UIRouteReuseStrategy {
+                if (routeReuseStrategy) {
+                    return routeReuseStrategy;
+                }
+                return new UIRouteReuseStrategy(routeCacheController);
+            },
+            deps: [
+                RouteCacheController,
+                [UIRouteReuseStrategy, new Optional(), new SkipSelf()]
+            ]
+        }
     ]
 })
 
