@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { CollectionItemComponent } from '../collection-item/collection-item.component';
 import { Observable, Subject, Subscription } from 'rxjs';
-import * as TWEEN from '@tweenjs/tween.js';
+import { Easing } from '@tweenjs/tween.js';
 
 @Component({
     selector: 'ui-collection',
@@ -222,7 +222,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
 
         const moveToTarget = function () {
             step++;
-            const translate = rawDistance + TWEEN.Easing.Cubic.Out(step / max) * distance;
+            const translate = rawDistance + Easing.Cubic.Out(step / max) * distance;
             this.distance = translate;
             const style = `translate${this.vertical ? 'Y' : 'X'}(${translate}px)`;
 

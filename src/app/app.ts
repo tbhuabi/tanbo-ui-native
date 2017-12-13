@@ -8,7 +8,6 @@ import { AppController } from '../modules/index';
 })
 export class AppComponent {
     constructor(private appController: AppController) {
-        window['appController'] = appController;
         appController.onQuit$.subscribe(() => {
             console.log('退出了');
         });

@@ -12,7 +12,7 @@ import {
 import { DOCUMENT, Location } from '@angular/common';
 import { Router, Event, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
-import * as TWEEN from '@tweenjs/tween.js';
+import { Easing } from '@tweenjs/tween.js';
 
 import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME } from '../../config';
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
@@ -80,7 +80,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
 
         const steps = this.steps;
         const sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
-            const progress = TWEEN.Easing.Cubic.Out(status.progress / steps);
+            const progress = Easing.Cubic.Out(status.progress / steps);
 
             let n: number = status.progress / 50;
             let m: number;

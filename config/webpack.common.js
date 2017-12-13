@@ -69,7 +69,7 @@ module.exports = {
         }, {
             test: cssTest(cssConfig.language),
             include: publicPaths,
-            use: isProduction ? ExtractTextPlugin.extract({
+            use: isProduction ?  ExtractTextPlugin.extract({
                 fallback: 'style-loader',
                 use: ['css-loader', {
                     loader: 'postcss-loader',
@@ -112,7 +112,6 @@ module.exports = {
                 let order2 = order.indexOf(m.names[0]);
                 return order1 - order2;
             }
-        }),
-        new webpack.ContextReplacementPlugin(/angular(\\|\/)core/, globalConfig.appPath)
+        })
     ]
 };

@@ -19,7 +19,7 @@ module.exports = webpackMerge(commonConfig, {
     plugins: [
         new ngAot.AngularCompilerPlugin({
             tsConfigPath: path.resolve(__dirname, '../tsconfig.json'),
-            entryModule: 'src/app/app.module#AppModule',
+            entryModule: './src/app/app.module#AppModule',
             sourceMap: true
         }),
         new webpack.optimize.CommonsChunkPlugin({

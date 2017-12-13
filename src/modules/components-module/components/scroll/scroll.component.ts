@@ -10,7 +10,7 @@ import {
     Renderer2
 } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
-import * as TWEEN from '@tweenjs/tween.js';
+import { Easing } from '@tweenjs/tween.js';
 
 @Component({
     selector: 'ui-scroll',
@@ -197,7 +197,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
                 return;
             }
             step++;
-            const distanceTop = TWEEN.Easing.Cubic.Out(step / max) * distance + start;
+            const distanceTop = Easing.Cubic.Out(step / max) * distance + start;
             this.translateY = distanceTop;
             this.transform = `translateY(${distanceTop}px)`;
             this.dragging.emit(distanceTop);

@@ -1,6 +1,6 @@
 import { Component, HostBinding, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import * as TWEEN from '@tweenjs/tween.js';
+import { Easing } from '@tweenjs/tween.js';
 
 import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
@@ -25,7 +25,7 @@ export class FooterComponent implements OnDestroy, OnInit {
     ngOnInit() {
         const steps = this.steps;
         this.sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
-            const progress = TWEEN.Easing.Cubic.Out(status.progress / steps);
+            const progress = Easing.Cubic.Out(status.progress / steps);
             switch (status.state) {
                 case ViewState.Activate:
                     this.state = status.state;

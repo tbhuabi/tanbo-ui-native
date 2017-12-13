@@ -1,6 +1,6 @@
 import { Component, HostBinding, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import * as TWEEN from '@tweenjs/tween.js';
+import { Easing } from '@tweenjs/tween.js';
 
 import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
@@ -30,11 +30,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
             switch (status.state) {
                 case ViewState.Activate:
                     this.state = status.state;
-                    this.opacity = TWEEN.Easing.Linear.None(status.progress / steps);
+                    this.opacity = Easing.Linear.None(status.progress / steps);
                     break;
                 case ViewState.Destroy:
                     this.state = status.state;
-                    this.opacity = TWEEN.Easing.Linear.None(1 - status.progress / steps);
+                    this.opacity = Easing.Linear.None(1 - status.progress / steps);
                     break;
                 case ViewState.ToStack:
                 case ViewState.Reactivate:
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
                     break;
                 case ViewState.Moving:
                     if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
-                        this.opacity = TWEEN.Easing.Linear.None(1 - status.progress / steps);
+                        this.opacity = Easing.Linear.None(1 - status.progress / steps);
                     }
                     break;
             }
