@@ -9,7 +9,7 @@ import { Child2Component } from './components/child2/child2.component';
 
 @NgModule({
     imports: [
-        UIComponentsModule,
+        UIComponentsModule.forChild(),
         RouterModule.forChild(routes)
     ],
     declarations: [

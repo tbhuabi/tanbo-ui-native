@@ -17,7 +17,7 @@ import { Page2Component } from '../pages/page2/page2.component';
     imports: [
         RouterModule.forRoot(routes),
         BrowserAnimationsModule,
-        UIComponentsModule,
+        UIComponentsModule.forRoot(),
         UIDirectivesModule,
         UIFormsModule,
         FormsModule,
