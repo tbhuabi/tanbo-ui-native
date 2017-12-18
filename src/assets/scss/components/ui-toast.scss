@@ -1,3 +1,5 @@
+@import "../../../assets/scss/varibles";
+
 @mixin toast-theme($name, $color) {
     &.#{$name} {
         color: #fff;
@@ -7,7 +9,7 @@
 
 ui-toast {
     position: fixed;
-    top: 30px;
+    top: 50%;
     left: 50%;
     margin-left: -150px;
     width: 300px;
@@ -19,6 +21,8 @@ ui-toast {
     padding: $grid-column-padding;
     overflow: hidden;
     text-align: center;
+
+    transform: translateY(-50%);
 
     @if $toast-radius-is-open {
         border-radius: $radius-lg;

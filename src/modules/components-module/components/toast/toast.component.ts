@@ -8,13 +8,13 @@ import { ToastConfig, ToastController, ToastType } from './toast-controller.serv
     templateUrl: './toast.component.html',
     animations: [
         trigger('toastState', [state('*', style({
-            transform: 'translateY(0)'
+            opacity: 1
         })), transition(':leave', animate('.15s', style({
-            transform: 'translateY(-120px)',
+            opacity: 0,
         }))), transition(':enter', [style({
-            transform: 'translateY(-120px)',
+            opacity: 0,
         }), animate('.15s', style({
-            transform: 'translateY(0)',
+            opacity: 1,
         }))])])
     ]
 })
@@ -51,7 +51,7 @@ export class ToastComponent implements OnInit {
                     _config.type = 'default';
             }
             _config.content = config.content || '';
-            _config.time = config.time || 3000;
+            _config.time = config.time || 2000;
 
             this.messageList.push(_config);
             setTimeout(() => {
