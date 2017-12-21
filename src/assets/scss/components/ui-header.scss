@@ -4,8 +4,19 @@ ui-header {
     background-color: $header-bg;
     border-bottom: $header-border-bottom;
     position: relative;
-    &.native {
+    &.iphone {
         min-height: $header-height + 20;
         padding-top: 20px;
+    }
+    &.iphone-x {
+        min-height: $header-height + 44;
+        padding-top: 44px;
+    }
+
+    &.android {
+
+    }
+    &.default {
+
     }
 }

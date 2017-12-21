@@ -14,6 +14,6 @@ export const routes: Routes = [{
     loadChildren: '../pages/test-module/test.module#TestModule'
 }, {
     path: '',
-    redirectTo: 'child',
+    redirectTo: 'page1',
     pathMatch: 'full'
 }];

@@ -7,7 +7,12 @@ import { RouterModule } from '@angular/router';
 
 import { routes } from './app.routing';
 
-import { UIComponentsModule, UIDirectivesModule, UIFormsModule, UIHttp } from '../modules/index';
+import {
+    UIComponentsModule,
+    UIDirectivesModule,
+    UIFormsModule,
+    UIHttp
+} from '../modules/index';
 
 import { AppComponent } from './app';
 import { Page1Component } from '../pages/page1/page1.component';

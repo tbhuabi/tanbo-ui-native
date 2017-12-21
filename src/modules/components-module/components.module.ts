@@ -46,7 +46,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
 
 // 服务
 import { RouteCacheController } from './components/router/route-cache-controller';
-import { AppController } from './components/app/app-controller';
+import { AppController, getENV } from './components/app/app-controller';
 
 import { AlertController } from './components/alert/alert-controller.service';
 import { ConfirmController } from './components/confirm/confirm-controller.service';
@@ -55,7 +55,7 @@ import { ToastController } from './components/toast/toast-controller.service';
 import { ViewStateService } from './components/view/view-state.service';
 import { UIRouteReuseStrategy } from './components/router/route-reuse-strategy';
 
-import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME } from './config';
+import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME, UI_BROWSER_ENV } from './config';
 
 @NgModule({
     imports: [
@@ -160,6 +160,9 @@ export class UIComponentsModule {
             }, {
                 provide: UI_ROUTER_ANIMATION_STEPS,
                 useValue: 25
+            }, {
+                provide: UI_BROWSER_ENV,
+                useFactory: getENV
             },
                 AppController,
                 RouteCacheController,

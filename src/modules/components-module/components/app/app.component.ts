@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { ListActivatedService } from '../list-item/list-activated.service';
 import { RouteCacheController } from '../router/route-cache-controller';
+import { AppController, getENV } from './app-controller';
 
 @Component({
     selector: 'ui-app',
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
     constructor(@Inject(DOCUMENT) private document: Document,
                 private routeCacheController: RouteCacheController,
                 private location: Location,
+                private appController: AppController,
                 private listActivatedService: ListActivatedService) {
     }
 
@@ -52,6 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
         let docWidth = this.htmlElement.getBoundingClientRect().width;
         let scale = docWidth / this.defaultDocWidth;
         this.htmlElement.style.fontSize = `${scale * this.baseFontSize}px`;
+        this.appController.resize(getENV());
     }
 
     @HostListener('document:touchstart')
