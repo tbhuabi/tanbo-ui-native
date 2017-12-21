@@ -112,6 +112,11 @@ module.exports = {
                 let order2 = order.indexOf(m.names[0]);
                 return order1 - order2;
             }
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'version': JSON.stringify(require('../package.json').version)
+            }
         })
     ]
 };

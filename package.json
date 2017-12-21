@@ -70,6 +70,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-cssmin": "^0.2.0",
     "gulp-inline-ng2-template": "^4.0.0",
+    "gulp-replace": "^0.6.1",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-typescript": "^3.1.6",

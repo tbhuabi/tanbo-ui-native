@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { PRIMARY_OUTLET } from '@angular/router';
 import { DOCUMENT, Location } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -15,6 +15,9 @@ export class AppComponent implements OnInit, OnDestroy {
     baseFontSize: number = 10;
     @Input()
     name: string = PRIMARY_OUTLET;
+
+    @HostBinding('attr.version')
+    version = process.env.version;
 
     private htmlElement: HTMLElement;
     private defaultDocWidth: number = 320;
