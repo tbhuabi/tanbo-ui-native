@@ -34,7 +34,8 @@ export function getENV(): BrowserENV {
         return BrowserENV.android;
     }
     if (isIOS) {
-        if (window.screen.width === 375 && window.screen.height === 812) {
+        const screen = window.screen;
+        if (screen.width === 375 && screen.height === 812 || screen.height === 375 && screen.width === 812) {
             return BrowserENV.iphoneX;
         }
         return BrowserENV.iphone;

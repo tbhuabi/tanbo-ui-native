@@ -9,8 +9,12 @@ ui-header {
         padding-top: 20px;
     }
     &.iphone-x {
-        min-height: $header-height + 44;
-        padding-top: 44px;
+        min-height: $header-height + 20;
+        padding-top: 20px;
+        @media screen and (max-width: 375px) {
+            padding-top: 44px;
+            min-height: $header-height + 44;
+        }
     }
 
     &.android {
