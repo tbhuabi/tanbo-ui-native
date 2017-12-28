@@ -1,3 +1,9 @@
+### 3.0.0
+
+#### 功能更改
+删除 UIHttp  
+重构 ui-input[type=range] 组件
+
 ### 2.2.5
 添加根据不同的运行环境，如：iphoneX、android、iphone678头部高度自动扩展的判断。
 ui-app 组件，添加版本号
