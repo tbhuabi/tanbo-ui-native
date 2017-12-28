@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +10,6 @@ import {
     UIComponentsModule,
     UIDirectivesModule,
     UIFormsModule,
-    UIHttp
 } from '../modules/index';
 
 import { AppComponent } from './app';
@@ -26,18 +24,14 @@ import { Page2Component } from '../pages/page2/page2.component';
         UIDirectivesModule,
         UIFormsModule,
         FormsModule,
-        BrowserModule,
-        HttpModule
+        BrowserModule
     ],
     declarations: [
         AppComponent,
         Page1Component,
         Page2Component
     ],
-    bootstrap: [AppComponent],
-    providers: [
-        UIHttp
-    ]
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
