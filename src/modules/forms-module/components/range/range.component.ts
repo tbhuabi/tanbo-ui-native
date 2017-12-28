@@ -16,6 +16,9 @@ export class RangeComponent implements ControlValueAccessor {
     @Input()
     forId: string;
 
+    @Input()
+    showProgress: boolean = false;
+
     @ViewChild('rangeBar')
     rangeBar: ElementRef;
 
