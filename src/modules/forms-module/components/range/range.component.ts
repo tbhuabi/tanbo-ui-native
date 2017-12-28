@@ -98,6 +98,7 @@ export class RangeComponent implements ControlValueAccessor {
     }
 
     position: number = 50;
+    isTouching: boolean = false;
 
     @Output()
     change = new EventEmitter<string>();
@@ -128,6 +129,7 @@ export class RangeComponent implements ControlValueAccessor {
         if (this.readonly || this.disabled) {
             return;
         }
+        this.isTouching = true;
         if (this.min >= this.max) {
             return;
         }
@@ -162,11 +164,13 @@ export class RangeComponent implements ControlValueAccessor {
         let unbindTouchCancelFn: () => void;
 
         unbindTouchEndFn = this.renderer.listen('document', 'touchend', () => {
+            this.isTouching = false;
             unbindTouchMoveFn();
             unbindTouchEndFn();
             unbindTouchCancelFn();
         });
         unbindTouchCancelFn = this.renderer.listen('document', 'touchcancel', () => {
+            this.isTouching = false;
             unbindTouchMoveFn();
             unbindTouchEndFn();
             unbindTouchCancelFn();

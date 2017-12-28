@@ -1,16 +1,10 @@
 @mixin range-style($name, $color) {
     &.#{$name} {
-        > .ui-range {
-            background-color: hsla(hue($color), saturation($color), lightness($color), .3);
-            > .ui-range-btn {
-                background-color: lighten($color, 10);
-                &:hover, &:active {
-                    background-color: $color;
-                }
-            }
+        > .ui-range > .ui-range-progress-bar {
+            background-color: $color;
         }
         &[disabled], &[readonly], &.disabled {
-            > .ui-range > .ui-range-btn {
+            > .ui-range > .ui-range-progress-bar > .ui-range-btn {
                 cursor: not-allowed;
                 &:hover, &:active {
                     background-color: lighten($color, 10);
@@ -18,12 +12,12 @@
             }
         }
         &[disabled], &.disabled {
-            > .ui-range > .ui-range-btn {
+            > .ui-range > .ui-range-progress-bar > .ui-range-btn {
                 cursor: not-allowed;
             }
         }
         &[readonly] {
-            > .ui-range > .ui-range-btn {
+            > .ui-range > .ui-range-progress-bar > .ui-range-btn {
                 cursor: default;
             }
         }
@@ -31,21 +25,12 @@
 }
 
 ui-input[type=range] {
+    vertical-align: middle;
     display: inline-block;
     cursor: pointer;
-
-    height: .5em;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
-    background-color: $color-lighter;
-    border-radius: .3em;
     line-height: 0;
-    &:before {
-        content: '';
-        display: block;
-        width: 8em;
-        height: 0;
-    }
-
+    height: 1em;
+    width: 8em;
     > .ui-input-raw {
         width: 0;
         height: 0;
@@ -53,10 +38,6 @@ ui-input[type=range] {
         overflow: hidden;
         opacity: 0;
     }
-    //> ui-input-range {
-    //    display: block;
-    //}
-
     @include range-style(primary, $color-primary);
     @include range-style(info, $color-info);
     @include range-style(warning, $color-warning);
@@ -65,18 +46,6 @@ ui-input[type=range] {
     &[disabled], &[readonly], &.disabled {
         opacity: .5;
         cursor: not-allowed;
-        .ui-range > .ui-range-btn {
-            transition: none;
-            &:hover, &:active {
-                width: 1.2em;
-                height: 1.2em;
-                right: -0.6em;
-                background-color: lighten($color-gray, 20);
-            }
-            &:active {
-                box-shadow: none;
-            }
-        }
     }
     &[readonly] {
         cursor: default;
@@ -86,58 +55,65 @@ ui-input[type=range] {
 
 .ui-range {
     display: inline-block;
-    height: 100%;
+    height: 1px;
     position: relative;
-    width: 50%;
-    background-color: hsla(hue($color-gray), saturation($color-gray), lightness($color-gray), .3);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    width: 100%;
+    background-color: $color-gray;
     border-radius: inherit;
     cursor: default;
 }
 
+.ui-range-progress-bar {
+    height: 100%;
+    display: inline-block;
+    width: 50%;
+    position: absolute;
+    top: 0;
+    background-color: $color-dark;
+}
+
 .ui-range-btn {
     position: absolute;
-    width: 1.2em;
-    height: 1.2em;
-    right: -0.6em;
+    width: 28px;
+    height: 28px;
+    right: -14px;
+    line-height: 28px;
     top: 50%;
     border-radius: 50%;
     transform: translateY(-50%);
     transform-origin: 50% 50%;
-    background-color: lighten($color-gray, 10);
+    background-color: #fff;
+    box-shadow: 0 3px 1px rgba(0, 0, 0, .1), 0 4px 8px rgba(0, 0, 0, .13), 0 0 0 1px rgba(0, 0, 0, .02);
     border: none;
     cursor: pointer;
-    transition: all .2s;
-    overflow: hidden;
     > button {
         cursor: inherit;
         width: 100%;
         height: 100%;
-        opacity: 0;
         position: absolute;
+        background-color: #fff;
         top: 0;
         right: 0;
         left: 0;
         bottom: 0;
-    }
-    &:hover, &:active {
-        right: -0.7em;
-        width: 1.4em;
-        height: 1.4em;
-        background-color: $color-gray;
-    }
-    &:active {
-        box-shadow: 0 0 0 .3em $ui-input-focus-box-shadow-color;
-    }
-}
-
-@keyframes input-focus {
-    0% {
+        border: 0;
         border-radius: 50%;
-        box-shadow: 0 0 0 .1em $ui-input-focus-box-shadow-color;
     }
-    100% {
-        border-radius: 50%;
-        box-shadow: 0 0 0 .4em $ui-input-focus-box-shadow-color;
+    .ui-range-progress {
+        top: 0;
+        height: 100%;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        font-size: 14px;
+        color: #000;
+        display: block;
+        opacity: 0;
+        transition: all .2s;
+        &.touched {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-26px);
+        }
     }
 }
