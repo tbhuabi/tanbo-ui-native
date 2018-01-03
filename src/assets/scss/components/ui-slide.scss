@@ -18,12 +18,6 @@ ui-slide {
         top: 0;
         right: 0;
         bottom: 0;
-        opacity: 0;
-        transition: all .3s;
-        &.active {
-            z-index: 3;
-            opacity: 1;
-        }
     }
 }
 
@@ -36,19 +30,20 @@ ui-slide {
     bottom: 0;
     z-index: 2;
     padding: 3px $grid-column-padding;
-    > button {
+    > div {
+        display: inline-block;
         position: relative;
         top: -1.8em;
         border: none;
-        background-color: hsla(hue($color-primary), saturation($color-primary), lightness($color-primary), .3);
-        width: 1em;
-        height: 1em;
+        background-color: rgba(255, 255, 255, .3);
+        width: 6px;
+        height: 6px;
         margin-left: 3px;
         margin-right: 3px;
         border-radius: 50%;
         transition: all .3s;
         &.active {
-            background-color: hsla(hue($color-primary), saturation($color-primary), lightness($color-primary), .8);
+            background-color: $color-dark;
         }
     }
 }
