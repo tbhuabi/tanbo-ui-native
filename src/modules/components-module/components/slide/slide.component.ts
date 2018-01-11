@@ -82,7 +82,6 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
             const target = p % 1 > 0.5 ? Math.ceil(this.progress) : Math.floor(this.progress);
             const distance = target - p;
 
-
             const updateStyle = () => {
                 min++;
                 if (min < max) {
