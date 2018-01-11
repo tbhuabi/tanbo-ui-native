@@ -5,6 +5,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Page2Component implements OnInit {
     ngOnInit() {
-        console.log('page2')
+        console.log('page2');
     }
 }

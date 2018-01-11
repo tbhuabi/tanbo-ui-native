@@ -5,6 +5,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Child2Component implements OnInit {
     ngOnInit() {
-        console.log('child2')
+        console.log('child2');
     }
 }
