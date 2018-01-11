@@ -65,6 +65,7 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
     touchStart(event: any) {
         clearTimeout(this.timer);
         cancelAnimationFrame(this.animateId);
+        this.containerWidth = this.elementRef.nativeElement.offsetWidth;
         const startX = event.touches[0].pageX;
         const len = this.items.length;
 
