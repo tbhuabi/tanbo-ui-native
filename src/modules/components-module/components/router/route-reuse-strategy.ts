@@ -10,9 +10,15 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
     private isCache: boolean = false;
     private routerSequence: Array<string> = [];
 
-    private static getRouteIdentifier(route: ActivatedRouteSnapshot) {
+    private static getRouteIdentifier(route: ActivatedRouteSnapshot): string {
         const urls = [];
+
+        if (route.routeConfig.loadChildren) {
+            return UIRouteReuseStrategy.getRouteIdentifier(route.firstChild);
+        }
+
         let r = route;
+
         while (r && r.routeConfig) {
             urls.unshift(r.routeConfig.path);
             r = r.parent;
@@ -33,7 +39,7 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
 
     // 存储路由
     store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle) {
-        const url = UIRouteReuseStrategy.getRouteIdentifier(route);
+        let url = UIRouteReuseStrategy.getRouteIdentifier(route);
         if (handle) {
             this.routerSequence.push(url);
             if (!this.caches[url]) {
@@ -43,17 +49,16 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
             return;
         }
         const caches = this.caches[url];
-        if (caches.length) {
-            caches.pop();
-        } else {
+        caches.pop();
+        if (caches.length === 0) {
             delete this.caches[url];
         }
-
     }
 
     // 是否还原当前路由
     shouldAttach(route: ActivatedRouteSnapshot): boolean {
         const url = UIRouteReuseStrategy.getRouteIdentifier(route);
+
         const lastUrl = this.routerSequence[this.routerSequence.length - 1];
         if (url && this.caches[url] && url === lastUrl) {
             this.routerSequence.pop();
@@ -64,17 +69,17 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
 
     // 取得之前缓存的路由
     retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
-        if (!route.routeConfig) {
+
+        if (!route.routeConfig || this.isCache) {
             return null;
         }
-        const caches = this.caches[UIRouteReuseStrategy.getRouteIdentifier(route)] || [];
+        const url = UIRouteReuseStrategy.getRouteIdentifier(route);
+        const caches = this.caches[url] || [];
         return caches[caches.length - 1];
     }
 
     // 是否重用路由
     shouldReuseRoute(future: ActivatedRouteSnapshot, current: ActivatedRouteSnapshot): boolean {
-        const futureUrl = UIRouteReuseStrategy.getRouteIdentifier(future);
-        const currentUrl = UIRouteReuseStrategy.getRouteIdentifier(current);
-        return futureUrl === currentUrl;
+        return future.routeConfig === current.routeConfig;
     }
 }
