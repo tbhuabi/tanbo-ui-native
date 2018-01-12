@@ -11,7 +11,8 @@ ui-tab-bar {
 .iphone-x ui-tab-bar {
     &:last-child {
         @media screen and (max-width: 375px) {
-            padding-top: 34px;
+            height: $tab-bar-height + 34px;
+            padding-bottom: 34px;
         }
     }
 }
