@@ -36,7 +36,7 @@ gulp.task('tsCompile', function () {
     })).pipe(gulp.dest('./bundles/'));
 });
 gulp.task('baseScss', ['copyFonts'], function () {
-    return gulp.src(['./src/assets/scss/index.scss', './src/assets/fonts/style.css', './node_modules/normalize.css/normalize.css'])
+    return gulp.src(['./node_modules/normalize.css/normalize.css', './src/assets/scss/index.scss', './src/assets/fonts/style.css'])
         .pipe(gulpSourceMap.init())
         .pipe(gulpSass())
         .pipe(gulpAutoPrefix())
