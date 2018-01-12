@@ -1,6 +1,8 @@
 ui-scroll {
+    display: block;
     @include fill-box;
     overflow-y: scroll;
+    padding: inherit;
     -webkit-overflow-scrolling: touch;
     background-color: inherit;
 }

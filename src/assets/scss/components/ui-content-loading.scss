@@ -1,7 +1,8 @@
 ui-content-loading {
+    z-index: $page-loading-z-index;
+    position: relative;
     > .ui-content-loading {
         position: absolute;
-        z-index: $page-loading-z-index;
         left: 50%;
         top: 50%;
         transform: translateX(-50%) translateY(-50%);

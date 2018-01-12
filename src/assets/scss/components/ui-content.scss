@@ -23,4 +23,40 @@ ui-content {
             box-shadow: 0 0 10px rgba(0, 0, 0, .3);
         }
     }
+    > .ui-content {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        padding: inherit;
+    }
+}
+
+.iphone ui-content {
+    &:first-child {
+        padding-top: 20px;
+    }
+}
+
+.iphone-x ui-content {
+    &:first-child {
+        padding-top: 20px;
+        @media screen and (max-width: 375px) {
+            padding-top: 44px;
+        }
+    }
+    &:last-child {
+        @media screen and (max-width: 375px) {
+            padding-bottom: 34px;
+        }
+    }
+}
+
+.android {
+
+}
+
+.default {
+
 }

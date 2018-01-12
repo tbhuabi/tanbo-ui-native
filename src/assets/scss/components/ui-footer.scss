@@ -5,3 +5,23 @@ ui-footer {
     background-color: #fff;
     contain: size style layout;
 }
+
+.iphone ui-footer {
+
+}
+
+.iphone-x ui-footer {
+    &:last-child {
+        @media screen and (max-width: 375px) {
+            padding-bottom: 34px;
+        }
+    }
+}
+
+.android {
+
+}
+
+.default {
+
+}

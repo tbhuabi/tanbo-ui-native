@@ -6,11 +6,11 @@ ui-header {
     position: relative;
 }
 
-.iphone ui-header {
+.iphone ui-header:first-child {
     min-height: $header-height + 20;
     padding-top: 20px;
 }
-.iphone-x ui-header {
+.iphone-x ui-header:first-child {
     min-height: $header-height + 20;
     padding-top: 20px;
     @media screen and (max-width: 375px) {

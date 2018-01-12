@@ -4,3 +4,22 @@ ui-tab-bar {
     border-top: $tab-bar-border-top;
     background-color: $tab-bar-bg;
 }
+
+.iphone ui-tab-bar {
+}
+
+.iphone-x ui-tab-bar {
+    &:last-child {
+        @media screen and (max-width: 375px) {
+            padding-top: 34px;
+        }
+    }
+}
+
+.android {
+
+}
+
+.default {
+
+}
