@@ -1,4 +1,5 @@
 ui-footer {
+    box-sizing: content-box;
     height: $footer-height;
     display: flex;
     position: relative;
@@ -13,8 +14,17 @@ ui-footer {
 .iphone-x ui-footer {
     &:last-child {
         @media screen and (max-width: 375px) {
-            height: $footer-height + 34px;
             padding-bottom: 34px;
+        }
+    }
+}
+
+.iphone-x {
+    ui-tab ui-footer {
+        &:last-child {
+            @media screen and (max-width: 375px) {
+                padding-bottom: 0;
+            }
         }
     }
 }
