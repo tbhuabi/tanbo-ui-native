@@ -9,6 +9,15 @@ import { PanMoveDirective } from './directives/pan-move.directive';
 import { PanRightDirective } from './directives/pan-right.directive';
 import { PanStartDirective } from './directives/pan-start.directive';
 import { PanUpDirective } from './directives/pan-up.directive';
+
+import { PinchDirective } from './directives/pinch.directive';
+import { PinchCancelDirective } from './directives/pinch-cancel.directive';
+import { PinchEndDirective } from './directives/pinch-end.directive';
+import { PinchInDirective } from './directives/pinch-in.directive';
+import { PinchMoveDirective } from './directives/pinch-move.directive';
+import { PinchOutDirective } from './directives/pinch-out.directive';
+import { PinchStartDirective } from './directives/pinch-start.directive';
+
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
 
 const directives: Array<any> = [
@@ -22,7 +31,15 @@ const directives: Array<any> = [
     PanRightDirective,
     PanStartDirective,
     PanUpDirective,
-    StopPropagationDirective
+    StopPropagationDirective,
+
+    PinchDirective,
+    PinchCancelDirective,
+    PinchEndDirective,
+    PinchInDirective,
+    PinchMoveDirective,
+    PinchOutDirective,
+    PinchStartDirective
 ];
 
 @NgModule({
