@@ -7,4 +7,9 @@ export class Page1Component implements OnInit {
     ngOnInit() {
         console.log('page1');
     }
+
+    pan(event: any) {
+        console.log(event.deltaX);
+        // console.log(event.additionalEvent , event.distance);
+    }
 }
