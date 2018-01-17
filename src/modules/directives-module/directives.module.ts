@@ -18,6 +18,9 @@ import { PinchMoveDirective } from './directives/pinch-move.directive';
 import { PinchOutDirective } from './directives/pinch-out.directive';
 import { PinchStartDirective } from './directives/pinch-start.directive';
 
+import { PressDirective } from './directives/press.directive';
+import { PressUpDirective } from './directives/press-up.directive';
+
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
 
 const directives: Array<any> = [
@@ -39,7 +42,10 @@ const directives: Array<any> = [
     PinchInDirective,
     PinchMoveDirective,
     PinchOutDirective,
-    PinchStartDirective
+    PinchStartDirective,
+
+    PressDirective,
+    PressUpDirective
 ];
 
 @NgModule({
