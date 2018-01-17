@@ -33,6 +33,8 @@ import { SwipeLeftDirective } from './directives/swipe-left.directive';
 import { SwipeRightDirective } from './directives/swipe-right.directive';
 import { SwipeUpDirective } from './directives/swipe-up.directive';
 
+import { TapDirective } from './directives/tap.directive';
+
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
 
 const directives: Array<any> = [
@@ -69,6 +71,8 @@ const directives: Array<any> = [
     SwipeLeftDirective,
     SwipeRightDirective,
     SwipeUpDirective,
+
+    TapDirective,
 
     StopPropagationDirective
 ];
