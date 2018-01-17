@@ -27,6 +27,12 @@ import { RotateEndDirective } from './directives/rotate-end.directive';
 import { RotateMoveDirective } from './directives/rotate-move.directive';
 import { RotateStartDirective } from './directives/rotate-start.directive';
 
+import { SwipeDirective } from './directives/swipe.directive';
+import { SwipeDownDirective } from './directives/swipe-down.directive';
+import { SwipeLeftDirective } from './directives/swipe-left.directive';
+import { SwipeRightDirective } from './directives/swipe-right.directive';
+import { SwipeUpDirective } from './directives/swipe-up.directive';
+
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
 
 const directives: Array<any> = [
@@ -57,6 +63,12 @@ const directives: Array<any> = [
     RotateEndDirective,
     RotateMoveDirective,
     RotateStartDirective,
+
+    SwipeDirective,
+    SwipeDownDirective,
+    SwipeLeftDirective,
+    SwipeRightDirective,
+    SwipeUpDirective,
 
     StopPropagationDirective
 ];
