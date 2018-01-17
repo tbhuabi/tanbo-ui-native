@@ -133,6 +133,22 @@ export class RangeComponent implements ControlValueAccessor {
             return;
         }
         this.isTouching = true;
+        let unbindTouchEndFn: () => void;
+        let unbindTouchCancelFn: () => void;
+        let unbindTouchMoveFn: () => void;
+
+        unbindTouchEndFn = this.renderer.listen('document', 'touchend', () => {
+            this.isTouching = false;
+            unbindTouchMoveFn();
+            unbindTouchEndFn();
+            unbindTouchCancelFn();
+        });
+        unbindTouchCancelFn = this.renderer.listen('document', 'touchcancel', () => {
+            this.isTouching = false;
+            unbindTouchMoveFn();
+            unbindTouchEndFn();
+            unbindTouchCancelFn();
+        });
         if (this.min >= this.max) {
             return;
         }
@@ -142,7 +158,7 @@ export class RangeComponent implements ControlValueAccessor {
 
         let oldX: number = event.touches[0].clientX;
 
-        let unbindTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
+        unbindTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
             let dragDistance: number = ev.touches[0].clientX - oldX;
             let proportion = (nowWidth + dragDistance) / maxWidth;
             let temporaryValue = Math.floor(section * proportion / this.step) * this.step;
@@ -163,21 +179,7 @@ export class RangeComponent implements ControlValueAccessor {
             }
             this.change.emit(value);
         });
-        let unbindTouchEndFn: () => void;
-        let unbindTouchCancelFn: () => void;
 
-        unbindTouchEndFn = this.renderer.listen('document', 'touchend', () => {
-            this.isTouching = false;
-            unbindTouchMoveFn();
-            unbindTouchEndFn();
-            unbindTouchCancelFn();
-        });
-        unbindTouchCancelFn = this.renderer.listen('document', 'touchcancel', () => {
-            this.isTouching = false;
-            unbindTouchMoveFn();
-            unbindTouchEndFn();
-            unbindTouchCancelFn();
-        });
     }
 
     writeValue(value: any) {
