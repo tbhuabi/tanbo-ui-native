@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Input } from '@angular/core';
 import 'hammerjs';
 
 @Directive({
@@ -8,6 +8,9 @@ export class PanLeftDirective implements OnInit, OnDestroy {
     @Output()
     uiPanLeft = new EventEmitter<any>();
 
+    @Input()
+    uiPanLeftOptions: HammerOptions = {};
+
     private hammerInstance: HammerManager;
 
     constructor(private elementRef: ElementRef) {
@@ -16,6 +19,7 @@ export class PanLeftDirective implements OnInit, OnDestroy {
     ngOnInit() {
         let element = this.elementRef.nativeElement;
         this.hammerInstance = new Hammer(element);
+        this.hammerInstance.set(this.uiPanLeftOptions);
         this.hammerInstance.on('panleft', (event: any) => {
             this.uiPanLeft.emit(event);
         });
