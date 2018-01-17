@@ -21,6 +21,12 @@ import { PinchStartDirective } from './directives/pinch-start.directive';
 import { PressDirective } from './directives/press.directive';
 import { PressUpDirective } from './directives/press-up.directive';
 
+import { RotateDirective } from './directives/rotate.directive';
+import { RotateCancelDirective } from './directives/rotate-cancel.directive';
+import { RotateEndDirective } from './directives/rotate-end.directive';
+import { RotateMoveDirective } from './directives/rotate-move.directive';
+import { RotateStartDirective } from './directives/rotate-start.directive';
+
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
 
 const directives: Array<any> = [
@@ -34,7 +40,6 @@ const directives: Array<any> = [
     PanRightDirective,
     PanStartDirective,
     PanUpDirective,
-    StopPropagationDirective,
 
     PinchDirective,
     PinchCancelDirective,
@@ -45,7 +50,15 @@ const directives: Array<any> = [
     PinchStartDirective,
 
     PressDirective,
-    PressUpDirective
+    PressUpDirective,
+
+    RotateDirective,
+    RotateCancelDirective,
+    RotateEndDirective,
+    RotateMoveDirective,
+    RotateStartDirective,
+
+    StopPropagationDirective
 ];
 
 @NgModule({
