@@ -53,6 +53,16 @@ ui-content {
     }
 }
 
+.iphone-x {
+    ui-tab ui-content {
+        &:last-child {
+            @media screen and (max-width: 375px) {
+                padding-bottom: 0;
+            }
+        }
+    }
+}
+
 .android {
 
 }

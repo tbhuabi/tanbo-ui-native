@@ -1,24 +1,21 @@
 # 简介
 
-`tanbo-ui-native` 是基于 angular 二次开发的移动端开发框架，支持常见的如路由转场动画、触摸手势、上拉加载、下拉刷新等功能。
+`tanbo-ui-native` 是基于 angular 二次开发的移动端开发框架，支持常见的如路由转场动画、触摸手势、上拉加载、下拉刷新等功能。文档地址：[http://www.tanboui.com/native](http://www.tanboui.com/native)。
 
-## 效果预览
+## example
 
-![](./example/router.gif)
-![](./example/refresher.gif)
-![](./example/tab.gif)
 ![](./example/confirm.gif)
+![](./example/refresher.gif)
+![](./example/router.gif)
+![](./example/tab.gif)
 
-## 文档地址
-[http://www.tanboui.com/native](http://www.tanboui.com/native)。
-
-## 安装
+### 安装
 
 ```bash
 npm install tanbo-ui-native --save
 ```
 
-## 页面基本结构
+## 页面结构
 
 ```html
 <ui-page>
@@ -51,18 +48,6 @@ npm install tanbo-ui-native --save
 </ui-page>
 ```
 
-## 环境准备
-
-#### 1、生成项目
-
-你可以自已搭建，或采用 angular 官方的 cli 来生成一个项目，也可以用 <a class="color-primary" href="https://github.com/tbhuabi/quick-start-cli" target="_blank">quick-start-cli</a> 生成一个项目。
-如果采用 `quick-start-cli`，请选择 angular + scss 初始化项目。
-
-#### 2、安装框架
-
-```bash
-npm install tanbo-ui-native --save
-```
 
 ### 在项目中导入 tanbo-ui-native
 
@@ -136,5 +121,4 @@ import 'tanbo-ui-native/bundles/tanbo-ui-native.min.css';
 // 按照 angular 项目的约定，在 main.ts 里导入全局样式表
 import './global.scss';
 ```
-
 
