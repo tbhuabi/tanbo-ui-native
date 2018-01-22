@@ -2,7 +2,11 @@ ui-scroll {
     display: block;
     @include fill-box;
     overflow-y: scroll;
-    padding: inherit;
     -webkit-overflow-scrolling: touch;
-    background-color: inherit;
+}
+
+.ui-scroll {
+    min-height: 100%;
+    padding-bottom: 1px;
+    box-sizing: content-box;
 }
