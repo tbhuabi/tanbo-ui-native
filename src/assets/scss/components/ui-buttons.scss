@@ -5,7 +5,6 @@ ui-buttons {
     z-index: 1;
     display: flex;
     white-space: nowrap;
-    background: inherit;
     &:last-child {
         justify-content: flex-end;
         align-items: center;

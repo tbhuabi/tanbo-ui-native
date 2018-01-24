@@ -6,9 +6,8 @@
     </ui-navbar>
   </ui-header>
   <ui-content class="container">
-    <ui-scroll>
-
-
+    <ui-refresher [progress]="progress"></ui-refresher>
+    <ui-scroll [openRefresh]="true" (dragging)="drag($event)">
       <div style="width: 100px; height: 100px; background: #000;" (uiPan)="pan($event)"></div>
       <p><a routerLink="../page2">page2</a></p>
     </ui-scroll>

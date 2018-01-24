@@ -1,10 +1,39 @@
 ui-footer {
     box-sizing: content-box;
     height: $footer-height;
-    display: flex;
+    display: block;
     position: relative;
     background-color: #fff;
     contain: size style layout;
+    > .ui-content-shadow {
+        z-index: -1;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin-left: -10px;
+        overflow: hidden;
+        &:before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: block;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+        }
+    }
+    > .ui-content {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        padding: inherit;
+        display: flex;
+    }
 }
 
 .iphone ui-footer {
