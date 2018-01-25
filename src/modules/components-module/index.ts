@@ -7,6 +7,8 @@ export { RouterService } from './components/router/router.service';
 export { RouteCacheController } from './components/router/route-cache-controller';
 export { AppController } from './components/app/app-controller';
 
+export { PullDownRefreshController, UI_DO_REFRESH_DISTANCE } from './controllers/pull-down-refresh-controller';
+
 export { OnViewEnter, OnViewLeave } from './components/view/view-life-cycle';
 
 export * from './config';

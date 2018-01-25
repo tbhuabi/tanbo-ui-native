@@ -59,6 +59,8 @@ import { UIRouteReuseStrategy } from './components/router/route-reuse-strategy';
 
 import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME, UI_BROWSER_ENV } from './config';
 
+import { UI_DO_REFRESH_DISTANCE } from './controllers/pull-down-refresh-controller';
+
 @NgModule({
     imports: [
         CommonModule
@@ -166,6 +168,9 @@ export class UIComponentsModule {
             }, {
                 provide: UI_ROUTER_ANIMATION_STEPS,
                 useValue: 25
+            }, {
+                provide: UI_DO_REFRESH_DISTANCE,
+                useValue: 40
             }, {
                 provide: UI_BROWSER_ENV,
                 useFactory: getENV

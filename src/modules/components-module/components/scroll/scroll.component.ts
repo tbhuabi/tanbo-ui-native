@@ -7,55 +7,55 @@ import {
     Input,
     OnDestroy,
     Output,
+    OnInit,
     Renderer2
 } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { Easing } from '@tweenjs/tween.js';
+import 'hammerjs';
+
+import { PullDownRefreshController } from '../../controllers/pull-down-refresh-controller';
 
 @Component({
     selector: 'ui-scroll',
     templateUrl: './scroll.component.html'
 })
-export class ScrollComponent implements AfterViewInit, OnDestroy {
+export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
     // 是否开启下拉刷新
     @Input()
     openRefresh: boolean = false;
     // 是否开启下拉刷新
     @Input()
     openInfinite: boolean = false;
-    // 触发下拉刷新临界距离
-    @Input()
-    doRefreshDistance: number = 60;
-    // 触发上拉加载临界距离
-    @Input()
-    doLoadingDistance: number = 600;
 
     @HostBinding('style.transform')
     transform: string;
 
-    @Output()
-    dragging = new EventEmitter<number>();
-    @Output()
-    refresh = new EventEmitter<() => void>();
-    @Output()
-    infinite = new EventEmitter<() => void>();
 
-    private translateY: number = 0;
     private unBindFnList: Array<() => void> = [];
 
     private infinite$: Observable<void>;
     private infiniteSource = new Subject<void>();
-    private sub: Subscription;
-    private animationId: number;
+    private subs: Array<Subscription> = [];
     // 记录用户是否正在触摸
-    private isTouching: boolean = false;
 
     private isLoading: boolean = false;
 
+    private hammerInstance: HammerManager;
+
     constructor(private renderer: Renderer2,
-                private elementRef: ElementRef) {
+                private elementRef: ElementRef,
+                private pullDownRefreshController: PullDownRefreshController) {
 
         this.infinite$ = this.infiniteSource.asObservable();
+    }
+
+    ngOnInit() {
+
+        this.subs.push(this.pullDownRefreshController.onStateChange.subscribe(n => {
+            this.transform = `translateY(${n}px)`;
+        }));
+
     }
 
     ngAfterViewInit() {
@@ -67,34 +67,36 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
             return;
         }
 
-        const element = this.elementRef.nativeElement;
-
-        // 当触发滚动，且是向上拉的情况，触发加载事件
-        this.sub = this.infinite$.subscribe(() => {
-            this.infinite.emit(() => {
-                this.isLoading = false;
-            });
-        });
-
-        const fn = this.renderer.listen(element, 'scroll', () => {
-            if (this.isLoading) {
-                return;
-            }
-            // 计算最大滚动距离
-            const maxScrollY = Math.max(element.scrollHeight, element.offsetHeight) - element.offsetHeight;
-            // 如果当前滚动距离小于上拉刷新临界值，则记录相应值，并就广播相应事件
-            if (maxScrollY - element.scrollTop < this.doLoadingDistance) {
-                this.isLoading = true;
-                this.infiniteSource.next();
-            }
-        });
-        this.unBindFnList.push(fn);
+        // const element = this.elementRef.nativeElement;
+        //
+        // // 当触发滚动，且是向上拉的情况，触发加载事件
+        // this.subs.push(this.infinite$.subscribe(() => {
+        //     this.infinite.emit(() => {
+        //         this.isLoading = false;
+        //     });
+        // }));
+        //
+        // const fn = this.renderer.listen(element, 'scroll', () => {
+        //     if (this.isLoading) {
+        //         return;
+        //     }
+        //     // 计算最大滚动距离
+        //     const maxScrollY = Math.max(element.scrollHeight, element.offsetHeight) - element.offsetHeight;
+        //     // 如果当前滚动距离小于上拉刷新临界值，则记录相应值，并就广播相应事件
+        //     if (maxScrollY - element.scrollTop < this.doLoadingDistance) {
+        //         this.isLoading = true;
+        //         this.infiniteSource.next();
+        //     }
+        // });
+        // this.unBindFnList.push(fn);
     }
 
     ngOnDestroy() {
-        if (this.sub) {
-            this.sub.unsubscribe();
-        }
+        this.subs.forEach(item => {
+            item.unsubscribe();
+        });
+
+        this.hammerInstance.off('panend');
         this.unBindFnList.forEach(item => {
             item();
         });
@@ -102,111 +104,36 @@ export class ScrollComponent implements AfterViewInit, OnDestroy {
 
     bindingRefresher() {
         const element = this.elementRef.nativeElement;
-        const fn = this.renderer.listen(element, 'touchstart', (event: any) => {
-            cancelAnimationFrame(this.animationId);
 
-            this.isTouching = true;
-            const oldPoint = event.touches[0];
+        const hammerInstance = new Hammer(element);
 
-            const oldY = oldPoint.pageY;
-            const oldX = oldPoint.pageX;
-            const oldScrollTop = element.scrollTop;
+        this.hammerInstance = hammerInstance;
 
-            let isScroll = true;
-
-            // 记录上一次未还原的偏移值
-            const oldTranslateY = this.translateY;
-
-            let cancelTouchCancelFn: () => void;
-            let cancelTouchEndFn: () => void;
-            let touchedFn: () => void;
-
-            const cancelTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
-                const newPoint = ev.touches[0];
-                const newY = newPoint.pageY;
-                const newX = newPoint.pageX;
-                const distance = newY - oldY;
-
-                if (isScroll && Math.abs(newX - oldX) >= Math.abs(newY - oldY)) {
-                    touchedFn();
-                    return;
-                }
-
-                isScroll = false;
-
-                let translateY = 0;
-
-                // 最新偏移值，且一定要小于0
-                const distanceTop = Math.ceil((distance - oldScrollTop) / 3) + oldTranslateY;
-                if (distanceTop > 0 && this.openRefresh) {
-                    translateY = distanceTop;
-                }
-
-                // 如果偏移值发生改变，则改变样式
-                if (this.translateY !== translateY) {
-                    this.translateY = translateY;
-                    this.dragging.emit(translateY);
-                    this.transform = `translateY(${translateY}px)`;
-                }
-                if (translateY !== 0) {
-                    ev.preventDefault();
-                    return false;
-                }
-
-            });
-
-            const complete = () => {
-                if (this.isTouching) {
-                    return;
-                }
-                this.scroll(this.translateY, 0);
-            };
-
-            touchedFn = () => {
-                this.isTouching = false;
-                let distanceTop = Math.abs(Number(this.doRefreshDistance));
-
-                // 当用户取消触摸时，根据当前距离，判断是否触发刷新事件
-                if (this.translateY > 0 && this.translateY > distanceTop) {
-                    this.scroll(this.translateY, distanceTop);
-                    this.isLoading = false;
-                    this.refresh.emit(complete);
-                } else {
-                    this.scroll(this.translateY, 0);
-                }
-                cancelTouchMoveFn();
-                cancelTouchEndFn();
-                cancelTouchCancelFn();
-            };
-
-            cancelTouchCancelFn = this.renderer.listen('document', 'touchcancel', touchedFn);
-            cancelTouchEndFn = this.renderer.listen('document', 'touchend', touchedFn);
+        hammerInstance.get('pan').set({
+            direction: 30
         });
 
-        this.unBindFnList.push(fn);
-    }
+        let isFirstTouching: boolean = true;
 
-    private scroll(start: number, target: number) {
-        const max = 20;
-        let step = 0;
+        let isPullUpOrDown: boolean = true;
 
-        const distance = target - start;
-
-        const animationFn = () => {
-            if (this.isTouching) {
-                return;
+        hammerInstance.on('panup pandown panleft panright', (ev: HammerInput) => {
+            if ((ev.type === 'panleft' || ev.type === 'panright') && isFirstTouching) {
+                isPullUpOrDown = false;
             }
-            step++;
-            const distanceTop = Easing.Cubic.Out(step / max) * distance + start;
-            this.translateY = distanceTop;
-            this.transform = `translateY(${distanceTop}px)`;
-            this.dragging.emit(distanceTop);
-            if (step < max) {
-                this.animationId = requestAnimationFrame(animationFn);
+            isFirstTouching = false;
+
+            if (isPullUpOrDown) {
+                ev.srcEvent.stopPropagation();
+                this.pullDownRefreshController.drag(ev.deltaY / 3);
             }
+        });
 
-        };
 
-        this.animationId = requestAnimationFrame(animationFn);
+        hammerInstance.on('panend', () => {
+            isPullUpOrDown = true;
+            isFirstTouching = true;
+            this.pullDownRefreshController.dragEnd();
+        });
     }
 }

@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+import { PullDownRefreshController } from '../../modules/index';
 
 @Component({
     templateUrl: './page1.component.html'
 })
-export class Page1Component implements OnInit {
-    progress: number = 0;
+export class Page1Component implements AfterViewInit {
+    constructor(private pullDownRefreshController: PullDownRefreshController) {
+    }
 
-    ngOnInit() {
-        console.log('page1');
+    ngAfterViewInit() {
+        // this.pullDownRefreshController.refresh();
     }
 
     pan(event: any) {
@@ -16,6 +18,10 @@ export class Page1Component implements OnInit {
     }
 
     drag(n: number) {
-        this.progress = n;
+        // this.progress = n;
+    }
+
+    loaded() {
+        this.pullDownRefreshController.refreshEnd();
     }
 }

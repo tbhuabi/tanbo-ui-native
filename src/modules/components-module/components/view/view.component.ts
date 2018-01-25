@@ -17,13 +17,15 @@ import { ComponentHostDirective } from './component-host.directive';
 import { ViewState, ViewStateService } from './view-state.service';
 import { ContentLoadingController } from '../content-loading/content-loading.service';
 import { RouterService } from '../router/router.service';
+import { PullDownRefreshController } from '../../controllers/pull-down-refresh-controller';
 
 @Component({
     selector: 'ui-view',
     templateUrl: './view.component.html',
     providers: [
         ViewStateService,
-        ContentLoadingController
+        ContentLoadingController,
+        PullDownRefreshController
     ]
 })
 export class ViewComponent implements OnInit, OnDestroy {

@@ -5,11 +5,13 @@
       <ui-title>设置</ui-title>
     </ui-navbar>
   </ui-header>
-  <ui-content class="container">
-    <ui-refresher [progress]="progress"></ui-refresher>
-    <ui-scroll [openRefresh]="true" (dragging)="drag($event)">
-      <div style="width: 100px; height: 100px; background: #000;" (uiPan)="pan($event)"></div>
+  <ui-content class="container" style="background: #ccc;">
+    <ui-refresher></ui-refresher>
+    <ui-scroll style="background-color: #fff;" [openRefresh]="true" (dragging)="drag($event)">
+      <!--<div style="width: 100px; height: 100px; background: #000;" (uiPan)="pan($event)"></div>-->
       <p><a routerLink="../page2">page2</a></p>
+
+      <p><button type="button" (click)="loaded()"> loaded</button></p>
     </ui-scroll>
   </ui-content>
 </ui-page>
