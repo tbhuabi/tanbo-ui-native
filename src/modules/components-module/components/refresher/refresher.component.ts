@@ -20,7 +20,7 @@ import { PullDownRefreshController, UI_DO_REFRESH_DISTANCE } from '../../control
 })
 export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input()
-    pointColor: string = '#2d8cf0';
+    pointColor: string = '#80848f';
 
     @ViewChild('canvas')
     canvas: ElementRef;
@@ -66,6 +66,7 @@ export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
             this.animateYoYo();
         }));
         this.subs.push(this.pullDownRefreshController.onRefreshEnd.subscribe(() => {
+            this.opacity = 0.5;
             this.isLoaded = true;
         }));
     }
@@ -104,7 +105,7 @@ export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
         context.arc(0, 0, r * 10, 0, Math.PI * 2);
         context.fill();
 
-        this.opacity = Easing.Cubic.Out(this.progress / this.doRefreshDistance);
+        this.opacity = Easing.Cubic.Out(this.progress / this.doRefreshDistance) / 2;
     }
 
     animateYoYo() {
@@ -123,6 +124,9 @@ export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
                 result = progress % max;
             }
             this.drawProgress(Easing.Cubic.In(result / max) * max);
+            if (this.isLoaded && result === this.doRefreshDistance) {
+                return;
+            }
             this.animationId = requestAnimationFrame(yoyo);
         };
 
@@ -149,7 +153,7 @@ export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
         context.closePath();
         context.fill();
 
-        let distance = (this.doRefreshDistance * 2 - progress * 2) / this.doRefreshDistance * 20;
+        let distance = (this.doRefreshDistance - progress ) / this.doRefreshDistance * 40;
         context.beginPath();
         context.arc(-distance, 0, r2, 0, Math.PI * 2);
         context.closePath();

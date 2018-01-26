@@ -19,6 +19,7 @@ export class PullDownRefreshController {
     private newDistance: number = 0;
 
     private animationId: number;
+    private timer: any = null;
 
     constructor(@Inject(UI_DO_REFRESH_DISTANCE) private doRefreshDistance: number) {
         this.onStateChange = this.dragSource.asObservable();
@@ -29,10 +30,13 @@ export class PullDownRefreshController {
 
     refreshEnd() {
         this.refreshEndSource.next();
-        this.animationTo(0);
+        this.timer = setTimeout(() => {
+            this.animationTo(0);
+        }, 1000);
     }
 
     drag(n: number) {
+        clearTimeout(this.timer);
         cancelAnimationFrame(this.animationId);
         this.newDistance = n + this.oldDistance;
         if (this.newDistance < 0) {
