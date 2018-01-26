@@ -64,18 +64,18 @@ export class PullDownRefreshController {
     }
 
     private animationTo(target: number, callback?: () => void) {
+        const oldDistance = this.oldDistance;
+        const interval = target - oldDistance;
+        if (interval === 0) {
+            return;
+        }
         const max = 20;
         let step = 0;
-
-        const oldDistance = this.oldDistance;
-
-        const interval = target - oldDistance;
-
         const animationFn = () => {
             step++;
-            const newDistance = Easing.Cubic.Out(step / max) * interval + oldDistance;
-            this.oldDistance = newDistance;
-            this.dragSource.next(newDistance);
+            this.newDistance = Easing.Cubic.Out(step / max) * interval + oldDistance;
+            this.oldDistance = this.newDistance;
+            this.dragSource.next(this.newDistance);
 
             if (step < max) {
                 this.animationId = requestAnimationFrame(animationFn);

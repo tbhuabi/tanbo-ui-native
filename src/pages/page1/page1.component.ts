@@ -17,11 +17,11 @@ export class Page1Component implements AfterViewInit {
         // console.log(event.additionalEvent , event.distance);
     }
 
-    drag(n: number) {
-        // this.progress = n;
-    }
-
     loaded() {
         this.pullDownRefreshController.refreshEnd();
+    }
+
+    refresh() {
+        this.pullDownRefreshController.refresh();
     }
 }
