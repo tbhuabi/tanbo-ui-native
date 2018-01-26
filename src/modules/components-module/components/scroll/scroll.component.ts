@@ -2,19 +2,18 @@ import {
     AfterViewInit,
     Component,
     ElementRef,
-    EventEmitter,
     HostBinding,
     Input,
+    Inject,
     OnDestroy,
-    Output,
     OnInit,
     Renderer2
 } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { Easing } from '@tweenjs/tween.js';
+import { Subscription } from 'rxjs';
 import 'hammerjs';
 
 import { PullDownRefreshController } from '../../controllers/pull-down-refresh-controller';
+import { UI_DO_LOAD_DISTANCE, PullUpLoadController } from '../../controllers/pull-up-load-controller';
 
 @Component({
     selector: 'ui-scroll',
@@ -32,30 +31,24 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
     transform: string;
 
 
-    private unBindFnList: Array<() => void> = [];
+    private unBindFn: () => void;
 
-    private infinite$: Observable<void>;
-    private infiniteSource = new Subject<void>();
-    private subs: Array<Subscription> = [];
-    // 记录用户是否正在触摸
-
-    private isLoading: boolean = false;
+    private sub: Subscription;
 
     private hammerInstance: HammerManager;
 
     constructor(private renderer: Renderer2,
                 private elementRef: ElementRef,
+                @Inject(UI_DO_LOAD_DISTANCE) private doLoadDistance: number,
+                private pullUpLoadController: PullUpLoadController,
                 private pullDownRefreshController: PullDownRefreshController) {
 
-        this.infinite$ = this.infiniteSource.asObservable();
     }
 
     ngOnInit() {
-
-        this.subs.push(this.pullDownRefreshController.onStateChange.subscribe(n => {
+        this.sub = this.pullDownRefreshController.onStateChange.subscribe(n => {
             this.transform = `translateY(${n}px)`;
-        }));
-
+        });
     }
 
     ngAfterViewInit() {
@@ -67,39 +60,24 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
             return;
         }
 
-        // const element = this.elementRef.nativeElement;
-        //
-        // // 当触发滚动，且是向上拉的情况，触发加载事件
-        // this.subs.push(this.infinite$.subscribe(() => {
-        //     this.infinite.emit(() => {
-        //         this.isLoading = false;
-        //     });
-        // }));
-        //
-        // const fn = this.renderer.listen(element, 'scroll', () => {
-        //     if (this.isLoading) {
-        //         return;
-        //     }
-        //     // 计算最大滚动距离
-        //     const maxScrollY = Math.max(element.scrollHeight, element.offsetHeight) - element.offsetHeight;
-        //     // 如果当前滚动距离小于上拉刷新临界值，则记录相应值，并就广播相应事件
-        //     if (maxScrollY - element.scrollTop < this.doLoadingDistance) {
-        //         this.isLoading = true;
-        //         this.infiniteSource.next();
-        //     }
-        // });
-        // this.unBindFnList.push(fn);
+        const element = this.elementRef.nativeElement;
+
+        this.unBindFn = this.renderer.listen(element, 'scroll', () => {
+            // 计算最大滚动距离
+            const maxScrollY = Math.max(element.scrollHeight, element.offsetHeight) - element.offsetHeight;
+            // 如果当前滚动距离小于上拉刷新临界值，则记录相应值，并就广播相应事件
+            if (maxScrollY - element.scrollTop < this.doLoadDistance) {
+                this.pullUpLoadController.loading();
+            }
+        });
     }
 
     ngOnDestroy() {
-        this.subs.forEach(item => {
-            item.unsubscribe();
-        });
-
+        this.sub.unsubscribe();
         this.hammerInstance.off('panend');
-        this.unBindFnList.forEach(item => {
-            item();
-        });
+        if (this.unBindFn) {
+            this.unBindFn();
+        }
     }
 
     bindingRefresher() {

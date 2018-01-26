@@ -18,6 +18,7 @@ import { ViewState, ViewStateService } from './view-state.service';
 import { ContentLoadingController } from '../content-loading/content-loading.service';
 import { RouterService } from '../router/router.service';
 import { PullDownRefreshController } from '../../controllers/pull-down-refresh-controller';
+import { PullUpLoadController } from '../../controllers/pull-up-load-controller';
 
 @Component({
     selector: 'ui-view',
@@ -25,7 +26,8 @@ import { PullDownRefreshController } from '../../controllers/pull-down-refresh-c
     providers: [
         ViewStateService,
         ContentLoadingController,
-        PullDownRefreshController
+        PullDownRefreshController,
+        PullUpLoadController
     ]
 })
 export class ViewComponent implements OnInit, OnDestroy {
