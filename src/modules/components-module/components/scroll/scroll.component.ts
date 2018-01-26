@@ -30,7 +30,6 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
     @HostBinding('style.transform')
     transform: string;
 
-
     private unBindFn: () => void;
 
     private sub: Subscription;
@@ -106,7 +105,6 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
                 this.pullDownRefreshController.drag(ev.deltaY / 3);
             }
         });
-
 
         hammerInstance.on('panend', () => {
             isPullUpOrDown = true;

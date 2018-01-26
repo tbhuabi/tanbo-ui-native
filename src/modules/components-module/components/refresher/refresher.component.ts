@@ -20,7 +20,7 @@ import { PullDownRefreshController, UI_DO_REFRESH_DISTANCE } from '../../control
 })
 export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input()
-    pointColor: string = '#80848f';
+    color: string = '#80848f';
 
     @ViewChild('canvas')
     canvas: ElementRef;
@@ -100,7 +100,7 @@ export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
         const context = this.context;
         context.translate(this.containerWidth, this.progress);
         context.clearRect(-this.containerWidth, -this.progress, this.containerWidth * 2, this.progress * 2);
-        context.fillStyle = this.pointColor;
+        context.fillStyle = this.color;
         let r = this.doRefreshDistance - this.progress;
         context.arc(0, 0, r * 10, 0, Math.PI * 2);
         context.fill();
@@ -137,7 +137,7 @@ export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
         const context = this.context;
         context.clearRect(-this.containerWidth, -this.progress, this.containerWidth * 2, this.progress * 2);
 
-        this.context.fillStyle = this.pointColor;
+        this.context.fillStyle = this.color;
         let r1 = this.progress / 4;
         let r2 = this.progress / 5;
 

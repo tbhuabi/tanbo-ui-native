@@ -1,3 +1,5 @@
+### 3.2.0
+重构 ui-refresh ui-scroll 组件
 
 ### 3.0.2
 优化 ui-slide 组件，添加触摸功能。
