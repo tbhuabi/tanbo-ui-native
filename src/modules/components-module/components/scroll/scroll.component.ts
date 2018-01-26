@@ -73,7 +73,9 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
 
     ngOnDestroy() {
         this.sub.unsubscribe();
-        this.hammerInstance.off('panend');
+        if (this.hammerInstance) {
+            this.hammerInstance.off('panend');
+        }
         if (this.unBindFn) {
             this.unBindFn();
         }
