@@ -29,6 +29,10 @@ export class PullDownRefreshController {
 
     refreshEnd() {
         this.refreshEndSource.next();
+        if (this.distance === 0) {
+            this.dragSource.next(0);
+            return;
+        }
         this.timer = setTimeout(() => {
             this.animationTo(0);
         }, 1000);
