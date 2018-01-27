@@ -101,10 +101,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
                 const moveX = movePoint.pageX;
                 const moveY = movePoint.pageY;
 
-                const distanceX = moveX - startX;
-                const distanceY = moveY - startY;
-
-                if (Math.abs(distanceX) > Math.abs(distanceY) && isFirstTouching) {
+                if (Math.abs(moveX - startX) > Math.abs(moveY - startY) && isFirstTouching) {
                     unBindFn();
                     return;
                 }
