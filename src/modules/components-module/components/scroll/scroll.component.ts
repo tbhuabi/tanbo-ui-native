@@ -118,13 +118,9 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
                         ev.preventDefault();
                         return false;
                     }
-                } else {
+                } else if (element.scrollTop <= 0) {
                     // 下拉
-                    if (element.scrollTop <= 0) {
-                        this.pullDownRefreshController.drag(n / 3 + this.distanceY);
-                        ev.preventDefault();
-                        return false;
-                    }
+                    this.pullDownRefreshController.drag(n / 3 + this.distanceY);
                 }
             });
 
