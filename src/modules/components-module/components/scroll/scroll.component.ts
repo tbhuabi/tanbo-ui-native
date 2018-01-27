@@ -26,8 +26,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
     @Input()
     openInfinite: boolean = false;
 
-    @HostBinding('style.transform')
-    transform: string;
+    paddingTop: string;
 
     private sub: Subscription;
     private distanceY: number = 0;
@@ -44,7 +43,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
     ngOnInit() {
         this.sub = this.pullDownRefreshController.onStateChange.subscribe(n => {
             this.distanceY = n;
-            this.transform = `translateY(${n}px)`;
+            this.paddingTop = `${n}px`;
         });
     }
 

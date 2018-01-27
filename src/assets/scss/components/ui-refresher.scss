@@ -1,9 +1,8 @@
 ui-refresher {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
+    position: relative;
+    display: block;
     overflow: hidden;
+    z-index: 1;
     > .progress-bar {
         display: block;
         width: 100%;

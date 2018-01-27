@@ -3,6 +3,7 @@ ui-scroll {
     @include fill-box;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    contain: size style layout;
 }
 
 .ui-scroll {
