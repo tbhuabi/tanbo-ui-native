@@ -82,9 +82,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
             const startX = startPoint.pageX;
             const startY = startPoint.pageY;
 
-            const scrollY = element.scrollTop;
-            const oldDistanceY = this.distanceY;
-
+            let oldY = startY;
             let unBindTouchMoveFn: () => void;
             let unBindTouchEndFn: () => void;
             let unBindTouchCancelFn: () => void;
@@ -112,22 +110,25 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
                 }
                 isFirstTouching = false;
 
-                const result = distanceY - scrollY ;
-                const n = result / 3;
-                if (result >= 0) {
-                    this.pullDownRefreshController.drag(n);
-                    return;
-                }
+                const n = moveY - oldY;
 
-                if (distanceY <= 0) {
-                    const a = oldDistanceY + distanceY / 3;
-                    if (a <= oldDistanceY && a >= 0) {
-                        this.pullDownRefreshController.drag(a - oldDistanceY);
+                oldY = moveY;
+
+                if (n < 0) {
+                    // 上拉
+                    if (this.distanceY > 0) {
+                        this.pullDownRefreshController.drag(n / 3 + this.distanceY);
+                        ev.preventDefault();
+                        return false;
+                    }
+                } else {
+                    // 下拉
+                    if (element.scrollTop <= 0) {
+                        this.pullDownRefreshController.drag(n / 3 + this.distanceY);
                         ev.preventDefault();
                         return false;
                     }
                 }
-                // this.pullDownRefreshController.drag(this.distanceY < oldDistanceY ? -oldDistanceY : 0);
             });
 
             unBindTouchEndFn = this.renderer.listen('document', 'touchend', unBindFn);

@@ -15,8 +15,7 @@ export class PullDownRefreshController {
     private dragEndSource = new Subject<void>();
     private refreshSource = new Subject<void>();
     private refreshEndSource = new Subject<void>();
-    private oldDistance: number = 0;
-    private newDistance: number = 0;
+    private distance: number = 0;
 
     private animationId: number;
     private timer: any = null;
@@ -38,16 +37,15 @@ export class PullDownRefreshController {
     drag(n: number) {
         clearTimeout(this.timer);
         cancelAnimationFrame(this.animationId);
-        this.newDistance = n + this.oldDistance;
-        if (this.newDistance < 0) {
-            this.newDistance = 0;
+        this.distance = n;
+        if (this.distance < 0) {
+            this.distance = 0;
         }
-        this.dragSource.next(this.newDistance);
+        this.dragSource.next(this.distance);
     }
 
     dragEnd() {
-        this.oldDistance = this.newDistance;
-        if (this.oldDistance < this.doRefreshDistance) {
+        if (this.distance < this.doRefreshDistance) {
             this.animationTo(0);
         } else {
             this.refresh();
@@ -64,7 +62,7 @@ export class PullDownRefreshController {
     }
 
     private animationTo(target: number, callback?: () => void) {
-        const oldDistance = this.oldDistance;
+        const oldDistance = this.distance;
         const interval = target - oldDistance;
         if (interval === 0) {
             return;
@@ -73,9 +71,8 @@ export class PullDownRefreshController {
         let step = 0;
         const animationFn = () => {
             step++;
-            this.newDistance = Easing.Cubic.Out(step / max) * interval + oldDistance;
-            this.oldDistance = this.newDistance;
-            this.dragSource.next(this.newDistance);
+            this.distance = Easing.Cubic.Out(step / max) * interval + oldDistance;
+            this.dragSource.next(this.distance);
 
             if (step < max) {
                 this.animationId = requestAnimationFrame(animationFn);
