@@ -5,3 +5,10 @@ ui-scroll {
     -webkit-overflow-scrolling: touch;
     contain: size style layout;
 }
+
+.ui-scroll {
+    min-height: 100%;
+    padding-bottom: 1px;
+    box-sizing: content-box;
+    position: relative;
+}
