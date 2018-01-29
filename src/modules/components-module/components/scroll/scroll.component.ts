@@ -26,6 +26,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
     @Input()
     openInfinite: boolean = false;
 
+    @HostBinding('style.paddingTop')
     paddingTop: string;
 
     private sub: Subscription;
