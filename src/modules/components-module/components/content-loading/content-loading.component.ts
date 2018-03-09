@@ -33,19 +33,26 @@ export class ContentLoadingComponent implements OnInit, OnDestroy {
     text: string = '';
 
     private subs: Array<Subscription> = [];
+    private timer: any = null;
 
     constructor(private contentLoadingController: ContentLoadingController) {
     }
 
     ngOnInit() {
         this.subs.push(this.contentLoadingController.showLoading$.subscribe((text?: string) => {
-            this.show = true;
-            this.text = text;
+            clearTimeout(this.timer);
+            this.timer = setTimeout(() => {
+                this.show = true;
+                this.text = text;
+            });
         }));
 
         this.subs.push(this.contentLoadingController.hideLoading$.subscribe(() => {
-            this.show = false;
-            this.text = '';
+            clearTimeout(this.timer);
+            this.timer = setTimeout(() => {
+                this.show = false;
+                this.text = '';
+            });
         }));
     }
 

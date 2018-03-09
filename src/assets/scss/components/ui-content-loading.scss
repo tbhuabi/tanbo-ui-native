@@ -1,6 +1,8 @@
 ui-content-loading {
     z-index: $page-loading-z-index;
-    position: relative;
+    position: absolute;
+    left: 50%;
+    top: 50%;
     > .ui-content-loading {
         position: absolute;
         left: 50%;
@@ -13,6 +15,7 @@ ui-content-loading {
             margin: 0;
             color: #fff;
             font-size: 12px;
+            white-space: nowrap;
         }
     }
 }

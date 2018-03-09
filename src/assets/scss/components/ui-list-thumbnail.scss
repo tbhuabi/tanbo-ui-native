@@ -4,9 +4,14 @@ ui-list-thumbnail {
     padding-bottom: 8px;
     margin-top: -$list-item-vertical-padding;
     margin-bottom: -$list-item-vertical-padding;
-    margin-right: $grid-column-padding;
     min-height: 36px;
     min-width: 36px;
+    &:first-child {
+        margin-right: $grid-column-padding;
+    }
+    &:last-child {
+        margin-left: $grid-column-padding;
+    }
     img {
         width: 36px;
         height: 36px;

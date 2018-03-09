@@ -1,14 +1,20 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { PullDownRefreshController } from '../../modules/index';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { PullDownRefreshController, ContentLoadingController } from '../../modules/index';
 
 @Component({
     templateUrl: './page1.component.html'
 })
-export class Page1Component implements AfterViewInit {
-    constructor(private pullDownRefreshController: PullDownRefreshController) {
+export class Page1Component implements AfterViewInit, OnInit {
+    constructor(private pullDownRefreshController: PullDownRefreshController,
+                private contentLoadingController: ContentLoadingController) {
+    }
+
+    ngOnInit() {
+
     }
 
     ngAfterViewInit() {
+        this.contentLoadingController.show('正在加载中');
         // this.pullDownRefreshController.refresh();
     }
 
