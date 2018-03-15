@@ -7,5 +7,10 @@
   </ui-header>
   <ui-content class="container">
     <p><a routerLink="../child">child</a></p>
+    <div>
+      <ui-picker [data]="data" (change)="show($event)">
+        <div>fdsafdsa</div>
+      </ui-picker>
+    </div>
   </ui-content>
 </ui-page>

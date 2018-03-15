@@ -1,0 +1,92 @@
+ui-picker {
+    &.focus {
+        .ui-picker {
+            transform: translateY(0);
+        }
+    }
+    > .ui-raw-input {
+        width: 0;
+        height: 0;
+        position: absolute;
+        overflow: hidden;
+        opacity: 0;
+    }
+}
+
+.ui-picker {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateY(100%);
+    transition: transform .2s;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    z-index: $mask-z-index + 1;
+    .ui-picker-header {
+        display: flex;
+        height: 40px;
+        border-bottom: $border-width solid $color-gray;
+        justify-content: space-between;
+        background-color: $color-lighter;
+        .ui-picker-action {
+            color: $color-primary;
+            width: 80px;
+        }
+    }
+    .ui-picker-selector {
+        flex: 1;
+        position: relative;
+    }
+    .ui-picker-list {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        background: $color-gray-light;
+        mask: linear-gradient(
+                        rgba(red($color-light), green($color-light), blue($color-light), 0.5),
+                        #fff,
+                        #fff,
+                        rgba(red($color-light), green($color-light), blue($color-light), 0.5));
+
+    }
+    .ui-picker-column {
+        flex: 1;
+        display: block;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: scroll;
+        &:after, &:before {
+            content: "";
+            display: block;
+            height: 75px;
+        }
+    }
+
+    .ui-picker-cell {
+        display: block;
+        width: 100%;
+        height: 30px;
+        transition: color .2s;
+        &.selected {
+            color: $color-primary;
+        }
+    }
+
+    .ui-picker-reference-line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 30px;
+        border-top: $border-width solid $color-gray;
+        border-bottom: $border-width solid $color-gray;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+}
+

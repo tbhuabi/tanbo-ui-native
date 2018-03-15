@@ -1,0 +1,24 @@
+<ng-content></ng-content>
+<ui-mask [show]="focus" (click)="hide()" uiStopPropagation>
+  <div class="ui-picker" uiStopPropagation>
+    <div class="ui-picker-header">
+      <button class="ui-picker-action" type="button" (click)="hide()">取消</button>
+      <button class="ui-picker-action" type="button" (click)="selected()">确认</button>
+    </div>
+    <div class="ui-picker-selector">
+      <div class="ui-picker-list">
+        <div (scroll)="updateDistance($event, i)" class="ui-picker-column" *ngFor="let column of list; let i = index">
+          <button [disabled]="cell.disabled"
+                  type="button"
+                  *ngFor="let cell of column; let cellIndex = index"
+                  (click)="cellChange(cell, i)"
+                  [ngClass]="{selected: cellIndex * 30 - distanceList[i] > -15 && cellIndex * 30 - distanceList[i] < 15}"
+                  class="ui-picker-cell">{{ cell.text }}
+          </button>
+        </div>
+      </div>
+      <div class="ui-picker-reference-line"></div>
+    </div>
+  </div>
+</ui-mask>
+<input type="text" class="ui-raw-input" [name]="name" [id]="forId" [disabled]="disabled" [readonly]="readonly">
