@@ -75,6 +75,7 @@ export class PickerComponent implements ControlValueAccessor {
 
     cellSelected(cell: PickerCell, index: number) {
         this.value[index] = cell;
+        this.value.length = index + 1;
         let children = cell.children;
         let i = index;
         while (children) {

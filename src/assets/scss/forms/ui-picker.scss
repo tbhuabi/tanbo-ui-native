@@ -39,6 +39,7 @@ ui-picker {
     .ui-picker-selector {
         flex: 1;
         position: relative;
+        overflow: hidden;
     }
     .ui-picker-list {
         position: absolute;
