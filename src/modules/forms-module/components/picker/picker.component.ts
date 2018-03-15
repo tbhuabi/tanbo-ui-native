@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { PickerCell } from '../picker-column/picker-column.component';
@@ -13,7 +13,6 @@ import { PickerCell } from '../picker-column/picker-column.component';
     }]
 })
 export class PickerComponent implements ControlValueAccessor {
-    @HostBinding('class.focus')
     focus: boolean = false;
 
     @Input()
@@ -85,6 +84,12 @@ export class PickerComponent implements ControlValueAccessor {
     }
 
     selected() {
+        if (this.onChange) {
+            this.onChange(this.value);
+        }
+        if (this.onTouched) {
+            this.onTouched(this.value);
+        }
         this.change.emit(this.value);
         this.hide();
     }
