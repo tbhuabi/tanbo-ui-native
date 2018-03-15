@@ -3,7 +3,6 @@
   <button type="button"
           *ngFor="let cell of cells"
           [ngClass]="{selected: value.value === cell.value}"
-          (click)="onSelected(cell)"
           class="ui-picker-cell">{{ cell.text }}
   </button>
 </div>

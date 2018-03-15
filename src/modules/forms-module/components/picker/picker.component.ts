@@ -45,7 +45,12 @@ export class PickerComponent implements ControlValueAccessor {
 
     @Input()
     set data(list: Array<PickerCell>) {
-        this.makeList(0, list);
+        if (this.value.length >= this.columnSize) {
+            this.makeList(0, list);
+        } else {
+            this.list.push(list);
+            this.cellSelected(list[0], 0);
+        }
     }
 
     @Input()
