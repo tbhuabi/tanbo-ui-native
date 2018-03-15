@@ -1,13 +1,7 @@
 import { Component, HostBinding, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export interface PickerCell {
-    value: string | number;
-    text: string | number;
-    disabled?: boolean;
-    readonly?: boolean;
-    children?: Array<PickerCell>;
-}
+import { PickerCell } from '../picker-column/picker-column.component';
 
 @Component({
     selector: 'ui-picker',
@@ -43,13 +37,15 @@ export class PickerComponent implements ControlValueAccessor {
     }
 
     @Input()
+    columnSize: number = 3;
+    @Input()
     forId: string = '';
     @Input()
     value: Array<PickerCell> = [];
 
     @Input()
     set data(list: Array<PickerCell>) {
-        this.list = this.makeList(list);
+        this.makeList(0, list);
     }
 
     @Input()
@@ -58,7 +54,6 @@ export class PickerComponent implements ControlValueAccessor {
     change = new EventEmitter<Array<PickerCell>>();
 
     list: Array<Array<PickerCell>> = [];
-    distanceList: Array<number> = [];
 
     private onChange: (_: any) => void;
     private onTouched: (_: any) => void;
@@ -74,48 +69,28 @@ export class PickerComponent implements ControlValueAccessor {
         this.focus = true;
     }
 
-    updateDistance(event: any, index: number) {
-        this.distanceList[index] = event.srcElement.scrollTop;
-    }
-
-    cellChange(cell: PickerCell, index: number) {
-        this.value[index] = cell;
-    }
-
     hide() {
         this.focus = false;
     }
 
-    selected() {
-        const indexes: Array<number> = [];
-        const values: Array<PickerCell> = [];
-        this.distanceList.forEach(item => {
-            if (item % 30 > 0.5) {
-                indexes.push(Math.ceil(item / 30));
-            } else {
-                indexes.push(Math.floor(item / 30));
-            }
-        });
+    cellSelected(cell: PickerCell, index: number) {
+        this.value[index] = cell;
+        let children = cell.children;
+        let i = index;
+        while (children) {
+            this.value[++i] = children[0];
+            children = children[0].children;
+        }
+        this.makeList(index + 1, cell.children);
+    }
 
-        indexes.forEach((index, i) => {
-            values.push(this.list[i][index]);
-        });
-        this.focus = false;
-        this.change.emit(values);
+    selected() {
+        this.change.emit(this.value);
+        this.hide();
     }
 
     writeValue(value: Array<PickerCell>) {
         this.value = value;
-        value.forEach((item, index) => {
-            const cells = this.list[index];
-            if (cells) {
-                cells.forEach((cell, i) => {
-                    if (item.value === cell.value) {
-                        this.distanceList[index] = i * 30;
-                    }
-                });
-            }
-        });
     }
 
     registerOnChange(fn: any) {
@@ -130,22 +105,29 @@ export class PickerComponent implements ControlValueAccessor {
         this.disabled = isDisabled;
     }
 
-    private makeList(list: Array<PickerCell>): Array<Array<PickerCell>> {
-        let result: Array<Array<PickerCell>> = [];
+    private makeList(startIndex: number, list?: Array<PickerCell>) {
+        this.list.length = startIndex;
+        if (list) {
+            const fn = (list: Array<PickerCell>, child: Array<PickerCell>, index: number) => {
+                this.list.push(child);
+                list.forEach(item => {
+                    if (item.value === this.value[index].value && item.children) {
+                        const nextChild: Array<PickerCell> = [];
+                        fn(item.children, nextChild, index + 1);
+                    }
+                    child.push(item);
+                });
+            };
 
-        const fn = (list: Array<PickerCell>, child: Array<PickerCell>) => {
-            this.distanceList.push(0);
-            result.push(child);
-            list.forEach((item, index) => {
-                if (index === 0 && item.children) {
-                    const nextChild: Array<PickerCell> = [];
-                    fn(item.children, nextChild);
-                }
-                child.push(item);
-            });
-        };
+            fn(list, [], startIndex);
+        }
 
-        fn(list, []);
-        return result;
+        this.completionListLength();
+    }
+
+    private completionListLength() {
+        for (let i = this.list.length; i < this.columnSize; i++) {
+            this.list.push([]);
+        }
     }
 }

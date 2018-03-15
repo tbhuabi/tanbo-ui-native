@@ -9,6 +9,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { OptionComponent } from './components/option/option.component';
 import { PickerComponent } from './components/picker/picker.component';
+import { PickerColumnComponent } from './components/picker-column/picker-column.component';
 import { RadioComponent } from './components/radio/radio.component';
 import { RangeComponent } from './components/range/range.component';
 import { SelectComponent } from './components/select/select.component';
@@ -34,6 +35,7 @@ import { RadioStateService } from './components/radio/radio-state.service';
         OptionComponent,
         RadioComponent,
         PickerComponent,
+        PickerColumnComponent,
         RangeComponent,
         SelectComponent,
         SwitchComponent,
@@ -49,6 +51,7 @@ import { RadioStateService } from './components/radio/radio-state.service';
         CheckboxComponent,
         OptionComponent,
         PickerComponent,
+        PickerColumnComponent,
         RadioComponent,
         RangeComponent,
         SelectComponent,

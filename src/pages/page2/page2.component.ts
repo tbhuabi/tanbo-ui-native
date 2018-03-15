@@ -24,17 +24,42 @@ export class Page2Component implements OnInit {
         text: '江苏',
         value: 2
     }, {
-        text: '江苏',
-        value: 2
+        text: '四川',
+        value: 3,
+        children: [{
+            text: '成都',
+            value: 30,
+            children: [{
+                text: '双流区',
+                value: 301
+            }, {
+                text: '武侯区',
+                value: 302
+            }]
+        }, {
+            text: '广元',
+            value: 31
+        }]
     }, {
-        text: '江苏',
-        value: 2
+        text: '河南',
+        value: 4
     }, {
-        text: '江苏',
-        value: 2
+        text: '北京',
+        value: 5
     }, {
-        text: '江苏',
-        value: 2
+        text: '海南',
+        value: 6
+    }];
+
+    value: Array<PickerCell> = [{
+        text: '四川',
+        value: 3
+    }, {
+        text: '成都',
+        value: 30
+    }, {
+        text: '双流区',
+        value: 301
     }];
 
     ngOnInit() {

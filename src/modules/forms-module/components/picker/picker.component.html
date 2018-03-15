@@ -7,15 +7,9 @@
     </div>
     <div class="ui-picker-selector">
       <div class="ui-picker-list">
-        <div (scroll)="updateDistance($event, i)" class="ui-picker-column" *ngFor="let column of list; let i = index">
-          <button [disabled]="cell.disabled"
-                  type="button"
-                  *ngFor="let cell of column; let cellIndex = index"
-                  (click)="cellChange(cell, i)"
-                  [ngClass]="{selected: cellIndex * 30 - distanceList[i] > -15 && cellIndex * 30 - distanceList[i] < 15}"
-                  class="ui-picker-cell">{{ cell.text }}
-          </button>
-        </div>
+        <ui-picker-column *ngFor="let column of list; let i = index"
+                          (selected)="cellSelected($event, i)"
+                          [cells]="column" [value]="value[i] || column[0]"></ui-picker-column>
       </div>
       <div class="ui-picker-reference-line"></div>
     </div>

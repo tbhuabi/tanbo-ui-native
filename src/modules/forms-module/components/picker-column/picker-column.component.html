@@ -1,0 +1,9 @@
+<div class="ui-picker-column"
+     [ngStyle]="{transform: 'translateY(' + distanceTop + 'px)'}">
+  <button type="button"
+          *ngFor="let cell of cells"
+          [ngClass]="{selected: value === cell}"
+          (click)="onSelected(cell)"
+          class="ui-picker-cell">{{ cell.text }}
+  </button>
+</div>

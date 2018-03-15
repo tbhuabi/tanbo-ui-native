@@ -55,27 +55,7 @@ ui-picker {
                         rgba(red($color-light), green($color-light), blue($color-light), 0.5));
 
     }
-    .ui-picker-column {
-        flex: 1;
-        display: block;
-        -webkit-overflow-scrolling: touch;
-        overflow-y: scroll;
-        &:after, &:before {
-            content: "";
-            display: block;
-            height: 75px;
-        }
-    }
 
-    .ui-picker-cell {
-        display: block;
-        width: 100%;
-        height: 30px;
-        transition: color .2s;
-        &.selected {
-            color: $color-primary;
-        }
-    }
 
     .ui-picker-reference-line {
         position: absolute;
