@@ -1,9 +1,9 @@
 <button class="ui-radio" type="button">
   <div class="ui-radio-checked">
-    <span [ngClass]="checkedIcon"></span>
+    <span [ngClass]="checkedIcon">{{ text }}</span>
   </div>
   <div class="ui-radio-unchecked">
-    <span [ngClass]="uncheckedIcon"></span>
+    <span [ngClass]="uncheckedIcon">{{ text }}</span>
   </div>
 </button>
 <input #rawInput class="ui-input-raw"

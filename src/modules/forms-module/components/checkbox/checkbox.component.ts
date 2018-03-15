@@ -14,6 +14,8 @@ export class CheckboxComponent implements ControlValueAccessor {
     @Input()
     name: string;
     @Input()
+    text: string = '';
+    @Input()
     value: string;
     @Input()
     forId: string;

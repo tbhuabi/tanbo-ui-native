@@ -31,6 +31,8 @@ export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
     value: string;
     @Input()
     forId: string;
+    @Input()
+    text: string = '';
 
     @Input()
     @HostBinding('class.disabled')
