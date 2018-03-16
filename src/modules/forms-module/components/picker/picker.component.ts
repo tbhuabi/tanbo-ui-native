@@ -39,6 +39,8 @@ export class PickerComponent implements ControlValueAccessor {
     @Input()
     columnSize: number = 3;
     @Input()
+    placeholder: string = '';
+    @Input()
     forId: string = '';
     @Input()
     value: Array<PickerCell> = [];
@@ -60,6 +62,7 @@ export class PickerComponent implements ControlValueAccessor {
 
     list: Array<Array<PickerCell>> = [];
 
+    private _value: Array<PickerCell> = [];
     private onChange: (_: any) => void;
     private onTouched: (_: any) => void;
     private _disabled: boolean;
@@ -79,12 +82,12 @@ export class PickerComponent implements ControlValueAccessor {
     }
 
     cellSelected(cell: PickerCell, index: number) {
-        this.value[index] = cell;
-        this.value.length = index + 1;
+        this._value[index] = cell;
+        this._value.length = index + 1;
         let children = cell.children;
         let i = index;
         while (children) {
-            this.value[++i] = children[0];
+            this._value[++i] = children[0];
             children = children[0].children;
         }
         this.makeList(index + 1, cell.children);
@@ -92,12 +95,13 @@ export class PickerComponent implements ControlValueAccessor {
 
     selected() {
         if (this.onChange) {
-            this.onChange(this.value);
+            this.onChange(this._value);
         }
         if (this.onTouched) {
-            this.onTouched(this.value);
+            this.onTouched(this._value);
         }
-        this.change.emit(this.value);
+        this.value = this._value;
+        this.change.emit(this._value);
         this.hide();
     }
 
@@ -123,7 +127,7 @@ export class PickerComponent implements ControlValueAccessor {
             const fn = (list: Array<PickerCell>, child: Array<PickerCell>, index: number) => {
                 this.list.push(child);
                 list.forEach(item => {
-                    if (item.value === this.value[index].value && item.children) {
+                    if (item.value === this._value[index].value && item.children) {
                         const nextChild: Array<PickerCell> = [];
                         fn(item.children, nextChild, index + 1);
                     }

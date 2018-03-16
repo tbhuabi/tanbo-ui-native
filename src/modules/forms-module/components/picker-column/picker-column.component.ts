@@ -60,6 +60,10 @@ export class PickerColumnComponent {
         this.speed = 0;
         this.isTouched = true;
 
+        if (this.cells.length === 0) {
+            return;
+        }
+
         const startPoint = event.touches[0];
         const startY = startPoint.pageY;
         const oldDistance = this.distanceTop;
@@ -116,7 +120,7 @@ export class PickerColumnComponent {
             let m: number = (n - targetDistance) / frames.length;
 
             frames = frames.map(item => {
-               return item +  m;
+                return item + m;
             });
         }
         const animateFn = () => {

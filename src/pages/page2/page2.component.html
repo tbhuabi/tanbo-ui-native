@@ -8,7 +8,7 @@
   <ui-content class="container">
     <p><a routerLink="../child">child</a></p>
     <div>
-      <ui-picker [data]="data" (change)="show($event)">
+      <ui-picker [data]="data" (change)="show($event)" placeholder="aaaaa">
         <div>fdsafdsa</div>
       </ui-picker>
 
@@ -17,7 +17,7 @@
       <ui-input type="radio" uncheckedIcon="" checkedIcon="" text="a"></ui-input>
     </div>
     <div>
-      <ui-select>
+      <ui-select placeholder="test">
         <ui-option value="01">汉族</ui-option>
         <ui-option value="03">回族</ui-option>
         <ui-option value="06">苗族</ui-option>

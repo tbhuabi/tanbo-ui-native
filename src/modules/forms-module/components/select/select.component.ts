@@ -36,6 +36,8 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     readonly: boolean;
     @Input()
     name: string = '';
+    @Input()
+    placeholder: string = '';
     @Output()
     change = new EventEmitter<string>();
     @Input()
