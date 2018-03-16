@@ -72,11 +72,15 @@ export class PickerColumnComponent {
         let unbindTouchEndFn: () => void;
         let unbindTouchCancelFn: () => void;
 
+        let t = Date.now();
+
         unbindTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
             const movePoint = ev.touches[0];
             const moveY = movePoint.pageY;
             this.speed = moveY - startY;
             this.distanceTop = oldDistance + this.speed;
+
+            t = Date.now();
 
             this.updateSelectedCell();
         });
@@ -86,7 +90,7 @@ export class PickerColumnComponent {
             unbindTouchEndFn();
             unbindTouchCancelFn();
 
-            this.inertiaAnimate();
+            this.inertiaAnimate(Date.now() - t);
         });
 
         unbindTouchCancelFn = this.renderer.listen('document', 'touchcancel', () => {
@@ -94,11 +98,18 @@ export class PickerColumnComponent {
             unbindTouchEndFn();
             unbindTouchCancelFn();
 
-            this.inertiaAnimate();
+            this.inertiaAnimate(Date.now() - t);
         });
     }
 
-    private inertiaAnimate() {
+    private inertiaAnimate(time: number) {
+
+        if (time > 20) {
+            let n = this.distanceTop % 30;
+            this.animateTo(this.distanceTop - n);
+            return;
+        }
+
         let frames: Array<number> = [];
 
         let speed = this.speed;
@@ -136,6 +147,26 @@ export class PickerColumnComponent {
 
         this.animateId = requestAnimationFrame(animateFn);
         // this.updateSelectedCell();
+    }
+
+    private animateTo(target: number) {
+        let step = 0;
+        let oldDistance = this.distanceTop;
+
+        let diff = oldDistance - target;
+
+        const animateFn = () => {
+            if (step < 20) {
+                step++;
+                this.distanceTop = oldDistance - Easing.Cubic.Out(step / 20) * diff;
+                this.animateId = requestAnimationFrame(animateFn);
+            } else {
+                this.updateSelectedCell();
+            }
+        };
+
+        this.animateId = requestAnimationFrame(animateFn);
+
     }
 
     private animateBack() {
