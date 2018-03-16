@@ -68,6 +68,13 @@ export class PickerComponent implements ControlValueAccessor {
     private _disabled: boolean;
     private _readonly: boolean;
 
+    @HostListener('document:touchmove', ['$event'])
+    touchMove(ev: any) {
+        if (this.focus) {
+            ev.preventDefault();
+        }
+    }
+
     @HostListener('click')
     click() {
         if (this.disabled || this.readonly) {

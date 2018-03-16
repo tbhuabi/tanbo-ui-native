@@ -48,11 +48,4 @@ export class MaskComponent {
             this.hide.emit();
         }
     }
-
-    @HostListener('document:touchmove', ['$event'])
-    touchMove(ev: any) {
-        if (this.show) {
-            ev.preventDefault();
-        }
-    }
 }
