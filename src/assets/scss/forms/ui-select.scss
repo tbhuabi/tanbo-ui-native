@@ -4,8 +4,13 @@ ui-select {
     .ui-select-fixed {
         height: 100%;
         display: flex;
-        input {
+        .ui-raw-input {
             flex: 1;
+            border: none;
+            outline: none;
+            background: none;
+            text-align: inherit;
+            color: inherit;
         }
     }
 
@@ -31,6 +36,9 @@ ui-select {
         border-radius: 13px;
         overflow: hidden;
         background-color: #fff;
+        max-height: 300px;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
 
     &.focus {

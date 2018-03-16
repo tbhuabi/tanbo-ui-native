@@ -28,8 +28,13 @@ ui-option {
     cursor: inherit;
     text-align: inherit;
     color: $color-primary;
+    transition: background-color .2s linear;
     > div {
         white-space: normal;
         overflow: hidden;
+    }
+
+    &:active {
+        background-color: rgba(0, 0, 0, .1);
     }
 }
