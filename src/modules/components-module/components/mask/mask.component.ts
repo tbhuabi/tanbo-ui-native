@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -47,5 +47,10 @@ export class MaskComponent {
         if (!this.show) {
             this.hide.emit();
         }
+    }
+
+    @HostListener('touchstart', ['$event'])
+    touchStart(ev: any) {
+        ev.stopPropagation();
     }
 }
