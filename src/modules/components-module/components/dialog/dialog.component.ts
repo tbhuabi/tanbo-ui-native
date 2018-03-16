@@ -4,7 +4,6 @@ import { animate, keyframes, style, transition, trigger } from '@angular/animati
 @Component({
     selector: 'ui-dialog',
     templateUrl: './dialog.component.html',
-    styleUrls: ['./dialog.component.scss'],
     animations: [
         trigger('dialogContentAnimate', [transition(':enter', animate('0.15s', keyframes([
             style({
