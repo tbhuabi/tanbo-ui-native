@@ -1,10 +1,13 @@
 <div class="ui-select-fixed" (click)="showOptions()">
-  <input class="ui-raw-input" [disabled]="disabled"
-         [name]="name"
-         [placeholder]="placeholder"
-         readonly
-         type="text"
-         [value]="text">
+  <div class="ui-raw-input-wrap">
+    <input class="ui-raw-input" [disabled]="disabled"
+           [name]="name"
+           [placeholder]="placeholder"
+           readonly
+           type="text"
+           [value]="text">
+    <div class="ui-raw-input-mask"></div>
+  </div>
   <div class="ui-select-arrow">
     <span class="caret"></span>
   </div>

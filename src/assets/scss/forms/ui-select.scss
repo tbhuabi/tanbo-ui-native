@@ -4,13 +4,27 @@ ui-select {
     .ui-select-fixed {
         height: 100%;
         display: flex;
-        .ui-raw-input {
+        .ui-raw-input-wrap {
             flex: 1;
-            border: none;
-            outline: none;
-            background: none;
-            text-align: inherit;
-            color: inherit;
+            position: relative;
+            .ui-raw-input {
+                border: none;
+                outline: none;
+                background: none;
+                text-align: inherit;
+                color: inherit;
+                width: 100%;
+                height: 100%;
+                padding: 0;
+            }
+            .ui-raw-input-mask {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 1;
+            }
         }
     }
 
