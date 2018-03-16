@@ -49,8 +49,10 @@ export class MaskComponent {
         }
     }
 
-    @HostListener('touchstart', ['$event'])
-    touchStart(ev: any) {
-        ev.stopPropagation();
+    @HostListener('touchmove', ['$event'])
+    touchMove(ev: any) {
+        if (this.show) {
+            ev.preventDefault();
+        }
     }
 }
