@@ -4,7 +4,6 @@ ui-picker-column {
 }
 
 .ui-picker-column {
-    overflow-y: scroll;
     &:after, &:before {
         content: "";
         display: block;
@@ -17,7 +16,6 @@ ui-picker-column {
     width: 100%;
     height: 30px;
     transition: color .2s;
-    &.selected {
-        color: $color-primary;
-    }
+    border: none;
+    background: none;
 }

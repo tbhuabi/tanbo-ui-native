@@ -51,7 +51,6 @@ export class PickerColumnComponent {
         return -30 * (this.cells.length - 1);
     }
 
-
     constructor(private renderer: Renderer2) {
     }
 
@@ -107,25 +106,19 @@ export class PickerColumnComponent {
         let targetDistance = this.distanceTop;
 
         frames.forEach(item => {
-            targetDistance += item
+            targetDistance += item;
         });
 
-        // if (targetDistance < this.maxDistance && targetDistance > this.minDistance) {
-        //     // 计算差值补全
-        //     let n = Math.abs(targetDistance % 30);
-        //
-        //     let m: number;
-        //     if (n < 15) {
-        //         m = n / -frames.length;
-        //     } else {
-        //         m = (30 - n) / frames.length;
-        //     }
-        //
-        //     frames = frames.map(item => {
-        //         return item - m;
-        //     });
-        //
-        // }
+        if (targetDistance < this.maxDistance && targetDistance > this.minDistance) {
+            // 计算差值补全
+            let n = Math.ceil(targetDistance / 30) * 30;
+
+            let m: number = (n - targetDistance) / frames.length;
+
+            frames = frames.map(item => {
+               return item +  m;
+            });
+        }
         const animateFn = () => {
             if (frames.length) {
                 this.distanceTop += frames.shift();

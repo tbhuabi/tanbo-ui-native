@@ -34,12 +34,33 @@ ui-picker {
         .ui-picker-action {
             color: $color-primary;
             width: 80px;
+            border: none;
+            background: none;
         }
     }
     .ui-picker-selector {
         flex: 1;
         position: relative;
         overflow: hidden;
+        &:before, &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            height: 75px;
+            pointer-events: none;
+        }
+        &:before {
+            top: 0;
+            border-bottom: $border-width solid $color-gray;
+            background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .1));
+        }
+        &:after {
+            bottom: 0;
+            border-top: $border-width solid $color-gray;
+            background: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+        }
     }
     .ui-picker-list {
         position: absolute;
@@ -49,25 +70,24 @@ ui-picker {
         right: 0;
         display: flex;
         background: $color-gray-light;
-        mask: linear-gradient(
-                        rgba(red($color-light), green($color-light), blue($color-light), 0.5),
-                        #fff,
-                        #fff,
-                        rgba(red($color-light), green($color-light), blue($color-light), 0.5));
+        //mask: linear-gradient(
+        //                rgba(red($color-light), green($color-light), blue($color-light), 0.5),
+        //                #fff,
+        //                #fff,
+        //                rgba(red($color-light), green($color-light), blue($color-light), 0.5));
 
     }
 
-
-    .ui-picker-reference-line {
-        position: absolute;
-        left: 0;
-        right: 0;
-        height: 30px;
-        border-top: $border-width solid $color-gray;
-        border-bottom: $border-width solid $color-gray;
-        top: 50%;
-        transform: translateY(-50%);
-        pointer-events: none;
-    }
+    //.ui-picker-reference-line {
+    //    position: absolute;
+    //    left: 0;
+    //    right: 0;
+    //    height: 30px;
+    //    border-top: $border-width solid $color-gray;
+    //    border-bottom: $border-width solid $color-gray;
+    //    top: 50%;
+    //    transform: translateY(-50%);
+    //    pointer-events: none;
+    //}
 }
 
