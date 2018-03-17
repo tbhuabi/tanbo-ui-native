@@ -17,7 +17,12 @@ import { SwitchComponent } from './components/switch/switch.component';
 // 指令
 import { FormValidatorDirective } from './directives/form-validator.directive';
 import { ModelValidatorDirective } from './directives/model-validator.directive';
-import { UiCheckboxRequiredValidatorDirective } from './directives/required-validator.directive';
+import {
+    UICheckboxRequiredValidatorDirective,
+    UISelectRequiredValidatorDirective,
+    UIRadioRequiredValidatorDirective,
+    UISwitchRequiredValidatorDirective
+} from './directives/required-validator.directive';
 // 服务
 import { RadioStateService } from './components/radio/radio-state.service';
 
@@ -43,7 +48,10 @@ import { RadioStateService } from './components/radio/radio-state.service';
         // 指令
         FormValidatorDirective,
         ModelValidatorDirective,
-        UiCheckboxRequiredValidatorDirective
+        UICheckboxRequiredValidatorDirective,
+        UISelectRequiredValidatorDirective,
+        UIRadioRequiredValidatorDirective,
+        UISwitchRequiredValidatorDirective
     ],
     exports: [
         // 组件
@@ -60,7 +68,10 @@ import { RadioStateService } from './components/radio/radio-state.service';
         // 指令
         FormValidatorDirective,
         ModelValidatorDirective,
-        UiCheckboxRequiredValidatorDirective
+        UICheckboxRequiredValidatorDirective,
+        UISelectRequiredValidatorDirective,
+        UIRadioRequiredValidatorDirective,
+        UISwitchRequiredValidatorDirective
     ],
     providers: [
         RadioStateService
