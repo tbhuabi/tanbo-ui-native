@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'ui-action-sheet',
@@ -6,6 +6,26 @@ import { Component, HostBinding, Input } from '@angular/core';
 })
 export class ActionSheetComponent {
     @Input()
-    @HostBinding('class.show')
-    show: boolean = false;
+    set show(value: boolean) {
+        clearTimeout(this.timer);
+        if (value) {
+            this._show = value;
+            this.timer = setTimeout(() => {
+                this.isPopUp = value;
+            }, 20);
+        } else {
+            this.isPopUp = value;
+            this.timer = setTimeout(() => {
+                this._show = value;
+            }, 300);
+        }
+    }
+
+    get show() {
+        return this._show;
+    }
+    isPopUp: boolean = false;
+
+    private _show: boolean = false;
+    private timer: any = null;
 }

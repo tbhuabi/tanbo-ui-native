@@ -35,15 +35,8 @@ ui-select {
     }
 
     .ui-select-modal {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
         padding: 0 $grid-column-padding $grid-column-padding;
-        transform: translateY(100%);
         z-index: $mask-z-index + 1;
-        transition: transform .2s;
-        transition-delay: .1s;
     }
 
     .ui-select-options {
@@ -53,11 +46,5 @@ ui-select {
         max-height: 300px;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
-    }
-
-    &.focus {
-        .ui-select-modal {
-            transform: translateY(0);
-        }
     }
 }

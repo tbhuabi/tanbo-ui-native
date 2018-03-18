@@ -12,10 +12,10 @@
     <span class="caret"></span>
   </div>
 </div>
-<ui-mask [show]="focus" (click)="hideOptions()" uiStopPropagation="touchmove">
+<ui-action-sheet [show]="focus" (click)="hideOptions()" uiStopPropagation="touchmove">
   <div class="ui-select-modal">
     <div class="ui-select-options">
       <ng-content></ng-content>
     </div>
   </div>
-</ui-mask>
+</ui-action-sheet>

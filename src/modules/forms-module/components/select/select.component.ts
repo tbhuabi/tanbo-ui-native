@@ -4,7 +4,6 @@ import {
     Component,
     ContentChildren,
     EventEmitter,
-    HostBinding,
     Input,
     OnDestroy,
     Output,
@@ -28,7 +27,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     @ContentChildren(OptionComponent)
     options: QueryList<OptionComponent>;
 
-    @HostBinding('class.focus')
+    // @HostBinding('class.focus')
     focus: boolean = false;
     @Input()
     disabled: boolean;
