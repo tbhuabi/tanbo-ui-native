@@ -7,14 +7,14 @@ ui-picker-column {
     &:after, &:before {
         content: "";
         display: block;
-        height: 75px;
+        height: 72px;
     }
 }
 
 .ui-picker-cell {
     display: block;
     width: 100%;
-    height: 30px;
+    height: 36px;
     transition: color .2s;
     border: none;
     background: none;

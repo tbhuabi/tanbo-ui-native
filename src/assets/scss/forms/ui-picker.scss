@@ -34,7 +34,7 @@ ui-picker {
 }
 
 .ui-picker {
-    min-height: 220px;
+    height: 220px;
     display: flex;
     flex-direction: column;
     background-color: #fff;
@@ -62,7 +62,7 @@ ui-picker {
             left: 0;
             right: 0;
             z-index: 1;
-            height: 75px;
+            height: 72px;
             pointer-events: none;
         }
         &:before {

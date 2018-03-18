@@ -16,6 +16,8 @@ export interface PickerCell {
 export class PickerColumnComponent {
     @Input()
     cells: Array<PickerCell> = [];
+    @Input()
+    cellHeight: number = 36;
 
     @Input()
     set value(cell: PickerCell) {
@@ -25,7 +27,7 @@ export class PickerColumnComponent {
         }
         for (let i = 0; i < this.cells.length; i++) {
             if (this.cells[i].value === cell.value) {
-                this.distanceTop = -i * 30;
+                this.distanceTop = -i * this.cellHeight;
                 break;
             }
         }
@@ -39,7 +41,6 @@ export class PickerColumnComponent {
     selected = new EventEmitter<PickerCell>();
 
     distanceTop: number = 0;
-
     private _value: PickerCell = null;
     private speed: number = 0;
     private animateId: number;
@@ -48,7 +49,7 @@ export class PickerColumnComponent {
     private isTouched: boolean = false;
 
     private get minDistance(): number {
-        return -30 * (this.cells.length - 1);
+        return -this.cellHeight * (this.cells.length - 1);
     }
 
     constructor(private renderer: Renderer2) {
@@ -105,7 +106,7 @@ export class PickerColumnComponent {
     private inertiaAnimate(time: number) {
 
         if (time > 20) {
-            let n = this.distanceTop % 30;
+            let n = this.distanceTop % this.cellHeight;
             this.animateTo(this.distanceTop - n);
             return;
         }
@@ -126,7 +127,7 @@ export class PickerColumnComponent {
 
         if (targetDistance < this.maxDistance && targetDistance > this.minDistance) {
             // 计算差值补全
-            let n = Math.ceil(targetDistance / 30) * 30;
+            let n = Math.ceil(targetDistance / this.cellHeight) * this.cellHeight;
 
             let m: number = (n - targetDistance) / frames.length;
 
@@ -198,7 +199,7 @@ export class PickerColumnComponent {
     }
 
     private updateSelectedCell() {
-        let index = Math.floor((this.distanceTop) / -30 + 0.5);
+        let index = Math.floor((this.distanceTop) / -this.cellHeight + 0.5);
         if (index < 0) {
             index = 0;
         } else if (index > this.cells.length - 1) {
