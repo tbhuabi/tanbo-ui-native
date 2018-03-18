@@ -48,8 +48,11 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     private onTouched: (_: any) => any;
     private subs: Array<Subscription> = [];
 
-    static trim(str: string): string {
-        return str.replace(/^[\s\n\t\r]+|[\s\n\t\r]+$/g, '');
+    static getTextByElement(element: HTMLElement): string {
+        if (element) {
+            return element.innerText.replace(/^[\s\n\t\r]+|[\s\n\t\r]+$/g, '');
+        }
+        return '';
     }
 
     constructor(private changeDetectorRef: ChangeDetectorRef) {
@@ -79,7 +82,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
             }
             let sub = option.checked.subscribe((params: OptionComponent) => {
                 this.value = params.value;
-                this.text = SelectComponent.trim(params.nativeElement.innerText);
+                this.text = SelectComponent.getTextByElement(params.nativeElement);
                 this.options.forEach((o: OptionComponent, i: number) => {
                     o.selected = false;
                     if (o === params) {
@@ -112,7 +115,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
         }
         if (defaultOption) {
             this.value = defaultOption.value;
-            this.text = SelectComponent.trim(defaultOption.nativeElement.innerText);
+            this.text = SelectComponent.getTextByElement(defaultOption.nativeElement);
             defaultOption.selected = true;
         }
     }
@@ -134,7 +137,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
                 }
             });
             if (selectedOption) {
-                this.text = SelectComponent.trim(selectedOption.nativeElement.innerText);
+                this.text = SelectComponent.getTextByElement(selectedOption.nativeElement);
                 selectedOption.selected = true;
             } else {
                 this.text = '';
