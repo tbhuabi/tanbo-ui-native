@@ -27,7 +27,6 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     @ContentChildren(OptionComponent)
     options: QueryList<OptionComponent>;
 
-    // @HostBinding('class.focus')
     focus: boolean = false;
     @Input()
     disabled: boolean;
@@ -48,6 +47,10 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     private onChange: (_: any) => any;
     private onTouched: (_: any) => any;
     private subs: Array<Subscription> = [];
+
+    static trim(str: string): string {
+        return str.replace(/^[\s\n\t\r]+|[\s\n\t\r]+$/g, '');
+    }
 
     constructor(private changeDetectorRef: ChangeDetectorRef) {
     }
@@ -76,7 +79,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
             }
             let sub = option.checked.subscribe((params: OptionComponent) => {
                 this.value = params.value;
-                this.text = params.text;
+                this.text = SelectComponent.trim(params.nativeElement.innerText);
                 this.options.forEach((o: OptionComponent, i: number) => {
                     o.selected = false;
                     if (o === params) {
@@ -109,7 +112,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
         }
         if (defaultOption) {
             this.value = defaultOption.value;
-            this.text = defaultOption.text;
+            this.text = SelectComponent.trim(defaultOption.nativeElement.innerText);
             defaultOption.selected = true;
         }
     }
@@ -131,7 +134,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
                 }
             });
             if (selectedOption) {
-                this.text = selectedOption.text;
+                this.text = SelectComponent.trim(selectedOption.nativeElement.innerText);
                 selectedOption.selected = true;
             } else {
                 this.text = '';

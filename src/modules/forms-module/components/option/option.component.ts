@@ -40,7 +40,7 @@ export class OptionComponent implements AfterViewInit {
 
     @Output()
     checked = new EventEmitter<OptionComponent>();
-    text: string = '';
+    nativeElement: HTMLElement;
 
     private _disabled: boolean;
     private _selected: boolean;
@@ -55,7 +55,7 @@ export class OptionComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.text = this.elementRef.nativeElement.innerText;
+        this.nativeElement = this.elementRef.nativeElement;
         if (this.selected) {
             this.checked.emit(this);
         }
