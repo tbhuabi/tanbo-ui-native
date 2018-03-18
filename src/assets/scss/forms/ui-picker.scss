@@ -96,24 +96,7 @@ ui-picker {
         right: 0;
         display: flex;
         background: $color-gray-light;
-        //mask: linear-gradient(
-        //                rgba(red($color-light), green($color-light), blue($color-light), 0.5),
-        //                #fff,
-        //                #fff,
-        //                rgba(red($color-light), green($color-light), blue($color-light), 0.5));
 
     }
-
-    //.ui-picker-reference-line {
-    //    position: absolute;
-    //    left: 0;
-    //    right: 0;
-    //    height: 30px;
-    //    border-top: $border-width solid $color-gray;
-    //    border-bottom: $border-width solid $color-gray;
-    //    top: 50%;
-    //    transform: translateY(-50%);
-    //    pointer-events: none;
-    //}
 }
 
