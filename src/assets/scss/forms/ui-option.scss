@@ -1,8 +1,9 @@
 ui-option {
-    line-height: 3em;
+    padding: $list-item-vertical-padding $grid-column-padding;
+    line-height: 1.2em;
     font-size: $font-size-larger;
     text-align: center;
-    transition: all .2s;
+    transition: background-color .2s;
     display: block;
     width: 100%;
     border: 0;
@@ -15,11 +16,12 @@ ui-option {
         cursor: not-allowed;
         color: #fff;
     }
+    &:active {
+        background-color: rgba(0, 0, 0, .1);
+    }
 }
 
 .ui-option {
-    padding: 0 $grid-column-padding;
-    width: 100%;
     border: none;
     background: none;
     line-height: inherit;
@@ -28,12 +30,4 @@ ui-option {
     text-align: inherit;
     color: $color-primary;
     transition: background-color .2s linear;
-    > div {
-        white-space: normal;
-        overflow: hidden;
-    }
-
-    &:active {
-        background-color: rgba(0, 0, 0, .1);
-    }
 }
