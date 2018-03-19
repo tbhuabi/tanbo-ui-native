@@ -118,7 +118,7 @@ export class PickerColumnComponent {
             const t2 = Date.now();
             const diff = t2 - t;
             t = t2;
-            factor *= 0.98;
+            factor *= 0.88;
             const speed = diff * factor;
             if (Math.abs(speed) >= 0.5) {
                 if (this.distanceTop + speed > this.maxDistance || this.distanceTop + speed < this.minDistance) {
