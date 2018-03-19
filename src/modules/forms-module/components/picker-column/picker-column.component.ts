@@ -79,7 +79,7 @@ export class PickerColumnComponent {
             const movePoint = ev.touches[0];
             const moveY = movePoint.pageY;
             this.moveDiff = moveY - startY;
-            if (this.distanceTop < this.minDistance || this.distanceTop > this.minDistance) {
+            if (this.distanceTop < this.minDistance || this.distanceTop > this.maxDistance) {
                 this.moveDiff *= 0.33;
             }
             this.distanceTop = oldDistance + this.moveDiff;
