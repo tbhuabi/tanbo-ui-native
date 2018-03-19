@@ -109,7 +109,6 @@ export class PickerComponent implements ControlValueAccessor {
             children = children[0].children;
         }
         this.makeList(index + 1, cell.children);
-        this.pickerService.update();
     }
 
     selected() {

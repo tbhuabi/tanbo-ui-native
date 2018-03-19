@@ -40,16 +40,13 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
+        this.initScroll();
         this.subs.push(this.pickerService.onShow.subscribe(() => {
             if (this.scrollInstance) {
+                this.scrollInstance.refresh();
                 return;
             }
             this.initScroll();
-        }));
-        this.subs.push(this.pickerService.onUpdate.subscribe(() => {
-            if (this.scrollInstance) {
-                this.scrollInstance.refresh();
-            }
         }));
     }
 
@@ -69,7 +66,6 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
             this.selected.emit(value);
         });
     }
-
 
     ngOnDestroy() {
         if (this.scrollInstance) {
