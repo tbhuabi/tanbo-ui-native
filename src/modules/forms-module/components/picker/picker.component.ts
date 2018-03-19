@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, HostListener } from '@angular/c
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { PickerCell } from '../picker-column/picker-column.component';
+import { PickerService } from './picker.service';
 
 @Component({
     selector: 'ui-picker',
@@ -10,7 +11,9 @@ import { PickerCell } from '../picker-column/picker-column.component';
         provide: NG_VALUE_ACCESSOR,
         useExisting: PickerComponent,
         multi: true
-    }]
+    },
+        PickerService
+    ]
 })
 export class PickerComponent implements ControlValueAccessor {
     focus: boolean = false;
@@ -66,6 +69,10 @@ export class PickerComponent implements ControlValueAccessor {
     private onTouched: (_: any) => void;
     private _disabled: boolean;
     private _readonly: boolean;
+    private timer: any = null;
+
+    constructor(private pickerService: PickerService) {
+    }
 
     @HostListener('document:touchmove', ['$event'])
     touchMove(ev: any) {
@@ -76,14 +83,19 @@ export class PickerComponent implements ControlValueAccessor {
 
     @HostListener('click')
     click() {
+        clearTimeout(this.timer);
         if (this.disabled || this.readonly) {
             return;
         }
 
         this.focus = true;
+        this.timer = setTimeout(() => {
+            this.pickerService.show();
+        });
     }
 
     hide() {
+        clearTimeout(this.timer);
         this.focus = false;
     }
 
@@ -97,6 +109,7 @@ export class PickerComponent implements ControlValueAccessor {
             children = children[0].children;
         }
         this.makeList(index + 1, cell.children);
+        this.pickerService.update();
     }
 
     selected() {

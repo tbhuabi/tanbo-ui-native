@@ -4,11 +4,12 @@ ui-picker-column {
 }
 
 .ui-picker-column {
-    &:after, &:before {
-        content: "";
-        display: block;
-        height: 72px;
-    }
+    margin-top: 72px;
+    //&:after, &:before {
+    //    content: "";
+    //    display: block;
+    //    height: 72px;
+    //}
 }
 
 .ui-picker-cell {
