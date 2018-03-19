@@ -42,7 +42,7 @@ export class PickerColumnComponent {
 
     distanceTop: number = 0;
     private _value: PickerCell = null;
-    private speed: number = 0;
+    private moveDiff: number = 0;
     private animateId: number;
 
     private maxDistance: number = 0;
@@ -58,7 +58,7 @@ export class PickerColumnComponent {
     @HostListener('touchstart', ['$event'])
     touchStart(event: any) {
         cancelAnimationFrame(this.animateId);
-        this.speed = 0;
+        this.moveDiff = 0;
         this.isTouched = true;
 
         if (this.cells.length === 0) {
@@ -78,12 +78,13 @@ export class PickerColumnComponent {
         unbindTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
             const movePoint = ev.touches[0];
             const moveY = movePoint.pageY;
-            this.speed = moveY - startY;
-            this.distanceTop = oldDistance + this.speed;
+            this.moveDiff = moveY - startY;
+            if (this.distanceTop < this.minDistance || this.distanceTop > this.minDistance) {
+                this.moveDiff *= 0.33;
+            }
+            this.distanceTop = oldDistance + this.moveDiff;
 
             t = Date.now();
-
-            this.updateSelectedCell();
         });
 
         unbindTouchEndFn = this.renderer.listen('document', 'touchend', () => {
@@ -104,70 +105,55 @@ export class PickerColumnComponent {
     }
 
     private inertiaAnimate(time: number) {
-
-        if (time > 20) {
-            let n = this.distanceTop % this.cellHeight;
-            this.animateTo(this.distanceTop - n);
-            return;
+        let factor = this.moveDiff / time;
+        if (factor > 1) {
+            factor = 1;
+        } else if (factor < -1) {
+            factor = -1;
         }
 
-        let frames: Array<number> = [];
+        let t = Date.now();
 
-        let speed = this.speed;
-        while (Math.abs(speed) >= 0.5) {
-            speed *= 0.7;
-            frames.push(speed > 0 ? Math.ceil(speed) : Math.floor(speed));
-        }
-
-        let targetDistance = this.distanceTop;
-
-        frames.forEach(item => {
-            targetDistance += item;
-        });
-
-        if (targetDistance < this.maxDistance && targetDistance > this.minDistance) {
-            // 计算差值补全
-            let n = Math.ceil(targetDistance / this.cellHeight) * this.cellHeight;
-
-            let m: number = (n - targetDistance) / frames.length;
-
-            frames = frames.map(item => {
-                return item + m;
-            });
-        }
         const animateFn = () => {
-            if (frames.length) {
-                this.distanceTop += frames.shift();
+            const t2 = Date.now();
+            const diff = t2 - t;
+            t = t2;
+            factor *= 0.98;
+            const speed = diff * factor;
+            if (Math.abs(speed) >= 0.5) {
+                if (this.distanceTop + speed > this.maxDistance || this.distanceTop + speed < this.minDistance) {
+                    factor *= 0.7;
+                }
+                this.distanceTop += speed;
                 this.animateId = requestAnimationFrame(animateFn);
             } else if (this.distanceTop < this.minDistance || this.distanceTop > this.maxDistance) {
                 this.animateBack();
             } else {
-                this.updateSelectedCell();
+                this.alignCell();
             }
         };
 
         this.animateId = requestAnimationFrame(animateFn);
-        // this.updateSelectedCell();
+
     }
 
-    private animateTo(target: number) {
-        let step = 0;
-        let oldDistance = this.distanceTop;
-
-        let diff = oldDistance - target;
-
+    private alignCell() {
         const animateFn = () => {
-            if (step < 20) {
-                step++;
-                this.distanceTop = oldDistance - Easing.Cubic.Out(step / 20) * diff;
-                this.animateId = requestAnimationFrame(animateFn);
-            } else {
+            const n = Math.abs(Math.ceil(this.distanceTop % this.cellHeight));
+            if (n === 0) {
                 this.updateSelectedCell();
+                return;
             }
+            if (n < this.cellHeight / 2) {
+                this.distanceTop++;
+            } else {
+                this.distanceTop--;
+            }
+            this.animateId = requestAnimationFrame(animateFn);
         };
 
+        animateFn();
         this.animateId = requestAnimationFrame(animateFn);
-
     }
 
     private animateBack() {
@@ -205,7 +191,6 @@ export class PickerColumnComponent {
         } else if (index > this.cells.length - 1) {
             index = this.cells.length - 1;
         }
-        // this._value = this.cells[index];
         this.selected.emit(this.cells[index]);
     }
 }
