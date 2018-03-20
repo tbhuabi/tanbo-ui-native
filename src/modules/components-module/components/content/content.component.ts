@@ -74,7 +74,7 @@ export class ContentComponent implements OnDestroy, OnInit {
         const startX = startPoint.pageX;
         const startY = startPoint.pageY;
 
-        if (startX > 100 && this.state !== ViewState.Sleep) {
+        if (startX > 50 && this.state !== ViewState.Sleep) {
             return;
         }
         let unbindTouchMoveFn: () => void;
