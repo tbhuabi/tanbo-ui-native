@@ -106,18 +106,22 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
             });
             this.subs.push(sub);
         });
-        if (!defaultOption) {
-            defaultOption = this.options.toArray()[this.selectedIndex];
-        }
-        if (!defaultOption) {
-            defaultOption = this.options.first;
-            this.selectedIndex = 0;
-        }
-        if (defaultOption) {
-            this.value = defaultOption.value;
-            this.text = SelectComponent.getTextByElement(defaultOption.nativeElement);
-            defaultOption.selected = true;
-        }
+        setTimeout(() => {
+            // 当对 ui-option 组件使用 *ngFor 指令时，会导致报 selected 值前后不一致的错误
+            // 用 setTimeout 可以绕过 angular 的变更检测机制
+            if (!defaultOption) {
+                defaultOption = this.options.toArray()[this.selectedIndex];
+            }
+            if (!defaultOption) {
+                defaultOption = this.options.first;
+                this.selectedIndex = 0;
+            }
+            if (defaultOption) {
+                this.value = defaultOption.value;
+                this.text = SelectComponent.getTextByElement(defaultOption.nativeElement);
+                defaultOption.selected = true;
+            }
+        });
     }
 
     ngOnDestroy() {

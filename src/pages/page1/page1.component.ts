@@ -5,6 +5,7 @@ import { PullDownRefreshController, ContentLoadingController } from '../../modul
     templateUrl: './page1.component.html'
 })
 export class Page1Component implements AfterViewInit, OnInit {
+    dataList: Array<any> = [{name: 'a'}, {name: 'b'}];
     constructor(private pullDownRefreshController: PullDownRefreshController,
                 private contentLoadingController: ContentLoadingController) {
     }
