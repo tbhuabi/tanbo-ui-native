@@ -5,12 +5,16 @@ import { PullDownRefreshController, ContentLoadingController } from '../../modul
     templateUrl: './page1.component.html'
 })
 export class Page1Component implements AfterViewInit, OnInit {
-    dataList: Array<any> = [{name: 'a'}, {name: 'b'}];
+    dataList: Array<any> = [];
     constructor(private pullDownRefreshController: PullDownRefreshController,
                 private contentLoadingController: ContentLoadingController) {
     }
 
     ngOnInit() {
+
+        setTimeout(() => {
+            this.dataList = [{name: 'a'}, {name: 'b'}];
+        }, 2000);
 
     }
 

@@ -1,6 +1,7 @@
 import {
-    AfterContentInit,
+    OnInit,
     ChangeDetectorRef,
+    AfterViewInit,
     Component,
     ContentChildren,
     EventEmitter,
@@ -13,6 +14,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { OptionComponent } from '../option/option.component';
+import { SelectService } from './select.service';
 
 @Component({
     selector: 'ui-select',
@@ -21,9 +23,10 @@ import { OptionComponent } from '../option/option.component';
         provide: NG_VALUE_ACCESSOR,
         useExisting: SelectComponent,
         multi: true
-    }]
+    }, SelectService
+    ]
 })
-export class SelectComponent implements ControlValueAccessor, AfterContentInit, OnDestroy {
+export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnDestroy, OnInit {
     @ContentChildren(OptionComponent)
     options: QueryList<OptionComponent>;
 
@@ -55,7 +58,59 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
         return '';
     }
 
-    constructor(private changeDetectorRef: ChangeDetectorRef) {
+    constructor(private selectService: SelectService,
+                private changeDetectorRef: ChangeDetectorRef) {
+    }
+
+    ngOnInit() {
+        this.subs.push(this.selectService.onChecked.subscribe((option: OptionComponent) => {
+            this.options.forEach((op: OptionComponent, index: number) => {
+                if (op === option) {
+                    this.value = option.value;
+                    this.text = SelectComponent.getTextByElement(option.nativeElement);
+                    this.selectedIndex = index;
+                    if (this.onChange) {
+                        this.onChange(this.value);
+                    }
+                    if (this.onTouched) {
+                        this.onTouched(this.value);
+                    }
+                    this.change.emit(this.value);
+                } else {
+                    option.selected = false;
+                }
+            });
+        }));
+    }
+
+    ngAfterViewInit() {
+        let defaultOption: OptionComponent;
+        this.options.forEach((option: OptionComponent, index: number) => {
+            if (option.selected) {
+                defaultOption = option;
+                this.selectedIndex = index;
+            }
+        });
+        if (!defaultOption) {
+            defaultOption = this.options.toArray()[this.selectedIndex];
+        }
+        if (!defaultOption) {
+            defaultOption = this.options.first;
+            this.selectedIndex = 0;
+        }
+        if (defaultOption) {
+            this.value = defaultOption.value;
+            this.text = SelectComponent.getTextByElement(defaultOption.nativeElement);
+            defaultOption.selected = true;
+            this.changeDetectorRef.detectChanges();
+            defaultOption.changeDetectorRef.detectChanges();
+        }
+    }
+
+    ngOnDestroy() {
+        this.subs.forEach(item => {
+            item.unsubscribe();
+        });
     }
 
     showOptions() {
@@ -72,72 +127,15 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
         this.focus = false;
     }
 
-    ngAfterContentInit() {
-        let isInit = true;
-        let defaultOption: OptionComponent;
-        this.options.forEach((option: OptionComponent, index: number) => {
-            if (option.selected) {
-                defaultOption = option;
-                this.selectedIndex = index;
-            }
-            let sub = option.checked.subscribe((params: OptionComponent) => {
-                this.value = params.value;
-                this.text = SelectComponent.getTextByElement(params.nativeElement);
-                this.options.forEach((o: OptionComponent, i: number) => {
-                    o.selected = false;
-                    if (o === params) {
-                        this.selectedIndex = i;
-                    }
-                });
-                params.selected = true;
-                if (isInit) {
-                    isInit = false;
-                    this.changeDetectorRef.detectChanges();
-                    return;
-                }
-                if (this.onChange) {
-                    this.onChange(this.value);
-                }
-                if (this.onTouched) {
-                    this.onTouched(this.value);
-                }
-                this.change.emit(this.value);
-
-            });
-            this.subs.push(sub);
-        });
-        setTimeout(() => {
-            // 当对 ui-option 组件使用 *ngFor 指令时，会导致报 selected 值前后不一致的错误
-            // 用 setTimeout 可以绕过 angular 的变更检测机制
-            if (!defaultOption) {
-                defaultOption = this.options.toArray()[this.selectedIndex];
-            }
-            if (!defaultOption) {
-                defaultOption = this.options.first;
-                this.selectedIndex = 0;
-            }
-            if (defaultOption) {
-                this.value = defaultOption.value;
-                this.text = SelectComponent.getTextByElement(defaultOption.nativeElement);
-                defaultOption.selected = true;
-            }
-        });
-    }
-
-    ngOnDestroy() {
-        this.subs.forEach(item => {
-            item.unsubscribe();
-        });
-    }
-
     writeValue(value: any) {
         this.value = value;
         if (this.options) {
             let selectedOption: OptionComponent;
-            this.options.forEach((item: OptionComponent) => {
+            this.options.forEach((item: OptionComponent, index: number) => {
                 item.selected = false;
-                if (`${item.value}` === `${value}`) {
+                if (item.value === value || `${item.value}` === value || item.value === `${value}`) {
                     selectedOption = item;
+                    this.selectedIndex = index;
                 }
             });
             if (selectedOption) {
