@@ -1,6 +1,5 @@
 import {
     Component,
-    ChangeDetectorRef,
     Input,
     Output,
     EventEmitter,
@@ -53,8 +52,7 @@ export class OptionComponent implements AfterViewInit {
     private _selected: boolean = false;
 
     constructor(private elementRef: ElementRef,
-                private selectService: SelectService,
-                public changeDetectorRef: ChangeDetectorRef) {
+                private selectService: SelectService) {
     }
 
     @HostListener('click') click() {

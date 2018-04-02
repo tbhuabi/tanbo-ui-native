@@ -1,7 +1,6 @@
 import {
     OnInit,
-    ChangeDetectorRef,
-    AfterViewInit,
+    AfterContentInit,
     Component,
     ContentChildren,
     EventEmitter,
@@ -26,7 +25,7 @@ import { SelectService } from './select.service';
     }, SelectService
     ]
 })
-export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnDestroy, OnInit {
+export class SelectComponent implements ControlValueAccessor, AfterContentInit, OnDestroy, OnInit {
     @ContentChildren(OptionComponent)
     options: QueryList<OptionComponent>;
 
@@ -58,8 +57,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnD
         return '';
     }
 
-    constructor(private selectService: SelectService,
-                private changeDetectorRef: ChangeDetectorRef) {
+    constructor(private selectService: SelectService) {
     }
 
     ngOnInit() {
@@ -83,7 +81,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnD
         }));
     }
 
-    ngAfterViewInit() {
+    ngAfterContentInit() {
         let defaultOption: OptionComponent;
         this.options.forEach((option: OptionComponent, index: number) => {
             if (option.selected) {
@@ -100,10 +98,10 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnD
         }
         if (defaultOption) {
             this.value = defaultOption.value;
-            this.text = SelectComponent.getTextByElement(defaultOption.nativeElement);
             defaultOption.selected = true;
-            this.changeDetectorRef.detectChanges();
-            defaultOption.changeDetectorRef.detectChanges();
+            setTimeout(() => {
+                this.text = SelectComponent.getTextByElement(defaultOption.nativeElement);
+            });
         }
     }
 
