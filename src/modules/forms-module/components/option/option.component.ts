@@ -55,7 +55,8 @@ export class OptionComponent implements AfterViewInit {
                 private selectService: SelectService) {
     }
 
-    @HostListener('click') click() {
+    @HostListener('click')
+    click() {
         if (!this.disabled) {
             this.selected = true;
             this.checked.emit(this);

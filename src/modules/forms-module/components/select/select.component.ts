@@ -1,6 +1,8 @@
 import {
     OnInit,
+    ChangeDetectorRef,
     AfterContentInit,
+    AfterViewInit,
     Component,
     ContentChildren,
     EventEmitter,
@@ -25,7 +27,7 @@ import { SelectService } from './select.service';
     }, SelectService
     ]
 })
-export class SelectComponent implements ControlValueAccessor, AfterContentInit, OnDestroy, OnInit {
+export class SelectComponent implements ControlValueAccessor, AfterContentInit, OnDestroy, OnInit, AfterViewInit {
     @ContentChildren(OptionComponent)
     options: QueryList<OptionComponent>;
 
@@ -50,6 +52,8 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     private onTouched: (_: any) => any;
     private subs: Array<Subscription> = [];
 
+    private defaultOption: OptionComponent;
+
     static getTextByElement(element: HTMLElement): string {
         if (element) {
             return element.innerText.replace(/^[\s\n\t\r]+|[\s\n\t\r]+$/g, '');
@@ -57,7 +61,8 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
         return '';
     }
 
-    constructor(private selectService: SelectService) {
+    constructor(private selectService: SelectService,
+                private changeDetectorRef: ChangeDetectorRef) {
     }
 
     ngOnInit() {
@@ -99,9 +104,14 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
         if (defaultOption) {
             this.value = defaultOption.value;
             defaultOption.selected = true;
-            setTimeout(() => {
-                this.text = SelectComponent.getTextByElement(defaultOption.nativeElement);
-            });
+            this.defaultOption = defaultOption;
+        }
+    }
+
+    ngAfterViewInit() {
+        if (this.defaultOption) {
+            this.text = SelectComponent.getTextByElement(this.defaultOption.nativeElement);
+            this.changeDetectorRef.detectChanges();
         }
     }
 
