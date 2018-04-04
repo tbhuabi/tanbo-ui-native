@@ -60,6 +60,9 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
         const element = this.elementRef.nativeElement;
 
         this.unBindFnList.push(this.renderer.listen(element, 'scroll', () => {
+            if (!this.openInfinite) {
+                return;
+            }
             // 计算最大滚动距离
             const maxScrollY = Math.max(element.scrollHeight, element.offsetHeight) - element.offsetHeight;
             // 如果当前滚动距离小于上拉刷新临界值，则记录相应值，并就广播相应事件
@@ -77,7 +80,10 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
     bindingRefresher() {
         const element = this.elementRef.nativeElement;
 
-        this.renderer.listen(element, 'touchstart', (ev: any) => {
+        const fn = this.renderer.listen(element, 'touchstart', (ev: any) => {
+            if (!this.openRefresh) {
+                return;
+            }
             const startPoint = ev.touches[0];
             const startX = startPoint.pageX;
             const startY = startPoint.pageY;
@@ -127,5 +133,7 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
             unBindTouchEndFn = this.renderer.listen('document', 'touchend', unBindFn);
             unBindTouchCancelFn = this.renderer.listen('document', 'touchcancel', unBindFn);
         });
+
+        this.unBindFnList.push(fn);
     }
 }
