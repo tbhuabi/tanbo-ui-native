@@ -137,6 +137,9 @@ export class RangeComponent implements ControlValueAccessor {
         let unbindTouchCancelFn: () => void;
         let unbindTouchMoveFn: () => void;
 
+        if (this.min >= this.max) {
+            return;
+        }
         unbindTouchEndFn = this.renderer.listen('document', 'touchend', () => {
             this.isTouching = false;
             unbindTouchMoveFn();
@@ -149,9 +152,7 @@ export class RangeComponent implements ControlValueAccessor {
             unbindTouchEndFn();
             unbindTouchCancelFn();
         });
-        if (this.min >= this.max) {
-            return;
-        }
+
         let section = this.max - this.min;
         let maxWidth = this.elementRef.nativeElement.offsetWidth;
         let nowWidth = this.rangeBar.nativeElement.offsetWidth;

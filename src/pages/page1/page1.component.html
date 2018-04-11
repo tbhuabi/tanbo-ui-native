@@ -10,7 +10,9 @@
     <ui-scroll [openRefresh]="true">
       <!--<div style="width: 100px; height: 100px; background: #000;" (uiPan)="pan($event)"></div>-->
       <p><a routerLink="../page2">page2</a></p>
-
+      <p class="text-center">
+        <ui-input type="range"></ui-input>
+      </p>
       <p>
         <ui-select>
           <ui-option *ngFor="let item of dataList">{{item.name}}</ui-option>
