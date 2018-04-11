@@ -159,6 +159,8 @@ export class RangeComponent implements ControlValueAccessor {
 
         let oldX: number = event.touches[0].clientX;
 
+        let oldValue = this.value;
+
         unbindTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
             let dragDistance: number = ev.touches[0].clientX - oldX;
             let proportion = (nowWidth + dragDistance) / maxWidth;
@@ -170,15 +172,17 @@ export class RangeComponent implements ControlValueAccessor {
             } else if (value > this.max) {
                 value = this.max - (this.max - this.min) % this.step;
             }
-
-            this.value = value;
-            if (this.onChange) {
-                this.onChange(value);
+            if (value !== oldValue) {
+                this.value = value;
+                oldValue = value;
+                if (this.onChange) {
+                    this.onChange(value);
+                }
+                if (this.onTouched) {
+                    this.onTouched(value);
+                }
+                this.change.emit(value);
             }
-            if (this.onTouched) {
-                this.onTouched(value);
-            }
-            this.change.emit(value);
         });
 
     }
