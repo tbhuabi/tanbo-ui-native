@@ -168,7 +168,7 @@ export class UIComponentsModule {
                 useValue: 'ui-icon-arrow-back'
             }, {
                 provide: UI_ROUTER_ANIMATION_STEPS,
-                useValue: 25
+                useValue: 30
             }, {
                 provide: UI_DO_REFRESH_DISTANCE,
                 useValue: 40
