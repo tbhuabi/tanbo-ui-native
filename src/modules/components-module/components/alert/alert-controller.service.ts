@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 export interface AlertConfig {
-    title: string;
     content: string;
+    title?: string;
     btnText?: string;
 }
 

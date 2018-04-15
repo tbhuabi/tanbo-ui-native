@@ -17,10 +17,12 @@
 }
 
 .ui-alert-body {
-    max-height: 240px;
     border-bottom: $border-width solid $color-gray-light;
     padding: 0 $grid-column-padding 22px;
     text-align: center;
+    &:first-child {
+        padding: $grid-column-padding $grid-column-padding;
+    }
 }
 
 .ui-alert-footer {

@@ -1,12 +1,20 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
-import { PullDownRefreshController, ContentLoadingController } from '../../modules/index';
+import {
+    PullDownRefreshController,
+    ContentLoadingController,
+    AlertController,
+    ConfirmController
+} from '../../modules/index';
 
 @Component({
     templateUrl: './page1.component.html'
 })
 export class Page1Component implements AfterViewInit, OnInit {
     dataList: Array<any> = [];
+
     constructor(private pullDownRefreshController: PullDownRefreshController,
+                private alertController: AlertController,
+                private confirmController: ConfirmController,
                 private contentLoadingController: ContentLoadingController) {
     }
 
@@ -34,5 +42,12 @@ export class Page1Component implements AfterViewInit, OnInit {
 
     refresh() {
         this.pullDownRefreshController.refresh();
+    }
+
+    show() {
+        this.confirmController.show({
+            title: 'fdsa',
+            content: '这是一个人'
+        })
     }
 }

@@ -1,7 +1,7 @@
 <ui-dialog [show]="show" (hide)="hide()">
   <div class="ui-alert">
-    <h3 class="ui-alert-title">
-      {{ title || '系统消息' }}
+    <h3 class="ui-alert-title" *ngIf="title">
+      {{ title }}
     </h3>
     <div class="ui-alert-body">
       {{ content }}

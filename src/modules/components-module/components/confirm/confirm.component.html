@@ -1,7 +1,7 @@
 <ui-dialog [show]="show" (hide)="hide()">
   <div class="ui-confirm">
-    <h3 class="ui-confirm-title clearfix">
-      {{ title || '系统消息' }}
+    <h3 class="ui-confirm-title clearfix" *ngIf="title">
+      {{ title }}
     </h3>
     <div class="ui-confirm-body">
       {{ content }}
