@@ -211,13 +211,12 @@ export class RouterComponent implements OnInit, OnDestroy {
                         this.setViewState([ViewState.Sleep, ViewState.Activate]);
                         break;
                 }
-                return;
             } else {
                 requestAnimationFrame(fn);
+                this.routerService.publishAnimationProgress(i);
+                i++;
             }
-            this.routerService.publishAnimationProgress(i);
 
-            i++;
         }.bind(this);
 
         fn();
