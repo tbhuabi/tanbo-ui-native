@@ -209,6 +209,7 @@ export class RouterComponent implements OnInit, OnDestroy {
                         break;
                     case ViewState.Activate:
                         this.setViewState([ViewState.Sleep, ViewState.Activate]);
+                        break;
                 }
                 return;
             } else {
