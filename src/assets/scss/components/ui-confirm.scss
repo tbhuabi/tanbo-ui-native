@@ -33,10 +33,13 @@
         font-size: $font-size-larger;
         border: none;
         border-radius: 0;
-        background-color: #fff;
+        background: none;
         &:nth-child(2) {
             border-left: $border-width solid $color-gray-light;
             font-weight: 600;
+        }
+        &:active {
+            background-color: rgba(0, 0, 0, .1);
         }
     }
 }

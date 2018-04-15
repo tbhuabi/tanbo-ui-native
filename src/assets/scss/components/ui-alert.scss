@@ -33,6 +33,9 @@
         font-size: $font-size-larger;
         border: none;
         border-radius: 0;
-        background-color: #fff;
+        background: none;
+        &:active {
+            background-color: rgba(0, 0, 0, .1);
+        }
     }
 }
