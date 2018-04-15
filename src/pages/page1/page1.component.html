@@ -8,6 +8,10 @@
   <ui-content class="container" style="background: #e9eaec;">
     <ui-refresher>刷新成功！</ui-refresher>
     <ui-scroll [openRefresh]="true">
+      <ui-slide style="height: 100px;">
+        <ui-slide-item>aaa</ui-slide-item>
+        <ui-slide-item>bbb</ui-slide-item>
+      </ui-slide>
       <!--<div style="width: 100px; height: 100px; background: #000;" (uiPan)="pan($event)"></div>-->
       <p><a routerLink="../page2">page2</a></p>
       <p class="text-center">
