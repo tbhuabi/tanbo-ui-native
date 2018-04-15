@@ -49,7 +49,9 @@ export class PickerComponent implements ControlValueAccessor {
 
     @Input()
     set data(list: Array<PickerCell>) {
+        this._data = list;
         if (this.value.length >= this.columnSize) {
+            this.value.forEach(item => this._value.push(item));
             this.makeList(0, list);
         } else {
             this.list.push(list);
@@ -59,6 +61,10 @@ export class PickerComponent implements ControlValueAccessor {
         }
     }
 
+    get data() {
+        return this._data;
+    }
+
     @Input()
     name: string = '';
     @Output()
@@ -66,6 +72,7 @@ export class PickerComponent implements ControlValueAccessor {
 
     list: Array<Array<PickerCell>> = [];
 
+    private _data: Array<PickerCell>;
     private _value: Array<PickerCell> = [];
     private onChange: (_: any) => void;
     private onTouched: (_: any) => void;
@@ -127,6 +134,10 @@ export class PickerComponent implements ControlValueAccessor {
 
     writeValue(value: Array<PickerCell>) {
         this.value = value;
+        if (value && Array.isArray(value)) {
+            this.value.forEach(item => this._value.push(item));
+            this.makeList(0, this._data);
+        }
     }
 
     registerOnChange(fn: any) {
@@ -147,7 +158,7 @@ export class PickerComponent implements ControlValueAccessor {
             const fn = (list: Array<PickerCell>, child: Array<PickerCell>, index: number) => {
                 this.list.push(child);
                 list.forEach(item => {
-                    if (item.value === this._value[index].value && item.children) {
+                    if (this._value[index] && item.value === this._value[index].value && item.children) {
                         const nextChild: Array<PickerCell> = [];
                         fn(item.children, nextChild, index + 1);
                     }

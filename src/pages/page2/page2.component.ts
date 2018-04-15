@@ -58,8 +58,8 @@ export class Page2Component implements OnInit {
         text: '成都',
         value: 30
     }, {
-        text: '双流区',
-        value: 301
+        text: '武侯区',
+        value: 302
     }];
 
     ngOnInit() {
