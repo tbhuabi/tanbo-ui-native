@@ -22,9 +22,9 @@ export class ScrollComponent implements OnDestroy, OnInit {
     @Input()
     set openRefresh(value: boolean) {
         this._openRefresh = value;
-        if (value && this.isBindRefresh) {
+        if (value && !this.isBindRefresh) {
             this.bindingRefresher();
-            this.isBindRefresh = false;
+            this.isBindRefresh = true;
         }
     }
 
@@ -36,9 +36,9 @@ export class ScrollComponent implements OnDestroy, OnInit {
     @Input()
     set openInfinite(value: boolean) {
         this._openInfinite = value;
-        if (value && this.isBindInfinite) {
+        if (value && !this.isBindInfinite) {
             this.bindingInfinite();
-            this.isBindInfinite = false;
+            this.isBindInfinite = true;
         }
     }
 
