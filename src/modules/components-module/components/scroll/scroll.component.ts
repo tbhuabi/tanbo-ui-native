@@ -1,5 +1,4 @@
 import {
-    AfterViewInit,
     Component,
     ElementRef,
     HostBinding,
@@ -18,13 +17,34 @@ import { UI_DO_LOAD_DISTANCE, PullUpLoadController } from '../../controllers/pul
     selector: 'ui-scroll',
     templateUrl: './scroll.component.html'
 })
-export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
+export class ScrollComponent implements OnDestroy, OnInit {
     // 是否开启下拉刷新
     @Input()
-    openRefresh: boolean = false;
+    set openRefresh(value: boolean) {
+        this._openRefresh = value;
+        if (value && this.isBindRefresh) {
+            this.bindingRefresher();
+            this.isBindRefresh = false;
+        }
+    }
+
+    get openRefresh() {
+        return this._openRefresh;
+    }
+
     // 是否开启下拉刷新
     @Input()
-    openInfinite: boolean = false;
+    set openInfinite(value: boolean) {
+        this._openInfinite = value;
+        if (value && this.isBindInfinite) {
+            this.bindingInfinite();
+            this.isBindInfinite = false;
+        }
+    }
+
+    get openInfinite() {
+        return this._openInfinite;
+    }
 
     @HostBinding('style.paddingTop')
     paddingTop: string;
@@ -32,6 +52,12 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
     private sub: Subscription;
     private distanceY: number = 0;
     private unBindFnList: Array<() => void> = [];
+
+    private _openRefresh: boolean = false;
+    private _openInfinite: boolean = false;
+
+    private isBindRefresh: boolean = false;
+    private isBindInfinite: boolean = false;
 
     constructor(private renderer: Renderer2,
                 private elementRef: ElementRef,
@@ -48,15 +74,12 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
         });
     }
 
-    ngAfterViewInit() {
-        if (this.openRefresh) {
-            this.bindingRefresher();
-        }
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+        this.unBindFnList.forEach(item => item());
+    }
 
-        if (!this.openInfinite) {
-            return;
-        }
-
+    bindingInfinite() {
         const element = this.elementRef.nativeElement;
 
         this.unBindFnList.push(this.renderer.listen(element, 'scroll', () => {
@@ -70,11 +93,6 @@ export class ScrollComponent implements AfterViewInit, OnDestroy, OnInit {
                 this.pullUpLoadController.loading();
             }
         }));
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-        this.unBindFnList.forEach(item => item());
     }
 
     bindingRefresher() {
