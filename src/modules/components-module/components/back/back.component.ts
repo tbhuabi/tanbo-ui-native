@@ -12,7 +12,7 @@ import {
 import { DOCUMENT, Location } from '@angular/common';
 import { Router, Event, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Easing } from '@tweenjs/tween.js';
+import { CubicBezier } from 'tanbo-bezier';
 
 import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME } from '../../config';
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
@@ -79,8 +79,9 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
         }));
 
         const steps = this.steps;
+        const bezier = new CubicBezier(.36, .66, .04, 1);
         const sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
-            const progress = Easing.Cubic.Out(status.progress / steps);
+            const progress = bezier.update(status.progress / steps);
 
             let n: number = status.progress / 50;
             let m: number;
@@ -96,7 +97,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
                     break;
                 case ViewState.ToStack:
                     this.state = status.state;
-                    this.translate = `translate3d(${-status.progress / steps * 100}%, 0, 0)`;
+                    this.translate = `translate3d(${-progress * 100}%, 0, 0)`;
                     m = 1 - n;
                     this.opacity = m < 0 ? 0 : m;
                     break;
