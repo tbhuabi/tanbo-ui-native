@@ -107,7 +107,7 @@ export class RouterComponent implements OnInit, OnDestroy {
 
         this.subs.push(this.routerService.moveBackProgress$.subscribe(progress => {
             if (progress <= 0) {
-                this.setViewState([ViewState.Sleep, ViewState.Activate])
+                this.setViewState([ViewState.Sleep, ViewState.Activate]);
             } else {
                 this.setViewState([ViewState.ToStack, ViewState.Activate]);
             }

@@ -121,6 +121,9 @@ export class PickerComponent implements ControlValueAccessor {
     }
 
     selected() {
+        if (!this.focus) {
+            return;
+        }
         if (this.onChange) {
             this.onChange(this._value);
         }
