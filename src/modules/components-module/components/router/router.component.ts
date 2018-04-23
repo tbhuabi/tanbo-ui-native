@@ -106,7 +106,11 @@ export class RouterComponent implements OnInit, OnDestroy {
         }));
 
         this.subs.push(this.routerService.moveBackProgress$.subscribe(progress => {
-            this.setViewState([ViewState.ToStack, ViewState.Activate]);
+            if (progress <= 0) {
+                this.setViewState([ViewState.Sleep, ViewState.Activate])
+            } else {
+                this.setViewState([ViewState.ToStack, ViewState.Activate]);
+            }
             if (progress >= this.steps && this.openMoveBack) {
                 this.isMoveBack = true;
                 this.location.back();
