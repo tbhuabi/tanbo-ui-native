@@ -7,6 +7,7 @@ import { UIComponentsModule } from '../components-module/components.module';
 // 组件
 import { ButtonComponent } from './components/button/button.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { DateComponent } from './components/date/date.component';
 import { OptionComponent } from './components/option/option.component';
 import { PickerComponent } from './components/picker/picker.component';
 import { PickerColumnComponent } from './components/picker-column/picker-column.component';
@@ -37,6 +38,7 @@ import { RadioStateService } from './components/radio/radio-state.service';
         // 组件
         ButtonComponent,
         CheckboxComponent,
+        DateComponent,
         OptionComponent,
         RadioComponent,
         PickerComponent,
@@ -57,6 +59,7 @@ import { RadioStateService } from './components/radio/radio-state.service';
         // 组件
         ButtonComponent,
         CheckboxComponent,
+        DateComponent,
         OptionComponent,
         PickerComponent,
         PickerColumnComponent,

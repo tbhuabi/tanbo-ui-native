@@ -1,0 +1,49 @@
+ui-input[type=date] {
+    display: inline-block;
+    .ui-date-fixed {
+        height: 100%;
+        display: flex;
+        .ui-raw-input-wrap {
+            flex: 1;
+            position: relative;
+            .ui-raw-input {
+                border: none;
+                outline: none;
+                background: none;
+                text-align: inherit;
+                color: inherit;
+                width: 100%;
+                height: 100%;
+                padding: 0;
+            }
+            .ui-raw-input-mask {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 1;
+            }
+        }
+    }
+
+    .ui-date-arrow {
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+    }
+
+    .ui-date-modal {
+        padding: 0 $grid-column-padding $grid-column-padding;
+        z-index: $mask-z-index + 1;
+    }
+
+    .ui-date-options {
+        border-radius: 13px;
+        overflow: hidden;
+        background-color: #fff;
+        max-height: 300px;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+}

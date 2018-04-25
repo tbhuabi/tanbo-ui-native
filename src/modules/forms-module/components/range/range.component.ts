@@ -12,9 +12,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class RangeComponent implements ControlValueAccessor {
     @Input()
-    name: string;
+    name: string = '';
     @Input()
-    forId: string;
+    forId: string = '';
 
     @Input()
     showProgress: boolean = false;
@@ -106,8 +106,8 @@ export class RangeComponent implements ControlValueAccessor {
     @Output()
     change = new EventEmitter<string>();
 
-    private _disabled: boolean;
-    private _readonly: boolean;
+    private _disabled: boolean = false;
+    private _readonly: boolean = false;
     private _min: number = 0;
     private _max: number = 100;
     private _step: number = 1;

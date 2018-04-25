@@ -7,6 +7,7 @@ import {
     ContentChildren,
     EventEmitter,
     Input,
+    HostBinding,
     OnDestroy,
     Output,
     QueryList
@@ -31,11 +32,6 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     @ContentChildren(OptionComponent)
     options: QueryList<OptionComponent>;
 
-    focus: boolean = false;
-    @Input()
-    disabled: boolean;
-    @Input()
-    readonly: boolean;
     @Input()
     name: string = '';
     @Input()
@@ -45,7 +41,32 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     @Input()
     selectedIndex: number = 0;
 
+    @Input()
+    @HostBinding('class.disabled')
+    set disabled(isDisabled: any) {
+        this._disabled = isDisabled;
+    }
+
+    get disabled() {
+        let isDisabled = (this as any).hasOwnProperty('_disabled');
+        return isDisabled && this._disabled !== false;
+    }
+
+    @Input()
+    @HostBinding('class.readonly')
+    set readonly(isReadonly: any) {
+        this._readonly = isReadonly;
+    }
+
+    get readonly() {
+        let isReadonly = (this as any).hasOwnProperty('_readonly');
+        return isReadonly && this._readonly !== false;
+    }
+
+    focus: boolean = false;
     text: string = '';
+    private _disabled: boolean = false;
+    private _readonly: boolean = false;
 
     private value: string = '';
     private onChange: (_: any) => any;

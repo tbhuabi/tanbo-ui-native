@@ -26,11 +26,11 @@ import { RadioStateService } from './radio-state.service';
 })
 export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
     @Input()
-    name: string;
+    name: string = '';
     @Input()
-    value: string;
+    value: string = '';
     @Input()
-    forId: string;
+    forId: string = '';
     @Input()
     text: string = '';
 
@@ -79,9 +79,9 @@ export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
     rawInput: ElementRef;
     sub: Subscription;
 
-    private _disabled: boolean;
-    private _readonly: boolean;
-    private _checked: boolean;
+    private _disabled: boolean = false;
+    private _readonly: boolean = false;
+    private _checked: boolean = false;
 
     private onChange: (_: any) => any;
     private onTouched: (_: any) => any;

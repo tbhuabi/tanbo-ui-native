@@ -1,0 +1,29 @@
+<div class="ui-date-fixed">
+  <div class="ui-raw-input-wrap">
+    <input class="ui-raw-input" [disabled]="disabled"
+           [name]="name"
+           [placeholder]="placeholder"
+           readonly
+           type="text"
+           [value]="text">
+    <div class="ui-raw-input-mask"></div>
+  </div>
+  <div class="ui-date-arrow">
+    <span class="caret"></span>
+  </div>
+</div>
+<ui-action-sheet [show]="focus" (click)="hide()" uiStopPropagation>
+  <div class="ui-picker" uiStopPropagation>
+    <div class="ui-picker-header">
+      <button class="ui-picker-action" type="button" (click)="hide()">取消</button>
+      <button class="ui-picker-action" type="button" (click)="selected()">确认</button>
+    </div>
+    <div class="ui-picker-selector">
+      <div class="ui-picker-list">
+        <ui-picker-column *ngFor="let column of dateList; let i = index"
+                          (selected)="cellSelected($event, i)"
+                          [cells]="column" [value]="values[i] || column[0]"></ui-picker-column>
+      </div>
+    </div>
+  </div>
+</ui-action-sheet>
