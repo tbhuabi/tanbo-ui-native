@@ -1,3 +1,9 @@
+### 3.6.0
+添加 ui-input[type=date] 组件
+
+### 3.5.0
+优化转场动画
+
 ### 3.2.0
 重构 ui-refresh ui-scroll 组件
 

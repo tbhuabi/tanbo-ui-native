@@ -2,10 +2,11 @@
   <div class="ui-raw-input-wrap">
     <input class="ui-raw-input" [disabled]="disabled"
            [name]="name"
+           [id]="forId"
            [placeholder]="placeholder"
            readonly
            type="text"
-           [value]="text">
+           [value]="value">
     <div class="ui-raw-input-mask"></div>
   </div>
   <div class="ui-date-arrow">
@@ -20,9 +21,18 @@
     </div>
     <div class="ui-picker-selector">
       <div class="ui-picker-list">
-        <ui-picker-column *ngFor="let column of dateList; let i = index"
-                          (selected)="cellSelected($event, i)"
-                          [cells]="column" [value]="values[i] || column[0]"></ui-picker-column>
+        <ui-picker-column *ngIf="years.length" (selected)="cellSelected($event, 'year')"
+                          [cells]="years" [value]="{value: currentDate.year}"></ui-picker-column>
+        <ui-picker-column *ngIf="months.length" (selected)="cellSelected($event, 'month')"
+                          [cells]="months" [value]="{value: currentDate.month}"></ui-picker-column>
+        <ui-picker-column *ngIf="days.length" (selected)="cellSelected($event, 'day')"
+                          [cells]="days" [value]="{value: currentDate.day}"></ui-picker-column>
+        <ui-picker-column *ngIf="hours.length" (selected)="cellSelected($event, 'hours')"
+                          [cells]="hours" [value]="{value: currentDate.hours}"></ui-picker-column>
+        <ui-picker-column *ngIf="minutes.length" (selected)="cellSelected($event, 'minutes')"
+                          [cells]="minutes" [value]="{value: currentDate.minutes}"></ui-picker-column>
+        <ui-picker-column *ngIf="seconds.length" (selected)="cellSelected($event, 'seconds')"
+                          [cells]="seconds" [value]="{value: currentDate.seconds}"></ui-picker-column>
       </div>
     </div>
   </div>

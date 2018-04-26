@@ -72,6 +72,9 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
 
         this.scrollInstance.on('scrollEnd', (position: BScroll.Position) => {
             const value = this.cells[Math.abs(position.y / this.cellHeight)];
+            if (value.disabled) {
+                return;
+            }
             this.selected.emit(value);
         });
     }

@@ -16,13 +16,11 @@ import { timeAnalysisByTimeString, dateStringFormat, TimeDetails } from './date-
 })
 export class DateComponent implements ControlValueAccessor, OnInit {
     @Input()
-    name: string;
+    name: string = '';
     @Input()
-    text: string = '';
+    value: string = '';
     @Input()
-    value: string;
-    @Input()
-    forId: string;
+    forId: string = '';
     @Input()
     maxDate: string = '';
     @Input()
@@ -55,11 +53,18 @@ export class DateComponent implements ControlValueAccessor, OnInit {
     }
 
     @Output()
-    change = new EventEmitter<boolean>();
+    change = new EventEmitter<string>();
 
     focus: boolean = false;
-    dateList: Array<Array<PickerCell>> = [];
-    values: Array<PickerCell> = [];
+
+    years: Array<PickerCell> = [];
+    months: Array<PickerCell> = [];
+    days: Array<PickerCell> = [];
+    hours: Array<PickerCell> = [];
+    minutes: Array<PickerCell> = [];
+    seconds: Array<PickerCell> = [];
+
+    currentDate: TimeDetails;
 
     private _disabled: boolean;
     private _readonly: boolean;
@@ -70,13 +75,12 @@ export class DateComponent implements ControlValueAccessor, OnInit {
     private onChange: (_: any) => any;
     private onTouched: (_: any) => any;
     private timer: any = null;
-    private currentDate = new Date();
 
-    static createList(min: number, max: number, unit: string) {
-        const arr: Array<PickerCell> = [];
-        for (let i = min; i < max; i++) {
+    static createList(arr: Array<PickerCell>, min: number, max: number, unit: string) {
+        arr.length = 0;
+        for (let i = min; i <= max; i++) {
             arr.push({
-                text: i + unit,
+                text: (unit === '月' ? i + 1 : i) + unit,
                 value: i
             });
         }
@@ -103,68 +107,66 @@ export class DateComponent implements ControlValueAccessor, OnInit {
             this._minDate = timeAnalysisByTimeString(currentDate);
         }
 
-        this.format.replace(/[yMdhms]+/g, (str: string): string => {
-            switch (str) {
-                case 'yy':
-                case 'yyyy':
-                    this.initYears();
-                    break;
-                case 'M':
-                case 'MM':
-                    this.initMonths();
-                    break;
-                case 'd':
-                case 'dd':
-                    this.initDays();
-                    break;
-                case 'h':
-                case 'hh':
-                case 'm':
-                case 'mm':
-                case 's':
-                case 'ss':
-                default:
-                    return str;
-            }
-            return str;
-        });
+        this.currentDate = timeAnalysisByTimeString(this.value || new Date());
 
         this.initYears();
-        this.initMonths();
-        this.initDays();
     }
 
 
     initYears() {
-        this.dateList.push(DateComponent.createList(this._minDate.year, this._maxDate.year + 1, '年'));
+        if (/yy|yyyy/.test(this.format)) {
+            DateComponent.createList(this.years, this._minDate.year, this._maxDate.year, '年');
+        }
+        this.initMonths();
     }
 
     initMonths() {
-        this.dateList.push(DateComponent.createList(1, 13, '月'));
+        if (/M|MM/.test(this.format)) {
+            DateComponent.createList(this.months, 0, 11, '月');
+            // if (this.currentDate.year === this._maxDate.year) {
+            //     months.forEach(item => {
+            //         if (item.value > this._maxDate.month) {
+            //             item.disabled = true;
+            //         }
+            //     });
+            // } else if (this.currentDate.year === this._minDate.year) {
+            //     months.forEach(item => {
+            //         if (item.value < this._minDate.month) {
+            //             item.disabled = true;
+            //         }
+            //     });
+            // }
+        }
+
+        this.initDays();
     }
 
     initDays() {
-        const days: Array<PickerCell> = [];
-        for (let i = 1; i < 31; i++) {
-            days.push({
-                text: i + '日',
-                value: i
-            });
+        if (/d|dd/.test(this.format)) {
+            const date = new Date();
+            date.setFullYear(this.currentDate.year);
+            date.setDate(1);
+            date.setMonth(this.currentDate.month + 1);
+            date.setDate(0);
+            const maxDay = date.getDate();
+            if (this.currentDate.day > maxDay) {
+                this.currentDate.day = maxDay;
+            }
+            DateComponent.createList(this.days, 1, maxDay, '日');
+            // if (this.currentDate.year === this._maxDate.year && this.currentDate.month === this._maxDate.month) {
+            //     days.forEach(item => {
+            //         if (item.value > this._maxDate.day) {
+            //             item.disabled = true;
+            //         }
+            //     });
+            // } else if (this.currentDate.year === this._minDate.year && this.currentDate.month === this._minDate.month) {
+            //     days.forEach(item => {
+            //         if (item.value < this._minDate.day) {
+            //             item.disabled = true;
+            //         }
+            //     });
+            // }
         }
-
-        this.dateList.push(days);
-    }
-
-    initHours() {
-        const hours: Array<PickerCell> = [];
-        for (let i = 1; i < 24; i++) {
-            hours.push({
-                text: i + '时',
-                value: i
-            });
-        }
-
-        this.dateList.push(hours);
     }
 
     show() {
@@ -183,19 +185,42 @@ export class DateComponent implements ControlValueAccessor, OnInit {
         if (!this.focus) {
             return;
         }
-        // if (this.onChange) {
-        //     this.onChange(this._value);
-        // }
-        // if (this.onTouched) {
-        //     this.onTouched(this._value);
-        // }
-        // this.value = this._value;
-        // this.change.emit(this._value);
+        const value = dateStringFormat(this.format, this.currentDate);
+
+        if (this.onChange) {
+            this.onChange(value);
+        }
+        if (this.onTouched) {
+            this.onTouched(value);
+        }
+        this.value = value;
+        this.change.emit(value);
         this.hide();
     }
 
-    cellSelected(cell: PickerCell, index: number) {
-        this.values[index] = cell;
+    cellSelected(cell: PickerCell, type: string) {
+        switch (type) {
+            case 'year':
+                this.currentDate.year = +cell.value;
+                this.initMonths();
+                break;
+            case 'month':
+                this.currentDate.month = +cell.value;
+                this.initDays();
+                break;
+            case 'day':
+                this.currentDate.day = +cell.value;
+                break;
+            case 'hours':
+                this.currentDate.hours = +cell.value;
+                break;
+            case 'minutes':
+                this.currentDate.minutes = +cell.value;
+                break;
+            case 'seconds':
+                this.currentDate.seconds = +cell.value;
+                break;
+        }
     }
 
     hide() {
