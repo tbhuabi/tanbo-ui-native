@@ -28,6 +28,8 @@ export class DateComponent implements ControlValueAccessor, OnInit {
     @Input()
     format: string = 'yyyy-MM-dd';
     @Input()
+    displayFormat: string = '';
+    @Input()
     placeholder: string = '';
 
     @Input()
@@ -65,6 +67,8 @@ export class DateComponent implements ControlValueAccessor, OnInit {
     seconds: Array<PickerCell> = [];
 
     currentDate: TimeDetails;
+
+    displayValue: string = '';
 
     private _disabled: boolean;
     private _readonly: boolean;
@@ -186,7 +190,7 @@ export class DateComponent implements ControlValueAccessor, OnInit {
             return;
         }
         const value = dateStringFormat(this.format, this.currentDate);
-
+        this.displayValue = dateStringFormat(this.displayFormat || this.format, this.currentDate);
         if (this.onChange) {
             this.onChange(value);
         }

@@ -28,9 +28,8 @@ export function timeAnalysisByTimeString(date: string | Date): TimeDetails {
     let dateArr: Array<number> = date.match(/\d+/g).map(item => {
         return +item;
     });
-    if (dateArr.length === 3) {
-        dateArr = dateArr.concat([0, 0, 0]);
-    }
+    const arr = [0, 0, 1, 0, 0, 0];
+    dateArr = dateArr.concat(arr.slice(dateArr.length));
     if (dateArr.length !== 6) {
         return result;
     }
