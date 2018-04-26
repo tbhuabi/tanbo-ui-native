@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
+
+import { ActionSheetService } from './action-sheet.service';
 
 @Component({
     selector: 'ui-action-sheet',
     templateUrl: './action-sheet.component.html'
 })
-export class ActionSheetComponent {
+export class ActionSheetComponent implements OnInit {
     @Input()
     set show(value: boolean) {
         clearTimeout(this.timer);
@@ -24,8 +26,19 @@ export class ActionSheetComponent {
     get show() {
         return this._show;
     }
+
+    @ViewChild('mask')
+    mask: ElementRef;
+
     isPopUp: boolean = false;
 
     private _show: boolean = false;
     private timer: any = null;
+
+    constructor(private actionSheetService: ActionSheetService) {
+    }
+
+    ngOnInit() {
+        this.actionSheetService.show(this.mask.nativeElement);
+    }
 }

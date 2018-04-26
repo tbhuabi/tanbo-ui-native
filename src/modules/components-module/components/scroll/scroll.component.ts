@@ -120,7 +120,7 @@ export class ScrollComponent implements OnDestroy, OnInit {
 
             let isFirstTouching: boolean = true;
 
-            unBindTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
+            unBindTouchMoveFn = this.renderer.listen(element, 'touchmove', (ev: any) => {
                 const movePoint = ev.touches[0];
                 const moveX = movePoint.pageX;
                 const moveY = movePoint.pageY;
@@ -148,8 +148,8 @@ export class ScrollComponent implements OnDestroy, OnInit {
                 }
             });
 
-            unBindTouchEndFn = this.renderer.listen('document', 'touchend', unBindFn);
-            unBindTouchCancelFn = this.renderer.listen('document', 'touchcancel', unBindFn);
+            unBindTouchEndFn = this.renderer.listen(element, 'touchend', unBindFn);
+            unBindTouchCancelFn = this.renderer.listen(element, 'touchcancel', unBindFn);
         });
 
         this.unBindFnList.push(fn);

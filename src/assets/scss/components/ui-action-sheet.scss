@@ -1,19 +1,21 @@
 ui-action-sheet {
-    .ui-action-sheet {
-        background: inherit;
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: none;
-        transform: translateY(100%);
-        transition: transform .3s;
-        z-index: $mask-z-index + 1;
-        &.pop-up {
-            transform: translateY(0);
-        }
-        &.show {
-            display: block;
-        }
+
+}
+
+.ui-action-sheet {
+    background: inherit;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    transform: translateY(100%);
+    transition: transform .3s;
+    z-index: $mask-z-index + 1;
+    &.pop-up {
+        transform: translateY(0);
+    }
+    &.show {
+        display: block;
     }
 }

@@ -80,16 +80,18 @@ export class ContentComponent implements OnDestroy, OnInit {
         }
         let unbindTouchMoveFn: () => void;
         let unbindTouchEndFn: () => void;
+        let unbindTouchCancelFn: () => void;
         let unbindFn: () => void;
 
-        const maxWidth = this.elementRef.nativeElement.offsetWidth;
+        const element = this.elementRef.nativeElement;
+        const maxWidth = element.offsetWidth;
         const self = this;
         const startTime = Date.now();
 
         let isBack = false;
         let progress = 0;
 
-        unbindTouchMoveFn = this.renderer.listen('document', 'touchmove', (event: any) => {
+        unbindTouchMoveFn = this.renderer.listen(element, 'touchmove', (event: any) => {
             const movePoint = event.touches[0];
             const moveX = movePoint.pageX;
             const moveY = movePoint.pageY;
@@ -138,6 +140,7 @@ export class ContentComponent implements OnDestroy, OnInit {
 
             unbindTouchMoveFn();
             unbindTouchEndFn();
+            unbindTouchCancelFn();
             if (progress === 0) {
                 return;
             }
@@ -154,6 +157,7 @@ export class ContentComponent implements OnDestroy, OnInit {
             }
         }.bind(this);
 
-        unbindTouchEndFn = this.renderer.listen('document', 'touchend', unbindFn);
+        unbindTouchEndFn = this.renderer.listen(element, 'touchend', unbindFn);
+        unbindTouchCancelFn = this.renderer.listen(element, 'touchcancel', unbindFn);
     }
 }

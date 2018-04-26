@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostBinding, HostListener } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { PickerService } from '../picker/picker.service';
@@ -167,8 +167,7 @@ export class DateComponent implements ControlValueAccessor, OnInit {
         this.dateList.push(hours);
     }
 
-    @HostListener('click')
-    click() {
+    show() {
         clearTimeout(this.timer);
         if (this.disabled || this.readonly) {
             return;

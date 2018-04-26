@@ -32,18 +32,18 @@ ui-select {
         align-items: center;
         padding-left: 10px;
     }
+}
 
-    .ui-select-modal {
-        padding: 0 $grid-column-padding $grid-column-padding;
-        z-index: $mask-z-index + 1;
-    }
+.ui-select-modal {
+    padding: 0 $grid-column-padding $grid-column-padding;
+    z-index: $mask-z-index + 1;
+}
 
-    .ui-select-options {
-        border-radius: 13px;
-        overflow: hidden;
-        background-color: #fff;
-        max-height: 300px;
-        overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
-    }
+.ui-select-options {
+    border-radius: 13px;
+    overflow: hidden;
+    background-color: #fff;
+    max-height: 300px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }

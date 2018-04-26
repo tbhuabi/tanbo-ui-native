@@ -6,6 +6,7 @@ import {
     OnInit,
     ViewChild,
     Injector,
+    ElementRef,
     ComponentRef,
     ViewContainerRef,
     ChangeDetectorRef
@@ -19,6 +20,7 @@ import { ContentLoadingController } from '../content-loading/content-loading.ser
 import { RouterService } from '../router/router.service';
 import { PullDownRefreshController } from '../../controllers/pull-down-refresh-controller';
 import { PullUpLoadController } from '../../controllers/pull-up-load-controller';
+import { ActionSheetService } from '../action-sheet/action-sheet.service';
 
 @Component({
     selector: 'ui-view',
@@ -27,7 +29,8 @@ import { PullUpLoadController } from '../../controllers/pull-up-load-controller'
         ViewStateService,
         ContentLoadingController,
         PullDownRefreshController,
-        PullUpLoadController
+        PullUpLoadController,
+        ActionSheetService
     ]
 })
 export class ViewComponent implements OnInit, OnDestroy {
@@ -89,6 +92,8 @@ export class ViewComponent implements OnInit, OnDestroy {
                 private viewContainerRef: ViewContainerRef,
                 private _activatedRoute: ActivatedRoute,
                 private changeDetectorRef: ChangeDetectorRef,
+                private actionSheetService: ActionSheetService,
+                private elementRef: ElementRef,
                 private routerService: RouterService) {
     }
 
@@ -123,6 +128,10 @@ export class ViewComponent implements OnInit, OnDestroy {
                     progress
                 });
             }
+        }));
+
+        this.subs.push(this.actionSheetService.onShow.subscribe(el => {
+            this.elementRef.nativeElement.appendChild(el);
         }));
     }
 
