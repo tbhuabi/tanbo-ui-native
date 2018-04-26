@@ -112,6 +112,9 @@ export class DateComponent implements ControlValueAccessor, OnInit {
         }
 
         this.currentDate = timeAnalysisByTimeString(this.value || new Date());
+        if (this.value) {
+            this.displayValue = dateStringFormat(this.displayFormat || this.format, this.currentDate);
+        }
 
         this.initYears();
     }
