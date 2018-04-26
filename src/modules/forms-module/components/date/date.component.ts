@@ -112,7 +112,6 @@ export class DateComponent implements ControlValueAccessor, OnInit {
         this.initYears();
     }
 
-
     initYears() {
         if (/yy|yyyy/.test(this.format)) {
             DateComponent.createList(this.years, this._minDate.year, this._maxDate.year, '年');
@@ -159,7 +158,8 @@ export class DateComponent implements ControlValueAccessor, OnInit {
             //             item.disabled = true;
             //         }
             //     });
-            // } else if (this.currentDate.year === this._minDate.year && this.currentDate.month === this._minDate.month) {
+            // } else if (this.currentDate.year === this._minDate.year &&
+            // this.currentDate.month === this._minDate.month) {
             //     days.forEach(item => {
             //         if (item.value < this._minDate.day) {
             //             item.disabled = true;

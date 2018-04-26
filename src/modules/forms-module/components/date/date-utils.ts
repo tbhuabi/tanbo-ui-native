@@ -22,7 +22,7 @@ export function timeAnalysisByTimeString(date: string | Date): TimeDetails {
             minutes: date.getMinutes(),
             seconds: date.getSeconds(),
             timestamp: date.getTime()
-        }
+        };
     }
     let result = null;
     let dateArr: Array<number> = date.match(/\d+/g).map(item => {
