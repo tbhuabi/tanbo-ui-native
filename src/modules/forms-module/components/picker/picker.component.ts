@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { PickerCell } from '../picker-column/picker-column.component';
 import { PickerService } from './picker.service';
@@ -15,7 +16,7 @@ import { PickerService } from './picker.service';
         PickerService
     ]
 })
-export class PickerComponent implements ControlValueAccessor {
+export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit {
     focus: boolean = false;
 
     @Input()
@@ -80,7 +81,20 @@ export class PickerComponent implements ControlValueAccessor {
     private _readonly: boolean;
     private timer: any = null;
 
+    private sub: Subscription;
+    private isScrolling: boolean = false;
+
     constructor(private pickerService: PickerService) {
+    }
+
+    ngOnInit() {
+        this.sub = this.pickerService.onScroll.subscribe(b => {
+            this.isScrolling = b;
+        });
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 
     @HostListener('document:touchmove', ['$event'])
@@ -121,7 +135,7 @@ export class PickerComponent implements ControlValueAccessor {
     }
 
     selected() {
-        if (!this.focus) {
+        if (!this.focus || this.isScrolling) {
             return;
         }
         if (this.onChange) {

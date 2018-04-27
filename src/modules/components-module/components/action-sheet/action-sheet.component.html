@@ -1,5 +1,5 @@
 <ui-mask [show]="isPopUp">
-  <div class="ui-action-sheet" #mask [ngClass]="{show: show, 'pop-up': isPopUp}">
+  <div class="ui-action-sheet" [ngClass]="{show: show, 'pop-up': isPopUp}">
     <ng-content></ng-content>
   </div>
 </ui-mask>

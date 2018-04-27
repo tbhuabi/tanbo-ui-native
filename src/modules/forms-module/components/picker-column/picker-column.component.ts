@@ -42,6 +42,7 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         this.initScroll();
         this.subs.push(this.pickerService.onShow.subscribe(() => {
+            console.log(555);
             if (this.scrollInstance) {
                 let selectedIndex: number = 0;
                 for (let i = 0; i < this.cells.length; i++) {
@@ -69,8 +70,11 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
                 wheelItemClass: 'ui-picker-cell'
             }
         });
-
+        this.scrollInstance.on('scrollStart', () => {
+            this.pickerService.scroll(true);
+        });
         this.scrollInstance.on('scrollEnd', (position: BScroll.Position) => {
+            this.pickerService.scroll(false);
             const value = this.cells[Math.abs(position.y / this.cellHeight)];
             if (value.disabled) {
                 return;

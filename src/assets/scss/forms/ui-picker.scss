@@ -50,6 +50,9 @@ ui-picker {
             width: 80px;
             border: none;
             background: none;
+            &:active {
+                opacity: .6;
+            }
         }
     }
     .ui-picker-selector {

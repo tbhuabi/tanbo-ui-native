@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostBinding, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { PickerService } from '../picker/picker.service';
 import { PickerCell } from '../picker-column/picker-column.component';
@@ -14,7 +15,7 @@ import { timeAnalysisByTimeString, dateStringFormat, TimeDetails } from './date-
         multi: true
     }, PickerService]
 })
-export class DateComponent implements ControlValueAccessor, OnInit {
+export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
     @Input()
     name: string = '';
     @Input()
@@ -80,6 +81,9 @@ export class DateComponent implements ControlValueAccessor, OnInit {
     private onTouched: (_: any) => any;
     private timer: any = null;
 
+    private sub: Subscription;
+    private isScrolling: boolean = false;
+
     static createList(arr: Array<PickerCell>, min: number, max: number, unit: string) {
         arr.length = 0;
         for (let i = min; i <= max; i++) {
@@ -95,6 +99,10 @@ export class DateComponent implements ControlValueAccessor, OnInit {
     }
 
     ngOnInit() {
+        this.sub = this.pickerService.onScroll.subscribe(b => {
+           this.isScrolling = b;
+        });
+
         let currentDate: Date;
         if (this.maxDate) {
             this._maxDate = timeAnalysisByTimeString(this.maxDate);
@@ -117,6 +125,10 @@ export class DateComponent implements ControlValueAccessor, OnInit {
         }
 
         this.initYears();
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 
     initYears() {
@@ -189,7 +201,7 @@ export class DateComponent implements ControlValueAccessor, OnInit {
     }
 
     selected() {
-        if (!this.focus) {
+        if (!this.focus || this.isScrolling) {
             return;
         }
         const value = dateStringFormat(this.format, this.currentDate);

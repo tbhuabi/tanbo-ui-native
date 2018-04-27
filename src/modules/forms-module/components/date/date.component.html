@@ -14,7 +14,7 @@
   </div>
 </div>
 <ui-action-sheet [show]="focus" (click)="hide()">
-  <div class="ui-picker">
+  <div class="ui-picker" uiStopPropagation>
     <div class="ui-picker-header">
       <button class="ui-picker-action" type="button" (click)="hide()">取消</button>
       <button class="ui-picker-action" type="button" (click)="selected()">确认</button>

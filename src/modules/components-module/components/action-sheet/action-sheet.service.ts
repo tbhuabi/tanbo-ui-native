@@ -10,7 +10,7 @@ export class ActionSheetService {
         this.onShow = this.showEvent.asObservable();
     }
 
-    show(el: HTMLElement) {
+    push(el: HTMLElement) {
         this.showEvent.next(el);
     }
 }
