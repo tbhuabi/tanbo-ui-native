@@ -17,6 +17,7 @@ export class SlideItemComponent {
     state: string = '';
 
     @HostBinding('style.transform')
+    @HostBinding('style.webkitTransform')
     get transform() {
         return `translateX(${this.animateProgress * 100}%)`;
     }

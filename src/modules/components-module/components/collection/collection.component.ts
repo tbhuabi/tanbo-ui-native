@@ -37,7 +37,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
             cancelAnimationFrame(this.animationId);
             const boxSize: number = this.vertical ? this.element.offsetHeight : this.element.offsetWidth;
             const itemWidth: number = boxSize / this.items.length;
-            this.autoUpdateStyle(this.containerElement, itemWidth * value * -1, itemWidth);
+            this.autoUpdateStyle(itemWidth * value * -1, itemWidth);
         }
     }
 
@@ -61,6 +61,8 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
     }
 
     childrenLength: number = 0;
+
+    transform: string = '';
 
     // 记录已拖动的距离
     private distance: number = 0;
@@ -105,8 +107,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
             itemWidth = element.offsetWidth / this.childrenLength;
         }
         this.distance = this.index * -1 * itemWidth;
-        const style = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}px)`;
-        this.renderer.setStyle(this.containerElement, 'transform', style);
+        this.transform = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}px)`;
     }
 
     bindingDragEvent() {
@@ -199,8 +200,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
                     distance = maxDistance;
                 }
                 this.distance = distance;
-                this.renderer.setStyle(this.containerElement, 'transform',
-                    `translate${this.vertical ? 'Y' : 'X'}(${distance}px)`);
+                this.transform = `translate${this.vertical ? 'Y' : 'X'}(${distance}px)`;
                 ev.preventDefault();
                 // 发送事件，并传出当前已滑动到第几屏的进度
                 this.slidingEventSource.next(distance / boxSize * -1);
@@ -211,7 +211,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
         });
     }
 
-    private autoUpdateStyle(element: HTMLElement, translateDistance: number, boxSize: number) {
+    private autoUpdateStyle(translateDistance: number, boxSize: number) {
         const max = 20;
         let step = 0;
 
@@ -227,9 +227,8 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
             step++;
             const translate = rawDistance + Easing.Cubic.Out(step / max) * distance;
             this.distance = translate;
-            const style = `translate${this.vertical ? 'Y' : 'X'}(${translate}px)`;
+            this.transform = `translate${this.vertical ? 'Y' : 'X'}(${translate}px)`;
 
-            this.renderer.setStyle(element, 'transform', style);
             this.slidingEventSource.next(translate / boxSize * -1);
             if (step < max) {
                 this.animationId = requestAnimationFrame(moveToTarget);

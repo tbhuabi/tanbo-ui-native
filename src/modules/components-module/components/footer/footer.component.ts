@@ -11,6 +11,7 @@ import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-s
 })
 export class FooterComponent implements OnDestroy, OnInit {
     @HostBinding('style.transform')
+    @HostBinding('style.webkitTransform')
     translate: string;
     @HostBinding('style.opacity')
     opacity: number;

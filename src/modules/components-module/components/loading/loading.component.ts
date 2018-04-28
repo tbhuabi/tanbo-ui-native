@@ -11,6 +11,7 @@ export class LoadingComponent {
     color: string = '';
 
     @HostBinding('style.transform')
+    @HostBinding('style.webkitTransform')
     get size() {
         return `scale(${this.scale})`;
     }

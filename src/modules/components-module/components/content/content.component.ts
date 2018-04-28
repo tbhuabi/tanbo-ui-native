@@ -12,6 +12,7 @@ import { RouterService } from '../router/router.service';
 })
 export class ContentComponent implements OnDestroy, OnInit {
     @HostBinding('style.transform')
+    @HostBinding('style.webkitTransform')
     translate: string;
     @HostBinding('style.opacity')
     opacity: number;

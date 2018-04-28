@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, HostBinding } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { ListEventService } from '../list-item/list-event.service';
@@ -9,13 +9,17 @@ import { ListActivatedService } from '../list-item/list-activated.service';
     templateUrl: './list-sliding.component.html'
 })
 export class ListSlidingComponent implements OnInit, OnDestroy {
+    @HostBinding('style.transitionDuration')
+    transitionDuration: string;
+    @HostBinding('style.transform')
+    transform: string;
+
     private subs: Array<Subscription> = [];
     private distanceX: number = 0;
     private refs: Array<ElementRef> = [];
     private isFocus = false;
 
     constructor(private listEventService: ListEventService,
-                private elementRef: ElementRef,
                 private listActivatedService: ListActivatedService,
                 private renderer: Renderer2) {
     }
@@ -29,8 +33,8 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
         this.subs.push(this.listActivatedService.activatedComponent$.subscribe(() => {
             if (!this.isFocus) {
                 this.distanceX = 0;
-                this.renderer.setStyle(this.elementRef.nativeElement, 'transition-duration', '');
-                this.renderer.setStyle(this.elementRef.nativeElement, 'transform', `translateX(0px)`);
+                this.transitionDuration = '';
+                this.transform = 'translateX(0px)';
             }
         }));
     }
@@ -49,7 +53,6 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
         const startX = touchPoint.pageX;
         const startY = touchPoint.pageY;
 
-        const element = event.target;
         const oldDistanceX = this.distanceX;
         const startTime = Date.now();
 
@@ -63,7 +66,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
         let isScroll = true;
 
         // 设置当前元素的 css 动画时间为0，防止有迟滞感
-        this.renderer.setStyle(element, 'transition-duration', '0s');
+        this.transitionDuration = '0s';
 
         let unBindTouchEndFn: () => void;
         let unBindTouchCancelFn: () => void;
@@ -93,7 +96,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
             }
 
             // 设置相应样式，并阻止事件冒泡和默认事件
-            this.renderer.setStyle(element, 'transform', `translateX(${this.distanceX}px)`);
+            this.transform = `translateX(${this.distanceX}px)`;
             isScroll = false;
             moveEvent.preventDefault();
             moveEvent.stopPropagation();
@@ -111,8 +114,8 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
                 // 否则按 50% 区分向左还是向右
                 this.distanceX = this.distanceX > maxDistance / -2 ? 0 : -maxDistance;
             }
-            this.renderer.setStyle(element, 'transition-duration', '');
-            this.renderer.setStyle(element, 'transform', `translateX(${this.distanceX}px)`);
+            this.transitionDuration = '';
+            this.transform = `translateX(${this.distanceX}px)`;
             unBindTouchCancelFn();
             unBindTouchMoveFn();
             unBindTouchEndFn();

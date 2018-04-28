@@ -20,6 +20,7 @@ import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-s
 })
 export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
     @HostBinding('style.transform')
+    @HostBinding('style.webkitTransform')
     translate: string;
     @HostBinding('style.opacity')
     opacity: number;
