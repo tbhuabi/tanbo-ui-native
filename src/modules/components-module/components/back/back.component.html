@@ -1,4 +1,8 @@
-<span [ngClass]="icon"></span>
-<div #text class="ui-back-text" [ngStyle]="{transform: translate, opacity: opacity}">
-  <ng-content></ng-content>
+<div class="ui-back">
+  <div class="ui-back-icon">
+    <div [ngClass]="icon"></div>
+  </div>
+  <div #text class="ui-back-text" [ngStyle]="{transform: translate, opacity: opacity}">
+    <ng-content></ng-content>
+  </div>
 </div>
