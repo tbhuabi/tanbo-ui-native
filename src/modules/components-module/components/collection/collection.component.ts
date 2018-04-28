@@ -35,9 +35,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
         this._index = value;
         if (this.items) {
             cancelAnimationFrame(this.animationId);
-            const boxSize: number = this.vertical ? this.element.offsetHeight : this.element.offsetWidth;
-            const itemWidth: number = boxSize / this.items.length;
-            this.autoUpdateStyle(itemWidth * value * -1, itemWidth);
+            this.autoUpdateStyle(this.stepDistance * value * -1);
         }
     }
 
@@ -65,6 +63,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     transform: string = '';
 
     // 记录已拖动的距离
+    private stepDistance: number;
     private distance: number = 0;
     private slidingEvent$: Observable<number>;
     private slidingEventSource = new Subject<number>();
@@ -88,16 +87,9 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
         });
         this.childrenLength = this.items.length;
         this.bindingDragEvent();
-
-        let element = this.element;
-        let itemWidth: number;
-        if (this.vertical) {
-            itemWidth = element.offsetHeight / this.childrenLength;
-        } else {
-            itemWidth = element.offsetWidth / this.childrenLength;
-        }
-        this.distance = this.index * -1 * itemWidth;
-        this.transform = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}px)`;
+        this.stepDistance = this.vertical ? this.element.offsetHeight : this.element.offsetWidth;
+        this.distance = this.index * -1 * this.stepDistance;
+        this.transform = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}%)`;
     }
 
     ngOnDestroy() {
@@ -105,7 +97,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     }
 
     bindingDragEvent() {
-        let element = this.containerElement;
+        let element = this.element;
 
         this.renderer.listen(element, 'touchstart', (event: any) => {
 
@@ -121,18 +113,6 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
             let unTouchEndFn: () => void;
             let unTouchCancelFn: () => void;
 
-            let boxSize: number;
-            let maxDistance: number;
-            if (this.vertical) {
-                const offsetHeight = element.offsetHeight;
-                boxSize = offsetHeight / this.childrenLength;
-                maxDistance = boxSize - offsetHeight;
-            } else {
-                const offsetWidth = element.offsetWidth;
-                boxSize = offsetWidth / this.childrenLength;
-                maxDistance = boxSize - offsetWidth;
-            }
-
             let isMoved: boolean = false;
             const unbindFn = () => {
                 const endTime = Date.now();
@@ -141,26 +121,34 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
                 unTouchEndFn();
                 unTouchCancelFn();
 
-                const targetIndex = Math.ceil(this.distance / boxSize);
-                const offset = Math.abs(this.distance % boxSize);
+                if (this.distance > 0) {
+                    this.autoUpdateStyle(0);
+                    return;
+                } else if (this.distance < -this.stepDistance * (this.childrenLength - 1)) {
+                    this.autoUpdateStyle(-this.stepDistance * (this.childrenLength - 1));
+                    return;
+                }
+
+                const targetIndex = Math.ceil(this.distance / this.stepDistance);
+                const offset = Math.abs(this.distance % this.stepDistance);
 
                 let translateDistance: number;
                 // 如果拖动的时间小于 200ms，且距离大于100px，则按当前拖动的方向计算，并直接设置对应的值
                 if (endTime - startTime < 200 && offset > 100) {
                     if (oldDistance < this.distance) {
-                        translateDistance = targetIndex * boxSize;
+                        translateDistance = targetIndex * this.stepDistance;
                     } else {
-                        translateDistance = targetIndex * boxSize - boxSize;
+                        translateDistance = targetIndex * this.stepDistance - this.stepDistance;
                     }
                 } else {
-                    if (offset < (boxSize / 2)) {
-                        translateDistance = targetIndex * boxSize;
+                    if (offset < (this.stepDistance / 2)) {
+                        translateDistance = targetIndex * this.stepDistance;
                     } else {
-                        translateDistance = targetIndex * boxSize - boxSize;
+                        translateDistance = targetIndex * this.stepDistance - this.stepDistance;
                     }
                 }
 
-                this.autoUpdateStyle(translateDistance, boxSize);
+                this.autoUpdateStyle(translateDistance);
             };
 
             unTouchMoveFn = this.renderer.listen(element, 'touchmove', (ev: any) => {
@@ -186,18 +174,12 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
                     }
                     distance = oldDistance + point.pageX - startX;
                 }
-                if (distance > 0) {
-                    distance = 0;
-                }
 
-                if (distance < maxDistance) {
-                    distance = maxDistance;
-                }
                 this.distance = distance;
                 this.transform = `translate${this.vertical ? 'Y' : 'X'}(${distance}px)`;
                 ev.preventDefault();
                 // 发送事件，并传出当前已滑动到第几屏的进度
-                this.slidingEventSource.next(distance / boxSize * -1);
+                this.slidingEventSource.next(distance / this.stepDistance * -1);
                 return false;
             });
             unTouchEndFn = this.renderer.listen(element, 'touchend', unbindFn);
@@ -205,7 +187,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
         });
     }
 
-    private autoUpdateStyle(translateDistance: number, boxSize: number) {
+    private autoUpdateStyle(translateDistance: number) {
         const max = 20;
         let step = 0;
 
@@ -217,20 +199,20 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
 
         const rawDistance = this.distance;
 
-        const moveToTarget = function () {
+        const moveToTarget = () => {
             step++;
             const translate = rawDistance + Easing.Cubic.Out(step / max) * distance;
             this.distance = translate;
             this.transform = `translate${this.vertical ? 'Y' : 'X'}(${translate}px)`;
 
-            this.slidingEventSource.next(translate / boxSize * -1);
+            this.slidingEventSource.next(translate / this.stepDistance * -1);
             if (step < max) {
                 this.animationId = requestAnimationFrame(moveToTarget);
             } else {
                 // 发送事件，并传出当前滑动到了第几屏
-                this.slidingFinish.emit(this.distance / boxSize * -1);
+                this.slidingFinish.emit(this.distance / this.stepDistance * -1);
             }
-        }.bind(this);
+        };
 
         this.animationId = requestAnimationFrame(moveToTarget);
     }
