@@ -28,6 +28,7 @@ ui-back {
         position: relative;
         display: table-cell;
         vertical-align: middle;
+        white-space: nowrap;
     }
 
     &:active {
