@@ -1,3 +1,6 @@
+### 3.7.0
+兼容 android 4.4
+
 ### 3.6.0
 添加 ui-input[type=date] 组件
 

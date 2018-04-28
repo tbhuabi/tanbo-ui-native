@@ -31,7 +31,8 @@ import { SelectService } from './select.service';
 export class SelectComponent implements ControlValueAccessor, AfterContentInit, OnDestroy, OnInit, AfterViewInit {
     @ContentChildren(OptionComponent)
     options: QueryList<OptionComponent>;
-
+    @Input()
+    forId: string = '';
     @Input()
     name: string = '';
     @Input()
