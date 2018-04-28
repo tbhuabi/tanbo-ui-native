@@ -5,9 +5,9 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    HostBinding,
     Input,
     OnDestroy,
+    ViewChild,
     Output,
     QueryList,
     Renderer2
@@ -28,7 +28,6 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
     @Output()
     slidingFinish = new EventEmitter<number>();
     @Input()
-    @HostBinding('class.vertical')
     vertical: boolean = false;
 
     @Input()
@@ -38,7 +37,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
             cancelAnimationFrame(this.animationId);
             const boxSize: number = this.vertical ? this.element.offsetHeight : this.element.offsetWidth;
             const itemWidth: number = boxSize / this.items.length;
-            this.autoUpdateStyle(this.element, itemWidth * value * -1, itemWidth);
+            this.autoUpdateStyle(this.containerElement, itemWidth * value * -1, itemWidth);
         }
     }
 
@@ -49,13 +48,14 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
     @ContentChildren(CollectionItemComponent)
     items: QueryList<CollectionItemComponent>;
 
+    @ViewChild('container')
+    container: ElementRef;
+
     // 通过子级的多少，计算自身的盒子大小
-    @HostBinding('style.width')
     get width() {
         return this.vertical ? 'auto' : this.childrenLength * 100 + '%';
     }
 
-    @HostBinding('style.height')
     get height() {
         return this.vertical ? this.childrenLength * 100 + '%' : 'auto';
     }
@@ -69,6 +69,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
 
     private sub: Subscription;
     private element: HTMLElement;
+    private containerElement: HTMLElement;
     private animationId: number;
     private _index: number = 0;
 
@@ -79,6 +80,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
 
     ngAfterContentInit() {
         this.element = this.elementRef.nativeElement;
+        this.containerElement = this.container.nativeElement;
         this.sub = this.slidingEvent$.distinctUntilChanged().subscribe((n: number) => {
             this.sliding.emit(n);
         });
@@ -104,11 +106,11 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
         }
         this.distance = this.index * -1 * itemWidth;
         const style = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}px)`;
-        this.renderer.setStyle(element, 'transform', style);
+        this.renderer.setStyle(this.containerElement, 'transform', style);
     }
 
     bindingDragEvent() {
-        let element = this.element;
+        let element = this.containerElement;
 
         this.renderer.listen(element, 'touchstart', (event: any) => {
 
@@ -163,7 +165,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
                     }
                 }
 
-                this.autoUpdateStyle(element, translateDistance, boxSize);
+                this.autoUpdateStyle(this.containerElement, translateDistance, boxSize);
             }.bind(this);
 
             unTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
@@ -197,7 +199,8 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
                     distance = maxDistance;
                 }
                 this.distance = distance;
-                this.renderer.setStyle(element, 'transform', `translate${this.vertical ? 'Y' : 'X'}(${distance}px)`);
+                this.renderer.setStyle(this.containerElement, 'transform',
+                    `translate${this.vertical ? 'Y' : 'X'}(${distance}px)`);
                 ev.preventDefault();
                 // 发送事件，并传出当前已滑动到第几屏的进度
                 this.slidingEventSource.next(distance / boxSize * -1);

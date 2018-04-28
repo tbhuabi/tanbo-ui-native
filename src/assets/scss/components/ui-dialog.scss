@@ -3,5 +3,30 @@ ui-dialog {
         @include fill-box;
         @include flex-center;
         z-index: $mask-z-index + 1;
+
+        &.in {
+            animation: .15s dialogAnimationIn;
+        }
+        &.out {
+            animation: .15s dialogAnimationOut;
+        }
+    }
+}
+
+@keyframes dialogAnimationIn {
+    0% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes dialogAnimationOut {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.8);
     }
 }

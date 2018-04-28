@@ -1,39 +1,37 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'ui-dialog',
-    templateUrl: './dialog.component.html',
-    animations: [
-        trigger('dialogContentAnimate', [transition(':enter', animate('0.15s', keyframes([
-            style({
-                transform: 'scale(1.2)',
-                offset: 0
-            }),
-            style({
-                transform: 'scale(1)',
-                offset: 1
-            })
-        ]))), transition(':leave', animate('0.15s', keyframes([
-            style({
-                transform: 'scale(1)',
-                offset: 0
-            }),
-            style({
-                transform: 'scale(0.8)',
-                offset: 1
-            })
-        ])))])
-    ]
+    templateUrl: './dialog.component.html'
 })
 export class DialogComponent {
     @Input()
-    show: boolean = false;
+    set show(value: boolean) {
+        this._show = value;
+        if (value) {
+            this.display = true;
+        }
+    }
+
+    get show() {
+        return this._show;
+    }
 
     @Output()
     hide = new EventEmitter<void>();
 
+    display: boolean = false;
+
+    private _show: boolean = false;
+
     animationEnd() {
         this.hide.emit();
+        this.display = false;
+    }
+
+    h() {
+        if (!this.show) {
+            this.display = false;
+        }
     }
 }

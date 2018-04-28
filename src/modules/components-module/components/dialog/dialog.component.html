@@ -1,5 +1,5 @@
 <ui-mask [show]="show" (hide)="animationEnd()">
-  <div class="ui-dialog" *ngIf="show" [@dialogContentAnimate]="true">
+  <div class="ui-dialog" *ngIf="display" (animationend)="h()" [ngClass]="show ? 'in' : 'out'">
     <ng-content></ng-content>
   </div>
 </ui-mask>
