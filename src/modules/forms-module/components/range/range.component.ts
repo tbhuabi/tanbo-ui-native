@@ -140,13 +140,14 @@ export class RangeComponent implements ControlValueAccessor {
         if (this.min >= this.max) {
             return;
         }
-        unbindTouchEndFn = this.renderer.listen('document', 'touchend', () => {
+        const element = event.target;
+        unbindTouchEndFn = this.renderer.listen(element, 'touchend', () => {
             this.isTouching = false;
             unbindTouchMoveFn();
             unbindTouchEndFn();
             unbindTouchCancelFn();
         });
-        unbindTouchCancelFn = this.renderer.listen('document', 'touchcancel', () => {
+        unbindTouchCancelFn = this.renderer.listen(element, 'touchcancel', () => {
             this.isTouching = false;
             unbindTouchMoveFn();
             unbindTouchEndFn();
@@ -161,7 +162,7 @@ export class RangeComponent implements ControlValueAccessor {
 
         let oldValue = this.value;
 
-        unbindTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
+        unbindTouchMoveFn = this.renderer.listen(element, 'touchmove', (ev: any) => {
             let dragDistance: number = ev.touches[0].clientX - oldX;
             let proportion = (nowWidth + dragDistance) / maxWidth;
             let temporaryValue = Math.floor(section * proportion / this.step) * this.step;
@@ -183,6 +184,8 @@ export class RangeComponent implements ControlValueAccessor {
                 }
                 this.change.emit(value);
             }
+            ev.stopPropagation();
+            ev.preventDefault();
         });
 
     }

@@ -20,7 +20,7 @@ import { Easing } from '@tweenjs/tween.js';
     selector: 'ui-collection',
     templateUrl: './collection.component.html'
 })
-export class CollectionComponent implements AfterContentInit, OnDestroy, AfterViewInit {
+export class CollectionComponent implements AfterContentInit, OnDestroy {
     // 拖动事件
     @Output()
     sliding = new EventEmitter<number>();
@@ -88,17 +88,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
         });
         this.childrenLength = this.items.length;
         this.bindingDragEvent();
-    }
 
-    ngAfterViewInit() {
-        this.setPosition();
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
-
-    setPosition() {
         let element = this.element;
         let itemWidth: number;
         if (this.vertical) {
@@ -108,6 +98,10 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
         }
         this.distance = this.index * -1 * itemWidth;
         this.transform = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}px)`;
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 
     bindingDragEvent() {
@@ -140,7 +134,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
             }
 
             let isMoved: boolean = false;
-            const unbindFn = function () {
+            const unbindFn = () => {
                 const endTime = Date.now();
                 isMoved = false;
                 unTouchMoveFn();
@@ -166,10 +160,10 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
                     }
                 }
 
-                this.autoUpdateStyle(this.containerElement, translateDistance, boxSize);
-            }.bind(this);
+                this.autoUpdateStyle(translateDistance, boxSize);
+            };
 
-            unTouchMoveFn = this.renderer.listen('document', 'touchmove', (ev: any) => {
+            unTouchMoveFn = this.renderer.listen(element, 'touchmove', (ev: any) => {
                 const point = ev.touches[0];
                 let distance: number;
 
@@ -206,8 +200,8 @@ export class CollectionComponent implements AfterContentInit, OnDestroy, AfterVi
                 this.slidingEventSource.next(distance / boxSize * -1);
                 return false;
             });
-            unTouchEndFn = this.renderer.listen('document', 'touchend', unbindFn);
-            unTouchCancelFn = this.renderer.listen('document', 'touchcancel', unbindFn);
+            unTouchEndFn = this.renderer.listen(element, 'touchend', unbindFn);
+            unTouchCancelFn = this.renderer.listen(element, 'touchcancel', unbindFn);
         });
     }
 
