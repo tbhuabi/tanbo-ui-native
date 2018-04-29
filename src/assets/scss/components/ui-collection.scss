@@ -1,8 +1,13 @@
 ui-collection {
     @include fill-box;
+    display: block;
     overflow: hidden;
     .ui-collection {
-        @include fill-box;
+        position: inherit;
+        left: inherit;
+        right: inherit;
+        top: inherit;
+        bottom: inherit;
         display: flex;
         &.vertical {
             flex-direction: column;

@@ -3,7 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import { PickerCell } from '../../modules/index';
 
 @Component({
-    templateUrl: './page2.component.html'
+    templateUrl: './page2.component.html',
+    styles: [
+        `
+            ui-collection {
+                position: relative;
+                left: auto;
+                right: auto;
+                top: auto;
+                bottom: auto;
+            }
+        `
+    ]
 })
 export class Page2Component implements OnInit {
     data: Array<PickerCell> = [{

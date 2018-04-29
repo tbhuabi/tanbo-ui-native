@@ -6,7 +6,7 @@
     </ui-navbar>
   </ui-header>
   <ui-content class="container">
-    <ui-collection>
+    <ui-collection (slidingFinish)="show($event)">
       <ui-collection-item style="background-color: palegoldenrod;">
         <ui-scroll>
 
