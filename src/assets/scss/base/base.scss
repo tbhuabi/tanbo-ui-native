@@ -1,7 +1,10 @@
+@import "~normalize.css/normalize.css";
+
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
+    outline: none;
 }
 
 html {
@@ -35,6 +38,6 @@ input, button, select, textarea {
     outline: none;
 }
 
-button, input[type=button], input[type=submit] {
+button, html [type=button], [type=reset] input[type=button], input[type=submit] {
     -webkit-appearance: none;
 }
