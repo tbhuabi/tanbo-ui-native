@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostBinding, HostListener, OnDestroy, OnInit, Renderer2, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CubicBezier } from 'tanbo-bezier';
+import { Easing } from '@tweenjs/tween.js';
 
 import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
 import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
@@ -18,6 +19,9 @@ export class ContentComponent implements OnDestroy, OnInit {
     opacity: number;
     private sub: Subscription;
     private state: ViewState = ViewState.Activate;
+    private distanceX: number = 0;
+    private animationId: number;
+    private maxWidth: number;
 
     constructor(private viewStateService: ViewStateService,
                 private elementRef: ElementRef,
@@ -79,6 +83,8 @@ export class ContentComponent implements OnDestroy, OnInit {
         if (startX > 50 && this.state !== ViewState.Sleep) {
             return;
         }
+        cancelAnimationFrame(this.animationId);
+
         let unbindTouchMoveFn: () => void;
         let unbindTouchEndFn: () => void;
         let unbindTouchCancelFn: () => void;
@@ -86,8 +92,9 @@ export class ContentComponent implements OnDestroy, OnInit {
 
         const element = this.elementRef.nativeElement;
         const maxWidth = element.offsetWidth;
-        const self = this;
         const startTime = Date.now();
+
+        this.maxWidth = maxWidth;
 
         let isBack = false;
         let progress = 0;
@@ -97,47 +104,26 @@ export class ContentComponent implements OnDestroy, OnInit {
             const moveX = movePoint.pageX;
             const moveY = movePoint.pageY;
 
-            const distanceX = moveX - startX;
             const distanceY = moveY - startY;
-
+            let distanceX = moveX - startX;
             if (distanceX < distanceY && !isBack) {
                 unbindFn();
                 return;
             }
 
             isBack = true;
-            progress = distanceX / maxWidth * this.steps;
-            if (progress < 0) {
-                progress = 0;
-            } else if (progress > this.steps) {
-                progress = this.steps;
+
+            if (distanceX < 0) {
+                distanceX = 0;
+            } else if (distanceX > maxWidth) {
+                distanceX = maxWidth;
             }
+            this.distanceX = Math.floor(distanceX);
+            progress = distanceX / maxWidth * this.steps;
             this.routerService.publishMoveBackProgress(progress);
         });
 
-        let diminishing = function () {
-            progress--;
-            if (progress < 0) {
-                progress = 0;
-                self.routerService.publishMoveBackProgress(progress);
-                return;
-            }
-            self.routerService.publishMoveBackProgress(progress);
-            requestAnimationFrame(diminishing);
-        };
-
-        let increasing = function () {
-            progress++;
-            if (progress > this.steps) {
-                progress = this.steps;
-                self.routerService.publishMoveBackProgress(progress);
-                return;
-            }
-            self.routerService.publishMoveBackProgress(progress);
-            requestAnimationFrame(increasing);
-        }.bind(this);
-
-        unbindFn = function () {
+        unbindFn = () => {
 
             unbindTouchMoveFn();
             unbindTouchEndFn();
@@ -147,18 +133,34 @@ export class ContentComponent implements OnDestroy, OnInit {
             }
 
             const endTime = Date.now();
-            if (endTime - startTime < 100 && progress > this.steps * 0.2) {
-                requestAnimationFrame(increasing);
+            if (endTime - startTime < 100 && this.distanceX > 50) {
+                this.animationTo(maxWidth);
                 return;
             }
-            if (progress < this.steps * 0.4) {
-                requestAnimationFrame(diminishing);
+            if (this.distanceX < maxWidth / 3) {
+                this.animationTo(0);
             } else {
-                requestAnimationFrame(increasing);
+                this.animationTo(maxWidth);
             }
-        }.bind(this);
+        };
 
         unbindTouchEndFn = this.renderer.listen(element, 'touchend', unbindFn);
         unbindTouchCancelFn = this.renderer.listen(element, 'touchcancel', unbindFn);
+    }
+
+    animationTo(target: number) {
+        const l = target - this.distanceX;
+        const oldDistanceX = this.distanceX;
+        let i = 0;
+        const fn = () => {
+            i++;
+            this.distanceX = oldDistanceX + l * Easing.Cubic.Out(i / 10);
+            this.routerService.publishMoveBackProgress(this.distanceX / this.maxWidth * this.steps);
+            if (i < 10) {
+                this.animationId = requestAnimationFrame(fn);
+            }
+        };
+
+        this.animationId = requestAnimationFrame(fn);
     }
 }

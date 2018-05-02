@@ -61,8 +61,15 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
 
     transform: string = '';
 
-    // 记录已拖动的距离
+    private max: number = 0;
+
+    private get min(): number {
+        return -this.stepDistance * (this.childrenLength - 1);
+    }
+
+    // 每一页的距离
     private stepDistance: number;
+    // 记录已拖动的距离
     private distance: number = 0;
     private slidingEvent$: Observable<number>;
     private slidingEventSource = new Subject<number>();
@@ -120,11 +127,11 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
                 unTouchEndFn();
                 unTouchCancelFn();
 
-                if (this.distance > 0) {
-                    this.autoUpdateStyle(0);
+                if (this.distance > this.max) {
+                    this.autoUpdateStyle(this.max);
                     return;
-                } else if (this.distance < -this.stepDistance * (this.childrenLength - 1)) {
-                    this.autoUpdateStyle(-this.stepDistance * (this.childrenLength - 1));
+                } else if (this.distance < this.min) {
+                    this.autoUpdateStyle(this.min);
                     return;
                 }
 
@@ -174,11 +181,18 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
                     distance = oldDistance + point.pageX - startX;
                 }
 
+                if (distance > this.max) {
+                    distance /= 3;
+                } else if (distance < this.min) {
+                    distance = this.min + (distance - this.min) / 3;
+                }
+
                 this.distance = distance;
                 this.transform = `translate${this.vertical ? 'Y' : 'X'}(${distance}px)`;
                 ev.preventDefault();
                 // 发送事件，并传出当前已滑动到第几屏的进度
                 this.slidingEventSource.next(distance / this.stepDistance * -1);
+                ev.stopPropagation();
                 return false;
             });
             unTouchEndFn = this.renderer.listen(element, 'touchend', unbindFn);
