@@ -3,11 +3,11 @@ ui-collection {
     display: block;
     overflow: hidden;
     .ui-collection {
-        position: inherit;
-        left: inherit;
-        right: inherit;
-        top: inherit;
-        bottom: inherit;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
         display: flex;
         &.vertical {
             flex-direction: column;
