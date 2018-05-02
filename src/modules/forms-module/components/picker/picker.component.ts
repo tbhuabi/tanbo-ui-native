@@ -18,6 +18,8 @@ import { PickerService } from './picker.service';
 })
 export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit {
     focus: boolean = false;
+    @Input()
+    title: string = '';
 
     @Input()
     set disabled(isDisabled: any) {

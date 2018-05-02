@@ -34,14 +34,13 @@ ui-picker {
 }
 
 .ui-picker {
-    height: 220px;
+    height: 224px;
     display: flex;
     flex-direction: column;
     background-color: #fff;
 
     .ui-picker-header {
-        display: flex;
-        height: 40px;
+        height: 44px;
         border-bottom: $border-width solid $color-gray;
         justify-content: space-between;
         background-color: $color-lighter;
@@ -53,6 +52,9 @@ ui-picker {
             &:active {
                 opacity: .6;
             }
+        }
+        .ui-picker-title {
+            font-size: $font-size-large;
         }
     }
     .ui-picker-selector {

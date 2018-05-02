@@ -17,6 +17,8 @@ import { timeAnalysisByTimeString, dateStringFormat, TimeDetails } from './date-
 })
 export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
     @Input()
+    title: string = '';
+    @Input()
     name: string = '';
     @Input()
     value: string = '';
