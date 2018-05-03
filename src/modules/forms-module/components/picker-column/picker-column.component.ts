@@ -42,7 +42,6 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         this.initScroll();
         this.subs.push(this.pickerService.onShow.subscribe(() => {
-            console.log(555);
             if (this.scrollInstance) {
                 let selectedIndex: number = 0;
                 for (let i = 0; i < this.cells.length; i++) {
