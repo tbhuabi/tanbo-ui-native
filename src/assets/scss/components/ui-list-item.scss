@@ -22,10 +22,10 @@ button.ui-list-item {
     color: inherit;
     width: 100%;
     transition: background-color .2s linear;
-    padding-right: 32px;
+    padding-right: $list-item-forward-padding-right;
     ui-list-inner {
-        margin-right: -32px;
-        padding-right: 32px;
+        margin-right: -$list-item-forward-padding-right;
+        padding-right: $list-item-forward-padding-right;
     }
     &:active {
         background-color: #d9d9d9;

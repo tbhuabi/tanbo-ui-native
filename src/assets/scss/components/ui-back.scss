@@ -13,25 +13,29 @@ ui-back {
 
 .ui-back {
     display: table-row;
-    .ui-back-icon {
-        overflow: hidden;
-        display: table-cell;
-        vertical-align: middle;
-        .ui-icon-arrow-back {
-            width: $title-horizontal-distance;
-            position: relative;
-            left: -4px;
-        }
-    }
-    .ui-back-text {
-        font-size: $font-size-larger;
-        position: relative;
-        display: table-cell;
-        vertical-align: middle;
-        white-space: nowrap;
-    }
 
     &:active {
         opacity: .5;
     }
+}
+
+.ui-back-icon {
+    overflow: hidden;
+    display: table-cell;
+    vertical-align: middle;
+
+}
+
+.ui-icon-arrow-back {
+    width: $title-horizontal-distance;
+    position: relative;
+    left: -4px;
+}
+
+.ui-back-text {
+    font-size: $font-size-larger;
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    white-space: nowrap;
 }

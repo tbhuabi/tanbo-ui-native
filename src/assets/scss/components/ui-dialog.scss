@@ -1,15 +1,17 @@
 ui-dialog {
-    .ui-dialog {
-        @include fill-box;
-        @include flex-center;
-        z-index: $mask-z-index + 1;
 
-        &.in {
-            animation: .15s dialogAnimationIn;
-        }
-        &.out {
-            animation: .15s dialogAnimationOut;
-        }
+}
+
+.ui-dialog {
+    @include fill-box;
+    @include flex-center;
+    z-index: $mask-z-index + 1;
+
+    &.in {
+        animation: .15s dialogAnimationIn;
+    }
+    &.out {
+        animation: .15s dialogAnimationOut;
     }
 }
 
