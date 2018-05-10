@@ -48,7 +48,7 @@ import { ComponentHostDirective } from './components/view/component-host.directi
 
 // 服务
 import { RouteCacheController } from './components/router/route-cache-controller';
-import { AppController, getENV } from './components/app/app-controller';
+import { AppController, getDeviceType } from './components/app/app-controller';
 
 import { AlertController } from './components/alert/alert-controller.service';
 import { ConfirmController } from './components/confirm/confirm-controller.service';
@@ -177,7 +177,7 @@ export class UIComponentsModule {
                 useValue: 600
             }, {
                 provide: UI_BROWSER_ENV,
-                useFactory: getENV
+                useFactory: getDeviceType
             },
                 AppController,
                 RouteCacheController,

@@ -10,6 +10,7 @@ import {
     templateUrl: './page1.component.html'
 })
 export class Page1Component implements AfterViewInit, OnInit {
+    name: string = '';
     dataList: Array<any> = [];
 
     constructor(private pullDownRefreshController: PullDownRefreshController,

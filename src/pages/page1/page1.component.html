@@ -15,11 +15,6 @@
       <p style="text-align: right">
         <ui-input type="date" maxDate="2018-4-22" placeholder="test" format="yy-MM" displayFormat="yyyy-MM-dd" title="请选择日期"></ui-input>
       </p>
-      <p>
-        <ui-select style="height: 50px;">
-          <ui-option>测试</ui-option>
-        </ui-select>
-      </p>
       <!--<div style="width: 100px; height: 100px; background: #000;" (uiPan)="pan($event)"></div>-->
       <p><a routerLink="../page2">page2</a></p>
       <p class="text-center">
@@ -27,7 +22,7 @@
       </p>
       <p>
         <label for="testId">testId</label>
-        <ui-select forId="testId">
+        <ui-select forId="testId" [(ngModel)]="name">
           <ui-option *ngFor="let item of dataList">{{item.name}}</ui-option>
           <ui-option value="a">aaa</ui-option>
           <ui-option value="b">bbb</ui-option>

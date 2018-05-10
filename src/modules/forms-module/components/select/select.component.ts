@@ -1,5 +1,4 @@
 import {
-    OnInit,
     ChangeDetectorRef,
     AfterContentInit,
     AfterViewInit,
@@ -28,7 +27,7 @@ import { SelectService } from './select.service';
     }, SelectService
     ]
 })
-export class SelectComponent implements ControlValueAccessor, AfterContentInit, OnDestroy, OnInit, AfterViewInit {
+export class SelectComponent implements ControlValueAccessor, AfterContentInit, OnDestroy, AfterViewInit {
     @ContentChildren(OptionComponent)
     options: QueryList<OptionComponent>;
     @Input()
@@ -87,27 +86,6 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
                 private changeDetectorRef: ChangeDetectorRef) {
     }
 
-    ngOnInit() {
-        this.subs.push(this.selectService.onChecked.subscribe((option: OptionComponent) => {
-            this.options.forEach((op: OptionComponent, index: number) => {
-                if (op === option) {
-                    this.value = option.value;
-                    this.text = SelectComponent.getTextByElement(option.nativeElement);
-                    this.selectedIndex = index;
-                    if (this.onChange) {
-                        this.onChange(this.value);
-                    }
-                    if (this.onTouched) {
-                        this.onTouched(this.value);
-                    }
-                    this.change.emit(this.value);
-                } else {
-                    option.selected = false;
-                }
-            });
-        }));
-    }
-
     ngAfterContentInit() {
         let defaultOption: OptionComponent;
         this.options.forEach((option: OptionComponent, index: number) => {
@@ -128,6 +106,24 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
             defaultOption.selected = true;
             this.defaultOption = defaultOption;
         }
+        this.subs.push(this.selectService.onChecked.subscribe((option: OptionComponent) => {
+            this.options.forEach((op: OptionComponent, index: number) => {
+                if (op === option) {
+                    this.value = option.value;
+                    this.text = SelectComponent.getTextByElement(option.nativeElement);
+                    this.selectedIndex = index;
+                    if (this.onChange) {
+                        this.onChange(this.value);
+                    }
+                    if (this.onTouched) {
+                        this.onTouched(this.value);
+                    }
+                    this.change.emit(this.value);
+                } else {
+                    option.selected = false;
+                }
+            });
+        }));
     }
 
     ngAfterViewInit() {

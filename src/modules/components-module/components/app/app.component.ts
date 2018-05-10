@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { BrowserENV, UI_BROWSER_ENV } from '../../config';
 import { ListActivatedService } from '../list-item/list-activated.service';
 import { RouteCacheController } from '../router/route-cache-controller';
-import { AppController, getENV } from './app-controller';
+import { AppController, getDeviceType } from './app-controller';
 
 @Component({
     selector: 'ui-app',
@@ -80,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
         let docWidth = this.htmlElement.getBoundingClientRect().width;
         let scale = docWidth / this.defaultDocWidth;
         this.htmlElement.style.fontSize = `${scale * this.baseFontSize}px`;
-        this.appController.resize(getENV());
+        this.appController.resize(getDeviceType());
     }
 
     @HostListener('document:touchstart')

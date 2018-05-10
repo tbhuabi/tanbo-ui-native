@@ -23,7 +23,7 @@ export class AppController {
     }
 }
 
-export function getENV(): BrowserENV {
+export function getDeviceType(): BrowserENV {
     const u = navigator.userAgent;
     // android终端
     const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
