@@ -10,5 +10,11 @@
       <ui-input type="date" [(ngModel)]="date" placeholder="请输入"></ui-input>
     </p>
     <p><button type="button" (click)="setDate()">button</button></p>
+    <p>
+      <ui-select [readonly]="false">
+        <ui-option>aaa</ui-option>
+        <ui-option>bbb</ui-option>
+      </ui-select>
+    </p>
   </ui-content>
 </ui-page>

@@ -65,8 +65,8 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
 
     focus: boolean = false;
     text: string = '';
-    private _disabled: boolean = false;
-    private _readonly: boolean = false;
+    private _disabled: boolean;
+    private _readonly: boolean;
 
     private value: string = '';
     private onChange: (_: any) => any;
@@ -140,11 +140,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     }
 
     showOptions() {
-        let isReadonly = (this as any).hasOwnProperty('readonly');
-        isReadonly = isReadonly && this.readonly !== false;
-        let isDisabled = (this as any).hasOwnProperty('disabled');
-        isDisabled = isDisabled && this.disabled !== false;
-        if (!isDisabled && !isReadonly) {
+        if (!this.disabled && !this.readonly) {
             this.focus = true;
         }
     }
