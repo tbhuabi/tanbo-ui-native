@@ -20,14 +20,44 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
     title: string = '';
     @Input()
     name: string = '';
+
     @Input()
-    value: string = '';
+    set value(value: string | number | Date) {
+        if (value === null || value === undefined || value === '') {
+            return;
+        }
+        if (typeof value === 'string') {
+            this._value = value;
+            this.currentDate = timeAnalysisByTimeString(value);
+        } else if (typeof value === 'number') {
+            const date = new Date();
+            date.setTime(value);
+            this.currentDate = timeAnalysisByTimeString(date);
+            this._value = dateStringFormat(this.format, this.currentDate);
+        } else {
+            this.currentDate = timeAnalysisByTimeString(value);
+            this._value = dateStringFormat(this.format, timeAnalysisByTimeString(value));
+        }
+        this.displayValue = dateStringFormat(this.displayFormat || this.format, this.currentDate);
+    }
+
+    get value() {
+        return this._value;
+    }
+
     @Input()
     forId: string = '';
+
     @Input()
-    maxDate: string = '';
+    set maxDate(value: string | Date) {
+        this._maxDate = timeAnalysisByTimeString(value);
+    }
+
     @Input()
-    minDate: string = '';
+    set minDate(value: string | Date) {
+        this._minDate = timeAnalysisByTimeString(value);
+    }
+
     @Input()
     format: string = 'yyyy-MM-dd';
     @Input()
@@ -58,7 +88,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
     }
 
     @Output()
-    change = new EventEmitter<string>();
+    change = new EventEmitter<string | number>();
 
     focus: boolean = false;
 
@@ -76,6 +106,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
     private _disabled: boolean;
     private _readonly: boolean;
 
+    private _value: string | number | Date;
     private _maxDate: TimeDetails;
     private _minDate: TimeDetails;
 
@@ -102,28 +133,23 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
     ngOnInit() {
         this.sub = this.pickerService.onScroll.subscribe(b => {
-           this.isScrolling = b;
+            this.isScrolling = b;
         });
 
         let currentDate: Date;
-        if (this.maxDate) {
-            this._maxDate = timeAnalysisByTimeString(this.maxDate);
-        } else {
+        if (!this._maxDate) {
             currentDate = new Date();
             currentDate.setFullYear(currentDate.getFullYear() + 20);
             this._maxDate = timeAnalysisByTimeString(currentDate);
         }
-        if (this.minDate) {
-            this._minDate = timeAnalysisByTimeString(this.minDate);
-        } else {
+        if (!this._minDate) {
             currentDate = new Date();
             currentDate.setFullYear(currentDate.getFullYear() - 80);
             this._minDate = timeAnalysisByTimeString(currentDate);
         }
 
-        this.currentDate = timeAnalysisByTimeString(this.value || new Date());
-        if (this.value) {
-            this.displayValue = dateStringFormat(this.displayFormat || this.format, this.currentDate);
+        if (!this.currentDate) {
+            this.currentDate = timeAnalysisByTimeString(new Date());
         }
 
         this.initYears();
@@ -206,7 +232,20 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
         if (!this.focus || this.isScrolling) {
             return;
         }
-        const value = dateStringFormat(this.format, this.currentDate);
+        let value: string | number;
+        if (this.format) {
+            value = dateStringFormat(this.format, this.currentDate);
+        } else {
+            const date = new Date();
+            date.setFullYear(this.currentDate.year);
+            date.setMonth(this.currentDate.month);
+            date.setDate(this.currentDate.day);
+            date.setHours(this.currentDate.hours);
+            date.setMinutes(this.currentDate.minutes);
+            date.setSeconds(this.currentDate.seconds);
+            value = date.getTime();
+        }
+
         this.displayValue = dateStringFormat(this.displayFormat || this.format, this.currentDate);
         if (this.onChange) {
             this.onChange(value);
@@ -214,7 +253,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
         if (this.onTouched) {
             this.onTouched(value);
         }
-        this.value = value;
+        this._value = value;
         this.change.emit(value);
         this.hide();
     }

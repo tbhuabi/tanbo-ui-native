@@ -5,58 +5,10 @@
       <ui-title>设置</ui-title>
     </ui-navbar>
   </ui-header>
-  <ui-content class="container" style="background: #e9eaec;">
-    <ui-refresher>刷新成功！</ui-refresher>
-    <ui-scroll [openRefresh]="true">
-      <ui-slide style="height: 100px;">
-        <ui-slide-item>aaa</ui-slide-item>
-        <ui-slide-item>bbb</ui-slide-item>
-      </ui-slide>
-      <p style="text-align: right">
-        <ui-input type="date" maxDate="2018-4-22" placeholder="test" format="yy-MM" displayFormat="yyyy-MM-dd" title="请选择日期"></ui-input>
-      </p>
-      <!--<div style="width: 100px; height: 100px; background: #000;" (uiPan)="pan($event)"></div>-->
-      <p><a routerLink="../page2">page2</a></p>
-      <p class="text-center">
-        <ui-input type="range"></ui-input>
-      </p>
-      <p>
-        <label for="testId">testId</label>
-        <ui-select forId="testId" [(ngModel)]="name">
-          <ui-option *ngFor="let item of dataList">{{item.name}}</ui-option>
-          <ui-option value="a">aaa</ui-option>
-          <ui-option value="b">bbb</ui-option>
-        </ui-select>
-      </p>
-      <p>
-        <button type="button" (click)="show()"> show</button>
-      </p>
-      <p>
-        <button type="button" (click)="loaded()"> loaded</button>
-      </p>
-      <p>1</p>
-      <p>2</p>
-      <p>3</p>
-      <p>4</p>
-      <p>5</p>
-      <p>6</p>
-      <p>7</p>
-      <p>8</p>
-      <p>9</p>
-      <p>10</p>
-      <p>11</p>
-      <p>12</p>
-      <p>13</p>
-      <p>
-        <button type="button" (click)="refresh()"> refresh</button>
-      </p>
-      <p>14</p>
-      <p>15</p>
-      <p>16</p>
-      <p>17</p>
-      <p>18</p>
-      <p>19</p>
-      <p>20</p>
-    </ui-scroll>
+  <ui-content class="container">
+    <p>
+      <ui-input type="date" [(ngModel)]="date" placeholder="请输入"></ui-input>
+    </p>
+    <p><button type="button" (click)="setDate()">button</button></p>
   </ui-content>
 </ui-page>

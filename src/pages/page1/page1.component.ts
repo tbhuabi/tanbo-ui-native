@@ -1,54 +1,18 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
-import {
-    PullDownRefreshController,
-    ContentLoadingController,
-    AlertController,
-    ConfirmController
-} from '../../modules/index';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     templateUrl: './page1.component.html'
 })
-export class Page1Component implements AfterViewInit, OnInit {
-    name: string = '';
-    dataList: Array<any> = [];
-
-    constructor(private pullDownRefreshController: PullDownRefreshController,
-                private alertController: AlertController,
-                private confirmController: ConfirmController,
-                private contentLoadingController: ContentLoadingController) {
-    }
+export class Page1Component implements OnInit {
+    date: string = '';
 
     ngOnInit() {
-
-        setTimeout(() => {
-            this.dataList = [{name: 'a'}, {name: 'b'}];
-        }, 2000);
-
+        // setTimeout(() => {
+        //     this.date = '2018-03-12'
+        // }, 2000);
     }
 
-    ngAfterViewInit() {
-        this.contentLoadingController.show('正在加载中');
-        // this.pullDownRefreshController.refresh();
-    }
-
-    pan(event: any) {
-        console.log(event.deltaX);
-        // console.log(event.additionalEvent , event.distance);
-    }
-
-    loaded() {
-        this.pullDownRefreshController.refreshEnd();
-    }
-
-    refresh() {
-        this.pullDownRefreshController.refresh();
-    }
-
-    show() {
-        this.confirmController.show({
-            title: 'fdsa',
-            content: '这是一个人'
-        })
+    setDate() {
+        this.date = '2018-03-12'
     }
 }
