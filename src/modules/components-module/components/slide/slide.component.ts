@@ -37,7 +37,7 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
     private timer: any = null;
     private animateId: number;
     private containerWidth: number;
-    private sub: Subscription;
+    private subs: Subscription[] = [];
 
     constructor(private elementRef: ElementRef,
                 private renderer: Renderer2,
@@ -47,24 +47,31 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         this.progress = this.initIndex;
         this.containerWidth = this.elementRef.nativeElement.offsetWidth;
-        this.sub = this.appController.onResize$.subscribe(() => {
+        this.subs.push(this.appController.onResize$.subscribe(() => {
             this.containerWidth = this.elementRef.nativeElement.offsetWidth;
-        });
+        }));
         setTimeout(() => {
             this.updateChildrenStyle(0);
             this.play();
         });
+        this.subs.push(this.items.changes.delay(0).subscribe(() => {
+            this.updateChildrenStyle(0);
+            this.play();
+        }));
     }
 
     ngOnDestroy() {
         clearTimeout(this.timer);
-        this.sub.unsubscribe();
+        this.subs.forEach(item => item.unsubscribe());
     }
 
     @HostListener('touchstart', ['$event'])
     touchStart(event: any) {
         clearTimeout(this.timer);
         cancelAnimationFrame(this.animateId);
+        if (this.items.length < 2) {
+            return;
+        }
         this.containerWidth = this.elementRef.nativeElement.offsetWidth;
         const startX = event.touches[0].pageX;
         const len = this.items.length;
@@ -125,6 +132,9 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
 
     play() {
         clearTimeout(this.timer);
+        if (this.items.length < 2) {
+            return;
+        }
         this.timer = setTimeout(() => {
             this.animate();
         }, this.speed);

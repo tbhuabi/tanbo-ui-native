@@ -6,15 +6,11 @@
     </ui-navbar>
   </ui-header>
   <ui-content class="container">
-    <p>
-      <ui-input type="date" [(ngModel)]="date" placeholder="请输入"></ui-input>
-    </p>
-    <p><button type="button" (click)="setDate()">button</button></p>
-    <p>
-      <ui-select [readonly]="false">
-        <ui-option>aaa</ui-option>
-        <ui-option>bbb</ui-option>
-      </ui-select>
-    </p>
+    <div style="height: 300px; position: relative;">
+      <ui-slide>
+        <ui-slide-item *ngFor="let item of data">{{ item }}</ui-slide-item>
+      </ui-slide>
+    </div>
+    <button type="button" (click)="setState()">button</button>
   </ui-content>
 </ui-page>
