@@ -6,11 +6,29 @@
     </ui-navbar>
   </ui-header>
   <ui-content class="container">
-    <div style="height: 300px; position: relative;">
-      <ui-slide>
-        <ui-slide-item *ngFor="let item of data">{{ item }}</ui-slide-item>
-      </ui-slide>
+    <p>
+      <ui-select>
+        <ui-option disabled>aaa</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option>bbb</ui-option>
+        <ui-option *ngFor="let item of data">{{item}}</ui-option>
+      </ui-select>
+    </p>
+    <div>
+      <ui-segment [(ngModel)]="state">
+        <ui-segment-button value="aaaa">a</ui-segment-button>
+        <ui-segment-button value="bbbb">b</ui-segment-button>
+      </ui-segment>
     </div>
-    <button type="button" (click)="setState()">button</button>
+    <p>{{state}}</p>
   </ui-content>
 </ui-page>

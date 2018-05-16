@@ -3,6 +3,7 @@ ui-tab-bar-item {
     @include flex-center;
     padding-left: $grid-column-padding;
     padding-right: $grid-column-padding;
+    cursor: pointer;
     .icon {
         font-size: $icon-font-size;
     }

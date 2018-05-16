@@ -13,6 +13,8 @@ import { PickerComponent } from './components/picker/picker.component';
 import { PickerColumnComponent } from './components/picker-column/picker-column.component';
 import { RadioComponent } from './components/radio/radio.component';
 import { RangeComponent } from './components/range/range.component';
+import { SegmentComponent } from './components/segment/segment.component';
+import { SegmentButtonComponent } from './components/segment-button/segment-button.component';
 import { SelectComponent } from './components/select/select.component';
 import { SwitchComponent } from './components/switch/switch.component';
 // 指令
@@ -44,6 +46,8 @@ import { RadioStateService } from './components/radio/radio-state.service';
         PickerComponent,
         PickerColumnComponent,
         RangeComponent,
+        SegmentComponent,
+        SegmentButtonComponent,
         SelectComponent,
         SwitchComponent,
 
@@ -65,6 +69,8 @@ import { RadioStateService } from './components/radio/radio-state.service';
         PickerColumnComponent,
         RadioComponent,
         RangeComponent,
+        SegmentComponent,
+        SegmentButtonComponent,
         SelectComponent,
         SwitchComponent,
 

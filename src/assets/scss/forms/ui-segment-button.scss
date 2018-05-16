@@ -1,0 +1,26 @@
+ui-segment-button {
+    cursor: pointer;
+    flex: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+    color: $color-primary;
+    max-width: 100px;
+    border: $border-width solid $color-primary;
+    line-height: 2.2em;
+    transition: all ease-in-out .15s;
+    &:not(:first-of-type) {
+        border-left-width: 0;
+    }
+    &:first-of-type {
+        border-radius: 4px 0 0 4px;
+    }
+    &:last-of-type {
+        border-radius: 0 4px 4px 0;
+    }
+    &.selected {
+        background-color: $color-primary;
+        color: #fff;
+    }
+}

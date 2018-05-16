@@ -1,23 +1,23 @@
 import {
     Component,
+    AfterViewInit,
     Input,
+    HostBinding,
     Output,
     EventEmitter,
-    ElementRef,
-    AfterViewInit,
-    HostBinding,
-    HostListener
+    HostListener,
+    ElementRef
 } from '@angular/core';
 
-import { SelectService } from '../select/select.service';
+import { SegmentService } from '../segment/segment.service';
 
 @Component({
-    selector: 'ui-option',
-    templateUrl: './option.component.html'
+    selector: 'ui-segment-button',
+    templateUrl: './segment-button.component.html'
 })
-export class OptionComponent implements AfterViewInit {
+export class SegmentButtonComponent implements AfterViewInit {
     @Input()
-    value: string = '';
+    value: any = '';
 
     @Input()
     @HostBinding('class.disabled')
@@ -42,20 +42,20 @@ export class OptionComponent implements AfterViewInit {
     }
 
     @Output()
-    checked = new EventEmitter<OptionComponent>();
+    checked = new EventEmitter<SegmentButtonComponent>();
     nativeElement: HTMLElement;
 
     private _disabled: boolean;
     private _selected: boolean;
 
     constructor(private elementRef: ElementRef,
-                private selectService: SelectService) {
+                private segmentService: SegmentService) {
     }
 
     @HostListener('click')
     click() {
         if (!this.disabled) {
-            this.selectService.checked(this);
+            this.segmentService.checked(this);
             this.checked.emit(this);
         }
     }

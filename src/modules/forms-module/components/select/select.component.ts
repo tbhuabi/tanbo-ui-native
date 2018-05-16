@@ -40,6 +40,8 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     change = new EventEmitter<string>();
     @Input()
     selectedIndex: number = 0;
+    @Input()
+    cancelText: string = '取消';
 
     @Input()
     @HostBinding('class.disabled')
@@ -109,6 +111,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
         this.subs.push(this.selectService.onChecked.subscribe((option: OptionComponent) => {
             this.options.forEach((op: OptionComponent, index: number) => {
                 if (op === option) {
+                    op.selected = true;
                     this.value = option.value;
                     this.text = SelectComponent.getTextByElement(option.nativeElement);
                     this.selectedIndex = index;
@@ -120,7 +123,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
                     }
                     this.change.emit(this.value);
                 } else {
-                    option.selected = false;
+                    op.selected = false;
                 }
             });
         }));

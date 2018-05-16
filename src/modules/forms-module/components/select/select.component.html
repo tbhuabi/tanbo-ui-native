@@ -18,5 +18,8 @@
     <div class="ui-select-options">
       <ng-content></ng-content>
     </div>
+    <div class="ui-select-btn-wrap" *ngIf="cancelText">
+      <button type="button" class="ui-select-btn">{{ cancelText }}</button>
+    </div>
   </div>
 </ui-action-sheet>

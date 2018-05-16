@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
 export class Page1Component implements OnInit {
     data: string[] = [];
 
+    state: string = '';
+
     ngOnInit() {
-        // setTimeout(() => {
-        //     this.date = '2018-03-12'
-        // }, 2000);
+        setTimeout(() => {
+            this.data = ['ccc', 'ddd'];
+        }, 2000);
     }
 
     setState() {

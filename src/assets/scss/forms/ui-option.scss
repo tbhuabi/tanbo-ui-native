@@ -9,6 +9,7 @@ ui-option {
     border: 0;
     border-bottom: $border-width solid $color-gray-light;
     color: $color-primary;
+    cursor: pointer;
     &:last-child {
         border-bottom: 0;
     }

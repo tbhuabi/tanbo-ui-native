@@ -20,6 +20,7 @@ button.ui-list-item {
     border: 0;
     border-radius: 0;
     color: inherit;
+    cursor: pointer;
     width: 100%;
     transition: background-color .2s linear;
     padding-right: $list-item-forward-padding-right;
