@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectorRef } from '@angular/core';
 
 @Component({
     selector: 'ui-tab-view-item',
@@ -6,8 +6,24 @@ import { Component, HostBinding, Input } from '@angular/core';
 })
 export class TabViewItemComponent {
     @HostBinding('class.active')
-    active: boolean = false;
+    set active(value: boolean) {
+        this._active = value;
+        if (value) {
+            this.changeDetectorRef.reattach();
+        } else {
+            this.changeDetectorRef.detach();
+        }
+    }
+
+    get active() {
+        return this._active;
+    }
 
     @Input()
     name: string;
+
+    private _active: boolean = false;
+
+    constructor(private changeDetectorRef: ChangeDetectorRef) {
+    }
 }
