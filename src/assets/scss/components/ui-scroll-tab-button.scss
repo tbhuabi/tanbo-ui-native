@@ -4,4 +4,8 @@ ui-scroll-tab-button {
     padding-left: 15px;
     padding-right: 15px;
     white-space: nowrap;
+    transition: color .2s;
+    &.selected {
+        color: $color-primary;
+    }
 }

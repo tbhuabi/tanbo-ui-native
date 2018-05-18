@@ -56,7 +56,8 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        const btns = this.children.toArray().map(item => {
+        const btns = this.children.toArray().map((item, index) => {
+            item.selected = index === this.index;
             return item.elementRef.nativeElement;
         });
 
@@ -67,6 +68,7 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
         element.scrollLeft = this.left + this.lineWidth / 2 - element.offsetWidth / 2;
         this.sub = this.scrollTabService.onSelected.subscribe(c => {
             this.children.forEach((item: ScrollTabButtonComponent, i: number) => {
+                item.selected = item === c;
                 if (item === c) {
                     this.autoUpdateStyle(i);
                     this._index = i;
@@ -86,7 +88,8 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
             return;
         }
 
-        const btns = this.children.toArray().map(item => {
+        const btns = this.children.toArray().map((item, i) => {
+            item.selected = i === index;
             return item.elementRef.nativeElement;
         });
 
