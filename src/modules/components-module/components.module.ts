@@ -32,6 +32,8 @@ import { PageComponent } from './components/page/page.component';
 import { RefresherComponent } from './components/refresher/refresher.component';
 import { RouterComponent } from './components/router/router.component';
 import { ScrollComponent } from './components/scroll/scroll.component';
+import { ScrollTabComponent } from './components/scroll-tab/scroll-tab.component';
+import { ScrollTabButtonComponent } from './components/scroll-tab-button/scroll-tab-button.component';
 import { SlideComponent } from './components/slide/slide.component';
 import { SlideItemComponent } from './components/slide-item/slide-item.component';
 import { TabComponent } from './components/tab/tab.component';
@@ -97,6 +99,8 @@ import { UI_DO_LOAD_DISTANCE } from './controllers/pull-up-load-controller';
         RefresherComponent,
         RouterComponent,
         ScrollComponent,
+        ScrollTabComponent,
+        ScrollTabButtonComponent,
         SlideComponent,
         SlideItemComponent,
         TabComponent,
@@ -143,6 +147,8 @@ import { UI_DO_LOAD_DISTANCE } from './controllers/pull-up-load-controller';
         RefresherComponent,
         RouterComponent,
         ScrollComponent,
+        ScrollTabComponent,
+        ScrollTabButtonComponent,
         SlideComponent,
         SlideItemComponent,
         TabComponent,

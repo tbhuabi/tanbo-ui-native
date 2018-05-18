@@ -46,6 +46,10 @@ ui-select {
     max-height: 300px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
 }
 
 .ui-select-btn-wrap {

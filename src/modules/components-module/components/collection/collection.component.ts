@@ -95,7 +95,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
         this.bindingDragEvent();
         this.stepDistance = this.vertical ? this.element.offsetHeight : this.element.offsetWidth;
         this.distance = this.index * -1 * this.stepDistance;
-        this.transform = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}%)`;
+        this.transform = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}px)`;
     }
 
     ngOnDestroy() {

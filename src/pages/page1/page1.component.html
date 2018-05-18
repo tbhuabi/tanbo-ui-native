@@ -5,30 +5,28 @@
       <ui-title>设置</ui-title>
     </ui-navbar>
   </ui-header>
-  <ui-content class="container">
-    <p>
-      <ui-select>
-        <ui-option disabled>aaa</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option>bbb</ui-option>
-        <ui-option *ngFor="let item of data">{{item}}</ui-option>
-      </ui-select>
-    </p>
-    <div>
-      <ui-segment [(ngModel)]="state">
-        <ui-segment-button value="aaaa">a</ui-segment-button>
-        <ui-segment-button value="bbbb">b</ui-segment-button>
-      </ui-segment>
-    </div>
-    <p>{{state}}</p>
+  <ui-content>
+    <ui-scroll-tab [index]="tabIndex" (change)="setIndex($event)">
+      <ui-scroll-tab-button>第1页</ui-scroll-tab-button>
+      <ui-scroll-tab-button>第23333页</ui-scroll-tab-button>
+      <ui-scroll-tab-button>第3页</ui-scroll-tab-button>
+      <ui-scroll-tab-button>第4页</ui-scroll-tab-button>
+      <ui-scroll-tab-button>第53232页</ui-scroll-tab-button>
+      <ui-scroll-tab-button>第6页</ui-scroll-tab-button>
+      <ui-scroll-tab-button>第7页</ui-scroll-tab-button>
+      <ui-scroll-tab-button>第8页</ui-scroll-tab-button>
+      <ui-scroll-tab-button>第9页</ui-scroll-tab-button>
+    </ui-scroll-tab>
+    <ui-collection [index]="index" style="top: 40px" (sliding)="tab($event)">
+      <ui-collection-item>111</ui-collection-item>
+      <ui-collection-item>222</ui-collection-item>
+      <ui-collection-item>333</ui-collection-item>
+      <ui-collection-item>444</ui-collection-item>
+      <ui-collection-item>555</ui-collection-item>
+      <ui-collection-item>666</ui-collection-item>
+      <ui-collection-item>7777</ui-collection-item>
+      <ui-collection-item>8888</ui-collection-item>
+      <ui-collection-item>9999</ui-collection-item>
+    </ui-collection>
   </ui-content>
 </ui-page>

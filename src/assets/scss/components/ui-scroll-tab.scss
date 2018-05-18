@@ -1,0 +1,36 @@
+ui-scroll-tab {
+    display: block;
+    height: 40px;
+    border-bottom: $border-width solid $color-gray-light;
+}
+
+.ui-scroll-tab {
+    position: relative;
+    height: inherit;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    /*---滚动条大小--*/
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+}
+
+.ui-scroll-tab-wrap {
+    height: inherit;
+    display: table-row;
+    text-align: center;
+    position: relative;
+    z-index: 0;
+}
+
+.ui-scroll-tab-line {
+    position: absolute;
+    bottom: -$border-width;
+    left: 0;
+    height: 2px;
+    background-color: $color-primary;
+    width: 100px;
+    z-index: 1;
+}

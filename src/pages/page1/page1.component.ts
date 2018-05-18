@@ -4,17 +4,18 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './page1.component.html'
 })
 export class Page1Component implements OnInit {
-    data: string[] = [];
+    index: number = 1;
+    tabIndex: number = 1;
 
-    state: string = '';
-
-    ngOnInit() {
-        setTimeout(() => {
-            this.data = ['ccc', 'ddd'];
-        }, 2000);
+    tab(n: number) {
+        this.tabIndex = n;
     }
 
-    setState() {
-        this.data = ['aaa', 'bbb'];
+    ngOnInit() {
+
+    }
+
+    setIndex(n: number) {
+        this.index = n;
     }
 }
