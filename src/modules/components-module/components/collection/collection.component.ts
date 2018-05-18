@@ -34,7 +34,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
         this._index = value;
         if (this.items) {
             cancelAnimationFrame(this.animationId);
-            this.autoUpdateStyle(this.stepDistance * value * -1);
+            this.setStyle();
         }
     }
 
@@ -94,12 +94,16 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
         this.childrenLength = this.items.length;
         this.bindingDragEvent();
         this.stepDistance = this.vertical ? this.element.offsetHeight : this.element.offsetWidth;
-        this.distance = this.index * -1 * this.stepDistance;
-        this.transform = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}px)`;
+        this.setStyle();
     }
 
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+
+    setStyle() {
+        this.distance = this.index * -1 * this.stepDistance;
+        this.transform = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}px)`;
     }
 
     bindingDragEvent() {

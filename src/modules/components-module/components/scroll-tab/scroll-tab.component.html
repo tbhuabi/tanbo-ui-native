@@ -1,6 +1,8 @@
-<div class="ui-scroll-tab" [scrollLeft]="scrollLeft" (scroll)="scroll()" #wrap>
+<div class="ui-scroll-tab" #wrap>
   <div class="ui-scroll-tab-wrap">
     <ng-content></ng-content>
   </div>
-  <div class="ui-scroll-tab-line" [ngStyle]="{width: lineWidth + 'px', transform: 'translateX('+left+'px)'}"></div>
+  <div class="ui-scroll-tab-line-wrap" [ngStyle]="{width: lineWidth + 'px', transform: 'translateX('+left+'px)'}">
+    <div class="ui-scroll-tab-line"></div>
+  </div>
 </div>

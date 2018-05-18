@@ -6,12 +6,12 @@ import {
     ContentChildren,
     QueryList,
     ViewChild,
-    AfterViewInit,
-    ChangeDetectorRef,
+    AfterContentInit,
     OnDestroy,
     ElementRef
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Easing } from '@tweenjs/tween.js';
 
 import { ScrollTabService } from './scroll-tab.service';
 import { ScrollTabButtonComponent } from '../scroll-tab-button/scroll-tab-button.component';
@@ -23,21 +23,18 @@ import { ScrollTabButtonComponent } from '../scroll-tab-button/scroll-tab-button
         ScrollTabService
     ]
 })
-export class ScrollTabComponent implements AfterViewInit, OnDestroy {
+export class ScrollTabComponent implements AfterContentInit, OnDestroy {
     @Input()
     set index(value: number) {
-        this._index = value;
         if (this.children) {
-            this.updateTabAndLineStyle(value);
+            this.autoUpdateStyle(value);
         }
+        this._index = value;
     }
 
     get index() {
         return this._index;
     }
-
-    @Input()
-    vertical: boolean = false;
 
     @Output()
     change = new EventEmitter<number>();
@@ -50,27 +47,29 @@ export class ScrollTabComponent implements AfterViewInit, OnDestroy {
     left: number = 0;
     lineWidth: number = 0;
 
-    scrollLeft: number = 0;
-
-    private targetIndex: number;
-    private openUpdateScroll: boolean = true;
-    private containerWidth: number;
     private _index: number = 0;
     private sub: Subscription;
 
-    constructor(private changeDetectorRef: ChangeDetectorRef,
-                private elementRef: ElementRef,
-                private scrollTabService: ScrollTabService) {
+    private animationId: number;
+
+    constructor(private scrollTabService: ScrollTabService) {
     }
 
-    ngAfterViewInit() {
-        this.updateTabAndLineStyle(this.index);
-        this.containerWidth = this.elementRef.nativeElement.offsetWidth;
+    ngAfterContentInit() {
+        const btns = this.children.toArray().map(item => {
+            return item.elementRef.nativeElement;
+        });
+
+        const element = this.wrap.nativeElement;
+
+        this.lineWidth = btns[this.index].offsetWidth;
+        this.left = btns[this.index].offsetLeft;
+        element.scrollLeft = this.left + this.lineWidth / 2 - element.offsetWidth / 2;
         this.sub = this.scrollTabService.onSelected.subscribe(c => {
             this.children.forEach((item: ScrollTabButtonComponent, i: number) => {
                 if (item === c) {
-                    this.openUpdateScroll = false;
-                    this.targetIndex = i;
+                    this.autoUpdateStyle(i);
+                    this._index = i;
                     this.change.emit(i);
                 }
             });
@@ -81,43 +80,44 @@ export class ScrollTabComponent implements AfterViewInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    updateTabAndLineStyle(progress: number) {
-        if (progress < 0) {
-            progress = 0;
-        } else if (progress > this.children.length - 1) {
-            progress = this.children.length - 1;
+    autoUpdateStyle(index: number) {
+        cancelAnimationFrame(this.animationId);
+        if (index === this.index) {
+            return;
         }
+
         const btns = this.children.toArray().map(item => {
             return item.elementRef.nativeElement;
         });
-        const index: number = Math.floor(progress);
-        const proportion: number = progress % 1;
-        const current = btns[index];
-        const prevWidth = current.offsetWidth;
-        const next = btns[index + 1];
-        this.left = current.offsetLeft + prevWidth * proportion;
-        if (next) {
-            this.lineWidth = prevWidth + (next.offsetWidth - prevWidth) * proportion;
-        } else {
-            this.lineWidth = prevWidth;
+
+        if (!btns[this.index] || !btns[index]) {
+            return;
         }
 
-        if (this.index === this.targetIndex) {
-            this.openUpdateScroll = true;
-        }
+        const element = this.wrap.nativeElement;
+        const oldLineWidth = btns[this.index].offsetWidth;
+        const oldScrollLeft = element.scrollLeft;
+        const oldLeft = this.left;
+        const targetLineWidth = btns[index].offsetWidth;
+        const targetScrollLeft = btns[index].offsetLeft + btns[index].offsetWidth / 2 - element.offsetWidth / 2;
+        const targetLeft = btns[index].offsetLeft;
 
-        if (this.openUpdateScroll) {
-            if (this.left < this.scrollLeft) {
-                this.scrollLeft = this.left;
-            } else if (this.left + this.lineWidth - this.containerWidth > this.scrollLeft) {
-                this.scrollLeft = this.left + this.lineWidth - this.containerWidth;
+        let i = 0;
+
+        const fn = () => {
+            i++;
+            const offset = Easing.Cubic.Out(i / 20);
+            const scrollLeft = offset * (targetScrollLeft - oldScrollLeft);
+            const width = offset * (targetLineWidth - oldLineWidth);
+            const left = offset * (targetLeft - oldLeft);
+            element.scrollLeft = oldScrollLeft + scrollLeft;
+            this.lineWidth = oldLineWidth + width;
+            this.left = oldLeft + left;
+            if (i < 20) {
+                this.animationId = requestAnimationFrame(fn);
             }
-        }
+        };
 
-        this.changeDetectorRef.detectChanges();
-    }
-
-    scroll() {
-        this.scrollLeft = this.wrap.nativeElement.scrollLeft;
+        this.animationId = requestAnimationFrame(fn);
     }
 }

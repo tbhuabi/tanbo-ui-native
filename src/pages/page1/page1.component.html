@@ -10,14 +10,14 @@
       <ui-scroll-tab-button>第1页</ui-scroll-tab-button>
       <ui-scroll-tab-button>第2页</ui-scroll-tab-button>
       <ui-scroll-tab-button>第3页</ui-scroll-tab-button>
-      <ui-scroll-tab-button>第4页</ui-scroll-tab-button>
+      <ui-scroll-tab-button>第444444页</ui-scroll-tab-button>
       <ui-scroll-tab-button>第5页</ui-scroll-tab-button>
       <ui-scroll-tab-button>第6页</ui-scroll-tab-button>
       <ui-scroll-tab-button>第7页</ui-scroll-tab-button>
       <ui-scroll-tab-button>第8页</ui-scroll-tab-button>
       <ui-scroll-tab-button>第9页</ui-scroll-tab-button>
     </ui-scroll-tab>
-    <ui-collection [index]="index" style="top: 40px" (sliding)="tab($event)">
+    <ui-collection [index]="index" style="top: 40px" (slidingFinish)="tab($event)">
       <ui-collection-item>111</ui-collection-item>
       <ui-collection-item>222</ui-collection-item>
       <ui-collection-item>333</ui-collection-item>

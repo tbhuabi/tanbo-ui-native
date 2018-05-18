@@ -25,12 +25,16 @@ ui-scroll-tab {
     z-index: 0;
 }
 
-.ui-scroll-tab-line {
+.ui-scroll-tab-line-wrap {
     position: absolute;
     bottom: 0;
     left: 0;
     height: 2px;
-    background-color: $color-primary;
     width: 100px;
     z-index: 1;
+}
+
+.ui-scroll-tab-line {
+    height: 100%;
+    background-color: $color-primary;
 }
