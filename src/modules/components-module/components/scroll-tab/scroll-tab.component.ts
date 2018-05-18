@@ -52,7 +52,8 @@ export class ScrollTabComponent implements AfterViewInit, OnDestroy {
 
     scrollLeft: number = 0;
 
-    // private offset: number = 0;
+    private targetIndex: number;
+    private openUpdateScroll: boolean = true;
     private containerWidth: number;
     private _index: number = 0;
     private sub: Subscription;
@@ -68,6 +69,8 @@ export class ScrollTabComponent implements AfterViewInit, OnDestroy {
         this.sub = this.scrollTabService.onSelected.subscribe(c => {
             this.children.forEach((item: ScrollTabButtonComponent, i: number) => {
                 if (item === c) {
+                    this.openUpdateScroll = false;
+                    this.targetIndex = i;
                     this.change.emit(i);
                 }
             });
@@ -98,10 +101,17 @@ export class ScrollTabComponent implements AfterViewInit, OnDestroy {
         } else {
             this.lineWidth = prevWidth;
         }
-        if (this.left < this.scrollLeft) {
-            this.scrollLeft = this.left;
-        } else if (this.left + this.lineWidth - this.containerWidth > this.scrollLeft) {
-            this.scrollLeft = this.left + this.lineWidth - this.containerWidth;
+
+        if (this.index === this.targetIndex) {
+            this.openUpdateScroll = true;
+        }
+
+        if (this.openUpdateScroll) {
+            if (this.left < this.scrollLeft) {
+                this.scrollLeft = this.left;
+            } else if (this.left + this.lineWidth - this.containerWidth > this.scrollLeft) {
+                this.scrollLeft = this.left + this.lineWidth - this.containerWidth;
+            }
         }
 
         this.changeDetectorRef.detectChanges();
@@ -109,16 +119,5 @@ export class ScrollTabComponent implements AfterViewInit, OnDestroy {
 
     scroll() {
         this.scrollLeft = this.wrap.nativeElement.scrollLeft;
-
-        // if (this.scrollLeft - this.left > 0) {
-        //     this.offset = this.scrollLeft - this.left;
-        // } else {
-        //     if (this.scrollLeft + 320 < this.left + this.lineWidth) {
-        //         this.offset = this.scrollLeft + 320 - this.left - this.lineWidth;
-        //     } else {
-        //         this.offset = 0;
-        //     }
-        // }
-        // console.log(this.offset);
     }
 }

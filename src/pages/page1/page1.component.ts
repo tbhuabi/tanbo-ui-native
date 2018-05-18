@@ -4,8 +4,8 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './page1.component.html'
 })
 export class Page1Component implements OnInit {
-    index: number = 1;
-    tabIndex: number = 1;
+    index: number = 0;
+    tabIndex: number = 0;
 
     tab(n: number) {
         this.tabIndex = n;

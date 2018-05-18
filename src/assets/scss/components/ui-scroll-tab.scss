@@ -27,7 +27,7 @@ ui-scroll-tab {
 
 .ui-scroll-tab-line {
     position: absolute;
-    bottom: -$border-width;
+    bottom: 0;
     left: 0;
     height: 2px;
     background-color: $color-primary;
