@@ -68,7 +68,6 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
         element.scrollLeft = this.left + this.lineWidth / 2 - element.offsetWidth / 2;
         this.sub = this.scrollTabService.onSelected.subscribe(c => {
             this.children.forEach((item: ScrollTabButtonComponent, i: number) => {
-                item.selected = item === c;
                 if (item === c) {
                     this.autoUpdateStyle(i);
                     this._index = i;
