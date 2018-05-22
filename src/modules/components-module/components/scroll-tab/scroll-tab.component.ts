@@ -69,8 +69,8 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
         this.sub = this.scrollTabService.onSelected.subscribe(c => {
             this.children.forEach((item: ScrollTabButtonComponent, i: number) => {
                 if (item === c) {
-                    this.autoUpdateStyle(i);
-                    this._index = i;
+                    // this.autoUpdateStyle(i);
+                    // this._index = i;
                     this.change.emit(i);
                 }
             });

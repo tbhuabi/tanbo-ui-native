@@ -74,7 +74,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     private slidingEvent$: Observable<number>;
     private slidingEventSource = new Subject<number>();
 
-    private sub: Subscription;
+    private subs: Array<Subscription> = [];
     private element: HTMLElement;
     private containerElement: HTMLElement;
     private animationId: number;
@@ -88,9 +88,14 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     ngAfterContentInit() {
         this.element = this.elementRef.nativeElement;
         this.containerElement = this.container.nativeElement;
-        this.sub = this.slidingEvent$.distinctUntilChanged().subscribe((n: number) => {
+        this.subs.push(this.slidingEvent$.distinctUntilChanged().subscribe((n: number) => {
             this.sliding.emit(n);
-        });
+        }));
+
+        this.subs.push(this.items.changes.subscribe(_ => {
+            this.childrenLength = this.items.length;
+        }));
+
         this.childrenLength = this.items.length;
         this.bindingDragEvent();
         this.stepDistance = this.vertical ? this.element.offsetHeight : this.element.offsetWidth;
@@ -98,7 +103,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.subs.forEach(item => item.unsubscribe());
     }
 
     setStyle() {

@@ -4,15 +4,15 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './page1.component.html'
 })
 export class Page1Component implements OnInit {
-    index: number = 4;
-    tabIndex: number = 4;
+    index: number = 0;
 
-    tab(n: number) {
-        this.tabIndex = n;
-    }
+    list: string[] = [];
 
     ngOnInit() {
-
+        setTimeout(() => {
+            this.list.push('222');
+            this.list.push('3333');
+        }, 4000);
     }
 
     setIndex(n: number) {
