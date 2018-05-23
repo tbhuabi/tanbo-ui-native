@@ -63,7 +63,15 @@ export class Page2Component implements OnInit {
     }];
 
     ngOnInit() {
-        console.log('page2');
+        // console.log('page2');
+    }
+
+    uiOnViewEnter() {
+        console.log('page2 enter');
+    }
+
+    uiOnViewLeave() {
+        console.log('page2 leave');
     }
 
     show(a: any) {

@@ -18,4 +18,12 @@ export class Page1Component implements OnInit {
     setIndex(n: number) {
         this.index = n;
     }
+
+    uiOnViewEnter() {
+        console.log('page1 enter');
+    }
+
+    uiOnViewLeave() {
+        console.log('page1 leave');
+    }
 }

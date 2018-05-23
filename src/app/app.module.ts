@@ -13,6 +13,7 @@ import {
 } from '../modules/index';
 
 import { AppComponent } from './app';
+import { TabComponent } from '../pages/tab/tab.component';
 import { Page1Component } from '../pages/page1/page1.component';
 import { Page2Component } from '../pages/page2/page2.component';
 
@@ -28,6 +29,7 @@ import { Page2Component } from '../pages/page2/page2.component';
     ],
     declarations: [
         AppComponent,
+        TabComponent,
         Page1Component,
         Page2Component
     ],

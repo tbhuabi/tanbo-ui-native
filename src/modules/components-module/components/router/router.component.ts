@@ -8,6 +8,7 @@ import {
     ComponentRef,
     ComponentFactory,
     ComponentFactoryResolver,
+    Optional,
     Inject
 } from '@angular/core';
 import { ChildrenOutletContexts, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
@@ -18,6 +19,7 @@ import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
 import { ViewState } from '../view/view-state.service';
 import { RouterService } from './router.service';
 import { RouteCacheController } from './route-cache-controller';
+import { TabViewItemService } from '../tab-view-item/tab-view-item.service';
 
 export interface RouterItemConfig {
     state: ViewState;
@@ -82,14 +84,23 @@ export class RouterComponent implements OnInit, OnDestroy {
                 private resolver: ComponentFactoryResolver,
                 private routeCacheController: RouteCacheController,
                 private location: Location,
+                @Optional() private tabViewItemService: TabViewItemService,
                 @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number) {
     }
 
     ngOnInit() {
-
         this.subs.push(this.routeCacheController.hasCache$.distinctUntilChanged().subscribe(b => {
             this.isBack = !b;
         }));
+        if (this.tabViewItemService) {
+            this.subs.push(this.tabViewItemService.activateState.subscribe(b => {
+                if (b) {
+                    this.setViewState([ViewState.Activate]);
+                } else {
+                    this.setViewState([ViewState.ToStack]);
+                }
+            }));
+        }
 
         this.parentContexts.onChildOutletCreated(this.name, this as any);
 
