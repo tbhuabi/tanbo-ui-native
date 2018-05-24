@@ -30,7 +30,7 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
     steps: number = 35;
 
     get index(): number {
-        return Math.floor(this.progress);
+        return Math.ceil(this.progress - 0.5) % this.items.length;
     }
 
     private progress: number = 0;
@@ -72,9 +72,15 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
         if (this.items.length < 2) {
             return;
         }
-        this.containerWidth = this.elementRef.nativeElement.offsetWidth;
+        const element = this.elementRef.nativeElement;
+        this.containerWidth = element.offsetWidth;
         const startX = event.touches[0].pageX;
         const len = this.items.length;
+
+        let moveX: number;
+
+        let startTime: number = Date.now();
+        let entTime: number;
 
         let unTouchMoveFn: () => void;
         let unTouchEndFn: () => void;
@@ -86,7 +92,19 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
             let min = 0;
             const max = 20;
             const p = this.progress;
-            const target = p % 1 > 0.5 ? Math.ceil(this.progress) : Math.floor(this.progress);
+
+            const offset = startX - moveX;
+            let target: number;
+
+            if (entTime - startTime < 200 && Math.abs(offset) > 80) {
+                if (offset > 0) {
+                    target = Math.floor(p) + 1;
+                } else {
+                    target = Math.floor(p);
+                }
+            } else {
+                target = p % 1 > 0.5 ? Math.ceil(p) : Math.floor(p);
+            }
             const distance = target - p;
 
             const updateStyle = () => {
@@ -96,14 +114,23 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
                 } else {
                     this.play();
                 }
-                this.progress = (p + Easing.Cubic.InOut(min / max) * distance) % len;
+                this.progress = (p + Easing.Cubic.Out(min / max) * distance) % len;
                 this.updateChildrenStyle(this.progress);
             };
             this.animateId = requestAnimationFrame(updateStyle);
         };
 
-        unTouchMoveFn = this.renderer.listen('document', 'touchmove', (event: any) => {
-            const moveX = event.touches[0].pageX;
+        const unbindFn = (event: any) => {
+            entTime = Date.now();
+            unTouchMoveFn();
+            unTouchEndFn();
+            unTouchCancelFn();
+            event.stopPropagation();
+            autoUpdateStyle();
+        };
+
+        unTouchMoveFn = this.renderer.listen(element, 'touchmove', (event: any) => {
+            moveX = event.touches[0].pageX;
             this.progress = oldProgress - (moveX - startX) / this.containerWidth;
             if (this.progress < 0) {
                 this.progress += len;
@@ -112,20 +139,8 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
             event.stopPropagation();
         });
 
-        unTouchEndFn = this.renderer.listen('document', 'touchend', (event: any) => {
-            unTouchMoveFn();
-            unTouchEndFn();
-            unTouchCancelFn();
-            event.stopPropagation();
-            autoUpdateStyle();
-        });
-        unTouchCancelFn = this.renderer.listen('document', 'touchcancel', (event: any) => {
-            unTouchMoveFn();
-            unTouchEndFn();
-            unTouchCancelFn();
-            event.stopPropagation();
-            autoUpdateStyle();
-        });
+        unTouchEndFn = this.renderer.listen(element, 'touchend', unbindFn);
+        unTouchCancelFn = this.renderer.listen(element, 'touchcancel', unbindFn);
 
         event.stopPropagation();
     }

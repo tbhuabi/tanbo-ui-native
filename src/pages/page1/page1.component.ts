@@ -6,12 +6,18 @@ import { Component, OnInit } from '@angular/core';
 export class Page1Component implements OnInit {
     index: number = 0;
 
-    list: string[] = [];
+    list: any[] = [];
 
     ngOnInit() {
         setTimeout(() => {
-            this.list.push('222');
-            this.list.push('3333');
+            this.list.push({
+                color: 'darkcyan',
+                value: 22222
+            });
+            this.list.push({
+                color: '#a6aab1',
+                value: 33333
+            });
         }, 1000);
     }
 

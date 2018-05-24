@@ -1,5 +1,5 @@
 <div class="ui-slide-group">
-  <ng-content select="ui-slide-item"></ng-content>
+  <ng-content></ng-content>
 </div>
 <div class="ui-slide-buttons" *ngIf="items.length > 1">
   <div *ngFor="let item of items; let i = index" [ngClass]="{active: i === index}"></div>

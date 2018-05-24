@@ -6,12 +6,9 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-scroll-tab [index]="index" (change)="setIndex($event)">
-      <ui-scroll-tab-button *ngFor="let item of list">{{ item }}</ui-scroll-tab-button>
-    </ui-scroll-tab>
-    <ui-collection [index]="index" style="top: 40px" (slidingFinish)="setIndex($event)">
-      <ui-collection-item>111</ui-collection-item>
-      <ui-collection-item *ngFor="let item of list">{{ item }}</ui-collection-item>
-    </ui-collection>
+    <ui-slide style="height: 200px">
+      <ui-slide-item style="background-color: green;">00000000</ui-slide-item>
+      <ui-slide-item [style.backgroundColor]="item.color" *ngFor="let item of list">{{ item.value }}</ui-slide-item>
+    </ui-slide>
   </ui-content>
 </ui-page>
