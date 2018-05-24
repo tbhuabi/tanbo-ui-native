@@ -12,7 +12,7 @@ export class Page1Component implements OnInit {
         setTimeout(() => {
             this.list.push('222');
             this.list.push('3333');
-        }, 4000);
+        }, 1000);
     }
 
     setIndex(n: number) {

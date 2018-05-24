@@ -48,7 +48,7 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
     lineWidth: number = 0;
 
     private _index: number = 0;
-    private sub: Subscription;
+    private subs: Subscription[] = [];
 
     private animationId: number;
 
@@ -56,6 +56,26 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
+        this.initStyle();
+        this.subs.push(this.children.changes.delay(0).subscribe(() => {
+            this.initStyle();
+        }));
+        this.subs.push(this.scrollTabService.onSelected.subscribe(c => {
+            this.children.forEach((item: ScrollTabButtonComponent, i: number) => {
+                if (item === c) {
+                    // this.autoUpdateStyle(i);
+                    // this._index = i;
+                    this.change.emit(i);
+                }
+            });
+        }));
+    }
+
+    ngOnDestroy() {
+        this.subs.forEach(item => item.unsubscribe());
+    }
+
+    initStyle() {
         if (this.children.length === 0) {
             return;
         }
@@ -69,19 +89,6 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
         this.lineWidth = btns[this.index].offsetWidth;
         this.left = btns[this.index].offsetLeft;
         element.scrollLeft = this.left + this.lineWidth / 2 - element.offsetWidth / 2;
-        this.sub = this.scrollTabService.onSelected.subscribe(c => {
-            this.children.forEach((item: ScrollTabButtonComponent, i: number) => {
-                if (item === c) {
-                    // this.autoUpdateStyle(i);
-                    // this._index = i;
-                    this.change.emit(i);
-                }
-            });
-        });
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 
     autoUpdateStyle(index: number) {
