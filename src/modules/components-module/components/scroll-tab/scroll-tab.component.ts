@@ -56,6 +56,9 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
+        if (this.children.length === 0) {
+            return;
+        }
         const btns = this.children.toArray().map((item, index) => {
             item.selected = index === this.index;
             return item.elementRef.nativeElement;
