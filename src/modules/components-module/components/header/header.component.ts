@@ -2,7 +2,7 @@ import { Component, HostBinding, Inject, OnDestroy, OnInit } from '@angular/core
 import { Subscription } from 'rxjs';
 
 import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
-import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
+import { ViewState, ViewStateService, UI_VIEW_INIT_STATE } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-header',
@@ -13,40 +13,40 @@ export class HeaderComponent implements OnInit, OnDestroy {
     @HostBinding('style.opacity')
     opacity: number;
 
-    private sub: Subscription;
-    private state: ViewState;
+    private subs: Array<Subscription> = [];
 
     constructor(private viewStateService: ViewStateService,
+                @Inject(UI_VIEW_INIT_STATE) private state: ViewState,
                 @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number) {
     }
 
     ngOnInit() {
         const steps = this.steps;
-        this.sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
-            switch (status.state) {
+        this.subs.push(this.viewStateService.state.subscribe(state => {
+            this.state = state;
+        }));
+        this.subs.push(this.viewStateService.touchProgress.subscribe(p => {
+            if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
+                this.opacity = 1 - p / steps;
+            }
+        }));
+        this.subs.push(this.viewStateService.progress.subscribe((p: number) => {
+            switch (this.state) {
                 case ViewState.Activate:
-                    this.state = status.state;
-                    this.opacity = status.progress / steps;
+                    this.opacity = p / steps;
                     break;
                 case ViewState.Destroy:
-                    this.state = status.state;
-                    this.opacity = 1 - status.progress / steps;
+                    this.opacity = 1 - p / steps;
                     break;
                 case ViewState.ToStack:
                 case ViewState.Reactivate:
-                    this.state = status.state;
                     this.opacity = 1;
                     break;
-                case ViewState.Moving:
-                    if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
-                        this.opacity = 1 - status.progress / steps;
-                    }
-                    break;
             }
-        });
+        }));
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.subs.forEach(item => item.unsubscribe());
     }
 }

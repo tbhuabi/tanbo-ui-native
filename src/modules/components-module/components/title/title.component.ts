@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { CubicBezier } from 'tanbo-bezier';
 
 import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
-import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
+import { ViewState, ViewStateService, UI_VIEW_INIT_STATE } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-title',
@@ -28,13 +28,13 @@ export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
     @ViewChild('content')
     contentElement: ElementRef;
 
-    private sub: Subscription;
-    private state: ViewState;
+    private subs: Array<Subscription> = [];
     private docWidth: number;
     private contentWidth: number = 0;
     private translateDistance: number;
 
     constructor(@Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number,
+                @Inject(UI_VIEW_INIT_STATE) private state: ViewState,
                 private elementRef: ElementRef,
                 private viewStateService: ViewStateService) {
     }
@@ -48,44 +48,45 @@ export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
     ngOnInit() {
         const steps = this.steps;
         const bezier = new CubicBezier(.36, .66, .04, 1);
-        this.sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
-            const progress = bezier.update(status.progress / steps);
+        this.subs.push(this.viewStateService.state.subscribe(state => {
+            this.state = state;
+        }));
+        this.subs.push(this.viewStateService.touchProgress.subscribe(p => {
+            let translate: number;
+            if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
+                this.translate = `translate3d(${p / steps * 100 * 0.7}%, 0, 0)`;
+            } else if (this.state === ViewState.ToStack) {
+                translate = -this.translateDistance + this.translateDistance * p / steps;
+                this.translate = `translate3d(${translate}px, 0, 0)`;
+                this.opacity = 0.9 + 0.1 * p / steps;
+            }
+        }));
+        this.subs.push(this.viewStateService.progress.subscribe((p: number) => {
+            const progress = bezier.update(p / steps);
             let n: number;
             let translate: number;
-            switch (status.state) {
+            switch (this.state) {
                 case ViewState.Activate:
-                    this.state = status.state;
+                    this.opacity = 1;
                     this.translate = `translate3d(${70 - progress * 70}%, 0, 0)`;
                     break;
                 case ViewState.Destroy:
-                    this.state = status.state;
+                    this.opacity = 1;
                     this.translate = `translate3d(${progress * 70}%, 0, 0)`;
                     break;
                 case ViewState.ToStack:
-                    this.state = status.state;
                     this.translate = `translate3d(${-progress * this.translateDistance}px, 0, 0)`;
                     n = 1 - progress * 1.3;
                     this.opacity = n < 0 ? 0 : n;
                     break;
                 case ViewState.Reactivate:
-                    this.state = status.state;
                     translate = -this.translateDistance + this.translateDistance * progress;
                     this.translate = `translate3d(${translate}px, 0, 0)`;
                     n = progress * 2;
                     this.opacity = n > 1 ? 1 : n;
                     break;
-                case ViewState.Moving:
-                    if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
-                        this.translate = `translate3d(${status.progress / steps * 100 * 0.7}%, 0, 0)`;
-                    } else if (this.state === ViewState.ToStack) {
-                        translate = -this.translateDistance + this.translateDistance * status.progress / steps;
-                        this.translate = `translate3d(${translate}px, 0, 0)`;
-                        this.opacity = 0.9 + 0.1 * status.progress / steps;
-                    }
-                    break;
-
             }
-        });
+        }));
     }
 
     ngAfterViewInit() {
@@ -95,6 +96,6 @@ export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.subs.forEach(item => item.unsubscribe());
     }
 }

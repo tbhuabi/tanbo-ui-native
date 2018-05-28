@@ -1,19 +1,11 @@
-import { Injectable, InjectionToken } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
 
-export enum ViewState {
-    Activate = 'Activate',
-    ToStack = 'ToStack',
-    Destroy = 'Destroy',
-    Reactivate = 'Reactivate',
-    Sleep = 'Sleep',
-    Moving = 'Moving'
-}
-
-export const UI_VIEW_INIT_STATE = new InjectionToken<ViewState>('UI_VIEW_INIT_STATE');
+import { ViewState } from '../view/view-state.service';
 
 @Injectable()
-export class ViewStateService {
+@Injectable()
+export class TabViewService {
     state: Observable<ViewState>;
     progress: Observable<number>;
     touchProgress: Observable<number>;

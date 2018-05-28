@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 import { CubicBezier } from 'tanbo-bezier';
 
 import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME } from '../../config';
-import { ViewAnimationStatus, ViewState, ViewStateService } from '../view/view-state.service';
+import { ViewState, ViewStateService, UI_VIEW_INIT_STATE } from '../view/view-state.service';
 import { AppController } from '../app/app-controller';
 
 @Component({
@@ -35,7 +35,6 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     closeBackHandle: boolean = false;
 
     private subs: Array<Subscription> = [];
-    private state: ViewState;
     private docWidth: number;
     private contentWidth: number;
     private leftDistance: number;
@@ -46,6 +45,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(@Inject(DOCUMENT) private document: Document,
                 @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number,
                 @Inject(UI_BACK_ICON_CLASSNAME) iconName: string,
+                @Inject(UI_VIEW_INIT_STATE) private state: ViewState,
                 private location: Location,
                 private router: Router,
                 private appController: AppController,
@@ -80,48 +80,50 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
 
         const steps = this.steps;
         const bezier = new CubicBezier(.36, .66, .04, 1);
-        const sub = this.viewStateService.state$.subscribe((status: ViewAnimationStatus) => {
-            const progress = bezier.update(status.progress / steps);
-
-            let n: number = status.progress / 50;
+        this.subs.push(this.viewStateService.state.subscribe((state: ViewState) => {
+            this.state = state;
+        }));
+        this.subs.push(this.viewStateService.touchProgress.subscribe(p => {
+            const progress = bezier.update(p / steps);
+            let n: number = p / 50;
             let m: number;
-            switch (status.state) {
+            if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
+                this.translate = `translate3d(${p / steps * this.translateDistance}px, 0, 0)`;
+                m = 1 - n;
+                this.opacity = m < 0 ? 0 : m;
+            } else if (this.state === ViewState.ToStack) {
+                this.translate = `translate3d(${-50 + 50 * p / steps}%, 0, 0)`;
+                m = progress * 2;
+                this.opacity = m > 1 ? 1 : m;
+            }
+        }));
+        this.subs.push(this.viewStateService.progress.subscribe((p: number) => {
+            const progress = bezier.update(p / steps);
+
+            let n: number = p / 50;
+            let m: number;
+            switch (this.state) {
                 case ViewState.Activate:
-                    this.state = status.state;
+                    this.opacity = 1;
                     let distance = this.translateDistance - progress * this.translateDistance;
                     this.translate = `translate3d(${distance}px, 0, 0)`;
                     break;
                 case ViewState.Destroy:
-                    this.state = status.state;
+                    this.opacity = 1;
                     this.translate = `translate3d(${this.translateDistance * progress}px, 0, 0)`;
                     break;
                 case ViewState.ToStack:
-                    this.state = status.state;
                     this.translate = `translate3d(${-progress * 100}%, 0, 0)`;
                     m = 1 - n;
                     this.opacity = m < 0 ? 0 : m;
                     break;
                 case ViewState.Reactivate:
-                    this.state = status.state;
                     this.translate = `translate3d(${-50 + progress * 50}%, 0, 0)`;
                     m = progress * 2;
                     this.opacity = m > 1 ? 1 : m;
                     break;
-                case ViewState.Moving:
-                    if (this.state === ViewState.Activate || this.state === ViewState.Reactivate) {
-                        this.translate = `translate3d(${status.progress / steps * this.translateDistance}px, 0, 0)`;
-                        m = 1 - n;
-                        this.opacity = m < 0 ? 0 : m;
-                    } else if (this.state === ViewState.ToStack) {
-                        this.translate = `translate3d(${-50 + 50 * status.progress / steps}%, 0, 0)`;
-                        m = progress * 2;
-                        this.opacity = m > 1 ? 1 : m;
-                    }
-                    break;
             }
-        });
-
-        this.subs.push(sub);
+        }));
     }
 
     ngAfterViewInit() {

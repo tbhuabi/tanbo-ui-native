@@ -15,7 +15,7 @@ import { ActivatedRoute, ChildrenOutletContexts } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { ComponentHostDirective } from './component-host.directive';
-import { ViewState, ViewStateService } from './view-state.service';
+import { ViewState, ViewStateService, UI_VIEW_INIT_STATE } from './view-state.service';
 import { ContentLoadingController } from '../content-loading/content-loading.service';
 import { RouterService } from '../router/router.service';
 import { PullDownRefreshController } from '../../controllers/pull-down-refresh-controller';
@@ -45,16 +45,21 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     @Input()
     set state(value) {
-        this._state = value;
+        if (value === this._state) {
+            return;
+        }
         // 根据视图不同状态，调用生命周期勾子
+        this.viewStateService.changeState(value);
         if (this.childInstance) {
             switch (value) {
                 case ViewState.Activate:
                 case ViewState.Reactivate:
-                    if (typeof this.childInstance['uiOnViewEnter'] === 'function') {
-                        this.childInstance['uiOnViewEnter']();
+                    if (this._state !== ViewState.Activate && this._state !== ViewState.Reactivate) {
+                        if (typeof this.childInstance['uiOnViewEnter'] === 'function') {
+                            this.childInstance['uiOnViewEnter']();
+                        }
+                        this.routerService.publish(this.componentRef);
                     }
-                    this.routerService.publish(this.componentRef);
                     break;
                 case ViewState.ToStack:
                 case ViewState.Destroy:
@@ -69,6 +74,8 @@ export class ViewComponent implements OnInit, OnDestroy {
                 this.changeDetectorRef.reattach();
             }
         }
+
+        this._state = value;
     }
 
     @ViewChild(ComponentHostDirective)
@@ -102,6 +109,7 @@ export class ViewComponent implements OnInit, OnDestroy {
             const injector = new ViewInjector(
                 this.activatedRoute || this._activatedRoute,
                 this.parentContexts,
+                this.state,
                 this.viewContainerRef.injector);
             this.componentRef = this.componentHost.viewContainerRef.createComponent(
                 this.componentFactory,
@@ -115,18 +123,12 @@ export class ViewComponent implements OnInit, OnDestroy {
         }
         this.subs.push(this.routerService.animationProgress$.subscribe(progress => {
             if (this.state !== ViewState.Sleep) {
-                this.viewStateService.publish({
-                    state: this.state,
-                    progress
-                });
+                this.viewStateService.updateProgress(progress);
             }
         }));
         this.subs.push(this.routerService.moveBackProgress$.subscribe(progress => {
             if (this.state !== ViewState.Sleep && this.openMoveBack) {
-                this.viewStateService.publish({
-                    state: ViewState.Moving,
-                    progress
-                });
+                this.viewStateService.touching(progress);
             }
         }));
 
@@ -143,7 +145,9 @@ export class ViewComponent implements OnInit, OnDestroy {
 }
 
 class ViewInjector implements Injector {
-    constructor(private route: ActivatedRoute, private childContexts: ChildrenOutletContexts,
+    constructor(private route: ActivatedRoute,
+                private childContexts: ChildrenOutletContexts,
+                private initState: ViewState,
                 private parent: Injector) {
     }
 
@@ -154,6 +158,10 @@ class ViewInjector implements Injector {
 
         if (token === ChildrenOutletContexts) {
             return this.childContexts;
+        }
+
+        if (token === UI_VIEW_INIT_STATE) {
+            return this.initState;
         }
 
         return this.parent.get(token, notFoundValue);

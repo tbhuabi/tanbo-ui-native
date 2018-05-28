@@ -6,9 +6,6 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-slide style="height: 200px">
-      <ui-slide-item style="background-color: green;">00000000</ui-slide-item>
-      <ui-slide-item [style.backgroundColor]="item.color" *ngFor="let item of list">{{ item.value }}</ui-slide-item>
-    </ui-slide>
+    <a routerLink="/page2">page2</a>
   </ui-content>
 </ui-page>

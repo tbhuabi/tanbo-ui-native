@@ -16,10 +16,11 @@ import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
-import { ViewState } from '../view/view-state.service';
+import { ViewState, UI_VIEW_INIT_STATE } from '../view/view-state.service';
 import { RouterService } from './router.service';
 import { RouteCacheController } from './route-cache-controller';
 import { TabViewItemService } from '../tab-view-item/tab-view-item.service';
+import { TabViewService } from '../tab-view/tab-view.service';
 
 export interface RouterItemConfig {
     state: ViewState;
@@ -85,6 +86,8 @@ export class RouterComponent implements OnInit, OnDestroy {
                 private routeCacheController: RouteCacheController,
                 private location: Location,
                 @Optional() private tabViewItemService: TabViewItemService,
+                @Optional() private tabViewService: TabViewService,
+                @Optional() @Inject(UI_VIEW_INIT_STATE) private state: ViewState,
                 @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number) {
     }
 
@@ -99,6 +102,18 @@ export class RouterComponent implements OnInit, OnDestroy {
                 } else {
                     this.setViewState([ViewState.ToStack]);
                 }
+            }));
+        }
+
+        if (this.tabViewService) {
+            this.subs.push(this.tabViewService.state.subscribe(state => {
+                this.setViewState([state]);
+            }));
+            this.subs.push(this.tabViewService.progress.subscribe(p => {
+                this.routerService.publishAnimationProgress(p);
+            }));
+            this.subs.push(this.tabViewService.touchProgress.subscribe(p => {
+                this.routerService.publishMoveBackProgress(p);
             }));
         }
 
@@ -181,15 +196,22 @@ export class RouterComponent implements OnInit, OnDestroy {
             this.views.unshift({
                 state: ViewState.Reactivate,
                 componentFactory: resolver.resolveComponentFactory(component),
-                childContexts: childContexts,
+                childContexts,
                 activatedRoute
             });
         } else {
             this.setViewState([ViewState.ToStack]);
+            let state: ViewState;
+            if (this.state) {
+                state = this.state;
+                this.state = null;
+            } else {
+                state = ViewState.Activate;
+            }
             this.views.push({
-                state: ViewState.Activate,
+                state,
                 componentFactory: resolver.resolveComponentFactory(component),
-                childContexts: childContexts,
+                childContexts,
                 activatedRoute
             });
         }
