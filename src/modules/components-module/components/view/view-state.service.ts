@@ -12,6 +12,8 @@ export enum ViewState {
 
 export const UI_VIEW_INIT_STATE = new InjectionToken<ViewState>('UI_VIEW_INIT_STATE');
 
+export const UI_VIEW_INIT_TOUCH_BACK = new InjectionToken<boolean>('UI_VIEW_INIT_TOUCH_BACK');
+
 @Injectable()
 export class ViewStateService {
     state: Observable<ViewState>;

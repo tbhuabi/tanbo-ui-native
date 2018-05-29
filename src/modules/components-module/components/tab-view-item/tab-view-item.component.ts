@@ -1,6 +1,8 @@
-import { Component, HostBinding, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { TabViewItemService } from './tab-view-item.service';
+import { ViewStateService } from '../view/view-state.service';
 
 @Component({
     selector: 'ui-tab-view-item',
@@ -9,7 +11,7 @@ import { TabViewItemService } from './tab-view-item.service';
         TabViewItemService
     ]
 })
-export class TabViewItemComponent {
+export class TabViewItemComponent implements OnDestroy, OnInit {
     @HostBinding('class.active')
     set active(value: boolean) {
         this._active = value;
@@ -34,8 +36,26 @@ export class TabViewItemComponent {
 
     private _active: boolean = false;
     private isInit: boolean = false;
+    private subs: Array<Subscription> = [];
 
     constructor(private changeDetectorRef: ChangeDetectorRef,
+                private viewStateService: ViewStateService,
                 private tabViewItemService: TabViewItemService) {
+    }
+
+    ngOnInit() {
+        this.subs.push(this.viewStateService.state.subscribe(state => {
+            this.tabViewItemService.changeState(state);
+        }));
+        this.subs.push(this.viewStateService.progress.subscribe(p => {
+            this.tabViewItemService.updateProgress(p);
+        }));
+        this.subs.push(this.viewStateService.touchProgress.subscribe(p => {
+            this.tabViewItemService.touching(p);
+        }));
+    }
+
+    ngOnDestroy() {
+        this.subs.forEach(item => item.unsubscribe());
     }
 }

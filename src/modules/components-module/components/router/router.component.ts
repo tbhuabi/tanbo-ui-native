@@ -8,6 +8,7 @@ import {
     ComponentRef,
     ComponentFactory,
     ComponentFactoryResolver,
+    ViewContainerRef,
     Optional,
     Inject
 } from '@angular/core';
@@ -16,11 +17,10 @@ import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { UI_ROUTER_ANIMATION_STEPS } from '../../config';
-import { ViewState, UI_VIEW_INIT_STATE } from '../view/view-state.service';
+import { ViewState, UI_VIEW_INIT_STATE, UI_VIEW_INIT_TOUCH_BACK } from '../view/view-state.service';
 import { RouterService } from './router.service';
 import { RouteCacheController } from './route-cache-controller';
 import { TabViewItemService } from '../tab-view-item/tab-view-item.service';
-import { TabViewService } from '../tab-view/tab-view.service';
 
 export interface RouterItemConfig {
     state: ViewState;
@@ -50,7 +50,7 @@ export class RouterComponent implements OnInit, OnDestroy {
     views: Array<RouterItemConfig> = [];
 
     get openMoveBack(): boolean {
-        return this.views.length > 1;
+        return this.views.length > 1 || this.initTouchBack;
     }
 
     get isActivated(): boolean {
@@ -84,10 +84,11 @@ export class RouterComponent implements OnInit, OnDestroy {
                 private routerService: RouterService,
                 private resolver: ComponentFactoryResolver,
                 private routeCacheController: RouteCacheController,
+                private viewContainerRef: ViewContainerRef,
                 private location: Location,
                 @Optional() private tabViewItemService: TabViewItemService,
-                @Optional() private tabViewService: TabViewService,
                 @Optional() @Inject(UI_VIEW_INIT_STATE) private state: ViewState,
+                @Optional() @Inject(UI_VIEW_INIT_TOUCH_BACK) private initTouchBack: boolean,
                 @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number) {
     }
 
@@ -103,17 +104,14 @@ export class RouterComponent implements OnInit, OnDestroy {
                     this.setViewState([ViewState.ToStack]);
                 }
             }));
-        }
-
-        if (this.tabViewService) {
-            this.subs.push(this.tabViewService.state.subscribe(state => {
+            this.subs.push(this.tabViewItemService.state.subscribe(state => {
                 this.setViewState([state]);
             }));
-            this.subs.push(this.tabViewService.progress.subscribe(p => {
+            this.subs.push(this.tabViewItemService.progress.subscribe(p => {
                 this.routerService.publishAnimationProgress(p);
             }));
-            this.subs.push(this.tabViewService.touchProgress.subscribe(p => {
-                this.routerService.publishMoveBackProgress(p);
+            this.subs.push(this.tabViewItemService.touchProgress.subscribe(p => {
+                this.routerService.parentTouching(p);
             }));
         }
 
@@ -131,13 +129,18 @@ export class RouterComponent implements OnInit, OnDestroy {
             this.activated = componentRef;
         }));
 
+        const parentRouterService = this.viewContainerRef.parentInjector.get(RouterService, null);
+
         this.subs.push(this.routerService.moveBackProgress$.subscribe(progress => {
             if (progress <= 0) {
                 this.setViewState([ViewState.Sleep, ViewState.Activate]);
             } else {
                 this.setViewState([ViewState.ToStack, ViewState.Activate]);
             }
-            if (progress >= this.steps && this.openMoveBack) {
+
+            if (parentRouterService && this.views.length <= 1) {
+                parentRouterService.publishMoveBackProgress(progress);
+            } else if (progress >= this.steps && this.openMoveBack) {
                 this.isMoveBack = true;
                 this.location.back();
             }

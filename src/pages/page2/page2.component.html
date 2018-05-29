@@ -1,89 +1,12 @@
 <ui-page>
   <ui-header>
     <ui-navbar>
-      <ui-back>page1</ui-back>
+      <ui-back>back</ui-back>
       <ui-title>page2</ui-title>
     </ui-navbar>
   </ui-header>
   <ui-content class="container">
-    <ui-collection (slidingFinish)="show($event)">
-      <ui-collection-item style="background-color: palegoldenrod;">
-        <ui-scroll>
-
-          <p><a routerLink="/tab">tab</a></p>
-          <div>
-            <ui-picker [data]="data" (change)="show($event)" placeholder="aaaaa" title="测试标题">
-              <div>fdsafdsa</div>
-            </ui-picker>
-
-          </div>
-          <p>
-            <ui-input type="range"></ui-input>
-          </p>
-          <div>
-            <ui-input type="radio" uncheckedIcon="" checkedIcon="" text="a"></ui-input>
-          </div>
-          <div>
-            <ui-select placeholder="test">
-              <ui-option value="01">汉族</ui-option>
-              <ui-option value="01">汉族</ui-option>
-              <ui-option value="01">汉族</ui-option>
-              <ui-option value="01">汉族</ui-option>
-              <ui-option value="01">汉族</ui-option>
-              <ui-option value="03">回族</ui-option>
-              <ui-option value="06">苗族</ui-option>
-              <ui-option value="06">维吾尔族</ui-option>
-              <ui-option value="11">满族</ui-option>
-              <ui-option value="08">壮族</ui-option>
-              <ui-option value="97">其他</ui-option>
-            </ui-select>
-          </div>
-          <p>1</p>
-          <p>2</p>
-          <p>3</p>
-          <p>4</p>
-          <p>5</p>
-          <p>6</p>
-          <p>7</p>
-          <p>8</p>
-          <p>9</p>
-          <p>10</p>
-          <p>11</p>
-          <p>12</p>
-          <p>13</p>
-          <p>14</p>
-          <p>15</p>
-          <p>16</p>
-          <p>17</p>
-          <p>18</p>
-          <p>19</p>
-          <p>20</p>
-          <p>21</p>
-          <p>22</p>
-          <p>23</p>
-          <p>24</p>
-          <p>25</p>
-          <p>26</p>
-          <p>27</p>
-          <p>28</p>
-          <p>29</p>
-          <p>30</p>
-          <p>31</p>
-          <p>32</p>
-          <p>33</p>
-          <p>34</p>
-          <p>35</p>
-          <p>36</p>
-          <p>37</p>
-          <p>38</p>
-          <p>39</p>
-          <p>40</p>
-        </ui-scroll>
-      </ui-collection-item>
-      <ui-collection-item style="background-color: darkgreen;">
-        fdsafdsa
-      </ui-collection-item>
-      <ui-collection-item style="background-color: #5da6f3;"></ui-collection-item>
-    </ui-collection>
+    <a routerLink="/tab">tab</a>
+    <a routerLink="/home">home</a>
   </ui-content>
 </ui-page>

@@ -16,6 +16,10 @@ export const routes: Routes = [{
         component: Page1Component,
         outlet: 'route1'
     }, {
+        path: 'home',
+        component: HomeComponent,
+        outlet: 'route1'
+    }, {
         path: 'page2',
         component: Page2Component,
         outlet: 'route2'
@@ -32,6 +36,6 @@ export const routes: Routes = [{
     component: Page2Component
 }, {
     path: '',
-    redirectTo: '/tab/',
+    redirectTo: '/home',
     pathMatch: 'full'
 }];

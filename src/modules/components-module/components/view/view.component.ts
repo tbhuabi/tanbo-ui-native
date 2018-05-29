@@ -15,7 +15,7 @@ import { ActivatedRoute, ChildrenOutletContexts } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { ComponentHostDirective } from './component-host.directive';
-import { ViewState, ViewStateService, UI_VIEW_INIT_STATE } from './view-state.service';
+import { ViewState, ViewStateService, UI_VIEW_INIT_STATE, UI_VIEW_INIT_TOUCH_BACK } from './view-state.service';
 import { ContentLoadingController } from '../content-loading/content-loading.service';
 import { RouterService } from '../router/router.service';
 import { PullDownRefreshController } from '../../controllers/pull-down-refresh-controller';
@@ -110,6 +110,7 @@ export class ViewComponent implements OnInit, OnDestroy {
                 this.activatedRoute || this._activatedRoute,
                 this.parentContexts,
                 this.state,
+                this.openMoveBack,
                 this.viewContainerRef.injector);
             this.componentRef = this.componentHost.viewContainerRef.createComponent(
                 this.componentFactory,
@@ -131,6 +132,11 @@ export class ViewComponent implements OnInit, OnDestroy {
                 this.viewStateService.touching(progress);
             }
         }));
+        this.subs.push(this.routerService.parentTouchProgress.subscribe(progress => {
+            if (this.state !== ViewState.Sleep) {
+                this.viewStateService.touching(progress);
+            }
+        }));
 
         this.subs.push(this.actionSheetService.onShow.subscribe(el => {
             this.elementRef.nativeElement.appendChild(el);
@@ -148,6 +154,7 @@ class ViewInjector implements Injector {
     constructor(private route: ActivatedRoute,
                 private childContexts: ChildrenOutletContexts,
                 private initState: ViewState,
+                private isOpenTouchBack: boolean,
                 private parent: Injector) {
     }
 
@@ -162,6 +169,10 @@ class ViewInjector implements Injector {
 
         if (token === UI_VIEW_INIT_STATE) {
             return this.initState;
+        }
+
+        if (token === UI_VIEW_INIT_TOUCH_BACK) {
+            return this.isOpenTouchBack;
         }
 
         return this.parent.get(token, notFoundValue);

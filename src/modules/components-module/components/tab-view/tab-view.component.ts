@@ -3,15 +3,10 @@ import { Subscription } from 'rxjs';
 
 import { TabService } from '../tab/tab.service';
 import { TabViewItemComponent } from '../tab-view-item/tab-view-item.component';
-import { ViewStateService } from '../view/view-state.service';
-import { TabViewService } from './tab-view.service';
 
 @Component({
     selector: 'ui-tab-view',
-    templateUrl: './tab-view.component.html',
-    providers: [
-        TabViewService
-    ]
+    templateUrl: './tab-view.component.html'
 })
 export class TabViewComponent implements AfterContentInit, OnDestroy {
     @ContentChildren(TabViewItemComponent)
@@ -19,22 +14,10 @@ export class TabViewComponent implements AfterContentInit, OnDestroy {
 
     private subs: Array<Subscription> = [];
 
-    constructor(private tabService: TabService,
-                private tabViewService: TabViewService,
-                private viewStateService: ViewStateService) {
+    constructor(private tabService: TabService) {
     }
 
     ngAfterContentInit() {
-        this.subs.push(this.viewStateService.state.subscribe(state => {
-            this.tabViewService.changeState(state);
-        }));
-        this.subs.push(this.viewStateService.progress.subscribe(p => {
-            this.tabViewService.updateProgress(p);
-        }));
-        this.subs.push(this.viewStateService.touchProgress.subscribe(p => {
-            this.tabViewService.touching(p);
-        }));
-
         // 订阅tab切换事件，如果发生切换，显示/隐藏对应视图
         this.subs.push(this.tabService.tabIndex$.subscribe((index: number) => {
             this.tabViewItems.forEach((item: TabViewItemComponent, i: number) => {
