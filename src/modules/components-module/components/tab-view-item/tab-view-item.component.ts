@@ -44,13 +44,13 @@ export class TabViewItemComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
-        this.subs.push(this.viewStateService.state.subscribe(state => {
+        this.subs.push(this.viewStateService.state.filter(_ => this.active).subscribe(state => {
             this.tabViewItemService.changeState(state);
         }));
-        this.subs.push(this.viewStateService.progress.subscribe(p => {
+        this.subs.push(this.viewStateService.progress.filter(_ => this.active).subscribe(p => {
             this.tabViewItemService.updateProgress(p);
         }));
-        this.subs.push(this.viewStateService.touchProgress.subscribe(p => {
+        this.subs.push(this.viewStateService.touchProgress.filter(_ => this.active).subscribe(p => {
             this.tabViewItemService.touching(p);
         }));
     }
