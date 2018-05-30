@@ -3,12 +3,12 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class ListEventService {
-    listOptions$: Observable<ElementRef>;
+    listOptions: Observable<ElementRef>;
 
     private listOptionsSource = new Subject<ElementRef>();
 
     constructor() {
-        this.listOptions$ = this.listOptionsSource.asObservable();
+        this.listOptions = this.listOptionsSource.asObservable();
     }
 
     addOption(elementRef: ElementRef) {

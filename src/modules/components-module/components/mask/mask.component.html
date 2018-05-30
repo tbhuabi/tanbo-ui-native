@@ -1,2 +1,2 @@
-<div *ngIf="show" class="ui-mask" [@maskAnimation]="true" (@maskAnimation.done)="done()"></div>
+<div [ngClass]="{show: show}" class="ui-mask" (animationend)="done()"></div>
 <ng-content></ng-content>

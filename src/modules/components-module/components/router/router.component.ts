@@ -21,6 +21,7 @@ import { ViewState, UI_VIEW_INIT_STATE, UI_VIEW_INIT_TOUCH_BACK } from '../view/
 import { RouterService } from './router.service';
 import { RouteCacheController } from './route-cache-controller';
 import { TabViewItemService } from '../tab-view-item/tab-view-item.service';
+import { AppController } from '../app/app-controller';
 
 export interface RouterItemConfig {
     state: ViewState;
@@ -86,6 +87,7 @@ export class RouterComponent implements OnInit, OnDestroy {
                 private routeCacheController: RouteCacheController,
                 private viewContainerRef: ViewContainerRef,
                 private location: Location,
+                private appController: AppController,
                 @Optional() private tabViewItemService: TabViewItemService,
                 @Optional() @Inject(UI_VIEW_INIT_STATE) private state: ViewState,
                 @Optional() @Inject(UI_VIEW_INIT_TOUCH_BACK) private initTouchBack: boolean,
@@ -93,7 +95,7 @@ export class RouterComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subs.push(this.routeCacheController.hasCache$.distinctUntilChanged().subscribe(b => {
+        this.subs.push(this.routeCacheController.hasCache.distinctUntilChanged().subscribe(b => {
             this.isBack = !b;
         }));
         if (this.tabViewItemService) {
@@ -125,13 +127,13 @@ export class RouterComponent implements OnInit, OnDestroy {
         }
 
         // 订阅当前活动的组件
-        this.subs.push(this.routerService.activated$.subscribe((componentRef: ComponentRef<any>) => {
+        this.subs.push(this.routerService.activated.subscribe((componentRef: ComponentRef<any>) => {
             this.activated = componentRef;
         }));
 
         const parentRouterService = this.viewContainerRef.parentInjector.get(RouterService, null);
 
-        this.subs.push(this.routerService.moveBackProgress$.subscribe(progress => {
+        this.subs.push(this.routerService.moveBackProgress.subscribe(progress => {
             if (progress <= 0) {
                 this.setViewState([ViewState.Sleep, ViewState.Activate]);
             } else {
@@ -241,8 +243,10 @@ export class RouterComponent implements OnInit, OnDestroy {
             return;
         }
         let i = 0;
-        const fn = function () {
+        this.appController.transitionStart();
+        const fn = () => {
             if (i > this.steps) {
+                this.appController.transitionEnd();
                 switch (this.views[this.views.length - 1].state) {
                     case ViewState.Destroy:
                         this.views.pop();
@@ -258,7 +262,7 @@ export class RouterComponent implements OnInit, OnDestroy {
                 i++;
             }
 
-        }.bind(this);
+        };
 
         fn();
     }

@@ -11,4 +11,11 @@ ui-mask {
     top: 0;
     bottom: 0;
     background-color: $mask-background-color;
+    transition: opacity .3s;
+    opacity: 0;
+    pointer-events: none;
+    &.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
 }

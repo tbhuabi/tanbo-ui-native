@@ -1,8 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
+
+import { AlertController } from '../../modules/index';
 
 @Component({
     templateUrl: './home.component.html'
 })
-export class HomeComponent {
+export class HomeComponent implements AfterContentInit {
+    constructor(private alert: AlertController) {
+    }
 
+    ngAfterContentInit() {
+        this.alert.show({
+            title: 'test',
+            content: 'aaaa'
+        });
+    }
 }

@@ -39,7 +39,7 @@ export class ContentLoadingComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subs.push(this.contentLoadingController.showLoading$.subscribe((text?: string) => {
+        this.subs.push(this.contentLoadingController.showLoading.subscribe((text?: string) => {
             clearTimeout(this.timer);
             this.timer = setTimeout(() => {
                 this.show = true;
@@ -47,7 +47,7 @@ export class ContentLoadingComponent implements OnInit, OnDestroy {
             });
         }));
 
-        this.subs.push(this.contentLoadingController.hideLoading$.subscribe(() => {
+        this.subs.push(this.contentLoadingController.hideLoading.subscribe(() => {
             clearTimeout(this.timer);
             this.timer = setTimeout(() => {
                 this.show = false;

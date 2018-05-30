@@ -42,6 +42,8 @@ export class AppComponent implements OnInit, OnDestroy {
         return this.env === BrowserENV.default;
     }
 
+    showMask: boolean = false;
+
     private htmlElement: HTMLElement;
     private defaultDocWidth: number = 320;
 
@@ -56,7 +58,10 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subs.push(this.appController.onResize$.subscribe((env: BrowserENV) => {
+        this.subs.push(this.appController.transition.subscribe(b => {
+            this.showMask = b;
+        }));
+        this.subs.push(this.appController.onResize.subscribe((env: BrowserENV) => {
             this.env = env;
         }));
         this.subs.push(this.location.subscribe(() => {

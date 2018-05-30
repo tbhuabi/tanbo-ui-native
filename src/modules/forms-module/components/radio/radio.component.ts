@@ -108,7 +108,7 @@ export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
     ngOnInit() {
         // 当某一个radio被点击时，更新其它radio状态
-        this.sub = this.radioStateService.state$.subscribe(() => {
+        this.sub = this.radioStateService.state.subscribe(() => {
             this.checked = this.rawInput.nativeElement.checked;
         });
     }

@@ -21,7 +21,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         // 订阅alert事件
-        this.sub = this.alertController.alertConfig$.subscribe((params: AlertConfig) => {
+        this.sub = this.alertController.alertConfig.subscribe((params: AlertConfig) => {
             // 设置状态，以弹出对话框
             this.show = true;
 

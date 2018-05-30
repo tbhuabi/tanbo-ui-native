@@ -122,12 +122,12 @@ export class ViewComponent implements OnInit, OnDestroy {
                 this.childInstance['uiOnViewEnter']();
             }
         }
-        this.subs.push(this.routerService.animationProgress$.subscribe(progress => {
+        this.subs.push(this.routerService.animationProgress.subscribe(progress => {
             if (this.state !== ViewState.Sleep) {
                 this.viewStateService.updateProgress(progress);
             }
         }));
-        this.subs.push(this.routerService.moveBackProgress$.subscribe(progress => {
+        this.subs.push(this.routerService.moveBackProgress.subscribe(progress => {
             if (this.state !== ViewState.Sleep && this.openMoveBack) {
                 this.viewStateService.touching(progress);
             }

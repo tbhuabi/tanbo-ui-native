@@ -47,7 +47,7 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         this.progress = this.initIndex;
         this.containerWidth = this.elementRef.nativeElement.offsetWidth;
-        this.subs.push(this.appController.onResize$.subscribe(() => {
+        this.subs.push(this.appController.onResize.subscribe(() => {
             this.containerWidth = this.elementRef.nativeElement.offsetWidth;
         }));
         setTimeout(() => {

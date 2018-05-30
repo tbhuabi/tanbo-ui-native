@@ -23,7 +23,7 @@ export class ConfirmComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         // 订阅用户事件
-        this.sub = this.confirmService.confirmConfig$.subscribe((params: ConfirmConfig) => {
+        this.sub = this.confirmService.confirmConfig.subscribe((params: ConfirmConfig) => {
             // 设置动画状态
             this.show = true;
 

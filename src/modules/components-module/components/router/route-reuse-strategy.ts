@@ -27,7 +27,7 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
     }
 
     constructor(private routeCacheController: RouteCacheController) {
-        this.routeCacheController.hasCache$.subscribe(b => {
+        this.routeCacheController.hasCache.subscribe(b => {
             this.isCache = b;
         });
     }

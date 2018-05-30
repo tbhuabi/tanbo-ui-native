@@ -9,20 +9,20 @@ export interface ConfirmConfig {
 
 @Injectable()
 export class ConfirmController {
-    confirmConfig$: Observable<ConfirmConfig>;
-    private confirmAction$: Observable<boolean>;
+    confirmConfig: Observable<ConfirmConfig>;
+    private confirmAction: Observable<boolean>;
     private confirmActionSource = new Subject<boolean>();
     private confirmConfigSource = new Subject<ConfirmConfig>();
 
     constructor() {
-        this.confirmAction$ = this.confirmActionSource.asObservable();
-        this.confirmConfig$ = this.confirmConfigSource.asObservable();
+        this.confirmAction = this.confirmActionSource.asObservable();
+        this.confirmConfig = this.confirmConfigSource.asObservable();
     }
 
     show(params: ConfirmConfig): Promise<any> {
         this.confirmConfigSource.next(params);
         return new Promise((resolve) => {
-            const sub = this.confirmAction$.subscribe((result: boolean) => {
+            const sub = this.confirmAction.subscribe((result: boolean) => {
                 resolve(result);
                 sub.unsubscribe();
             });

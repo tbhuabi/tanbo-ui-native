@@ -26,11 +26,11 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         // 拿到当前 list-item 组件下，所有的 list-options 组件，以便在划动时，计算 dom 的宽度
-        this.subs.push(this.listEventService.listOptions$.subscribe((elementRef: ElementRef) => {
+        this.subs.push(this.listEventService.listOptions.subscribe((elementRef: ElementRef) => {
             this.refs.push(elementRef);
         }));
         // 订阅选中事件，并判断用户操作的 list-sliding 是不是自身，如果不是自身，则修改自身相应样式
-        this.subs.push(this.listActivatedService.activatedComponent$.subscribe(() => {
+        this.subs.push(this.listActivatedService.activatedComponent.subscribe(() => {
             if (!this.isFocus) {
                 this.distanceX = 0;
                 this.transitionDuration = '';

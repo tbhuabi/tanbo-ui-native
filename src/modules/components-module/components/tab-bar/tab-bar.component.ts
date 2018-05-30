@@ -91,7 +91,7 @@ export class TabBarComponent implements AfterContentInit, OnDestroy, OnInit {
             this.subs.push(sub);
         });
         // 当用户切换tab时，显示/隐藏对应视图
-        this.subs.push(this.tabService.tabIndex$.subscribe((index: number) => {
+        this.subs.push(this.tabService.tabIndex.subscribe((index: number) => {
             this.tabBarItems.forEach((item: TabBarItemComponent, i: number) => {
                 item.active = i === index;
             });

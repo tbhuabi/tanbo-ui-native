@@ -19,7 +19,7 @@ export class TabViewComponent implements AfterContentInit, OnDestroy {
 
     ngAfterContentInit() {
         // 订阅tab切换事件，如果发生切换，显示/隐藏对应视图
-        this.subs.push(this.tabService.tabIndex$.subscribe((index: number) => {
+        this.subs.push(this.tabService.tabIndex.subscribe((index: number) => {
             this.tabViewItems.forEach((item: TabViewItemComponent, i: number) => {
                 item.active = i === index;
             });

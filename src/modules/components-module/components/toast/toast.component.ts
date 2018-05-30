@@ -25,7 +25,7 @@ export class ToastComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.toastService.notify$.subscribe((config: ToastConfig) => {
+        this.toastService.notify.subscribe((config: ToastConfig) => {
             let _config: any = {};
             _config.rawConfig = config;
             switch (config.type) {

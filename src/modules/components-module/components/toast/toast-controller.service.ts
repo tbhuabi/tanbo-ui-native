@@ -18,11 +18,11 @@ export interface ToastConfig {
 
 @Injectable()
 export class ToastController {
-    notify$: Observable<ToastConfig>;
+    notify: Observable<ToastConfig>;
     private notifySource = new Subject<ToastConfig>();
 
     constructor() {
-        this.notify$ = this.notifySource.asObservable();
+        this.notify = this.notifySource.asObservable();
     }
 
     push(config: ToastConfig) {

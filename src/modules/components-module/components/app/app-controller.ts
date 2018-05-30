@@ -4,14 +4,17 @@ import { BrowserENV } from '../../config';
 
 @Injectable()
 export class AppController {
-    onQuit$: Observable<void>;
-    onResize$: Observable<BrowserENV>;
+    onQuit: Observable<void>;
+    onResize: Observable<BrowserENV>;
+    transition: Observable<boolean>;
     private quitEvent = new Subject<void>();
     private resizeEvent = new Subject<BrowserENV>();
+    private transitionEvent = new Subject<boolean>();
 
     constructor() {
-        this.onQuit$ = this.quitEvent.asObservable();
-        this.onResize$ = this.resizeEvent.asObservable();
+        this.onQuit = this.quitEvent.asObservable();
+        this.onResize = this.resizeEvent.asObservable();
+        this.transition = this.transitionEvent.asObservable();
     }
 
     quit() {
@@ -20,6 +23,14 @@ export class AppController {
 
     resize(env: BrowserENV) {
         this.resizeEvent.next(env);
+    }
+
+    transitionStart() {
+        this.transitionEvent.next(true);
+    }
+
+    transitionEnd() {
+        this.transitionEvent.next(false);
     }
 }
 

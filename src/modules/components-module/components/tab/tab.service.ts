@@ -3,11 +3,11 @@ import { Subject, Observable } from 'rxjs';
 
 @Injectable()
 export class TabService {
-    tabIndex$: Observable<number>;
+    tabIndex: Observable<number>;
     private tabIndexSource = new Subject<number>();
 
     constructor() {
-        this.tabIndex$ = this.tabIndexSource.asObservable();
+        this.tabIndex = this.tabIndexSource.asObservable();
     }
 
     publishIndex(index: number) {
