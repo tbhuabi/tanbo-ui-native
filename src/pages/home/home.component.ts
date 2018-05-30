@@ -13,6 +13,8 @@ export class HomeComponent implements AfterContentInit {
         this.alert.show({
             title: 'test',
             content: 'aaaa'
+        }).then(() => {
+            alert(333);
         });
     }
 }
