@@ -6,10 +6,12 @@
   </ui-header>
   <ui-content style="background-color: lavender;">
     <a href="javascript:;" routerLink="/page1">page1</a>
-    <ui-select>
-      <ui-option>aaa</ui-option>
-      <ui-option>bbb</ui-option>
-    </ui-select>
+    <form [formGroup]="formGroup">
+      <ui-select formControlName="name" placeholder="就显示">
+        <ui-option value="aaa">aaa</ui-option>
+        <ui-option value="bbb">bbb</ui-option>
+      </ui-select>
+    </form>
     <p>
       <button type="button" (click)="ngAfterContentInit()">button</button>
     </p>

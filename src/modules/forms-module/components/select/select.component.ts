@@ -76,6 +76,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     private subs: Array<Subscription> = [];
 
     private defaultOption: OptionComponent;
+    private isWrite: boolean = false;
 
     static getTextByElement(element: HTMLElement): string {
         if (element) {
@@ -90,19 +91,29 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
 
     ngAfterContentInit() {
         let defaultOption: OptionComponent;
-        this.options.forEach((option: OptionComponent, index: number) => {
-            if (option.selected) {
-                defaultOption = option;
-                this.selectedIndex = index;
+        if (this.isWrite) {
+            for (const item of this.options.toArray()) {
+                if (item.value === this.value) {
+                    defaultOption = item;
+                    break;
+                }
             }
-        });
-        if (!defaultOption) {
-            defaultOption = this.options.toArray()[this.selectedIndex];
+        } else {
+            this.options.forEach((option: OptionComponent, index: number) => {
+                if (option.selected) {
+                    defaultOption = option;
+                    this.selectedIndex = index;
+                }
+            });
+            if (!defaultOption) {
+                defaultOption = this.options.toArray()[this.selectedIndex];
+            }
+            if (!defaultOption) {
+                defaultOption = this.options.first;
+                this.selectedIndex = 0;
+            }
         }
-        if (!defaultOption) {
-            defaultOption = this.options.first;
-            this.selectedIndex = 0;
-        }
+
         if (defaultOption) {
             this.value = defaultOption.value;
             defaultOption.selected = true;
@@ -153,6 +164,7 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     }
 
     writeValue(value: any) {
+        this.isWrite = true;
         this.value = value;
         if (this.options) {
             let selectedOption: OptionComponent;
