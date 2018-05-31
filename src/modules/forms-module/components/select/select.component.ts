@@ -92,10 +92,14 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     ngAfterContentInit() {
         let defaultOption: OptionComponent;
         if (this.isWrite) {
+            let isFindDefaultOption: boolean = false;
             for (const item of this.options.toArray()) {
-                if (item.value === this.value) {
-                    defaultOption = item;
-                    break;
+                if (item.value === this.value && !isFindDefaultOption) {
+                    isFindDefaultOption = true;
+                    this.defaultOption = item;
+                    item.selected = true;
+                } else {
+                    item.selected = false;
                 }
             }
         } else {
@@ -112,12 +116,11 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
                 defaultOption = this.options.first;
                 this.selectedIndex = 0;
             }
-        }
-
-        if (defaultOption) {
-            this.value = defaultOption.value;
-            defaultOption.selected = true;
-            this.defaultOption = defaultOption;
+            if (defaultOption) {
+                this.value = defaultOption.value;
+                defaultOption.selected = true;
+                this.defaultOption = defaultOption;
+            }
         }
         this.subs.push(this.selectService.onChecked.subscribe((option: OptionComponent) => {
             this.options.forEach((op: OptionComponent, index: number) => {
