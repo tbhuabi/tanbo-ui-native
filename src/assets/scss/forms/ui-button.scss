@@ -3,13 +3,16 @@ ui-button {
     position: relative;
     &.loading {
         opacity: .8;
-        > .ui-button-text {
-            transform: scale(0);
-        }
-        > .ui-button-loading {
-            transform: scale(1);
-        }
+
     }
+}
+
+.ui-button-text {
+    transform: scale(0);
+}
+
+.ui-button-loading {
+    transform: scale(1);
 }
 
 .ui-button {

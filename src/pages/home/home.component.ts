@@ -1,10 +1,19 @@
 import { Component, AfterContentInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { AlertController } from '../../modules/index';
+import { AlertController, UI_SELECT_ARROW_CLASSNAME } from '../../modules/index';
 
 @Component({
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+    styles: [`
+    ui-input, ui-select, ui-picker {
+        background-color:#fff;
+    }
+    `],
+    providers: [{
+        provide: UI_SELECT_ARROW_CLASSNAME,
+        useValue: 'ui-icon-arrow-right'
+    }]
 })
 export class HomeComponent implements AfterContentInit {
     formGroup: FormGroup;

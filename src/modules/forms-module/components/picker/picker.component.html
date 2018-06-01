@@ -1,12 +1,19 @@
-<div class="ui-picker-content" [ngClass]="{show: value && value.length}">
-  <ng-content></ng-content>
+<div class="ui-picker-fixed">
+  <div class="ui-picker-input-wrap">
+    <div class="ui-picker-content" [ngClass]="{show: value && value.length}">
+      <ng-content></ng-content>
+    </div>
+    <input [ngClass]="{show: !value || !value.length}"
+           type="text" class="ui-picker-input"
+           [name]="name" [id]="forId"
+           [disabled]="disabled" readonly
+           [placeholder]="placeholder">
+    <div class="ui-picker-input-mask"></div>
+  </div>
+  <div class="ui-picker-arrow" *ngIf="arrowIconClassName">
+    <span [ngClass]="arrowIconClassName"></span>
+  </div>
 </div>
-<input [ngClass]="{show: !value || !value.length}"
-       type="text" class="ui-picker-input"
-       [name]="name" [id]="forId"
-       [disabled]="disabled" readonly
-       [placeholder]="placeholder">
-<div class="ui-picker-input-mask"></div>
 <ui-action-sheet [show]="focus" (click)="hide()" uiStopPropagation>
   <div class="ui-picker" uiStopPropagation>
     <ui-flex class="ui-picker-header">

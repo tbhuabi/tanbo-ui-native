@@ -16,14 +16,6 @@ ui-input[type=checkbox] {
     height: 1.2em;
     font-size: 1.2em;
     line-height: 1.2em;
-    .ui-input-raw {
-        width: 0;
-        height: 0;
-        position: absolute;
-        overflow: hidden;
-        opacity: 0;
-    }
-
     @include checkbox-style(primary, $color-primary);
     @include checkbox-style(info, $color-info);
     @include checkbox-style(warning, $color-warning);
@@ -48,6 +40,14 @@ ui-input[type=checkbox] {
             }
         }
     }
+}
+
+.ui-input-checkbox-raw {
+    width: 0;
+    height: 0;
+    position: absolute;
+    overflow: hidden;
+    opacity: 0;
 }
 
 .ui-checkbox {

@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, OnInit, OnDestroy, Inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { PickerCell } from '../picker-column/picker-column.component';
 import { PickerService } from './picker.service';
+import { UI_SELECT_ARROW_CLASSNAME } from '../../config';
 
 @Component({
     selector: 'ui-picker',
@@ -70,6 +71,8 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
 
     @Input()
     name: string = '';
+    @Input()
+    arrowIconClassName: string = '';
     @Output()
     change = new EventEmitter<Array<PickerCell>>();
 
@@ -86,7 +89,9 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
     private sub: Subscription;
     private isScrolling: boolean = false;
 
-    constructor(private pickerService: PickerService) {
+    constructor(@Inject(UI_SELECT_ARROW_CLASSNAME) arrowIcon: string,
+                private pickerService: PickerService) {
+        this.arrowIconClassName = arrowIcon;
     }
 
     ngOnInit() {

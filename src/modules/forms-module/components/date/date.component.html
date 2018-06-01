@@ -1,16 +1,16 @@
 <div class="ui-date-fixed" (click)="show()">
-  <div class="ui-raw-input-wrap">
-    <input class="ui-raw-input" [disabled]="disabled"
+  <div class="ui-date-input-wrap">
+    <input class="ui-date-input" [disabled]="disabled"
            [name]="name"
            [id]="forId"
            [placeholder]="placeholder"
            readonly
            type="text"
            [value]="displayValue">
-    <div class="ui-raw-input-mask"></div>
+    <div class="ui-date-input-mask"></div>
   </div>
-  <div class="ui-date-arrow">
-    <span class="caret"></span>
+  <div class="ui-date-arrow" *ngIf="arrowIconClassName">
+    <span [ngClass]="arrowIconClassName"></span>
   </div>
 </div>
 <ui-action-sheet [show]="focus" (click)="hide()">

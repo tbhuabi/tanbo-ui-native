@@ -6,7 +6,7 @@
   </ui-header>
   <ui-content style="background-color: lavender;">
     <a href="javascript:;" routerLink="/page1">page1</a>
-    <form [formGroup]="formGroup" style="color: #f00">
+    <form [formGroup]="formGroup" style="text-align: right">
       <ui-select formControlName="name" placeholder="就显示">
         <ui-option value="aaa">aaa</ui-option>
         <ui-option value="bbb">bbb</ui-option>
@@ -21,6 +21,12 @@
         <ui-option value="bbb">bbb</ui-option>
         <ui-option value="bbb">bbb</ui-option>
       </ui-select>
+      <p>
+        <ui-input type="date"></ui-input>
+      </p>
+      <p>
+        <ui-picker></ui-picker>
+      </p>
     </form>
     <p>
       <button type="button" (click)="ngAfterContentInit()">button</button>

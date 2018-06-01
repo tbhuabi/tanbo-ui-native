@@ -1,15 +1,11 @@
 ui-picker-column {
     flex: 1;
     display: block;
+    font-size: $font-size-large;
 }
 
 .ui-picker-column {
     margin-top: 72px;
-    //&:after, &:before {
-    //    content: "";
-    //    display: block;
-    //    height: 72px;
-    //}
 }
 
 .ui-picker-cell {

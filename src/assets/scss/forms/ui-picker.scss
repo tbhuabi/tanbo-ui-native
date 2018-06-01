@@ -1,36 +1,53 @@
 ui-picker {
     display: inline-block;
-    position: relative;
-    > .ui-picker-content {
-        display: none;
-        &.show {
-            display: inherit;
-        }
-    }
+}
 
-    > .ui-picker-input-mask {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 1;
+.ui-picker-fixed {
+    height: 100%;
+    display: flex;
+}
+
+.ui-picker-input-wrap {
+    flex: 1;
+    position: relative;
+}
+
+.ui-picker-content {
+    display: none;
+    &.show {
+        display: inherit;
     }
-    > .ui-picker-input {
-        background: none;
-        border: none;
-        outline: none;
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        line-height: inherit;
-        font-size: inherit;
-        text-align: inherit;
-        display: none;
-        &.show {
-            display: inherit;
-        }
+}
+
+.ui-picker-input-mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.ui-picker-input {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    line-height: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    display: none;
+    &.show {
+        display: initial;
     }
+}
+
+.ui-picker-arrow {
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
 }
 
 .ui-picker {
@@ -39,57 +56,64 @@ ui-picker {
     flex-direction: column;
     background-color: #fff;
     font-size: $font-size-base;
-    .ui-picker-header {
-        height: 44px;
-        border-bottom: $border-width solid $color-gray;
-        justify-content: space-between;
-        background-color: $color-lighter;
-        .ui-picker-action {
-            color: $color-primary;
-            width: 80px;
-            border: none;
-            background: none;
-            &:active {
-                opacity: .6;
-            }
-        }
-        .ui-picker-title {
-            font-size: $font-size-large;
-        }
+
+}
+
+.ui-picker-header {
+    height: 44px;
+    border-bottom: $border-width solid $color-gray;
+    justify-content: space-between;
+    background-color: $color-lighter;
+
+}
+
+.ui-picker-action {
+    color: $color-primary;
+    width: 80px;
+    border: none;
+    background: none;
+    font-size: $font-size-large;
+    &:active {
+        opacity: .6;
     }
-    .ui-picker-selector {
-        flex: 1;
-        position: relative;
-        overflow: hidden;
-        &:before, &:after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            z-index: 1;
-            height: 72px;
-            pointer-events: none;
-        }
-        &:before {
-            top: 0;
-            border-bottom: $border-width solid $color-gray;
-            background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .1));
-        }
-        &:after {
-            bottom: 0;
-            border-top: $border-width solid $color-gray;
-            background: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
-        }
-    }
-    .ui-picker-list {
+}
+
+.ui-picker-title {
+    font-size: $font-size-larger;
+}
+
+.ui-picker-selector {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    &:before, &:after {
+        content: "";
         position: absolute;
         left: 0;
-        top: 0;
-        bottom: 0;
         right: 0;
-        display: flex;
-        background: $color-gray-light;
-
+        z-index: 1;
+        height: 72px;
+        pointer-events: none;
     }
+    &:before {
+        top: 0;
+        border-bottom: $border-width solid $color-gray;
+        background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .1));
+    }
+    &:after {
+        bottom: 0;
+        border-top: $border-width solid $color-gray;
+        background: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+    }
+}
+
+.ui-picker-list {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    background: $color-gray-light;
 }
 

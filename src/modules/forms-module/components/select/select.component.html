@@ -9,7 +9,7 @@
            [value]="text">
     <div class="ui-raw-input-mask"></div>
   </div>
-  <div class="ui-select-arrow">
+  <div class="ui-select-arrow" *ngIf="arrowIconClassName">
     <span [ngClass]="arrowIconClassName"></span>
   </div>
 </div>

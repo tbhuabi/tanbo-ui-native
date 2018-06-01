@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostBinding, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostBinding, OnDestroy, Inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { PickerService } from '../picker/picker.service';
 import { PickerCell } from '../picker-column/picker-column.component';
 import { timeAnalysisByTimeString, dateStringFormat, TimeDetails } from './date-utils';
+import { UI_SELECT_ARROW_CLASSNAME } from '../../config';
 
 @Component({
     selector: 'ui-input[type=date]',
@@ -64,6 +65,8 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
     displayFormat: string = '';
     @Input()
     placeholder: string = '';
+    @Input()
+    arrowIconClassName: string = '';
 
     @Input()
     @HostBinding('class.disabled')
@@ -128,7 +131,9 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
         return arr;
     }
 
-    constructor(private pickerService: PickerService) {
+    constructor(@Inject(UI_SELECT_ARROW_CLASSNAME) arrowIcon: string,
+                private pickerService: PickerService) {
+        this.arrowIconClassName = arrowIcon;
     }
 
     ngOnInit() {

@@ -1,37 +1,43 @@
 ui-select {
     display: inline-block;
-    .ui-select-fixed {
-        height: 100%;
-        display: flex;
-        .ui-raw-input-wrap {
-            flex: 1;
-            position: relative;
-            .ui-raw-input {
-                border: none;
-                outline: none;
-                background: none;
-                text-align: inherit;
-                color: inherit;
-                width: 100%;
-                height: 100%;
-                padding: 0;
-            }
-            .ui-raw-input-mask {
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                z-index: 1;
-            }
-        }
-    }
 
-    .ui-select-arrow {
-        display: flex;
-        align-items: center;
-        padding-left: 10px;
-    }
+}
+
+.ui-select-fixed {
+    height: 100%;
+    display: flex;
+}
+
+.ui-raw-input-wrap {
+    flex: 1;
+    position: relative;
+
+}
+
+.ui-raw-input {
+    border: none;
+    outline: none;
+    background: none;
+    text-align: inherit;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.ui-raw-input-mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.ui-select-arrow {
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
 }
 
 .ui-select-modal {

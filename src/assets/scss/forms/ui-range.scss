@@ -1,10 +1,10 @@
 @mixin range-style($name, $color) {
     &.#{$name} {
-        > .ui-range > .ui-range-progress-bar {
+        .ui-range-progress-bar {
             background-color: $color;
         }
         &[disabled], &[readonly], &.disabled {
-            > .ui-range > .ui-range-progress-bar > .ui-range-btn {
+            .ui-range-btn {
                 cursor: not-allowed;
                 &:hover, &:active {
                     background-color: lighten($color, 10);
@@ -12,12 +12,12 @@
             }
         }
         &[disabled], &.disabled {
-            > .ui-range > .ui-range-progress-bar > .ui-range-btn {
+            .ui-range-btn {
                 cursor: not-allowed;
             }
         }
         &[readonly] {
-            > .ui-range > .ui-range-progress-bar > .ui-range-btn {
+            .ui-range-btn {
                 cursor: default;
             }
         }
@@ -32,13 +32,6 @@ ui-input[type=range] {
     height: 1em;
     width: 8em;
     text-align: left;
-    > .ui-input-raw {
-        width: 0;
-        height: 0;
-        position: absolute;
-        overflow: hidden;
-        opacity: 0;
-    }
     @include range-style(primary, $color-primary);
     @include range-style(info, $color-info);
     @include range-style(warning, $color-warning);
@@ -52,6 +45,14 @@ ui-input[type=range] {
         cursor: default;
     }
 
+}
+
+.ui-input-range-raw {
+    width: 0;
+    height: 0;
+    position: absolute;
+    overflow: hidden;
+    opacity: 0;
 }
 
 .ui-range {

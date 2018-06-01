@@ -37,15 +37,13 @@ ui-input[type=radio] {
         cursor: default;
     }
     &[checked], &.checked {
-        > .ui-radio {
-            > .ui-radio-checked {
-                transform: scale(1);
-                opacity: 1;
-            }
-            > .ui-radio-unchecked {
-                transform: scale(0);
-                opacity: 0;
-            }
+        .ui-radio-checked {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .ui-radio-unchecked {
+            transform: scale(0);
+            opacity: 0;
         }
     }
 }

@@ -9,8 +9,7 @@ import { routes } from './app.routing';
 import {
     UIComponentsModule,
     UIDirectivesModule,
-    UIFormsModule,
-    UI_SELECT_ARROW_CLASSNAME
+    UIFormsModule
 } from '../modules/index';
 
 import { AppComponent } from './app';
@@ -37,10 +36,6 @@ import { Page2Component } from '../pages/page2/page2.component';
         Page2Component,
         HomeComponent
     ],
-    providers: [{
-        provide: UI_SELECT_ARROW_CLASSNAME,
-        useValue: 'ui-icon-arrow-right'
-    }],
     bootstrap: [AppComponent]
 })
 export class AppModule {
