@@ -1,7 +1,7 @@
 ui-option {
-    padding: $list-item-vertical-padding $grid-column-padding;
+    padding: $list-item-vertical-padding + 5 $grid-column-padding;
     line-height: 1.2em;
-    font-size: $font-size-larger;
+    font-size: $font-size-larger + 3;
     text-align: center;
     transition: background-color .2s;
     display: block;

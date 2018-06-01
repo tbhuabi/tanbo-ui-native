@@ -9,6 +9,7 @@ import {
     HostBinding,
     OnDestroy,
     Output,
+    Inject,
     QueryList
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -16,6 +17,7 @@ import { Subscription } from 'rxjs';
 
 import { OptionComponent } from '../option/option.component';
 import { SelectService } from './select.service';
+import { UI_SELECT_ARROW_CLASSNAME } from '../../config';
 
 @Component({
     selector: 'ui-select',
@@ -42,6 +44,8 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     selectedIndex: number = 0;
     @Input()
     cancelText: string = '取消';
+    @Input()
+    arrowIconClassName: string = '';
 
     @Input()
     @HostBinding('class.disabled')
@@ -85,8 +89,10 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
         return '';
     }
 
-    constructor(private selectService: SelectService,
+    constructor(@Inject(UI_SELECT_ARROW_CLASSNAME) arrowIcon: string,
+                private selectService: SelectService,
                 private changeDetectorRef: ChangeDetectorRef) {
+        this.arrowIconClassName = arrowIcon;
     }
 
     ngAfterContentInit() {

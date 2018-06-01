@@ -10,7 +10,7 @@
     <div class="ui-raw-input-mask"></div>
   </div>
   <div class="ui-select-arrow">
-    <span class="caret"></span>
+    <span [ngClass]="arrowIconClassName"></span>
   </div>
 </div>
 <ui-action-sheet [show]="focus" (click)="hideOptions()" uiStopPropagation="touchmove">

@@ -29,6 +29,8 @@ import {
 // 服务
 import { RadioStateService } from './components/radio/radio-state.service';
 
+import { UI_SELECT_ARROW_CLASSNAME } from './config';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -83,7 +85,10 @@ import { RadioStateService } from './components/radio/radio-state.service';
         UISwitchRequiredValidatorDirective
     ],
     providers: [
-        RadioStateService
+        RadioStateService, {
+            provide: UI_SELECT_ARROW_CLASSNAME,
+            useValue: 'caret'
+        }
     ]
 })
 

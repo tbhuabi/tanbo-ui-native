@@ -9,7 +9,8 @@ ui-action-sheet {
     bottom: 0;
     display: none;
     transform: translateY(100%);
-    transition: transform .3s;
+    transition: transform .2s $cubic-bezier;
+    transition-delay: .1s;
     z-index: $mask-z-index + 1;
     &.pop-up {
         transform: translateY(0);

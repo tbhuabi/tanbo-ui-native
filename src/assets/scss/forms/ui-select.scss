@@ -66,8 +66,9 @@ ui-select {
     color: $color-primary;
     background: none;
     padding: $list-item-vertical-padding + 3 $grid-column-padding;
-    line-height: 1.2em;
-    font-size: $font-size-large;
+    line-height: 1.8em;
+    font-size: $font-size-larger + 3px;
+    font-weight: 600;
     transition: background-color .2s;
     &:active {
         background-color: rgba(0, 0, 0, .1);

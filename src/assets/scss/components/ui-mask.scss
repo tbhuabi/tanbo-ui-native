@@ -11,7 +11,7 @@ ui-mask {
     top: 0;
     bottom: 0;
     background-color: $mask-background-color;
-    transition: opacity .3s;
+    transition: opacity .3s $cubic-bezier;
     opacity: 0;
     pointer-events: none;
     &.show {

@@ -7,6 +7,8 @@ $line-height: 1.6 !default;
 $border-width: 0.55px !default; // 1px 线条，为适应retina
 $is-open-radius: true !default;
 
+$cubic-bezier: cubic-bezier(.36, .66, .04, 1);
+
 // 辅助配置
 $container-vertical-padding: 6px !default;
 $mask-z-index: 1000 !default;
