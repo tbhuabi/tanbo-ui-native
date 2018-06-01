@@ -1,6 +1,6 @@
 {
   "name": "tanbo-ui-native",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "description": "angular components & directives & pipes ...",
   "main": "./bundles/index.js",
   "module": "./bundles/index.js",
