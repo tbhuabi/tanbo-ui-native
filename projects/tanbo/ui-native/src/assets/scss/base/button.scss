@@ -1,5 +1,5 @@
 @mixin btn-size($name, $v, $h, $font-size, $radius) {
-    &.#{$name} {
+    &.btn-#{$name} {
         padding: $v $h;
         font-size: $font-size;
         @if $button-radius-is-open {
@@ -9,7 +9,7 @@
 }
 
 @mixin btn-theme($name, $color, $bg-color) {
-    &.#{$name} {
+    &.btn-#{$name} {
         color: $color;
         background-color: $bg-color;
         border: 1px solid $bg-color;

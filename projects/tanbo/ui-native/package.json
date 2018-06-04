@@ -3,17 +3,20 @@
   "version": "0.0.1-alpha.1",
   "description": "angular components & directives & pipes ...",
   "peerDependencies": {
+    "@angular/animations": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/forms": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/router": "^6.0.0-rc.0 || ^6.0.0",
     "@tweenjs/tween.js": "^17.0.0",
     "@types/tween.js": "^16.0.0",
     "better-scroll": "^1.0.0",
-    "tanbo-bezier": "^0.0.5",
-    "normalize.css": "^7.0.0 || ^8.0.0"
+    "rxjs": "^6.0.0",
+    "tanbo-bezier": "^0.0.5"
   },
   "author": {
     "name": "Tan Bo",
-    "email": "464328895@qq.com"
+    "email": "tanbohb@gmail.com"
   },
   "keywords": [
     "angular components",

@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { UIDirectivesModule } from '../directives-module/directives.module';
-import { UIComponentsModule } from '../components-module/components.module';
+import { UIDirectivesModule, UIComponentsModule } from '@tanbo/ui-native';
 // 组件
 import { ButtonComponent } from './components/button/button.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
