@@ -181,7 +181,7 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
         if (list) {
             const fn = (parentList: Array<PickerCell>, child: Array<PickerCell>, index: number) => {
                 this.list.push(child);
-                parnetList.forEach(item => {
+                parentList.forEach(item => {
                     if (this._value[index] && item.value === this._value[index].value && item.children) {
                         const nextChild: Array<PickerCell> = [];
                         fn(item.children, nextChild, index + 1);
