@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:lib": "rm -rf dist && ng build @tanbo/ui-native && gulp",
+    "build:lib": "rimraf dist && ng build @tanbo/ui-native && gulp",
     "publish:lib": "npm run build:lib && cd dist/tanbo/ui-native && npm publish --access=public"
   },
   "private": true,
@@ -56,6 +56,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "ng-packagr": "^3.0.0-rc.2",
     "protractor": "~5.3.0",
+    "rimraf": "^2.6.2",
     "ts-node": "~5.0.1",
     "tsickle": ">=0.25.5",
     "tslib": "^1.7.1",
