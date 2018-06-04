@@ -1,0 +1,9 @@
+<ui-view
+        *ngFor="let item of views; let i = index"
+        [openMoveBack]="openMoveBack"
+        [componentFactory]="item.componentFactory"
+        [activatedRoute]="item.activatedRoute"
+        [parentContexts]="item.childContexts"
+        [state]="item.state"
+        [ngStyle]="{zIndex: i}">
+</ui-view>
