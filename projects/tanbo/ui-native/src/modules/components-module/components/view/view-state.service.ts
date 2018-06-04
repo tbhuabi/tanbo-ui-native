@@ -6,8 +6,7 @@ export enum ViewState {
     ToStack = 'ToStack',
     Destroy = 'Destroy',
     Reactivate = 'Reactivate',
-    Sleep = 'Sleep',
-    Moving = 'Moving'
+    Sleep = 'Sleep'
 }
 
 export const UI_VIEW_INIT_STATE = new InjectionToken<ViewState>('UI_VIEW_INIT_STATE');
