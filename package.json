@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:lib": "ng build @tanbo/ui-native && gulp"
+    "build:lib": "rm -rf dist && ng build @tanbo/ui-native && gulp"
   },
   "private": true,
   "dependencies": {
