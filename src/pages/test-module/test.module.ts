@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UIComponentsModule } from '../../modules/index';
+import { UIComponentsModule } from '@tanbo/ui-native';
 
 import { routes } from './test.routing';
 
