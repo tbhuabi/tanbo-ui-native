@@ -1,1 +1,0 @@
-export { UIDirectivesModule } from './directives.module';
