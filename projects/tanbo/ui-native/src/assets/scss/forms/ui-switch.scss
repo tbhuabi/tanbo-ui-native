@@ -5,15 +5,16 @@
 
 ui-switch {
     display: inline-block;
-    height: 1.4em;
-    width: 2.4em;
+    height: 32px;
+    width: 52px;
+    font-size: 32px;
     background: none;
-    box-shadow: inset 0 0 0 0.1em $color-gray-light - 20;
+    box-shadow: inset 0 0 0 2px $color-gray-light - 20;
     vertical-align: middle;
-    border-radius: .7em;
+    border-radius: 16px;
     position: relative;
-    padding: 0.1em;
-    transition: all .3s;
+    padding: 2px;
+    transition: all .3s ease;
     cursor: pointer;
     > .ui-input-raw {
         opacity: 0;
@@ -25,8 +26,8 @@ ui-switch {
 
     &.checked {
         @include switch-theme($color-gray-light);
-        > .ui-switch > .ui-switch-btn {
-            left: 1em;
+        .ui-switch-btn {
+            transform: translateX(20px);
         }
         &.primary {
             @include switch-theme($color-primary);
@@ -47,6 +48,35 @@ ui-switch {
     &[readonly] {
         cursor: auto;
     }
+
+    &:active {
+        @include switch-theme($color-gray-light);
+        &.primary {
+            @include switch-theme($color-primary);
+        }
+        &.success {
+            @include switch-theme($color-success);
+        }
+        &.info {
+            @include switch-theme($color-info);
+        }
+        &.danger {
+            @include switch-theme($color-danger);
+        }
+        &.warning {
+            @include switch-theme($color-warning);
+        }
+        .ui-switch-btn {
+            width: 34px;
+        }
+
+        &.checked {
+            .ui-switch-btn {
+                left: -6px;
+            }
+        }
+    }
+
     &.disabled, &[disabled] {
         opacity: .5;
         cursor: not-allowed;
@@ -57,12 +87,18 @@ ui-switch {
     width: 100%;
     height: 100%;
     position: relative;
-    border-radius: .6em;
+    border-radius: 14px;
+    cursor: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    display: block;
 }
+
 .ui-switch-btn {
-    width: 1.2em;
-    height: 1.2em;
-    border-radius: .6em;
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
     background-color: #fff;
     border: none;
     position: absolute;
@@ -71,11 +107,7 @@ ui-switch {
     transition: all .3s;
     box-shadow: 0 .05em .3em rgba(0, 0, 0, .4);
     overflow: hidden;
-    > button {
-        cursor: inherit;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
+    > span {
         position: absolute;
         top: 0;
         right: 0;

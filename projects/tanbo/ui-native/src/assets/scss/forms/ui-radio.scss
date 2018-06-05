@@ -12,10 +12,10 @@ ui-input[type=radio] {
     text-align: center;
     overflow: hidden;
     color: $color-default;
-    width: 1.2em;
-    height: 1.2em;
-    font-size: 1.2em;
-    line-height: 1.2em;
+    width: 1em;
+    height: 1em;
+    font-size: 22px;
+    line-height: 1em;
     > .ui-input-raw {
         width: 0;
         height: 0;
@@ -36,16 +36,6 @@ ui-input[type=radio] {
     &[readonly] {
         cursor: default;
     }
-    &[checked], &.checked {
-        .ui-radio-checked {
-            transform: scale(1);
-            opacity: 1;
-        }
-        .ui-radio-unchecked {
-            transform: scale(0);
-            opacity: 0;
-        }
-    }
 }
 
 .ui-radio {
@@ -57,19 +47,5 @@ ui-input[type=radio] {
     line-height: inherit;
     color: inherit;
     cursor: inherit;
-}
-
-.ui-radio-checked {
-    transform: scale(0);
-    opacity: 0;
-}
-
-.ui-radio-checked, .ui-radio-unchecked {
-    transition: all .3s;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    margin-top: 1px;
+    padding: 0;
 }

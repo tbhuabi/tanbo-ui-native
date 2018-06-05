@@ -7,6 +7,7 @@ const gulpSourceMap = require('gulp-sourcemaps');
 
 gulp.task('copy', function () {
     gulp.src('./projects/tanbo/ui-native/src/assets/**/*').pipe(gulp.dest('./dist/tanbo/ui-native/assets/'));
+    gulp.src('./projects/tanbo/ui-native/src/modules/**/*').pipe(gulp.dest('./dist/tanbo/ui-native/modules/'));
 });
 gulp.task('scss',  function () {
     return gulp.src(['./node_modules/normalize.css/normalize.css', './projects/tanbo/ui-native/src/assets/scss/index.scss', './projects/tanbo/ui-native/src/assets/fonts/style.css'])

@@ -1,10 +1,6 @@
 <button class="ui-checkbox" type="button">
-  <div class="ui-checkbox-checked">
-    <span [ngClass]="checkedIcon">{{ text }}</span>
-  </div>
-  <div class="ui-checkbox-unchecked">
-    <span [ngClass]="uncheckedIcon">{{ text }}</span>
-  </div>
+  <span *ngIf="checked" [ngClass]="checkedIcon">{{ text }}</span>
+  <span *ngIf="!checked" [ngClass]="uncheckedIcon">{{ text }}</span>
 </button>
 <input class="ui-input-checkbox-raw"
        type="checkbox"

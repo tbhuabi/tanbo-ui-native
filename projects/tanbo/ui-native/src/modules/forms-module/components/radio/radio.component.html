@@ -1,10 +1,6 @@
 <button class="ui-radio" type="button">
-  <div class="ui-radio-checked">
-    <span [ngClass]="checkedIcon">{{ text }}</span>
-  </div>
-  <div class="ui-radio-unchecked">
-    <span [ngClass]="uncheckedIcon">{{ text }}</span>
-  </div>
+  <span *ngIf="checked" [ngClass]="checkedIcon">{{ text }}</span>
+  <span *ngIf="!checked" [ngClass]="uncheckedIcon">{{ text }}</span>
 </button>
 <input #rawInput class="ui-input-raw"
        type="radio"
