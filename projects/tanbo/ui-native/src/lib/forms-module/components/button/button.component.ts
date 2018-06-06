@@ -7,11 +7,11 @@ export class ButtonComponent {
     @Input()
     type: string = 'button';
     @Input()
-    @HostBinding('class.loading')
+    @HostBinding('class.ui-loading')
     loading: boolean = false;
 
     @Input()
-    @HostBinding('class.disabled')
+    @HostBinding('class.ui-disabled')
     set disabled(isDisabled: any) {
         this._disabled = isDisabled;
     }
