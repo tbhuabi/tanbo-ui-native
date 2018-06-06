@@ -6,6 +6,7 @@ import {
     EventEmitter,
     Input,
     OnDestroy,
+    HostBinding,
     ViewChild,
     Output,
     QueryList,
@@ -28,6 +29,9 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     slidingFinish = new EventEmitter<number>();
     @Input()
     vertical: boolean = false;
+    @Input()
+    @HostBinding('class.fill')
+    fill: boolean = false;
 
     @Input()
     set index(value: number) {

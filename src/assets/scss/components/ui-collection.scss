@@ -1,15 +1,19 @@
 ui-collection {
-    @include fill-box;
     display: block;
     overflow: hidden;
+    &.fill {
+        @include fill-box;
+        .ui-collection {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+    }
 }
 
 .ui-collection {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
     display: flex;
     &.vertical {
         flex-direction: column;

@@ -5,20 +5,17 @@
     </ui-navbar>
   </ui-header>
   <ui-content style="background-color: lavender;">
-    <a href="javascript:;" routerLink="/page1">page1</a>
-    <div>
-      <ui-scroll-tab>
-        <ui-scroll-tab-button *ngFor="let item of list">{{ item }}</ui-scroll-tab-button>
-      </ui-scroll-tab>
-    </div>
-    <div>
-      <ui-select>
-        <ui-option *ngFor="let item of list">{{ item }}</ui-option>
-      </ui-select>
-    </div>
-    <p>
-      <button type="button" (click)="ngAfterContentInit()">button</button>
-    </p>
+    <ui-scroll-tab>
+      <ui-scroll-tab-button *ngFor="let item of list">{{ item }}</ui-scroll-tab-button>
+    </ui-scroll-tab>
+    <ui-collection style="top: 40px">
+      <ui-collection-item>
+        <a href="javascript:;" routerLink="/page1">page1</a>
+      </ui-collection-item>
+      <ui-collection-item>222222</ui-collection-item>
+      <ui-collection-item>33333</ui-collection-item>
+      <ui-collection-item>44444</ui-collection-item>
+    </ui-collection>
   </ui-content>
   <ui-footer></ui-footer>
 </ui-page>
