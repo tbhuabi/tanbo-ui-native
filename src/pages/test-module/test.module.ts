@@ -10,7 +10,7 @@ import { Child3Component } from './components/child3/child3.component';
 
 @NgModule({
     imports: [
-        UIComponentsModule.forChild(),
+        UIComponentsModule,
         RouterModule.forChild(routes)
     ],
     declarations: [

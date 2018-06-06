@@ -35,7 +35,7 @@ export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
     text: string = '';
 
     @Input()
-    @HostBinding('class.disabled')
+    @HostBinding('class.ui-disabled')
     set disabled(isDisabled: any) {
         this._disabled = isDisabled;
     }
@@ -46,7 +46,7 @@ export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
     }
 
     @Input()
-    @HostBinding('class.readonly')
+    @HostBinding('class.ui-readonly')
     set readonly(isReadonly: any) {
         this._readonly = isReadonly;
     }
@@ -57,7 +57,7 @@ export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
     }
 
     @Input()
-    @HostBinding('class.checked')
+    @HostBinding('class.ui-checked')
     set checked(isChecked: any) {
         this._checked = isChecked;
     }

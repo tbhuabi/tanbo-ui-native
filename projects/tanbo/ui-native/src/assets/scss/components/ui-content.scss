@@ -36,13 +36,13 @@ ui-content {
     padding: inherit;
 }
 
-.iphone ui-content {
+.ui-iphone ui-content {
     &:first-child {
         padding-top: 20px;
     }
 }
 
-.iphone-x ui-content {
+.ui-iphone-x ui-content {
     &:first-child {
         padding-top: 20px;
         @media screen and (max-width: 375px) {
@@ -56,7 +56,7 @@ ui-content {
     }
 }
 
-.iphone-x {
+.ui-iphone-x {
     ui-tab ui-content {
         &:last-child {
             @media screen and (max-width: 375px) {
@@ -66,10 +66,10 @@ ui-content {
     }
 }
 
-.android {
+.ui-android {
 
 }
 
-.default {
+.ui-default {
 
 }

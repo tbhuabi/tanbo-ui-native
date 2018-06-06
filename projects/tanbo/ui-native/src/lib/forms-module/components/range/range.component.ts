@@ -23,7 +23,7 @@ export class RangeComponent implements ControlValueAccessor {
     rangeBar: ElementRef;
 
     @Input()
-    @HostBinding('class.disabled')
+    @HostBinding('class.ui-disabled')
     set disabled(isDisabled: any) {
         this._disabled = isDisabled;
     }
@@ -34,7 +34,7 @@ export class RangeComponent implements ControlValueAccessor {
     }
 
     @Input()
-    @HostBinding('class.readonly')
+    @HostBinding('class.ui-readonly')
     set readonly(isReadonly: any) {
         this._readonly = isReadonly;
     }

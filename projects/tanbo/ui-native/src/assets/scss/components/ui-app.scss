@@ -17,7 +17,7 @@ ui-app {
     bottom: 0;
     z-index: 1000;
     display: none;
-    &.show {
+    &.ui-show {
         display: block;
     }
 }

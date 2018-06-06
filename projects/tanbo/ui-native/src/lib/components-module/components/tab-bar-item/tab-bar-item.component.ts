@@ -5,7 +5,7 @@ import { Component, EventEmitter, HostBinding, HostListener, Input, Output } fro
     templateUrl: './tab-bar-item.component.html'
 })
 export class TabBarItemComponent {
-    @HostBinding('class.active')
+    @HostBinding('class.ui-active')
     @Input()
     active: boolean = false;
     @Output()

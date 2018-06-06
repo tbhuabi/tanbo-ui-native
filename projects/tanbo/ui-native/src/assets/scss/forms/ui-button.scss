@@ -1,7 +1,7 @@
 ui-button {
-    @extend .btn;
+    @extend .ui-btn;
     position: relative;
-    &.loading {
+    &.ui-loading {
         opacity: .8;
         .ui-button-text {
             transform: scale(0);
@@ -48,7 +48,7 @@ ui-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    > span {
+    > .ui-icon {
         display: inline-block;
         animation: btn-loading 1s infinite linear;
     }

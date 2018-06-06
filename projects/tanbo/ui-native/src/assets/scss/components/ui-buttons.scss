@@ -24,13 +24,13 @@ ui-buttons {
         top: 0;
     }
 
-    &.pull-left {
+    &.ui-pull-left {
         padding-left: 10px !important;
         left: 0 !important;
         right: auto !important;
         justify-content: flex-start !important;
     }
-    &.pull-right {
+    &.ui-pull-right {
         padding-right: 10px !important;
         right: 0 !important;
         left: auto !important;

@@ -2,5 +2,5 @@
   <ng-content></ng-content>
 </div>
 <div class="ui-slide-buttons" *ngIf="items.length > 1">
-  <div *ngFor="let item of items; let i = index" [ngClass]="{active: i === index}"></div>
+  <div class="ui-slide-btn" *ngFor="let item of items; let i = index" [ngClass]="{active: i === index}"></div>
 </div>

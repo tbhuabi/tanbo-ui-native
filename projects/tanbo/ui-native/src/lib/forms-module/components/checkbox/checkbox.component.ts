@@ -20,7 +20,7 @@ export class CheckboxComponent implements ControlValueAccessor {
     @Input()
     forId: string = '';
     @Input()
-    @HostBinding('class.disabled')
+    @HostBinding('class.ui-disabled')
     set disabled(isDisabled: any) {
         this._disabled = isDisabled;
     }
@@ -31,7 +31,7 @@ export class CheckboxComponent implements ControlValueAccessor {
     }
 
     @Input()
-    @HostBinding('class.readonly')
+    @HostBinding('class.ui-readonly')
     set readonly(isReadonly: any) {
         this._readonly = isReadonly;
     }
@@ -42,7 +42,7 @@ export class CheckboxComponent implements ControlValueAccessor {
     }
 
     @Input()
-    @HostBinding('class.checked')
+    @HostBinding('class.ui-checked')
     set checked(isChecked: any) {
         this._checked = isChecked;
     }

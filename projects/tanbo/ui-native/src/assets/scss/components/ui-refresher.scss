@@ -3,13 +3,13 @@ ui-refresher {
     display: block;
     overflow: hidden;
     z-index: 1;
-    > .progress-bar {
+    > .ui-progress-bar {
         display: block;
         width: 100%;
         height: 100%;
         transition: opacity .2s;
     }
-    > .content {
+    > .ui-refresher-content {
         display: flex;
         position: absolute;
         left: 0;
@@ -21,7 +21,7 @@ ui-refresher {
         opacity: 0;
         transition: all .2s;
         transform: translateY(-20%);
-        &.loaded {
+        &.ui-refresher-loaded {
             opacity: 1;
             transform: translateY(0);
         }

@@ -30,25 +30,25 @@ export class ToastComponent implements OnInit {
             _config.rawConfig = config;
             switch (config.type) {
                 case ToastType.Default:
-                    _config.type = 'default';
+                    _config.type = 'ui-default';
                     break;
                 case ToastType.Primary:
-                    _config.type = 'primary';
+                    _config.type = 'ui-primary';
                     break;
                 case ToastType.Info:
-                    _config.type = 'info';
+                    _config.type = 'ui-info';
                     break;
                 case ToastType.Success:
-                    _config.type = 'success';
+                    _config.type = 'ui-success';
                     break;
                 case ToastType.Warning:
-                    _config.type = 'warning';
+                    _config.type = 'ui-warning';
                     break;
                 case ToastType.Danger:
-                    _config.type = 'danger';
+                    _config.type = 'ui-danger';
                     break;
                 default:
-                    _config.type = 'default';
+                    _config.type = 'ui-default';
             }
             _config.content = config.content || '';
             _config.time = config.time || 2000;

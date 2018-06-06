@@ -7,10 +7,10 @@ ui-dialog {
     @include flex-center;
     z-index: $mask-z-index + 1;
 
-    &.in {
+    &.ui-in {
         animation: .15s dialogAnimationIn;
     }
-    &.out {
+    &.ui-out {
         animation: .15s dialogAnimationOut;
     }
 }

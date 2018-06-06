@@ -12,7 +12,7 @@ import { ViewStateService } from '../view/view-state.service';
     ]
 })
 export class TabViewItemComponent implements OnDestroy, OnInit {
-    @HostBinding('class.active')
+    @HostBinding('class.ui-active')
     set active(value: boolean) {
         this._active = value;
         this.tabViewItemService.change(value);

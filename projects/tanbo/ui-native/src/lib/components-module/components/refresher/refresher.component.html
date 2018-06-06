@@ -1,4 +1,4 @@
-<canvas [ngStyle]="{opacity: opacity}" class="progress-bar" #canvas></canvas>
-<div class="content" [ngClass]="{loaded: isLoaded}">
+<canvas [ngStyle]="{opacity: opacity}" class="ui-progress-bar" #canvas></canvas>
+<div class="ui-refresher-content" [ngClass]="{'ui-refresher-loaded': isLoaded}">
   <ng-content></ng-content>
 </div>

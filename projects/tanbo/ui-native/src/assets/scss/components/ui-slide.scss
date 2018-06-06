@@ -32,20 +32,21 @@ ui-slide-item {
     bottom: 0;
     z-index: 2;
     padding: 3px $grid-column-padding;
-    > div {
-        display: inline-block;
-        position: relative;
-        top: -1.8em;
-        border: none;
-        background-color: rgba(255, 255, 255, .3);
-        width: 6px;
-        height: 6px;
-        margin-left: 3px;
-        margin-right: 3px;
-        border-radius: 50%;
-        transition: all .3s;
-        &.active {
-            background-color: $color-dark;
-        }
+}
+
+.ui-slide-btn {
+    display: inline-block;
+    position: relative;
+    top: -1.8em;
+    border: none;
+    background-color: rgba(255, 255, 255, .3);
+    width: 6px;
+    height: 6px;
+    margin-left: 3px;
+    margin-right: 3px;
+    border-radius: 50%;
+    transition: all .3s;
+    &.ui-active {
+        background-color: $color-dark;
     }
 }

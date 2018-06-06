@@ -31,7 +31,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     @Input()
     vertical: boolean = false;
     @Input()
-    @HostBinding('class.fill')
+    @HostBinding('class.ui-fill')
     fill: boolean = false;
 
     @Input()

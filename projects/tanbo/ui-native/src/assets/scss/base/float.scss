@@ -1,11 +1,11 @@
-.pull-left {
+.ui-pull-left {
     float: left;
 }
 
-.pull-right {
+.ui-pull-right {
     float: right;
 }
 
-.clearfix {
+.ui-clearfix {
     @include clearfix;
 }

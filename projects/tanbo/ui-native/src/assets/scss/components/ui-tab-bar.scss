@@ -39,10 +39,10 @@ ui-tab-bar {
     display: flex;
 }
 
-.iphone ui-tab-bar {
+.ui-iphone ui-tab-bar {
 }
 
-.iphone-x ui-tab-bar {
+.ui-iphone-x ui-tab-bar {
     &:last-child {
         @media screen and (max-width: 375px) {
             padding-bottom: 34px;
@@ -50,10 +50,10 @@ ui-tab-bar {
     }
 }
 
-.android {
+.ui-android {
 
 }
 
-.default {
+.ui-default {
 
 }

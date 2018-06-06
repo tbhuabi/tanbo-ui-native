@@ -13,7 +13,7 @@ ui-option {
     &:last-child {
         border-bottom: 0;
     }
-    &.disabled {
+    &.ui-disabled {
         background-color: hsla(hue($color-default), saturation($color-default), lightness($color-default), .2);
         cursor: not-allowed;
         color: #fff;

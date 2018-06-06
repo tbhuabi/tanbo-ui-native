@@ -21,7 +21,7 @@ ui-loading {
         }
     }
     @for $i from 1 through 12 {
-        .circle-#{$i} {
+        .ui-circle-#{$i} {
             transform: rotate(#{$i * 30}deg);
             span {
                 animation-delay: #{-1.2 + $i / 10}s;

@@ -20,7 +20,7 @@ export class OptionComponent implements AfterViewInit {
     value: string = '';
 
     @Input()
-    @HostBinding('class.disabled')
+    @HostBinding('class.ui-disabled')
     set disabled(isDisabled: any) {
         this._disabled = isDisabled;
     }
@@ -31,7 +31,7 @@ export class OptionComponent implements AfterViewInit {
     }
 
     @Input()
-    @HostBinding('class.selected')
+    @HostBinding('class.ui-selected')
     set selected(isSelected: any) {
         this._selected = isSelected;
     }

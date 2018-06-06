@@ -24,24 +24,24 @@ ui-switch {
         z-index: -1;
     }
 
-    &.checked {
+    &.ui-checked {
         @include switch-theme($color-gray-light);
         .ui-switch-btn {
             transform: translateX(20px);
         }
-        &.primary {
+        &.ui-primary {
             @include switch-theme($color-primary);
         }
-        &.success {
+        &.ui-success {
             @include switch-theme($color-success);
         }
-        &.info {
+        &.ui-info {
             @include switch-theme($color-info);
         }
-        &.danger {
+        &.ui-danger {
             @include switch-theme($color-danger);
         }
-        &.warning {
+        &.ui-warning {
             @include switch-theme($color-warning);
         }
     }
@@ -51,26 +51,26 @@ ui-switch {
 
     &:active {
         @include switch-theme($color-gray-light);
-        &.primary {
+        &.ui-primary {
             @include switch-theme($color-primary);
         }
-        &.success {
+        &.ui-success {
             @include switch-theme($color-success);
         }
-        &.info {
+        &.ui-info {
             @include switch-theme($color-info);
         }
-        &.danger {
+        &.ui-danger {
             @include switch-theme($color-danger);
         }
-        &.warning {
+        &.ui-warning {
             @include switch-theme($color-warning);
         }
         .ui-switch-btn {
             width: 34px;
         }
 
-        &.checked {
+        &.ui-checked {
             .ui-switch-btn {
                 left: -6px;
             }

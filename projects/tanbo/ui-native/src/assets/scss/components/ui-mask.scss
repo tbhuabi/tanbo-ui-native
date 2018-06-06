@@ -14,7 +14,7 @@ ui-mask {
     transition: opacity .3s $cubic-bezier;
     opacity: 0;
     pointer-events: none;
-    &.show {
+    &.ui-show {
         opacity: 1;
         pointer-events: auto;
     }

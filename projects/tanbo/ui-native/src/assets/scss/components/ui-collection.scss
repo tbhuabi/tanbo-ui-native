@@ -1,7 +1,7 @@
 ui-collection {
     display: block;
     overflow: hidden;
-    &.fill {
+    &.ui-fill {
         @include fill-box;
         .ui-collection {
             position: absolute;
@@ -15,7 +15,7 @@ ui-collection {
 
 .ui-collection {
     display: flex;
-    &.vertical {
+    &.ui-vertical {
         flex-direction: column;
     }
 }

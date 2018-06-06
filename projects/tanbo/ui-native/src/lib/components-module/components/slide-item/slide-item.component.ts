@@ -5,11 +5,11 @@ import { Component, HostBinding } from '@angular/core';
     templateUrl: './slide-item.component.html'
 })
 export class SlideItemComponent {
-    @HostBinding('class.in')
+    @HostBinding('class.ui-in')
     get isIn() {
         return this.state === 'in';
     }
-    @HostBinding('class.out')
+    @HostBinding('class.ui-out')
     get isOut() {
         return this.state === 'out';
     }

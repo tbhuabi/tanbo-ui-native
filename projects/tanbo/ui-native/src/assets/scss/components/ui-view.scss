@@ -2,7 +2,7 @@ ui-view {
     @include fill-box;
     contain: size style layout;
     overflow: hidden;
-    &.sleep {
+    &.ui-sleep {
         display: none;
     }
 }

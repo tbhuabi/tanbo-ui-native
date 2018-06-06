@@ -1,7 +1,7 @@
 @import "../../../assets/scss/varibles";
 
 @mixin toast-theme($name, $color) {
-    &.#{$name} {
+    &.ui-#{$name} {
         color: #fff;
         background-color: hsla(hue($color), saturation($color), lightness($color), .9);
     }

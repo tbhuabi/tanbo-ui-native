@@ -27,7 +27,6 @@ import { ListThumbnailComponent } from './components/list-thumbnail/list-thumbna
 import { LoadingComponent } from './components/loading/loading.component';
 import { MaskComponent } from './components/mask/mask.component';
 import { NavBarComponent } from './components/navbar/navbar.component';
-import { NavbarExtensionComponent } from './components/navbar-extension/navbar-extension.component';
 import { PageComponent } from './components/page/page.component';
 import { RefresherComponent } from './components/refresher/refresher.component';
 import { RouterComponent } from './components/router/router.component';
@@ -42,7 +41,6 @@ import { TabBarItemComponent } from './components/tab-bar-item/tab-bar-item.comp
 import { TabViewComponent } from './components/tab-view/tab-view.component';
 import { TabViewItemComponent } from './components/tab-view-item/tab-view-item.component';
 import { TitleComponent } from './components/title/title.component';
-import { TitleExtensionComponent } from './components/title-extension/title-extension.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { ViewComponent } from './components/view/view.component';
 // 指令
@@ -94,7 +92,6 @@ import { UI_DO_LOAD_DISTANCE } from './controllers/pull-up-load-controller';
         LoadingComponent,
         MaskComponent,
         NavBarComponent,
-        NavbarExtensionComponent,
         PageComponent,
         RefresherComponent,
         RouterComponent,
@@ -109,7 +106,6 @@ import { UI_DO_LOAD_DISTANCE } from './controllers/pull-up-load-controller';
         TabViewComponent,
         TabViewItemComponent,
         TitleComponent,
-        TitleExtensionComponent,
         ToastComponent,
         ViewComponent,
 
@@ -142,7 +138,6 @@ import { UI_DO_LOAD_DISTANCE } from './controllers/pull-up-load-controller';
         LoadingComponent,
         MaskComponent,
         NavBarComponent,
-        NavbarExtensionComponent,
         PageComponent,
         RefresherComponent,
         RouterComponent,
@@ -157,7 +152,6 @@ import { UI_DO_LOAD_DISTANCE } from './controllers/pull-up-load-controller';
         TabViewComponent,
         TabViewItemComponent,
         TitleComponent,
-        TitleExtensionComponent,
         ToastComponent,
         ViewComponent
     ]
