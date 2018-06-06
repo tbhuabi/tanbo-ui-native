@@ -6,28 +6,16 @@
   </ui-header>
   <ui-content style="background-color: lavender;">
     <a href="javascript:;" routerLink="/page1">page1</a>
-    <form [formGroup]="formGroup" style="text-align: right">
-      <ui-select formControlName="name" placeholder="就显示">
-        <ui-option value="aaa">aaa</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
+    <div>
+      <ui-scroll-tab>
+        <ui-scroll-tab-button *ngFor="let item of list">{{ item }}</ui-scroll-tab-button>
+      </ui-scroll-tab>
+    </div>
+    <div>
+      <ui-select>
+        <ui-option *ngFor="let item of list">{{ item }}</ui-option>
       </ui-select>
-      <p>
-        <ui-input type="date"></ui-input>
-      </p>
-      <p>
-        <ui-picker></ui-picker>
-      </p>
-    </form>
+    </div>
     <p>
       <button type="button" (click)="ngAfterContentInit()">button</button>
     </p>

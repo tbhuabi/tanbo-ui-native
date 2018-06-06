@@ -124,7 +124,9 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
             }
             if (defaultOption) {
                 this.value = defaultOption.value;
-                defaultOption.selected = true;
+                setTimeout(() => {
+                    defaultOption.selected = true;
+                });
                 this.defaultOption = defaultOption;
             }
         }

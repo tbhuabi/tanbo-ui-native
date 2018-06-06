@@ -56,7 +56,9 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.initStyle();
+        setTimeout(() => {
+            this.initStyle();
+        });
         this.subs.push(this.children.changes.delay(0).subscribe(() => {
             this.initStyle();
         }));
