@@ -1,0 +1,25 @@
+<div class="ui-select-fixed" (click)="showOptions()">
+  <div class="ui-raw-input-wrap">
+    <input class="ui-raw-input" [disabled]="disabled"
+           [name]="name"
+           [placeholder]="placeholder"
+           readonly
+           [id]="forId"
+           type="text"
+           [value]="text">
+    <div class="ui-raw-input-mask"></div>
+  </div>
+  <div class="ui-select-arrow" *ngIf="arrowIconClassName">
+    <span [ngClass]="arrowIconClassName"></span>
+  </div>
+</div>
+<ui-action-sheet [show]="focus" (click)="hideOptions()" uiStopPropagation="touchmove">
+  <div class="ui-select-modal">
+    <div class="ui-select-options">
+      <ng-content></ng-content>
+    </div>
+    <div class="ui-select-btn-wrap" *ngIf="cancelText">
+      <button type="button" class="ui-select-btn">{{ cancelText }}</button>
+    </div>
+  </div>
+</ui-action-sheet>

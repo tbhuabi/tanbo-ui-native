@@ -1,0 +1,19 @@
+<div class="ui-range">
+  <div class="ui-range-progress-bar" #rangeBar [ngStyle]="{width: position + '%'}">
+    <div class="ui-range-btn">
+      <span class="ui-range-progress" *ngIf="showProgress" [ngClass]="{touched: isTouching}">{{ value }}</span>
+      <button type="button" (touchstart)="drag($event)">
+      </button>
+    </div>
+  </div>
+</div>
+<input class="ui-input-range-raw"
+       type="range"
+       [value]="value"
+       [id]="forId"
+       [name]="name"
+       [disabled]="disabled"
+       [max]="max"
+       [min]="min"
+       [step]="step"
+       [readonly]="readonly">
