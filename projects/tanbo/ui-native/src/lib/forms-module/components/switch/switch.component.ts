@@ -32,7 +32,7 @@ export class SwitchComponent implements ControlValueAccessor {
     }
 
     @Input()
-    @HostBinding('class.checked')
+    @HostBinding('class.ui-checked')
     set checked(isChecked: any) {
         this._checked = isChecked;
     }

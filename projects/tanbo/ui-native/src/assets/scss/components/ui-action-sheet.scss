@@ -12,7 +12,7 @@ ui-action-sheet {
     transition: transform .2s $cubic-bezier;
     transition-delay: .1s;
     z-index: $mask-z-index + 1;
-    &.ui-op-up {
+    &.ui-pop-up {
         transform: translateY(0);
     }
     &.ui-show {
