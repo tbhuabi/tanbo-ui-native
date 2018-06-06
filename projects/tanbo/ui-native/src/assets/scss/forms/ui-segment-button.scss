@@ -19,7 +19,7 @@ ui-segment-button {
     &:last-of-type {
         border-radius: 0 4px 4px 0;
     }
-    &.selected {
+    &.ui-selected {
         background-color: $color-primary;
         color: #fff;
     }

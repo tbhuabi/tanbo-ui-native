@@ -87,7 +87,7 @@ import { UI_SELECT_ARROW_CLASSNAME } from './config';
     providers: [
         RadioStateService, {
             provide: UI_SELECT_ARROW_CLASSNAME,
-            useValue: 'caret'
+            useValue: 'ui-caret'
         }
     ]
 })
