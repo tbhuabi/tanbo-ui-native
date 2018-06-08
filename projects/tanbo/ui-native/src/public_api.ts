@@ -6,6 +6,7 @@ export { ContentLoadingController } from './lib/components-module/components/con
 export { RouterService } from './lib/components-module/components/router/router.service';
 export { RouteCacheController } from './lib/components-module/components/router/route-cache-controller';
 export { AppController, getDeviceType } from './lib/components-module/components/app/app-controller';
+export { TabService } from './lib/components-module/components/tab/tab.service';
 
 export { PullDownRefreshController, UI_DO_REFRESH_DISTANCE } from './lib/components-module/controllers/pull-down-refresh-controller';
 export { PullUpLoadController, UI_DO_LOAD_DISTANCE } from './lib/components-module/controllers/pull-up-load-controller';
