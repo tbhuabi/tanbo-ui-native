@@ -17,4 +17,8 @@ export class HomeComponent {
             name: 'aaa'
         });
     }
+
+    show(n: any) {
+        console.log(n);
+    }
 }

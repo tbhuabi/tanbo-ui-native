@@ -4,43 +4,10 @@
       <ui-title>Home</ui-title>
     </ui-navbar>
   </ui-header>
-  <ui-content style="background-color: lavender;">
-    <a href="javascript:;" routerLink="/page1">page1</a>
-    <form [formGroup]="formGroup" style="text-align: right">
-      <ui-select formControlName="name" placeholder="就显示">
-        <ui-option value="aaa">aaa</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-        <ui-option value="bbb">bbb</ui-option>
-      </ui-select>
-      <p>
-        <ui-input type="date"></ui-input>
-      </p>
-      <p>
-        <ui-picker></ui-picker>
-      </p>
-      <p>
-        <ui-input type="checkbox"></ui-input>
-        <ui-input type="checkbox"></ui-input>
-      </p>
-      <p>
-        <ui-input type="radio" name="a"></ui-input>
-        <ui-input type="radio" name="a"></ui-input>
-      </p>
-      <p>
-        <ui-switch></ui-switch>
-      </p>
-    </form>
-    <p>
-    </p>
+  <ui-content>
+    <ui-collection [fill]="true" (slidingFinish)="show($event)">
+      <ui-collection-item>aaa</ui-collection-item>
+      <ui-collection-item>bbb</ui-collection-item>
+    </ui-collection>
   </ui-content>
-  <ui-footer></ui-footer>
 </ui-page>
