@@ -3,15 +3,15 @@ import { Subject, Observable } from 'rxjs';
 
 @Injectable()
 export class ScrollService {
-    onScroll: Observable<HTMLElement>;
+    onScroll: Observable<number>;
 
-    private scrollEvent = new Subject<HTMLElement>();
+    private scrollEvent = new Subject<number>();
 
     constructor() {
         this.onScroll = this.scrollEvent.asObservable();
     }
 
-    scroll(element: HTMLElement) {
-        this.scrollEvent.next(element);
+    scroll(scrollTop: number) {
+        this.scrollEvent.next(scrollTop);
     }
 }

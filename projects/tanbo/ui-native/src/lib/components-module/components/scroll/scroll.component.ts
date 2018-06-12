@@ -79,7 +79,7 @@ export class ScrollComponent implements OnDestroy, OnInit {
             this.paddingTop = `${n}px`;
         });
         this.unBindFnList.push(this.renderer.listen(element, 'scroll', () => {
-            this.scrollService.scroll(element);
+            this.scrollService.scroll(element.scrollTop);
         }));
     }
 

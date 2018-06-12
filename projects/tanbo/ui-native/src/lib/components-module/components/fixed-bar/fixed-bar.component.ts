@@ -12,7 +12,6 @@ export class FixedBarComponent implements OnInit, OnDestroy, AfterViewInit {
     offset: number = 0;
     @HostBinding('class.ui-fixed')
     fixed: boolean = false;
-    containerOffset: number = 0;
     private offsetTop: number = 0;
     private sub: Subscription;
 
@@ -22,9 +21,8 @@ export class FixedBarComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnInit() {
         if (this.scrollService) {
-            this.sub = this.scrollService.onScroll.subscribe((scrollElement: HTMLElement) => {
-                this.containerOffset = this.getOffsetTopByScrollElement(scrollElement);
-                this.fixed = this.offsetTop < scrollElement.scrollTop + this.offset;
+            this.sub = this.scrollService.onScroll.subscribe((scrollTop: number) => {
+                this.fixed = this.offsetTop < scrollTop + this.offset;
             });
         }
     }
@@ -37,15 +35,5 @@ export class FixedBarComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.sub) {
             this.sub.unsubscribe();
         }
-    }
-
-    getOffsetTopByScrollElement(element: HTMLElement): number {
-        let top = element.offsetTop;
-        let el: any = element;
-        while (el.offsetParent) {
-            el = el.offsetParent;
-            top += el.offsetTop;
-        }
-        return top;
     }
 }

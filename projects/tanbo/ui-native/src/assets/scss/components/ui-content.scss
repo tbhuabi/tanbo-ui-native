@@ -3,7 +3,6 @@ ui-content {
     position: relative;
     background-color: #fff;
     contain: size style layout;
-
 }
 
 .ui-content-shadow {
@@ -34,6 +33,7 @@ ui-content {
     top: 0;
     bottom: 0;
     padding: inherit;
+    transform: translateZ(0);
 }
 
 .ui-iphone ui-content {
