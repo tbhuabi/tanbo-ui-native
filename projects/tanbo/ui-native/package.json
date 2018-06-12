@@ -1,6 +1,6 @@
 {
   "name": "@tanbo/ui-native",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "description": "angular components & directives & pipes ...",
   "peerDependencies": {
     "@angular/animations": "^5.0.0 || ^6.0.0-rc.0 || ^6.0.0",
