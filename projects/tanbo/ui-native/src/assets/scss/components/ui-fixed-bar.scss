@@ -1,0 +1,13 @@
+ui-fixed-bar {
+  display: block;
+  background-color: green;
+  height: 40px;
+  &.ui-fixed {
+    left: 0;
+    right: 0;
+  }
+}
+
+.ui-fixed-bar {
+  width: 100%;
+}

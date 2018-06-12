@@ -13,6 +13,7 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
 import { ContentComponent } from './components/content/content.component';
 import { ContentLoadingComponent } from './components/content-loading/content-loading.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { FixedBarComponent } from './components/fixed-bar/fixed-bar.component';
 import { FlexComponent } from './components/flex/flex.component';
 import { FlexItemComponent } from './components/flex-item/flex-item.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -78,6 +79,7 @@ import { UI_DO_LOAD_DISTANCE } from './controllers/pull-up-load-controller';
         ContentComponent,
         ContentLoadingComponent,
         DialogComponent,
+        FixedBarComponent,
         FlexComponent,
         FlexItemComponent,
         FooterComponent,
@@ -124,6 +126,7 @@ import { UI_DO_LOAD_DISTANCE } from './controllers/pull-up-load-controller';
         ContentComponent,
         ContentLoadingComponent,
         DialogComponent,
+        FixedBarComponent,
         FlexComponent,
         FlexItemComponent,
         FooterComponent,

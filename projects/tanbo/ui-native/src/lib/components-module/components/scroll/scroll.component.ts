@@ -12,10 +12,14 @@ import { Subscription } from 'rxjs';
 
 import { PullDownRefreshController } from '../../controllers/pull-down-refresh-controller';
 import { UI_DO_LOAD_DISTANCE, PullUpLoadController } from '../../controllers/pull-up-load-controller';
+import { ScrollService } from './scroll.service';
 
 @Component({
     selector: 'ui-scroll',
-    templateUrl: './scroll.component.html'
+    templateUrl: './scroll.component.html',
+    providers: [
+        ScrollService
+    ]
 })
 export class ScrollComponent implements OnDestroy, OnInit {
     // 是否开启下拉刷新
@@ -62,16 +66,21 @@ export class ScrollComponent implements OnDestroy, OnInit {
     constructor(private renderer: Renderer2,
                 private elementRef: ElementRef,
                 @Inject(UI_DO_LOAD_DISTANCE) private doLoadDistance: number,
+                private scrollService: ScrollService,
                 private pullUpLoadController: PullUpLoadController,
                 private pullDownRefreshController: PullDownRefreshController) {
 
     }
 
     ngOnInit() {
+        const element = this.elementRef.nativeElement;
         this.sub = this.pullDownRefreshController.onStateChange.subscribe(n => {
             this.distanceY = n;
             this.paddingTop = `${n}px`;
         });
+        this.unBindFnList.push(this.renderer.listen(element, 'scroll', () => {
+            this.scrollService.scroll(element);
+        }));
     }
 
     ngOnDestroy() {
@@ -83,6 +92,8 @@ export class ScrollComponent implements OnDestroy, OnInit {
         const element = this.elementRef.nativeElement;
 
         this.unBindFnList.push(this.renderer.listen(element, 'scroll', () => {
+            debugger;
+            this.scrollService.scroll(element.scrollTop);
             if (!this.openInfinite) {
                 return;
             }
