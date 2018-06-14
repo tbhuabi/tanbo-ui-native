@@ -26,7 +26,6 @@
     "@types/tween.js": "^16.9.0",
     "better-scroll": "^1.11.1",
     "core-js": "^2.5.4",
-    "normalize.css": "^8.0.0",
     "rxjs": "^6.0.0",
     "tanbo-bezier": "0.0.5",
     "zone.js": "^0.8.26"
