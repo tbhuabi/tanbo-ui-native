@@ -1,0 +1,27 @@
+<br><br><br>
+<ng-container [ngTemplateOutlet]="temp" [ngTemplateOutletContext]="{list: list, open: true, depth: 0}"></ng-container>
+<ng-template #temp let-list="list" let-open="open" let-depth="depth">
+  <ui-tree [open]="open">
+    <ui-tree-item *ngFor="let item of list">
+      <ui-tree-inner [depth]="depth">
+        <ui-tree-expand #expand></ui-tree-expand>{{ item.text }}
+      </ui-tree-inner>
+      <ng-container *ngIf="item.children"
+                    [ngTemplateOutlet]="temp"
+                    [ngTemplateOutletContext]="{list: item.children, open: expand.checked, depth: depth+1}"></ng-container>
+    </ui-tree-item>
+  </ui-tree>
+</ng-template>
+
+
+<div>
+  <label>label</label>
+  <ui-select>
+    <ui-option>test</ui-option>
+  </ui-select>
+</div>
+
+<div>
+  <label>label</label>
+  <ui-input type="date"></ui-input>
+</div>

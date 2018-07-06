@@ -1,0 +1,11 @@
+div {
+  display: flex;
+}
+
+label {
+  width: 140px;
+}
+
+ui-select, ui-input[type=date] {
+  flex: 1;
+}

@@ -1,27 +1,46 @@
-# TanboUiNative
+# angular2-webpack项目模板
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7.
+本项目demo是基于webpack的angular项目，语言为typescript+es6  
+本项目为单页应用，历史纪录基于angular默认的html5 history api，在正式发布后，后台需配置相关页面解析逻辑，防止404页面出现
 
-## Development server
+## 如何使用？
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. 打开控制台，并进入项目根目录
+2. 在控制台输入以下代码`npm install`并回车，等待安装完毕 
+3. 确保安装没有错误，运行`npm start`，如无意外，这时将自动打开chrome浏览器，并显示出demo的默认页面了
 
-## Code scaffolding
+## 项目约定
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
++ assets目录存放公共的图片和样式表
++ modules 公共模块目录
++ views存放页面文件夹  
 
-## Build
+你可以在src内扩展你需要的目录
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## 代码风格
++ 项目采用了**tslint**作为代码检查工具
++ 请确保代码风格符合[codelyzer](https://angular.cn/docs/ts/latest/guide/style-guide.html)标准，否则启动和构建会不成功，如果不小心写出的代码不符合代码规范，请注意控制台输出错误的信息，并做出相应更改，直到没有代码语法错误
 
-## Running unit tests
+## 自动化测试
+`npm run test`
+为确保项目的健壮性、可维护性和可预期，建议为每一个项目中的文件写单元测试，测试工具为karma，框架为jasmine，相关文档可上互联网上搜索  
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+默认情况下，单元测试文件以XXX.spec.ts命名
 
-## Running end-to-end tests
+## 构建发布
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+1. 确认本地在开发过程中，没有代码错误，及编译警告
+2. 在控制台输入`npm run build`
+3. 等编译完成后，会在根目录下生成一个dist的目录，里面存有打包编译后的文件
 
-## Further help
+## 直接运行打包后的代码
+```bash
+npm run production
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## 调试代理
+
+接口代理默认拦截以`/api/`开头的请求，并会重写url为`/`,你需要把全局的api请求加上`/api`前缀，并在上线发布时去掉这个请求头，推荐的做法是通过配置环境变量的方式实现。
+
+
+

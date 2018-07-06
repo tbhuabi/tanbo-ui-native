@@ -1,41 +1,21 @@
-import { Routes } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { TabComponent } from '../pages/tab/tab.component';
-import { Page1Component } from '../pages/page1/page1.component';
-import { Page2Component } from '../pages/page2/page2.component';
-import { HomeComponent } from '../pages/home/home.component';
+import { HomeComponent } from '../pages/home/home';
+import { DetailComponent } from '../pages/detail/detail.component';
 
-export const routes: Routes = [{
-    path: 'home',
-    component: HomeComponent
+const appRoutes: Routes = [{
+  path: '',
+  redirectTo: '/home',
+  pathMatch: 'full'
 }, {
-    path: 'tab',
-    component: TabComponent,
-    children: [{
-        path: 'page1',
-        component: Page1Component,
-        outlet: 'route1'
-    }, {
-        path: 'home',
-        component: HomeComponent,
-        outlet: 'route1'
-    }, {
-        path: 'page2',
-        component: Page2Component,
-        outlet: 'route2'
-    }, {
-        path: '',
-        redirectTo: '/tab/(route1:page1//route2:page2)',
-        pathMatch: 'full'
-    }]
+  path: 'home',
+  component: HomeComponent
 }, {
-    path: 'page1',
-    component: Page1Component
+  path: 'detail',
+  component: DetailComponent
 }, {
-    path: 'page2',
-    component: Page2Component
-}, {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
+  path: 'lazy',
+  loadChildren: '../pages/lazy/lazy.module#LazyModule'
 }];
+export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

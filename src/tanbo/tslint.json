@@ -1,0 +1,19 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      "ui",
+      "kebab-case"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "ui",
+      "kebab-case"
+    ],
+    "use-host-property-decorator": false,
+    "no-input-rename": false
+  }
+}

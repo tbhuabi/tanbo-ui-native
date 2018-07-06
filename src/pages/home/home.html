@@ -1,0 +1,19 @@
+<div class="ui-container-fluid">
+  <button type="button" class="ui-btn-primary ui-btn" (click)="show()">show</button>
+  <br>
+  <br>
+  <div>
+    <div class="ui-btn-group ui-btn-group-sm">
+      <button class="ui-btn ui-btn-default" ui-tooltip="fdsafdsa" type="button">aaa</button>
+      <button class="ui-btn ui-btn-default" type="button">bbb</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #modal>
+  <ui-modal>
+    <ui-modal-header>title</ui-modal-header>
+    <ui-modal-inner>inner</ui-modal-inner>
+    <ui-modal-footer>footer</ui-modal-footer>
+  </ui-modal>
+</ng-template>
