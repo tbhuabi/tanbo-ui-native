@@ -1,4 +1,4 @@
-@import "../../../assets/scss/varibles";
+@import "../varibles";
 
 @mixin toast-theme($name, $color) {
     &.ui-#{$name} {
