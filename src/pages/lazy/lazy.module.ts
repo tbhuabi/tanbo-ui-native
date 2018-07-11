@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UIModule } from '../../tanbo/ui/public_api';
+import { UINativeModule } from '../../tanbo/ui-native/public_api';
 
 import { routes } from './lazy.routing';
 
@@ -8,7 +8,7 @@ import { TestComponent } from './test/test.component';
 
 @NgModule({
   imports: [
-    UIModule,
+    UINativeModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

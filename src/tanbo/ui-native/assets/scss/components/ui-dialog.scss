@@ -1,34 +1,46 @@
-ui-dialog {
-
-}
-
 .ui-dialog {
-    @include fill-box;
-    @include flex-center;
-    z-index: $mask-z-index + 1;
-
-    &.ui-in {
-        animation: .15s dialogAnimationIn;
-    }
-    &.ui-out {
-        animation: .15s dialogAnimationOut;
+    width: $alert-width;
+    background-color: #fff;
+    overflow: hidden;
+    @if $alert-radius-is-open {
+        border-radius: $alert-radius;
     }
 }
 
-@keyframes dialogAnimationIn {
-    0% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
+.ui-dialog-title {
+    text-align: center;
+    padding: $grid-column-padding $grid-column-padding 7px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: $font-size-larger;
+}
+
+.ui-dialog-body {
+    border-bottom: $border-width solid $color-gray-light;
+    padding: 0 $grid-column-padding 22px;
+    text-align: center;
+    &:first-child {
+        padding: $grid-column-padding $grid-column-padding;
     }
 }
 
-@keyframes dialogAnimationOut {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(0.8);
+.ui-dialog-footer {
+    display: flex;
+    .ui-btn {
+        color: $color-primary;
+        flex: 1;
+        font-size: $font-size-larger;
+        border: none;
+        border-radius: 0;
+        background: none;
+        cursor: pointer;
+        &:nth-child(2) {
+            border-left: $border-width solid $color-gray-light;
+            font-weight: 600;
+        }
+        &:active {
+            background-color: rgba(0, 0, 0, .1);
+        }
     }
 }

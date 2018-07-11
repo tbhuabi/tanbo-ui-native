@@ -77,14 +77,14 @@ $list-item-forward-padding-right: 32px !default;
 // 模拟radio/checkbox
 $ui-input-focus-box-shadow-color: hsla(hue($color-gray-light), saturation($color-gray-light), lightness($color-gray-light), .5) !default;
 
-// confirm
-$confirm-radius-is-open: $is-open-radius !default;
+// dialog
+$dialog-radius-is-open: $is-open-radius !default;
 
-$confirm-radius: 13px !default;
-$confirm-width: 300px !default;
-$confirm-height: 220px !default;
+$dialog-radius: 13px !default;
+$dialog-width: 300px !default;
+$dialog-height: 220px !default;
 
-// confirm
+// alert
 $alert-radius-is-open: $is-open-radius !default;
 
 $alert-radius: 13px !default;

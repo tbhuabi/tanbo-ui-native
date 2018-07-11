@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app';
 
-import { UIModule } from '../tanbo/ui/public_api';
+import { UINativeModule } from '../tanbo/ui-native/public_api';
 
 import { HomeComponent } from '../pages/home/home';
 import { DetailComponent } from '../pages/detail/detail.component';
@@ -20,7 +20,7 @@ import { ApiInterceptor } from './api-interceptor';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    UIModule.forRoot(),
+    UINativeModule.forRoot(),
     routing
   ],
   declarations: [
