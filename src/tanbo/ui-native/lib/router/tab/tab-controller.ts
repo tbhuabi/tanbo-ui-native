@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
 @Injectable()
-export class TabService {
+export class TabController {
   tabIndex: Observable<number>;
   private tabIndexSource = new Subject<number>();
 

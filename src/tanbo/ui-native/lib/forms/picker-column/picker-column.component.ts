@@ -2,17 +2,9 @@ import { Component, Input, Output, EventEmitter, AfterViewInit, ElementRef, OnDe
 import * as BetterScroll from 'better-scroll';
 import { Subscription } from 'rxjs';
 
-import { PickerService } from '../picker/picker.service';
+import { PickerService, PickerCell } from '../picker/picker.service';
 
 const BScroll: BScrollStatic = (BetterScroll as any).default;
-
-export interface PickerCell {
-  value: string | number;
-  text: string | number;
-  disabled?: boolean;
-  readonly?: boolean;
-  children?: Array<PickerCell>;
-}
 
 @Component({
   selector: 'ui-picker-column',

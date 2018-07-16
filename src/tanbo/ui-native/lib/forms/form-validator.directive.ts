@@ -5,7 +5,7 @@ import { NgForm } from '@angular/forms';
   selector: '[ui-validate-form]'
 })
 export class FormValidatorDirective {
-  @Input()
+  @Input('ui-validate-form')
   uiValidateForm: NgForm;
 
   @HostListener('submit')

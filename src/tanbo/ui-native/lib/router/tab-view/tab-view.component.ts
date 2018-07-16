@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, QueryList, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { TabService } from '../tab/tab.service';
+import { TabController } from '../tab/tab-controller';
 import { TabViewItemComponent } from '../tab-view-item/tab-view-item.component';
 
 @Component({
@@ -14,7 +14,7 @@ export class TabViewComponent implements AfterContentInit, OnDestroy {
 
   private subs: Array<Subscription> = [];
 
-  constructor(private tabService: TabService) {
+  constructor(private tabService: TabController) {
   }
 
   ngAfterContentInit() {

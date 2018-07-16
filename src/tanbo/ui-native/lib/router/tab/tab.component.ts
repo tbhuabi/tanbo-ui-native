@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { TabService } from './tab.service';
+import { TabController } from './tab-controller';
 
 @Component({
   selector: 'ui-tab',
   templateUrl: './tab.component.html',
   providers: [
-    TabService
+    TabController
   ]
 })
 export class TabComponent {

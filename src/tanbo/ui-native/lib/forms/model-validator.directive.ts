@@ -5,7 +5,7 @@ import { NgModel, FormControl } from '@angular/forms';
   selector: '[ui-validate-model]'
 })
 export class ModelValidatorDirective {
-  @Input()
+  @Input('ui-validate-model')
   uiValidateModel: NgModel;
 
   @HostListener('click')

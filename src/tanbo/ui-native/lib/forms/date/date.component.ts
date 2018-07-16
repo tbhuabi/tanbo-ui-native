@@ -2,8 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, HostBinding, OnDestroy,
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { PickerService } from '../picker/picker.service';
-import { PickerCell } from '../picker-column/picker-column.component';
+import { PickerService, PickerCell } from '../picker/picker.service';
 import { timeAnalysisByTimeString, dateStringFormat, TimeDetails } from './date-utils';
 import { UI_SELECT_ARROW_CLASSNAME } from '../helper';
 

@@ -12,7 +12,7 @@ import {
 import { Subscription } from 'rxjs';
 import { CubicBezier } from 'tanbo-bezier';
 
-import { TabService } from '../tab/tab.service';
+import { TabController } from '../tab/tab-controller';
 import { TabBarItemComponent } from '../tab-bar-item/tab-bar-item.component';
 import { UI_ROUTER_ANIMATION_STEPS } from '../helper';
 import { ViewState, ViewStateService, UI_VIEW_INIT_STATE } from '../view/view-state.service';
@@ -36,7 +36,7 @@ export class TabBarComponent implements AfterContentInit, OnDestroy, OnInit {
 
   private subs: Array<Subscription> = [];
 
-  constructor(private tabService: TabService,
+  constructor(private tabService: TabController,
               private viewStateService: ViewStateService,
               @Inject(UI_VIEW_INIT_STATE) private state: ViewState,
               @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number) {

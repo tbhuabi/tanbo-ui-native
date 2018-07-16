@@ -92,7 +92,6 @@ export class ScrollComponent implements OnDestroy, OnInit {
     const element = this.elementRef.nativeElement;
 
     this.unBindFnList.push(this.renderer.listen(element, 'scroll', () => {
-      debugger;
       this.scrollService.scroll(element.scrollTop);
       if (!this.openInfinite) {
         return;

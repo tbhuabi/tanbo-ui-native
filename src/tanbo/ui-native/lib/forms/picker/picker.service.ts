@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
+export interface PickerCell {
+  value: string | number;
+  text: string | number;
+  disabled?: boolean;
+  readonly?: boolean;
+  children?: Array<PickerCell>;
+}
+
 @Injectable()
 export class PickerService {
   onShow: Observable<void>;
