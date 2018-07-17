@@ -14,8 +14,8 @@
     <span [ngClass]="arrowIconClassName"></span>
   </div>
 </div>
-<ui-action-sheet [show]="focus" (click)="hide()" uiStopPropagation>
-  <div class="ui-picker" uiStopPropagation>
+<ui-action-sheet [show]="focus" (click)="hide()" ui-stop-propagation>
+  <div class="ui-picker" ui-stop-propagation>
     <ui-flex class="ui-picker-header">
       <button class="ui-picker-action" type="button" (click)="hide()">取消</button>
       <ui-flex-item class="ui-picker-title">{{ title }}</ui-flex-item>
