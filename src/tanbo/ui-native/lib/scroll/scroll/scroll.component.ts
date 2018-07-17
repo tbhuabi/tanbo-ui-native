@@ -12,13 +12,13 @@ import { Subscription } from 'rxjs';
 
 import { PullUpLoadController } from './pull-up-load-controller';
 import { PullDownRefreshController, UI_DO_LOAD_DISTANCE } from '../index';
-import { ScrollService } from './scroll.service';
+import { FixedBarService } from '../../other/index';
 
 @Component({
   selector: 'ui-scroll',
   templateUrl: './scroll.component.html',
   providers: [
-    ScrollService
+    FixedBarService
   ]
 })
 export class ScrollComponent implements OnDestroy, OnInit {
@@ -66,7 +66,7 @@ export class ScrollComponent implements OnDestroy, OnInit {
   constructor(private renderer: Renderer2,
               private elementRef: ElementRef,
               @Inject(UI_DO_LOAD_DISTANCE) private doLoadDistance: number,
-              private scrollService: ScrollService,
+              private fixedBarService: FixedBarService,
               private pullUpLoadController: PullUpLoadController,
               private pullDownRefreshController: PullDownRefreshController) {
 
@@ -79,7 +79,7 @@ export class ScrollComponent implements OnDestroy, OnInit {
       this.paddingTop = `${n}px`;
     });
     this.unBindFnList.push(this.renderer.listen(element, 'scroll', () => {
-      this.scrollService.scroll(element.scrollTop);
+      this.fixedBarService.scroll(element.scrollTop);
     }));
   }
 
@@ -92,7 +92,7 @@ export class ScrollComponent implements OnDestroy, OnInit {
     const element = this.elementRef.nativeElement;
 
     this.unBindFnList.push(this.renderer.listen(element, 'scroll', () => {
-      this.scrollService.scroll(element.scrollTop);
+      this.fixedBarService.scroll(element.scrollTop);
       if (!this.openInfinite) {
         return;
       }

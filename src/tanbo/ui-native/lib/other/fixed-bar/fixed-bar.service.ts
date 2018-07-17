@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
 @Injectable()
-export class ScrollService {
+export class FixedBarService {
   onScroll: Observable<number>;
 
   private scrollEvent = new Subject<number>();

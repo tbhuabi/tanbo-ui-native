@@ -88,7 +88,7 @@ module.exports = {
                         }
                     }
                 }].concat(`${cssConfig.language ? cssConfig.language + '-loader' : ''}`)
-            }) : ['style-loader', 'css-loader?sourceMap', {
+            }) : ['style-loader', 'css-loader', {
                 loader: 'postcss-loader',
                 options: {
                     plugins() {
@@ -96,7 +96,7 @@ module.exports = {
                     },
                     sourceMap: true
                 }
-            }].concat(`${cssConfig.language ? cssConfig.language + '-loader?sourceMap' : ''}`)
+            }].concat(`${cssConfig.language ? cssConfig.language + '-loader' : ''}`)
         }, {
             test: cssTest(cssConfig.language),
             exclude: commonStaticPaths,
@@ -104,7 +104,7 @@ module.exports = {
                 loader: 'css-loader',
                 options: {
                     minimize: isProduction,
-                    sourceMap: true
+                    sourceMap: false
                 }
             }, {
                 loader: 'postcss-loader',
@@ -112,9 +112,9 @@ module.exports = {
                     plugins() {
                         return [require('autoprefixer')];
                     },
-                    sourceMap: true
+                    sourceMap: false
                 }
-            }, `${cssConfig.language ? cssConfig.language + '-loader?sourceMap' : ''}`]
+            }, `${cssConfig.language ? cssConfig.language + '-loader' : ''}`]
         }]
     },
     plugins: [

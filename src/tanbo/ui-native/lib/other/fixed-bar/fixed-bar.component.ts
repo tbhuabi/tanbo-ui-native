@@ -1,39 +1,31 @@
-import { Component, Input, Optional, OnInit, OnDestroy, AfterViewInit, ElementRef, HostBinding } from '@angular/core';
+import { Component, Optional, OnInit, OnDestroy, ElementRef, HostBinding } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { ScrollService } from '../../scroll/index';
+import { FixedBarService } from './fixed-bar.service';
 
 @Component({
   selector: 'ui-fixed-bar',
   templateUrl: './fixed-bar.component.html'
 })
-export class FixedBarComponent implements OnInit, OnDestroy, AfterViewInit {
-  @Input()
+export class FixedBarComponent implements OnInit, OnDestroy {
   offset: number = 0;
   @HostBinding('class.ui-fixed')
   fixed: boolean = false;
-  private offsetTop: number = 0;
-  private sub: Subscription;
+  private subs: Subscription[] = [];
 
-  constructor(@Optional() private scrollService: ScrollService,
+  constructor(@Optional() private fixedBarService: FixedBarService,
               private elementRef: ElementRef) {
   }
 
   ngOnInit() {
-    if (this.scrollService) {
-      this.sub = this.scrollService.onScroll.subscribe((scrollTop: number) => {
-        this.fixed = this.offsetTop < scrollTop + this.offset;
-      });
+    if (this.fixedBarService) {
+      this.subs.push(this.fixedBarService.onScroll.subscribe((scrollTop: number) => {
+        this.fixed = this.elementRef.nativeElement.offsetTop < (scrollTop + this.offset);
+      }));
     }
-  }
-
-  ngAfterViewInit() {
-    this.offsetTop = this.elementRef.nativeElement.offsetTop;
   }
 
   ngOnDestroy() {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
+    this.subs.forEach(item => item.unsubscribe());
   }
 }

@@ -1,6 +1,7 @@
 ui-fixed-bar {
   display: block;
   height: 40px;
+  position: relative;
   &.ui-fixed {
     left: 0;
     right: 0;
