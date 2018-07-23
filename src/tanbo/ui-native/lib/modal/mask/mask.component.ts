@@ -9,11 +9,11 @@ export class MaskComponent {
   show: boolean = false;
 
   @Output()
-  hide = new EventEmitter<void>();
+  uiHide = new EventEmitter<void>();
 
   done() {
     if (!this.show) {
-      this.hide.emit();
+      this.uiHide.emit();
     }
   }
 }

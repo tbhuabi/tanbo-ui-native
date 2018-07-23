@@ -49,7 +49,7 @@ export class SwitchComponent implements ControlValueAccessor {
   @Input()
   name: string = '';
   @Output()
-  change = new EventEmitter<boolean>();
+  uiChange = new EventEmitter<boolean>();
 
   private onChange: (_: any) => void;
   private onTouched: (_: any) => void;
@@ -69,7 +69,7 @@ export class SwitchComponent implements ControlValueAccessor {
     if (this.onTouched) {
       this.onTouched(this.checked);
     }
-    this.change.emit(this.checked);
+    this.uiChange.emit(this.checked);
   }
 
   writeValue(value: any) {

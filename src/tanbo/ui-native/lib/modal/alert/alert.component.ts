@@ -1,47 +1,55 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AlertConfig, AlertController } from './alert-controller';
 
 @Component({
-    selector: 'ui-alert',
-    templateUrl: './alert.component.html'
+  selector: 'ui-alert',
+  templateUrl: './alert.component.html'
 })
 export class AlertComponent implements OnInit, OnDestroy {
-    show: boolean = false;
+  show: boolean = false;
 
-    title: string = '';
-    content: string = '';
-    btnText: string = '';
+  title: string | TemplateRef<any> = '';
+  content: string | TemplateRef<any> = '';
+  btnText: string = '';
 
-    private sub: Subscription;
+  get titleIsString() {
+    return typeof this.title === 'string';
+  }
 
-    constructor(private alertController: AlertController) {
-    }
+  get contentIsString() {
+    return typeof this.content === 'string';
+  }
 
-    ngOnInit() {
-        // 订阅alert事件
-        this.sub = this.alertController.alertConfig.subscribe((params: AlertConfig) => {
-            // 设置状态，以弹出对话框
-            this.show = true;
+  private sub: Subscription;
 
-            this.title = params.title;
-            this.content = params.content;
-            this.btnText = params.btnText;
-        });
-    }
+  constructor(private alertController: AlertController) {
+  }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
+  ngOnInit() {
+    // 订阅alert事件
+    this.sub = this.alertController.alertConfig.subscribe((params: AlertConfig) => {
+      // 设置状态，以弹出对话框
+      this.show = true;
 
-    checked() {
-        // 当点击确认按扭时关闭弹窗
-        this.show = false;
-    }
+      this.title = params.title;
+      this.content = params.content;
+      this.btnText = params.btnText;
+    });
+  }
 
-    hide() {
-        // 当弹窗动画完成时，发布事件
-        this.alertController.publishAction();
-    }
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+  checked() {
+    // 当点击确认按扭时关闭弹窗
+    this.show = false;
+  }
+
+  hide() {
+    // 当弹窗动画完成时，发布事件
+    this.alertController.publishAction();
+  }
 }

@@ -24,7 +24,7 @@ import {
   ViewStateService
 } from './router/index';
 import { UI_DO_REFRESH_DISTANCE, UI_DO_LOAD_DISTANCE } from './scroll/index';
-import { AlertController, DialogController, ToastController } from './modal/index';
+import { AlertController, DialogController, ToastController, ModalController } from './modal/index';
 
 @NgModule({
   exports: [
@@ -70,6 +70,7 @@ export class UINativeModule {
         AlertController,
         DialogController,
         ListActivatedService,
+        ModalController,
         ToastController,
         ViewStateService
       ]

@@ -24,10 +24,10 @@ import { Easing } from '@tweenjs/tween.js';
 export class CollectionComponent implements AfterContentInit, OnDestroy {
   // 拖动事件
   @Output()
-  sliding = new EventEmitter<number>();
+  uiSliding = new EventEmitter<number>();
   // 拖动完成事件
   @Output()
-  slidingFinish = new EventEmitter<number>();
+  uiSlidingFinish = new EventEmitter<number>();
   @Input()
   vertical: boolean = false;
   @Input()
@@ -94,7 +94,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     this.element = this.elementRef.nativeElement;
     this.containerElement = this.container.nativeElement;
     this.subs.push(this.slidingEvent$.pipe(distinctUntilChanged()).subscribe((n: number) => {
-      this.sliding.emit(n);
+      this.uiSliding.emit(n);
     }));
 
     this.subs.push(this.items.changes.subscribe(_ => {
@@ -237,7 +237,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
         this.animationId = requestAnimationFrame(moveToTarget);
       } else {
         // 发送事件，并传出当前滑动到了第几屏
-        this.slidingFinish.emit(this.distance / this.stepDistance * -1);
+        this.uiSlidingFinish.emit(this.distance / this.stepDistance * -1);
       }
     };
 

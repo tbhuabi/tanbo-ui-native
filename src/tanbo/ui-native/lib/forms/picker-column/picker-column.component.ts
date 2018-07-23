@@ -20,7 +20,7 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
   value: PickerCell;
 
   @Output()
-  selected = new EventEmitter<PickerCell>();
+  uiSelected = new EventEmitter<PickerCell>();
 
   distanceTop: number = 0;
 
@@ -70,7 +70,7 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
       if (value.disabled) {
         return;
       }
-      this.selected.emit(value);
+      this.uiSelected.emit(value);
     });
   }
 

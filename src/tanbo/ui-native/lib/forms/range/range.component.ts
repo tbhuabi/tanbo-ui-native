@@ -104,7 +104,7 @@ export class RangeComponent implements ControlValueAccessor {
   isTouching: boolean = false;
 
   @Output()
-  change = new EventEmitter<string>();
+  uiChange = new EventEmitter<string>();
 
   private _disabled: boolean = false;
   private _readonly: boolean = false;
@@ -182,7 +182,7 @@ export class RangeComponent implements ControlValueAccessor {
         if (this.onTouched) {
           this.onTouched(value);
         }
-        this.change.emit(value);
+        this.uiChange.emit(value);
       }
       ev.stopPropagation();
       ev.preventDefault();

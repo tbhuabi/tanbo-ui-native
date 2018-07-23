@@ -38,7 +38,7 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
   }
 
   @Output()
-  change = new EventEmitter<number>();
+  uiChange = new EventEmitter<number>();
 
   @ContentChildren(ScrollTabButtonComponent)
   children: QueryList<ScrollTabButtonComponent>;
@@ -66,7 +66,7 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
     this.subs.push(this.scrollTabService.onSelected.subscribe(c => {
       this.children.forEach((item: ScrollTabButtonComponent, i: number) => {
         if (item === c) {
-          this.change.emit(i);
+          this.uiChange.emit(i);
         }
       });
     }));

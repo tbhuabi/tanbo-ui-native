@@ -21,7 +21,7 @@ ui-input[type=checkbox] {
     @include checkbox-style(warning, $color-warning);
     @include checkbox-style(success, $color-success);
     @include checkbox-style(danger, $color-danger);
-    &[disabled], &[readonly], &.disabled {
+    &[disabled], &[readonly], &.ui-disabled, &.ui-readonly {
         opacity: .5;
         cursor: not-allowed;
     }
@@ -30,24 +30,25 @@ ui-input[type=checkbox] {
     }
 }
 
-.ui-input-checkbox-raw {
-    width: 0;
-    height: 0;
+.ui-input-checkbox {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     position: absolute;
     overflow: hidden;
     opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: inherit;
 }
 
 .ui-checkbox {
     width: 100%;
     height: 100%;
-    background: none;
-    border: none;
-    font-size: inherit;
-    line-height: inherit;
-    color: inherit;
+    line-height: 1em;
     cursor: inherit;
-    padding: 0;
+    display: inline-block;
 }
 
 .ui-checkbox-checked {

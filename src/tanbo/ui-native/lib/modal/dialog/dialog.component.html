@@ -1,12 +1,18 @@
-<ui-dialog-base [show]="show" (hide)="hide()">
-  <div class="ui-dialog">
-    <h3 class="ui-dialog-title ui-clearfix" *ngIf="title" [innerHTML]="title">
-    </h3>
-    <div class="ui-dialog-body" [innerHTML]="content">
-    </div>
-    <div class="ui-dialog-footer ui-text-right">
+<ui-dialog-base [show]="show" (uiHide)="hide()">
+  <ui-modal>
+    <ng-container *ngIf="title">
+      <ui-modal-header *ngIf="titleIsString">{{ title }}</ui-modal-header>
+      <ui-modal-header *ngIf="!titleIsString">
+        <ng-container [ngTemplateOutlet]="title"></ng-container>
+      </ui-modal-header>
+    </ng-container>
+    <ui-modal-inner *ngIf="contentIsString">{{ content }}</ui-modal-inner>
+    <ui-modal-inner *ngIf="!contentIsString">
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </ui-modal-inner>
+    <ui-modal-footer class="ui-dialog-footer">
       <button (click)="checked(false)" type="button" class="ui-btn ui-btn-lg ui-btn-block">{{ btnsText[0] }}</button>
       <button (click)="checked(true)" type="button" class="ui-btn ui-btn-lg ui-btn-block">{{ btnsText[1] }}</button>
-    </div>
-  </div>
+    </ui-modal-footer>
+  </ui-modal>
 </ui-dialog-base>

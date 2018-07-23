@@ -73,7 +73,7 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
   @Input()
   arrowIconClassName: string = '';
   @Output()
-  change = new EventEmitter<Array<PickerCell>>();
+  uiChange = new EventEmitter<Array<PickerCell>>();
 
   list: Array<Array<PickerCell>> = [];
 
@@ -151,7 +151,7 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
       this.onTouched(this._value);
     }
     this.value = this._value;
-    this.change.emit(this._value);
+    this.uiChange.emit(this._value);
     this.hide();
   }
 

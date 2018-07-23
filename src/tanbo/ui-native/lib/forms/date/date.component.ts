@@ -90,7 +90,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   }
 
   @Output()
-  change = new EventEmitter<string | number>();
+  uiChange = new EventEmitter<string | number>();
 
   focus: boolean = false;
 
@@ -258,7 +258,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
       this.onTouched(value);
     }
     this._value = value;
-    this.change.emit(value);
+    this.uiChange.emit(value);
     this.hide();
   }
 

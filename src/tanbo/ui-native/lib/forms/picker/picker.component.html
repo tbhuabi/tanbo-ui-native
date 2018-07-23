@@ -24,7 +24,7 @@
     <div class="ui-picker-selector">
       <div class="ui-picker-list">
         <ui-picker-column *ngFor="let column of list; let i = index"
-                          (selected)="cellSelected($event, i)"
+                          (uiSelected)="cellSelected($event, i)"
                           [cells]="column" [value]="value[i] || column[0]"></ui-picker-column>
       </div>
     </div>

@@ -31,7 +31,7 @@ export class SegmentComponent implements ControlValueAccessor, AfterContentInit,
   value: any;
 
   @Output()
-  change = new EventEmitter<string>();
+  uiChange = new EventEmitter<string>();
 
   private onChange: (_: any) => any;
   private onTouched: (_: any) => any;
@@ -73,7 +73,7 @@ export class SegmentComponent implements ControlValueAccessor, AfterContentInit,
           if (this.onTouched) {
             this.onTouched(this.value);
           }
-          this.change.emit(this.value);
+          this.uiChange.emit(this.value);
         } else {
           op.selected = false;
         }

@@ -42,7 +42,7 @@ export class OptionComponent implements AfterViewInit {
   }
 
   @Output()
-  checked = new EventEmitter<OptionComponent>();
+  uiChecked = new EventEmitter<OptionComponent>();
   nativeElement: HTMLElement;
 
   private _disabled: boolean;
@@ -56,7 +56,7 @@ export class OptionComponent implements AfterViewInit {
   click() {
     if (!this.disabled) {
       this.selectService.checked(this);
-      this.checked.emit(this);
+      this.uiChecked.emit(this);
     }
   }
 

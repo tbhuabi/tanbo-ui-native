@@ -22,17 +22,17 @@
     </ui-flex>
     <div class="ui-picker-selector">
       <div class="ui-picker-list">
-        <ui-picker-column *ngIf="years.length" (selected)="cellSelected($event, 'year')"
+        <ui-picker-column *ngIf="years.length" (uiSelected)="cellSelected($event, 'year')"
                           [cells]="years" [value]="{value: currentDate.year}"></ui-picker-column>
-        <ui-picker-column *ngIf="months.length" (selected)="cellSelected($event, 'month')"
+        <ui-picker-column *ngIf="months.length" (uiSelected)="cellSelected($event, 'month')"
                           [cells]="months" [value]="{value: currentDate.month}"></ui-picker-column>
-        <ui-picker-column *ngIf="days.length" (selected)="cellSelected($event, 'day')"
+        <ui-picker-column *ngIf="days.length" (uiSelected)="cellSelected($event, 'day')"
                           [cells]="days" [value]="{value: currentDate.day}"></ui-picker-column>
-        <ui-picker-column *ngIf="hours.length" (selected)="cellSelected($event, 'hours')"
+        <ui-picker-column *ngIf="hours.length" (uiSelected)="cellSelected($event, 'hours')"
                           [cells]="hours" [value]="{value: currentDate.hours}"></ui-picker-column>
-        <ui-picker-column *ngIf="minutes.length" (selected)="cellSelected($event, 'minutes')"
+        <ui-picker-column *ngIf="minutes.length" (uiSelected)="cellSelected($event, 'minutes')"
                           [cells]="minutes" [value]="{value: currentDate.minutes}"></ui-picker-column>
-        <ui-picker-column *ngIf="seconds.length" (selected)="cellSelected($event, 'seconds')"
+        <ui-picker-column *ngIf="seconds.length" (uiSelected)="cellSelected($event, 'seconds')"
                           [cells]="seconds" [value]="{value: currentDate.seconds}"></ui-picker-column>
       </div>
     </div>

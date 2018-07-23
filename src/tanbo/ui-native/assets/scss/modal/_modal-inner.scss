@@ -1,0 +1,12 @@
+ui-modal-inner {
+  display: block;
+  border-bottom: $border-width solid $color-gray-light;
+  padding: 0 $grid-column-padding 22px;
+  text-align: center;
+  max-height: 420px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  &:first-child {
+    padding: $grid-column-padding $grid-column-padding;
+  }
+}

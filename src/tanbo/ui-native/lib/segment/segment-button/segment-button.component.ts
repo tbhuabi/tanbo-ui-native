@@ -42,7 +42,7 @@ export class SegmentButtonComponent implements AfterViewInit {
   }
 
   @Output()
-  checked = new EventEmitter<SegmentButtonComponent>();
+  uiChecked = new EventEmitter<SegmentButtonComponent>();
   nativeElement: HTMLElement;
 
   private _disabled: boolean;
@@ -56,7 +56,7 @@ export class SegmentButtonComponent implements AfterViewInit {
   click() {
     if (!this.disabled) {
       this.segmentService.checked(this);
-      this.checked.emit(this);
+      this.uiChecked.emit(this);
     }
   }
 

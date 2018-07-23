@@ -6,6 +6,7 @@ $font-size-larger: 17px !default;
 $line-height: 1.6 !default;
 $border-width: 0.55px !default; // 1px 线条，为适应retina
 $is-open-radius: true !default;
+$container-horizontal-padding: 15px;
 
 $cubic-bezier: cubic-bezier(.36, .66, .04, 1);
 
@@ -34,7 +35,7 @@ $color-danger: #ed3f14 !default; // 危险操作警告颜色
 
 // 栅格化配置
 $grid-columns: 12 !default; // 栅格列数
-$grid-column-padding: 15px !default; // 每列的距离
+$grid-column-padding: $container-horizontal-padding !default; // 每列的距离
 
 // 盒模型圆角配置
 $radius-base: 4px !default; // 基本圆角

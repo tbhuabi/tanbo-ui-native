@@ -1,11 +1,17 @@
-<ui-dialog-base [show]="show" (hide)="hide()">
-  <div class="ui-alert">
-    <h3 class="ui-alert-title" *ngIf="title" [innerHTML]="title">
-    </h3>
-    <div class="ui-alert-body" [innerHTML]="content">
-    </div>
-    <div class="ui-alert-footer ui-text-right">
+<ui-dialog-base [show]="show" (uiHide)="hide()">
+  <ui-modal>
+    <ng-container *ngIf="title">
+      <ui-modal-header *ngIf="titleIsString">{{ title }}</ui-modal-header>
+      <ui-modal-header *ngIf="!titleIsString">
+        <ng-container [ngTemplateOutlet]="title"></ng-container>
+      </ui-modal-header>
+    </ng-container>
+    <ui-modal-inner *ngIf="contentIsString">{{ content }}</ui-modal-inner>
+    <ui-modal-inner *ngIf="!contentIsString">
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </ui-modal-inner>
+    <ui-modal-footer class="ui-alert-footer">
       <button (click)="checked()" type="button" class="ui-btn ui-btn-lg ui-btn-block">{{ btnText || '确定' }}</button>
-    </div>
-  </div>
+    </ui-modal-footer>
+  </ui-modal>
 </ui-dialog-base>
