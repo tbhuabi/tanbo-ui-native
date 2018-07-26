@@ -5,13 +5,13 @@ ui-picker-column {
 }
 
 .ui-picker-column {
-    margin-top: 72px;
+    margin-top: 72px / $screen-scale;
 }
 
 .ui-picker-cell {
     display: block;
     width: 100%;
-    height: 36px;
+    height: 36px / $screen-scale;
     transition: color .2s;
     border: none;
     background: none;

@@ -13,12 +13,12 @@ ui-content-loading {
     transform: translateX(-50%) translateY(-50%);
     background-color: rgba(0, 0, 0, .6);
     border-radius: 10px;
-    padding: 5px 15px 10px;
+    padding: 5px / $screen-scale 15px / $screen-scale 10px / $screen-scale;
 }
 
 .ui-content-loading-text {
     margin: 0;
     color: #fff;
-    font-size: 12px;
+    font-size: 12px / $screen-scale;
     white-space: nowrap;
 }

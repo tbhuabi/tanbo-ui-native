@@ -38,7 +38,7 @@ ui-select {
 .ui-select-arrow {
     display: flex;
     align-items: center;
-    padding-left: 5px;
+    padding-left: 5px / $screen-scale;
 }
 
 .ui-select-modal {
@@ -47,10 +47,10 @@ ui-select {
 }
 
 .ui-select-options {
-    border-radius: 13px;
+    border-radius: 13px / $screen-scale;
     overflow: hidden;
     background-color: #fff;
-    max-height: 400px;
+    max-height: 400px / $screen-scale;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     &::-webkit-scrollbar {
@@ -60,9 +60,9 @@ ui-select {
 }
 
 .ui-select-btn-wrap {
-    margin-top: 10px;
+    margin-top: 10px / $screen-scale;
     background: #fff;
-    border-radius: 13px;
+    border-radius: 13px / $screen-scale;
     overflow: hidden;
 }
 
@@ -74,7 +74,7 @@ ui-select {
     background: none;
     padding: $list-item-vertical-padding + 3 $grid-column-padding;
     line-height: 1.4em;
-    font-size: $font-size-larger + 3px;
+    font-size: $font-size-larger + 3px / $screen-scale;
     font-weight: 600;
     transition: background-color .2s;
     &:active {

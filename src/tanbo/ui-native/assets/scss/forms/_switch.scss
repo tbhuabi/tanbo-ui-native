@@ -5,15 +5,15 @@
 
 ui-switch {
     display: inline-block;
-    height: 32px;
-    width: 52px;
-    font-size: 32px;
+    height: 32px / $screen-scale;
+    width: 52px / $screen-scale;
+    font-size: 32px / $screen-scale;
     background: none;
-    box-shadow: inset 0 0 0 2px $color-gray-light - 20;
+    box-shadow: inset 0 0 0 2px / $screen-scale $color-gray-light - 20;
     vertical-align: middle;
-    border-radius: 16px;
+    border-radius: 16px / $screen-scale;
     position: relative;
-    padding: 2px;
+    padding: 2px / $screen-scale;
     transition: all .2s;
     cursor: pointer;
     > .ui-input-raw {
@@ -27,7 +27,7 @@ ui-switch {
     &.ui-checked {
         @include switch-theme($color-gray-light);
         .ui-switch-btn {
-            transform: translateX(20px);
+            transform: translateX(20px / $screen-scale);
         }
         &.ui-primary {
             @include switch-theme($color-primary);
@@ -67,12 +67,12 @@ ui-switch {
             @include switch-theme($color-warning);
         }
         .ui-switch-btn {
-            width: 34px;
+            width: 34px / $screen-scale;
         }
 
         &.ui-checked {
             .ui-switch-btn {
-                left: -6px;
+                left: -6px / $screen-scale;
             }
         }
     }
@@ -87,7 +87,7 @@ ui-switch {
     width: 100%;
     height: 100%;
     position: relative;
-    border-radius: 14px;
+    border-radius: 14px / $screen-scale;
     cursor: inherit;
     background: none;
     border: none;
@@ -96,9 +96,9 @@ ui-switch {
 }
 
 .ui-switch-btn {
-    width: 28px;
-    height: 28px;
-    border-radius: 14px;
+    width: 28px / $screen-scale;
+    height: 28px / $screen-scale;
+    border-radius: 14px / $screen-scale;
     background-color: #fff;
     border: none;
     position: absolute;

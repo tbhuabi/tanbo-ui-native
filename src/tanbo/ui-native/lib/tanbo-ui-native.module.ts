@@ -14,7 +14,7 @@ import { UIScrollModule } from './scroll/scroll.module';
 import { UISegmentModule } from './segment/segment.module';
 import { UISlideModule } from './slide/slide.module';
 
-import { UI_BROWSER_ENV, getDeviceType, AppController } from './app/index';
+import { UI_BROWSER_ENV, getDeviceType, AppController, UI_SCREEN_SCALE } from './app/index';
 import { ListActivatedService } from './list/index';
 import {
   UIRouteReuseStrategy,
@@ -54,16 +54,19 @@ export class UINativeModule {
         useValue: 'ui-icon-arrow-back'
       }, {
         provide: UI_ROUTER_ANIMATION_STEPS,
-        useValue: 30
+        useValue: 60
       }, {
         provide: UI_DO_REFRESH_DISTANCE,
-        useValue: 40
+        useValue: 80
       }, {
         provide: UI_DO_LOAD_DISTANCE,
         useValue: 600
       }, {
         provide: UI_BROWSER_ENV,
         useFactory: getDeviceType
+      }, {
+        provide: UI_SCREEN_SCALE,
+        useValue: 0.5
       },
         AppController,
         RouteCacheController,

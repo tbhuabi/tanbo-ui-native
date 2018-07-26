@@ -16,7 +16,7 @@ button.ui-list-item {
     text-align: inherit;
     line-height: inherit;
     background: $list-item-forward-bg;
-    background-size: 14px 14px;
+    background-size: 14px / $screen-scale 14px / $screen-scale;
     border: 0;
     border-radius: 0;
     color: inherit;

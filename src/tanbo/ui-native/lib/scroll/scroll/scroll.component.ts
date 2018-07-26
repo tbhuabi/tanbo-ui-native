@@ -138,13 +138,13 @@ export class ScrollComponent implements OnDestroy, OnInit {
         if (n < 0) {
           // 上拉
           if (this.distanceY > 0) {
-            this.pullDownRefreshController.drag(n / 3 + this.distanceY);
+            this.pullDownRefreshController.drag(n / 2 + this.distanceY);
             ev.preventDefault();
             return false;
           }
         } else if (element.scrollTop <= 0) {
           // 下拉
-          this.pullDownRefreshController.drag(n / 3 + this.distanceY);
+          this.pullDownRefreshController.drag(n / 2 + this.distanceY);
         }
       });
 

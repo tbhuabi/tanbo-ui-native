@@ -1,17 +1,18 @@
 // 全局配置
-$font-size-base: 14px !default; // 基础文字大小
-$font-size-small: 12px !default;
-$font-size-large: 16px !default;
-$font-size-larger: 17px !default;
+$screen-scale: 0.5 !default;
+$font-size-base: 14px / $screen-scale !default; // 基础文字大小
+$font-size-small: 12px / $screen-scale !default;
+$font-size-large: 16px / $screen-scale !default;
+$font-size-larger: 17px / $screen-scale !default;
 $line-height: 1.6 !default;
-$border-width: 0.55px !default; // 1px 线条，为适应retina
+$border-width: 1px / $screen-scale !default; // 1px 线条，为适应retina
 $is-open-radius: true !default;
-$container-horizontal-padding: 15px;
+$container-horizontal-padding: 15px / $screen-scale;
 
 $cubic-bezier: cubic-bezier(.36, .66, .04, 1);
 
 // 辅助配置
-$container-vertical-padding: 6px !default;
+$container-vertical-padding: 6px / $screen-scale !default;
 $mask-z-index: 1000 !default;
 $toast-z-index: 1100 !default;
 $page-loading-z-index: 900 !default;
@@ -38,21 +39,21 @@ $grid-columns: 12 !default; // 栅格列数
 $grid-column-padding: $container-horizontal-padding !default; // 每列的距离
 
 // 盒模型圆角配置
-$radius-base: 4px !default; // 基本圆角
-$radius-sm: $radius-base - $border-width !default; // 小圆角
-$radius-xs: $radius-sm - $border-width !default; // 更小的圆角
-$radius-lg: $radius-base + 2px !default; // 大圆角
+$radius-base: 4px / $screen-scale !default; // 基本圆角
+$radius-sm: $radius-base - 1px  / $screen-scale !default; // 小圆角
+$radius-xs: $radius-sm - 1px / $screen-scale !default; // 更小的圆角
+$radius-lg: $radius-base + 2px / $screen-scale !default; // 大圆角
 
 // 按扭
-$button-padding-vertical: 5px !default;
-$button-padding-vertical-sm: $button-padding-vertical - 3px !default;
-$button-padding-vertical-xs: $button-padding-vertical-sm - $border-width !default;
-$button-padding-vertical-lg: $button-padding-vertical + 2px !default;
+$button-padding-vertical: 5px / $screen-scale !default;
+$button-padding-vertical-sm: $button-padding-vertical - 3px / $screen-scale !default;
+$button-padding-vertical-xs: $button-padding-vertical-sm - 1px / $screen-scale !default;
+$button-padding-vertical-lg: $button-padding-vertical + 2px / $screen-scale !default;
 
-$button-padding-horizontal: 12px !default;
-$button-padding-horizontal-sm: $button-padding-horizontal - 4px !default;
-$button-padding-horizontal-xs: $button-padding-horizontal - 2px !default;
-$button-padding-horizontal-lg: $button-padding-horizontal + 4px !default;
+$button-padding-horizontal: 12px / $screen-scale !default;
+$button-padding-horizontal-sm: $button-padding-horizontal - 4px / $screen-scale !default;
+$button-padding-horizontal-xs: $button-padding-horizontal - 2px / $screen-scale !default;
+$button-padding-horizontal-lg: $button-padding-horizontal + 4px / $screen-scale !default;
 
 $button-radius-is-open: $is-open-radius !default;
 $button-radius: $radius-base !default;
@@ -61,19 +62,19 @@ $button-radius-xs: $radius-xs !default;
 $button-radius-lg: $radius-lg !default;
 
 $button-font-size: $font-size-base !default;
-$button-font-size-sm: $button-font-size - $border-width !default;
-$button-font-size-xs: $button-font-size-sm - $border-width !default;
-$button-font-size-lg: $button-font-size + 4px !default;
+$button-font-size-sm: $button-font-size - 1px / $screen-scale !default;
+$button-font-size-xs: $button-font-size-sm - 1px * $screen-scale !default;
+$button-font-size-lg: $button-font-size + 4px / $screen-scale !default;
 
 // 列表
 $list-item-hover-bg: $color-lighter !default;
-$list-item-vertical-padding: 12px !default;
+$list-item-vertical-padding: 12px / $screen-scale !default;
 $list-item-horizontal-padding: $grid-column-padding !default;
-$list-header-vertical-padding: 10px !default;
+$list-header-vertical-padding: 10px / $screen-scale !default;
 $list-header-horizontal-padding: $grid-column-padding !default;
 
-$list-item-forward-bg: #fff url("data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2012%2020'><path%20d='M2,20l-2-2l8-8L0,2l2-2l10,10L2,20z'%20fill='%23c8c7cc'/></svg>") right 14px center no-repeat !default;
-$list-item-forward-padding-right: 32px !default;
+$list-item-forward-bg: #fff url("data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2012%2020'><path%20d='M2,20l-2-2l8-8L0,2l2-2l10,10L2,20z'%20fill='%23c8c7cc'/></svg>") right 14px / $screen-scale center no-repeat !default;
+$list-item-forward-padding-right: 32px / $screen-scale !default;
 
 // 模拟radio/checkbox
 $ui-input-focus-box-shadow-color: hsla(hue($color-gray-light), saturation($color-gray-light), lightness($color-gray-light), .5) !default;
@@ -81,35 +82,35 @@ $ui-input-focus-box-shadow-color: hsla(hue($color-gray-light), saturation($color
 // dialog
 $dialog-radius-is-open: $is-open-radius !default;
 
-$dialog-radius: 13px !default;
-$dialog-width: 300px !default;
-$dialog-height: 220px !default;
+$dialog-radius: 13px / $screen-scale !default;
+$dialog-width: 300px / $screen-scale !default;
+$dialog-height: 220px / $screen-scale !default;
 
 // alert
 $alert-radius-is-open: $is-open-radius !default;
 
-$alert-radius: 13px !default;
-$alert-width: 270px !default;
-$alert-height: 220px !default;
+$alert-radius: 13px / $screen-scale !default;
+$alert-width: 270px / $screen-scale !default;
+$alert-height: 220px / $screen-scale !default;
 
 // toast
 $toast-radius-is-open: $is-open-radius !default;
 
-$toast-width: 270px !default;
-$toast-height: 140px !default;
+$toast-width: 270px / $screen-scale !default;
+$toast-height: 140px / $screen-scale !default;
 
-$header-height: 44px !default;
+$header-height: 44px / $screen-scale !default;
 $header-bg: #f8f8f8 !default;
 $header-border-bottom: $border-width solid rgba(0, 0, 0, .3) !default;
 
-$footer-height: 44px !default;
+$footer-height: 44px / $screen-scale !default;
 
-$tab-bar-height: 42px !default;
+$tab-bar-height: 42px / $screen-scale !default;
 $tab-bar-bg: #f8f8f8 !default;
 $tab-bar-border-top: $border-width solid rgba(0, 0, 0, .3) !default;
 
 $icon-font-size: 1.6em !default;
 
 // 返回按扭icon的宽度，title 左右 margin 的宽度，两个值必需保持一致，否则会引起转场动画重影
-$title-horizontal-distance: 20px;
+$title-horizontal-distance: 20px / $screen-scale;
 

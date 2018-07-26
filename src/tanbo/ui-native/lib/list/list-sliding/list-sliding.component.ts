@@ -1,8 +1,9 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, HostBinding } from '@angular/core';
+import { Component, ElementRef, Inject, HostListener, OnDestroy, OnInit, Renderer2, HostBinding } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { ListEventService } from '../list-item/list-event.service';
 import { ListActivatedService } from '../list-item/list-activated.service';
+import { UI_SCREEN_SCALE } from '../../app/index';
 
 @Component({
   selector: 'ui-list-sliding',
@@ -20,6 +21,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
   private isFocus = false;
 
   constructor(private listEventService: ListEventService,
+              @Inject(UI_SCREEN_SCALE) private scale: number,
               private listActivatedService: ListActivatedService,
               private renderer: Renderer2) {
   }
@@ -103,12 +105,12 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
       return false;
     });
 
-    const touchEndFn = function () {
+    const touchEndFn = () => {
       this.isFocus = false;
       const endTime = Date.now();
       const distance = oldDistanceX - this.distanceX;
       // 当用户触摸完成后，时间小于 100ms，并且距离大于20，则认为是惯性触摸
-      if (endTime - startTime < 100 && Math.abs(distance) > 20) {
+      if (endTime - startTime < 100 && Math.abs(distance) > 20 / this.scale) {
         this.distanceX = distance < 0 ? 0 : -maxDistance;
       } else {
         // 否则按 50% 区分向左还是向右
@@ -119,7 +121,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
       unBindTouchCancelFn();
       unBindTouchMoveFn();
       unBindTouchEndFn();
-    }.bind(this);
+    };
 
     unBindTouchEndFn = this.renderer.listen('document', 'touchend', touchEndFn);
     unBindTouchCancelFn = this.renderer.listen('document', 'touchcancel', touchEndFn);

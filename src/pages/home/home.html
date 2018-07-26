@@ -5,37 +5,9 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <button type="button" (click)="show()" class="ui-btn ui-btn-primary">button</button>
+    <ui-refresher style="background-color: green;"></ui-refresher>
+    <ui-scroll style="background: gold;" [openRefresh]="true">
+      aa
+    </ui-scroll>
   </ui-content>
 </ui-page>
-
-<ng-template #modal>
-  <ui-modal>
-    <!--<ui-modal-header>title</ui-modal-header>-->
-    <ui-modal-inner>
-      <p>1</p>
-      <p>2</p>
-      <p>3</p>
-      <p>4</p>
-      <p>5</p>
-      <p>6</p>
-      <p>7</p>
-      <p>8</p>
-      <p>9</p>
-      <p>10</p>
-    </ui-modal-inner>
-    <ui-modal-footer>
-      <button type="button" (click)="hide()">button</button>
-    </ui-modal-footer>
-  </ui-modal>
-</ng-template>
-
-<ng-template #modal2>
-  <ui-modal>
-    <ui-modal-header>title2</ui-modal-header>
-    <ui-modal-inner>content2</ui-modal-inner>
-    <ui-modal-footer>
-      <button type="button" (click)="hide()">button</button>
-    </ui-modal-footer>
-  </ui-modal>
-</ng-template>

@@ -10,6 +10,7 @@ import {
   ViewStateService,
   UI_VIEW_INIT_STATE
 } from '../../router/index';
+import { UI_SCREEN_SCALE } from '../../app/index';
 
 @Component({
   selector: 'ui-content',
@@ -30,6 +31,7 @@ export class ContentComponent implements OnDestroy, OnInit {
               private elementRef: ElementRef,
               private routerService: RouterService,
               @Inject(UI_VIEW_INIT_STATE) private state: ViewState,
+              @Inject(UI_SCREEN_SCALE) private scale: number,
               private renderer: Renderer2,
               @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number) {
   }
@@ -85,7 +87,7 @@ export class ContentComponent implements OnDestroy, OnInit {
     const startX = startPoint.pageX;
     const startY = startPoint.pageY;
 
-    if (startX > 50 && this.state !== ViewState.Sleep) {
+    if (startX > 50 / this.scale && this.state !== ViewState.Sleep) {
       return;
     }
     cancelAnimationFrame(this.animationId);
@@ -138,7 +140,7 @@ export class ContentComponent implements OnDestroy, OnInit {
       }
 
       const endTime = Date.now();
-      if (endTime - startTime < 100 && this.distanceX > 50) {
+      if (endTime - startTime < 100 && this.distanceX > 50 / this.scale) {
         this.animationTo(maxWidth);
         return;
       }

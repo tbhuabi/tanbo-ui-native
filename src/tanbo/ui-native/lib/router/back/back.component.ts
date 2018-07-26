@@ -21,7 +21,7 @@ import {
   ViewStateService,
   UI_VIEW_INIT_STATE
 } from '../index';
-import { AppController } from '../../app/index';
+import { AppController, UI_SCREEN_SCALE } from '../../app/index';
 
 @Component({
   selector: 'ui-back',
@@ -49,6 +49,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(@Inject(DOCUMENT) private document: any,
               @Inject(UI_ROUTER_ANIMATION_STEPS) private steps: number,
+              @Inject(UI_SCREEN_SCALE) private scale: number,
               @Inject(UI_BACK_ICON_CLASSNAME) iconName: string,
               @Inject(UI_VIEW_INIT_STATE) private state: ViewState,
               private location: Location,
@@ -61,7 +62,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
   @HostListener('window:resize')
   resize() {
     this.docWidth = this.document.body.offsetWidth;
-    this.translateDistance = this.docWidth / 2 - (this.leftDistance + 10) - this.contentWidth / 2;
+    this.translateDistance = this.docWidth / 2 - (this.leftDistance + 10 / this.scale) - this.contentWidth / 2;
   }
 
   @HostListener('click')
@@ -135,7 +136,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     this.docWidth = this.document.body.offsetWidth;
     this.contentWidth = this.textElement.nativeElement.offsetWidth;
     this.leftDistance = this.textElement.nativeElement.offsetLeft;
-    this.translateDistance = this.docWidth / 2 - (this.leftDistance + 10) - this.contentWidth / 2;
+    this.translateDistance = this.docWidth / 2 - (this.leftDistance + 10 / this.scale) - this.contentWidth / 2;
   }
 
   ngOnDestroy() {

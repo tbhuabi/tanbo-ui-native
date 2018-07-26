@@ -14,7 +14,7 @@ ui-input[type=radio] {
     color: $color-default;
     width: 1em;
     height: 1em;
-    font-size: 22px;
+    font-size: 22px / $screen-scale;
     line-height: 1em;
     @include radio-style(primary, $color-primary);
     @include radio-style(info, $color-info);

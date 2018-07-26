@@ -1,9 +1,9 @@
 ui-loading {
     display: block;
     position: relative;
-    margin: 5px auto;
-    width: 30px;
-    height: 30px;
+    margin: 5px / $screen-scale auto;
+    width: 30px / $screen-scale;
+    height: 30px / $screen-scale;
     div {
         position: absolute;
         left: 0;
@@ -13,8 +13,8 @@ ui-loading {
         span {
             display: block;
             margin: 5% auto;
-            width: 2px;
-            border-radius: 2px;
+            width: 2px / $screen-scale;
+            border-radius: 2px / $screen-scale;
             height: 25%;
             background-color: #999;
             animation: loading-animation 1.2s infinite ease-in-out both;

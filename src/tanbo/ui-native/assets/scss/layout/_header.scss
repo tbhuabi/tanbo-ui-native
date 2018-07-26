@@ -7,15 +7,15 @@ ui-header {
 }
 
 .ui-iphone ui-header:first-child {
-    min-height: $header-height + 20;
-    padding-top: 20px;
+    min-height: $header-height + 20 / $screen-scale;
+    padding-top: 20px / $screen-scale;
 }
 .ui-iphone-x ui-header:first-child {
-    min-height: $header-height + 20;
-    padding-top: 20px;
-    @media screen and (max-width: 375px) {
-        padding-top: 44px;
-        min-height: $header-height + 44;
+    min-height: $header-height + 20 / $screen-scale;
+    padding-top: 20px / $screen-scale;
+    @media screen and (max-width: 375px / $screen-scale) {
+        padding-top: 44px / $screen-scale;
+        min-height: $header-height + 44 / $screen-scale;
     }
 }
 

@@ -14,17 +14,17 @@ ui-footer {
     right: 0;
     top: 0;
     bottom: 0;
-    margin-left: -10px;
+    margin-left: -10px / $screen-scale;
     overflow: hidden;
     &:before {
         content: "";
         position: absolute;
-        left: 10px;
+        left: 10px / $screen-scale;
         right: 0;
         top: 0;
         bottom: 0;
         display: block;
-        box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+        box-shadow: 0 0 10px / $screen-scale rgba(0, 0, 0, .3);
     }
 }
 
@@ -43,8 +43,8 @@ ui-footer {
 
 .ui-iphone-x ui-footer {
     &:last-child {
-        @media screen and (max-width: 375px) {
-            padding-bottom: 34px;
+        @media screen and (max-width: 375px / $screen-scale) {
+            padding-bottom: 34px / $screen-scale;
         }
     }
 }
@@ -52,7 +52,7 @@ ui-footer {
 .ui-iphone-x {
     ui-tab ui-footer {
         &:last-child {
-            @media screen and (max-width: 375px) {
+            @media screen and (max-width: 375px / $screen-scale) {
                 padding-bottom: 0;
             }
         }

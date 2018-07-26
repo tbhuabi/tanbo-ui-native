@@ -14,7 +14,7 @@ ui-input[type=checkbox] {
     color: $color-default;
     width: 1em;
     height: 1em;
-    font-size: 22px;
+    font-size: 22px / $screen-scale;
     line-height: 1em;
     @include checkbox-style(primary, $color-primary);
     @include checkbox-style(info, $color-info);

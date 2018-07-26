@@ -1,8 +1,9 @@
-import { Component, Input, Output, EventEmitter, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
+import { Component, Input, Inject, Output, EventEmitter, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import * as BetterScroll from 'better-scroll';
 import { Subscription } from 'rxjs';
 
 import { PickerService, PickerCell } from '../picker/picker.service';
+import { UI_SCREEN_SCALE } from '../../app/index';
 
 const BScroll: BScrollStatic = (BetterScroll as any).default;
 
@@ -28,6 +29,7 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
   private subs: Array<Subscription> = [];
 
   constructor(private elementRef: ElementRef,
+              @Inject(UI_SCREEN_SCALE) private scale: number,
               private pickerService: PickerService) {
   }
 
@@ -43,7 +45,7 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
           }
         }
 
-        this.scrollInstance.scrollTo(0, -selectedIndex * this.cellHeight);
+        this.scrollInstance.scrollTo(0, -selectedIndex * (this.cellHeight / this.scale));
         this.scrollInstance.refresh();
         return;
       }
@@ -66,7 +68,7 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
     });
     this.scrollInstance.on('scrollEnd', (position: BScroll.Position) => {
       this.pickerService.scroll(false);
-      const value = this.cells[Math.abs(position.y / this.cellHeight)];
+      const value = this.cells[Math.abs(position.y / (this.cellHeight / this.scale))];
       if (value.disabled) {
         return;
       }

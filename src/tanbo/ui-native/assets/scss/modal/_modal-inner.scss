@@ -1,9 +1,9 @@
 ui-modal-inner {
   display: block;
   border-bottom: $border-width solid $color-gray-light;
-  padding: 0 $grid-column-padding 22px;
+  padding: 0 $grid-column-padding 22px / $screen-scale;
   text-align: center;
-  max-height: 420px;
+  max-height: 420px / $screen-scale;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   &:first-child {

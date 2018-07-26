@@ -10,3 +10,4 @@ export enum BrowserENV {
 
 // 程序当前运行环境
 export const UI_BROWSER_ENV = new InjectionToken<string>('UI_BROWSER_ENV');
+export const UI_SCREEN_SCALE = new InjectionToken<number>('UI_SCREEN_SCALE');

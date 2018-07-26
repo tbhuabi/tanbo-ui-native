@@ -3,7 +3,7 @@ import { PRIMARY_OUTLET } from '@angular/router';
 import { DOCUMENT, Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
-import { BrowserENV, UI_BROWSER_ENV } from '../helper';
+import { BrowserENV, UI_BROWSER_ENV, UI_SCREEN_SCALE } from '../helper';
 import { ListActivatedService } from '../../list/index';
 import { RouteCacheController } from '../../router/index';
 import { AppController, getDeviceType } from './app-controller';
@@ -42,12 +42,15 @@ export class AppComponent implements OnInit, OnDestroy {
   showMask: boolean = false;
 
   private htmlElement: HTMLElement;
-  private defaultDocWidth: number = 320;
+  private get defaultDocWidth() {
+    return 320 / this.scale;
+  }
 
   private subs: Array<Subscription> = [];
 
   constructor(@Inject(DOCUMENT) private document: any,
               @Inject(UI_BROWSER_ENV) private env: BrowserENV,
+              @Inject(UI_SCREEN_SCALE) private scale: number,
               private routeCacheController: RouteCacheController,
               private location: Location,
               private appController: AppController,

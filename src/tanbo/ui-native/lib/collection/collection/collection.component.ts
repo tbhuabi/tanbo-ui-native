@@ -5,6 +5,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  Inject,
   OnDestroy,
   ViewChild,
   HostBinding,
@@ -16,6 +17,7 @@ import { CollectionItemComponent } from '../collection-item/collection-item.comp
 import { Observable, Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Easing } from '@tweenjs/tween.js';
+import { UI_SCREEN_SCALE } from '../../app/index';
 
 @Component({
   selector: 'ui-collection',
@@ -86,6 +88,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
   private _index: number = 0;
 
   constructor(private renderer: Renderer2,
+              @Inject(UI_SCREEN_SCALE) private scale: number,
               private elementRef: ElementRef) {
     this.slidingEvent$ = this.slidingEventSource.asObservable();
   }
@@ -154,7 +157,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
 
         let translateDistance: number;
         // 如果拖动的时间小于 200ms，且距离大于100px，则按当前拖动的方向计算，并直接设置对应的值
-        if (endTime - startTime < 200 && offset > 100) {
+        if (endTime - startTime < 200 && offset > 100 / this.scale) {
           if (oldDistance < this.distance) {
             translateDistance = targetIndex * this.stepDistance;
           } else {

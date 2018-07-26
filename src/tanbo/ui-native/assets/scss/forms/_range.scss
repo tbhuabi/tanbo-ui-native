@@ -76,16 +76,16 @@ ui-input[type=range] {
 
 .ui-range-btn {
     position: absolute;
-    width: 28px;
-    height: 28px;
-    right: -14px;
-    line-height: 28px;
+    width: 28px / $screen-scale;
+    height: 28px / $screen-scale;
+    right: -14px / $screen-scale;
+    line-height: 28px / $screen-scale;
     top: 50%;
     border-radius: 50%;
     transform: translateY(-50%);
     transform-origin: 50% 50%;
     background-color: #fff;
-    box-shadow: 0 3px 1px rgba(0, 0, 0, .1), 0 4px 8px rgba(0, 0, 0, .13), 0 0 0 1px rgba(0, 0, 0, .02);
+    box-shadow: 0 3px / $screen-scale 1px / $screen-scale rgba(0, 0, 0, .1), 0 4px / $screen-scale 8px / $screen-scale rgba(0, 0, 0, .13), 0 0 0 1px rgba(0, 0, 0, .02);
     border: none;
     cursor: pointer;
 }
@@ -111,13 +111,13 @@ ui-input[type=range] {
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
-    font-size: 14px;
+    font-size: 14px / $screen-scale;
     color: #000;
     display: block;
     opacity: 0;
     transition: all .2s;
     &.ui-touched {
         opacity: 1;
-        transform: translateX(-50%) translateY(-26px);
+        transform: translateX(-50%) translateY(-26px / $screen-scale);
     }
 }

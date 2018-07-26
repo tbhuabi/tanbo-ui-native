@@ -9,7 +9,7 @@ ui-buttons {
         justify-content: flex-end;
         align-items: center;
         position: absolute;
-        padding-right: 10px;
+        padding-right: 10px / $screen-scale;
         right: 0;
         left: auto;
         top: 0;
@@ -18,20 +18,20 @@ ui-buttons {
         justify-content: flex-start;
         align-items: center;
         position: absolute;
-        padding-left: 10px;
+        padding-left: 10px / $screen-scale;
         left: 0;
         right: auto;
         top: 0;
     }
 
     &.ui-pull-left {
-        padding-left: 10px !important;
+        padding-left: 10px / $screen-scale !important;
         left: 0 !important;
         right: auto !important;
         justify-content: flex-start !important;
     }
     &.ui-pull-right {
-        padding-right: 10px !important;
+        padding-right: 10px / $screen-scale !important;
         right: 0 !important;
         left: auto !important;
         justify-content: flex-end !important;
