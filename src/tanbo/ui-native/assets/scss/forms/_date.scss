@@ -36,7 +36,7 @@ ui-input[type=date] {
 .ui-date-arrow {
     display: flex;
     align-items: center;
-    padding-left: 5px / $screen-scale;
+    padding-left: 5px * $screen-scale;
 }
 
 .ui-date-modal {
@@ -45,10 +45,10 @@ ui-input[type=date] {
 }
 
 .ui-date-options {
-    border-radius: 13px / $screen-scale;
+    border-radius: 13px * $screen-scale;
     overflow: hidden;
     background-color: #fff;
-    max-height: 300px / $screen-scale;
+    max-height: 300px * $screen-scale;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }

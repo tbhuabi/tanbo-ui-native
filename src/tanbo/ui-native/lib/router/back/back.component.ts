@@ -62,7 +62,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
   @HostListener('window:resize')
   resize() {
     this.docWidth = this.document.body.offsetWidth;
-    this.translateDistance = this.docWidth / 2 - (this.leftDistance + 10 / this.scale) - this.contentWidth / 2;
+    this.translateDistance = this.docWidth / 2 - (this.leftDistance + 10 * this.scale) - this.contentWidth / 2;
   }
 
   @HostListener('click')
@@ -136,7 +136,7 @@ export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
     this.docWidth = this.document.body.offsetWidth;
     this.contentWidth = this.textElement.nativeElement.offsetWidth;
     this.leftDistance = this.textElement.nativeElement.offsetLeft;
-    this.translateDistance = this.docWidth / 2 - (this.leftDistance + 10 / this.scale) - this.contentWidth / 2;
+    this.translateDistance = this.docWidth / 2 - (this.leftDistance + 10 * this.scale) - this.contentWidth / 2;
   }
 
   ngOnDestroy() {

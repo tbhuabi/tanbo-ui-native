@@ -12,17 +12,17 @@ ui-content {
     right: 0;
     top: 0;
     bottom: 0;
-    margin-left: -10px / $screen-scale;
+    margin-left: -10px * $screen-scale;
     overflow: hidden;
     &:before {
         content: "";
         position: absolute;
-        left: 10px / $screen-scale;
+        left: 10px * $screen-scale;
         right: 0;
         top: 0;
         bottom: 0;
         display: block;
-        box-shadow: 0 0 10px / $screen-scale rgba(0, 0, 0, .3);
+        box-shadow: 0 0 10px * $screen-scale rgba(0, 0, 0, .3);
     }
 }
 
@@ -38,20 +38,20 @@ ui-content {
 
 .ui-iphone ui-content {
     &:first-child {
-        padding-top: 20px / $screen-scale;
+        padding-top: 20px * $screen-scale;
     }
 }
 
 .ui-iphone-x ui-content {
     &:first-child {
-        padding-top: 20px / $screen-scale;
-        @media screen and (max-width: 375px / $screen-scale) {
-            padding-top: 44px / $screen-scale;
+        padding-top: 20px * $screen-scale;
+        @media screen and (max-width: 375px * $screen-scale) {
+            padding-top: 44px * $screen-scale;
         }
     }
     &:last-child {
-        @media screen and (max-width: 375px / $screen-scale) {
-            padding-bottom: 34px / $screen-scale;
+        @media screen and (max-width: 375px * $screen-scale) {
+            padding-bottom: 34px * $screen-scale;
         }
     }
 }
@@ -59,7 +59,7 @@ ui-content {
 .ui-iphone-x {
     ui-tab ui-content {
         &:last-child {
-            @media screen and (max-width: 375px / $screen-scale) {
+            @media screen and (max-width: 375px * $screen-scale) {
                 padding-bottom: 0;
             }
         }

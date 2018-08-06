@@ -54,7 +54,7 @@ export class UINativeModule {
         useValue: 'ui-icon-arrow-back'
       }, {
         provide: UI_ROUTER_ANIMATION_STEPS,
-        useValue: 60
+        useValue: 30
       }, {
         provide: UI_DO_REFRESH_DISTANCE,
         useValue: 80
@@ -66,7 +66,7 @@ export class UINativeModule {
         useFactory: getDeviceType
       }, {
         provide: UI_SCREEN_SCALE,
-        useValue: 0.5
+        useValue: 2
       },
         AppController,
         RouteCacheController,

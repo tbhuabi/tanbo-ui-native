@@ -47,11 +47,11 @@ ui-picker {
 .ui-picker-arrow {
     display: flex;
     align-items: center;
-    padding-left: 5px / $screen-scale;
+    padding-left: 5px * $screen-scale;
 }
 
 .ui-picker {
-    height: 224px / $screen-scale;
+    height: 224px * $screen-scale;
     display: flex;
     flex-direction: column;
     background-color: #fff;
@@ -60,7 +60,7 @@ ui-picker {
 }
 
 .ui-picker-header {
-    height: 44px / $screen-scale;
+    height: 44px * $screen-scale;
     border-bottom: $border-width solid $color-gray;
     justify-content: space-between;
     background-color: $color-lighter;
@@ -69,7 +69,7 @@ ui-picker {
 
 .ui-picker-action {
     color: $color-primary;
-    width: 80px / $screen-scale;
+    width: 80px * $screen-scale;
     border: none;
     background: none;
     font-size: $font-size-large;
@@ -92,7 +92,7 @@ ui-picker {
         left: 0;
         right: 0;
         z-index: 1;
-        height: 72px / $screen-scale;
+        height: 72px * $screen-scale;
         pointer-events: none;
     }
     &:before {

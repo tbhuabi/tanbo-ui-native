@@ -45,7 +45,7 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
           }
         }
 
-        this.scrollInstance.scrollTo(0, -selectedIndex * (this.cellHeight / this.scale));
+        this.scrollInstance.scrollTo(0, -selectedIndex * (this.cellHeight * this.scale));
         this.scrollInstance.refresh();
         return;
       }
@@ -68,7 +68,7 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
     });
     this.scrollInstance.on('scrollEnd', (position: BScroll.Position) => {
       this.pickerService.scroll(false);
-      const value = this.cells[Math.abs(position.y / (this.cellHeight / this.scale))];
+      const value = this.cells[Math.abs(position.y / (this.cellHeight * this.scale))];
       if (value.disabled) {
         return;
       }

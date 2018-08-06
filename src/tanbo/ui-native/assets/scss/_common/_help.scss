@@ -3,7 +3,7 @@
     width: 0;
     height: 0;
     vertical-align: middle;
-    border-top: 4px / $screen-scale dashed;
-    border-right: 4px / $screen-scale solid transparent;
-    border-left: 4px / $screen-scale solid transparent;
+    border-top: 4px * $screen-scale dashed;
+    border-right: 4px * $screen-scale solid transparent;
+    border-left: 4px * $screen-scale solid transparent;
 }

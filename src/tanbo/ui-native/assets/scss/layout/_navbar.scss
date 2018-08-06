@@ -2,8 +2,8 @@ ui-navbar {
     height: $header-height;
     display: flex;
     position: relative;
-    padding-left: 10px / $screen-scale;
-    padding-right: 10px / $screen-scale;
+    padding-left: 10px * $screen-scale;
+    padding-right: 10px * $screen-scale;
     background: inherit;
     align-items: center;
 }

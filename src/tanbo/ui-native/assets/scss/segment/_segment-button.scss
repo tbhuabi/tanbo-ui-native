@@ -6,7 +6,7 @@ ui-segment-button {
     overflow: hidden;
     text-align: center;
     color: $color-primary;
-    max-width: 100px / $screen-scale;
+    max-width: 100px * $screen-scale;
     border: $border-width solid $color-primary;
     line-height: 2.2em;
     transition: all ease-in-out .15s;
@@ -14,10 +14,10 @@ ui-segment-button {
         border-left-width: 0;
     }
     &:first-of-type {
-        border-radius: 4px / $screen-scale 0 0 4px / $screen-scale;
+        border-radius: 4px * $screen-scale 0 0 4px * $screen-scale;
     }
     &:last-of-type {
-        border-radius: 0 4px / $screen-scale 4px / $screen-scale 0;
+        border-radius: 0 4px * $screen-scale 4px * $screen-scale 0;
     }
     &.ui-selected {
         background-color: $color-primary;

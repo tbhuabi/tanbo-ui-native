@@ -13,8 +13,15 @@ import { AppController, getDeviceType } from './app-controller';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit, OnDestroy {
+  /**
+   * 根据不同的屏幕宽度，设置 html 元素的 font-size
+   * 主要用于 rem 布局，默认为 10
+   */
   @Input()
   baseFontSize: number = 10;
+  /**
+   * angular 路由的 name
+   */
   @Input()
   name: string = PRIMARY_OUTLET;
 
@@ -43,7 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private htmlElement: HTMLElement;
   private get defaultDocWidth() {
-    return 320 / this.scale;
+    return 320 * this.scale;
   }
 
   private subs: Array<Subscription> = [];
@@ -58,12 +65,15 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // 根据当前应用是否在在路由动画转场中时，切换遮罩的显示与隐藏，防止多次点击
     this.subs.push(this.appController.transition.subscribe(b => {
       this.showMask = b;
     }));
+    // 当屏幕大小改变时，变更环境变量
     this.subs.push(this.appController.onResize.subscribe((env: BrowserENV) => {
       this.env = env;
     }));
+    // 当路由地址变更时，设置路由缓存
     this.subs.push(this.location.subscribe(() => {
       this.routeCacheController.isCacheCurrentView(false);
     }) as Subscription);

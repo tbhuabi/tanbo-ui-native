@@ -24,18 +24,31 @@ import { UI_SCREEN_SCALE } from '../../app/index';
   templateUrl: './collection.component.html'
 })
 export class CollectionComponent implements AfterContentInit, OnDestroy {
-  // 拖动事件
+  /**
+   * 拖动事件 $event 为当前拖动的进度
+   */
   @Output()
   uiSliding = new EventEmitter<number>();
-  // 拖动完成事件
+  /**
+   * 当完成整屏切换时，触发事件， $event 为当前拖动的进度
+   */
   @Output()
   uiSlidingFinish = new EventEmitter<number>();
+  /**
+   * 是否为垂直翻页，默认为 false，即为水平翻页
+   */
   @Input()
   vertical: boolean = false;
+  /**
+   * 是否填满整个容器，默认不填充，如设置为 true，那么会填充满第一个有定位的父级元素
+   */
   @Input()
   @HostBinding('class.ui-fill')
   fill: boolean = false;
 
+  /**
+   * 显示第几屏的索引
+   */
   @Input()
   set index(value: number) {
     this._index = value;
@@ -157,7 +170,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
 
         let translateDistance: number;
         // 如果拖动的时间小于 200ms，且距离大于100px，则按当前拖动的方向计算，并直接设置对应的值
-        if (endTime - startTime < 200 && offset > 100 / this.scale) {
+        if (endTime - startTime < 200 && offset > 100 * this.scale) {
           if (oldDistance < this.distance) {
             translateDistance = targetIndex * this.stepDistance;
           } else {

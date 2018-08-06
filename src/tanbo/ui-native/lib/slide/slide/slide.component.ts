@@ -99,7 +99,7 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
       const offset = startX - moveX;
       let target: number;
 
-      if (entTime - startTime < 200 && Math.abs(offset) > 80 / this.scale) {
+      if (entTime - startTime < 200 && Math.abs(offset) > 80 * this.scale) {
         if (offset > 0) {
           target = Math.floor(p) + 1;
         } else {

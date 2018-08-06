@@ -110,7 +110,7 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
       const endTime = Date.now();
       const distance = oldDistanceX - this.distanceX;
       // 当用户触摸完成后，时间小于 100ms，并且距离大于20，则认为是惯性触摸
-      if (endTime - startTime < 100 && Math.abs(distance) > 20 / this.scale) {
+      if (endTime - startTime < 100 && Math.abs(distance) > 20 * this.scale) {
         this.distanceX = distance < 0 ? 0 : -maxDistance;
       } else {
         // 否则按 50% 区分向左还是向右

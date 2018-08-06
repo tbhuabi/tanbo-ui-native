@@ -1,11 +1,11 @@
 .ui-modal-base {
-  border-radius: 6px / $screen-scale;
+  border-radius: 6px * $screen-scale;
   overflow: hidden;
   position: fixed;
   left: 50%;
   top: 50%;
   z-index: $mask-z-index + 10;
   transform: translateX(-50%) translateY(-50%);
-  box-shadow: 0 10px / $screen-scale 10px / $screen-scale hsla(hue($color-default), saturation($color-default), lightness($color-default), .15);
+  box-shadow: 0 10px * $screen-scale 10px * $screen-scale hsla(hue($color-default), saturation($color-default), lightness($color-default), .15);
   transform-origin: 0;
 }

@@ -2,20 +2,20 @@ ui-header {
     display: block;
     min-height: $header-height;
     background-color: $header-bg;
-    border-bottom: $header-border-bottom;
+    border-bottom: $border-width solid rgba(0, 0, 0, .3);
     position: relative;
 }
 
 .ui-iphone ui-header:first-child {
-    min-height: $header-height + 20 / $screen-scale;
-    padding-top: 20px / $screen-scale;
+    min-height: $header-height + 20 * $screen-scale;
+    padding-top: 20px * $screen-scale;
 }
 .ui-iphone-x ui-header:first-child {
-    min-height: $header-height + 20 / $screen-scale;
-    padding-top: 20px / $screen-scale;
-    @media screen and (max-width: 375px / $screen-scale) {
-        padding-top: 44px / $screen-scale;
-        min-height: $header-height + 44 / $screen-scale;
+    min-height: $header-height + 20 * $screen-scale;
+    padding-top: 20px * $screen-scale;
+    @media screen and (max-width: 375px * $screen-scale) {
+        padding-top: 44px * $screen-scale;
+        min-height: $header-height + 44 * $screen-scale;
     }
 }
 

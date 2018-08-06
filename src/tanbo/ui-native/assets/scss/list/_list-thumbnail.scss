@@ -1,11 +1,11 @@
 ui-list-thumbnail {
     @include flex-center;
-    padding-top: 8px / $screen-scale;
-    padding-bottom: 8px / $screen-scale;
+    padding-top: 8px * $screen-scale;
+    padding-bottom: 8px * $screen-scale;
     margin-top: -$list-item-vertical-padding;
     margin-bottom: -$list-item-vertical-padding;
-    min-height: 36px / $screen-scale;
-    min-width: 36px / $screen-scale;
+    min-height: 36px * $screen-scale;
+    min-width: 36px * $screen-scale;
     &:first-child {
         margin-right: $grid-column-padding;
     }
@@ -13,8 +13,8 @@ ui-list-thumbnail {
         margin-left: $grid-column-padding;
     }
     img {
-        width: 36px / $screen-scale;
-        height: 36px / $screen-scale;
+        width: 36px * $screen-scale;
+        height: 36px * $screen-scale;
         display: block;
     }
     .ui-icon {

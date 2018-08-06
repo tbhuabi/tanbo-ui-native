@@ -1,6 +1,6 @@
 ui-scroll-tab {
     display: block;
-    height: 40px / $screen-scale;
+    height: 40px * $screen-scale;
     border-bottom: $border-width solid $color-gray-light;
 }
 
@@ -29,8 +29,8 @@ ui-scroll-tab {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 2px / $screen-scale;
-    width: 100px / $screen-scale;
+    height: 2px * $screen-scale;
+    width: 100px * $screen-scale;
     z-index: 1;
 }
 

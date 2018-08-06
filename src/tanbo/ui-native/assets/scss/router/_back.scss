@@ -29,7 +29,7 @@ ui-back {
 .ui-icon-arrow-back {
     width: $title-horizontal-distance;
     position: relative;
-    left: -4px / $screen-scale;
+    left: -4px * $screen-scale;
 }
 
 .ui-back-text {

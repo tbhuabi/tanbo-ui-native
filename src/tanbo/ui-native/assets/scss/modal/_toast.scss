@@ -11,8 +11,8 @@ ui-toast {
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-left: -150px / $screen-scale;
-    width: 300px / $screen-scale;
+    margin-left: -150px * $screen-scale;
+    width: 300px * $screen-scale;
     z-index: $toast-z-index;
 }
 .ui-toast {

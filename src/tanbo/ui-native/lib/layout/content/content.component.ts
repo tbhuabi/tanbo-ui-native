@@ -87,7 +87,7 @@ export class ContentComponent implements OnDestroy, OnInit {
     const startX = startPoint.pageX;
     const startY = startPoint.pageY;
 
-    if (startX > 50 / this.scale && this.state !== ViewState.Sleep) {
+    if (startX > 50 * this.scale && this.state !== ViewState.Sleep) {
       return;
     }
     cancelAnimationFrame(this.animationId);
@@ -140,7 +140,7 @@ export class ContentComponent implements OnDestroy, OnInit {
       }
 
       const endTime = Date.now();
-      if (endTime - startTime < 100 && this.distanceX > 50 / this.scale) {
+      if (endTime - startTime < 100 && this.distanceX > 50 * this.scale) {
         this.animationTo(maxWidth);
         return;
       }

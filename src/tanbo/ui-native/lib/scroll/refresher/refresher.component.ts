@@ -104,7 +104,7 @@ export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
     context.clearRect(-this.containerWidth, -this.progress, this.containerWidth * 2, this.progress * 2);
     context.fillStyle = this.color;
     const r = this.doRefreshDistance - this.progress;
-    context.arc(0, 0, r * 10 / this.scale, 0, Math.PI * 2);
+    context.arc(0, 0, r * 10 * this.scale, 0, Math.PI * 2);
     context.fill();
 
     this.opacity = Easing.Cubic.Out(this.progress / this.doRefreshDistance) / 2;
@@ -116,7 +116,7 @@ export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
     const max = this.doRefreshDistance;
 
     const yoyo = () => {
-      progress += 2 / this.scale;
+      progress += 2 * this.scale;
 
       const isSingle: boolean = Math.floor(progress / max) % 2 === 1;
       let result: number;
@@ -143,11 +143,11 @@ export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
     let r1 = this.progress / 4;
     let r2 = this.progress / 5;
 
-    if (r1 > 12 / this.scale) {
-      r1 = 12 / this.scale;
+    if (r1 > 12 * this.scale) {
+      r1 = 12 * this.scale;
     }
-    if (r2 > 8 / this.scale) {
-      r2 = 8 / this.scale;
+    if (r2 > 8 * this.scale) {
+      r2 = 8 * this.scale;
     }
 
     context.beginPath();
@@ -155,7 +155,7 @@ export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
     context.closePath();
     context.fill();
 
-    const distance = (this.doRefreshDistance - progress ) / this.doRefreshDistance * 40 / this.scale;
+    const distance = (this.doRefreshDistance - progress ) / this.doRefreshDistance * 40 * this.scale;
     context.beginPath();
     context.arc(-distance, 0, r2, 0, Math.PI * 2);
     context.closePath();

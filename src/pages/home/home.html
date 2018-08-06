@@ -1,13 +1,26 @@
 <ui-page>
   <ui-header>
     <ui-navbar>
-      <ui-title>title</ui-title>
+      <ui-title>home</ui-title>
     </ui-navbar>
   </ui-header>
   <ui-content>
     <ui-refresher style="background-color: green;"></ui-refresher>
-    <ui-scroll style="background: gold;" [openRefresh]="true">
-      aa
+    <ui-scroll [openRefresh]="true" class="ui-container">
+      <br><br>
+      <button class="ui-btn ui-btn-primary" routerLink="../detail">button</button>
+      <br><br>
+      <button class="ui-btn ui-btn-primary ui-btn-sm">button</button>
+      <br><br>
+      <button class="ui-btn ui-btn-primary ui-btn-lg">button</button>
+      <ui-list>
+        <ui-list-item>
+          <ui-list-inner>a</ui-list-inner>
+        </ui-list-item>
+        <ui-list-item>
+          <ui-list-inner>a</ui-list-inner>
+        </ui-list-item>
+      </ui-list>
     </ui-scroll>
   </ui-content>
 </ui-page>

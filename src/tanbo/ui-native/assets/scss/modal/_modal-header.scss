@@ -1,7 +1,7 @@
 ui-modal-header {
   display: block;
   text-align: center;
-  padding: $grid-column-padding $grid-column-padding 7px / $screen-scale;
+  padding: $grid-column-padding $grid-column-padding 7px * $screen-scale;
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 600;

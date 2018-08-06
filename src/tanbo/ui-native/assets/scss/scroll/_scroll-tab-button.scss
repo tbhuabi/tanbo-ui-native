@@ -1,8 +1,8 @@
 ui-scroll-tab-button {
     display: table-cell;
     vertical-align: middle;
-    padding-left: 15px / $screen-scale;
-    padding-right: 15px / $screen-scale;
+    padding-left: 15px * $screen-scale;
+    padding-right: 15px * $screen-scale;
     white-space: nowrap;
     transition: color .2s;
     &.ui-selected {
