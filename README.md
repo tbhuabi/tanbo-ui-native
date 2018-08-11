@@ -1,46 +1,117 @@
-# angular2-webpack项目模板
+# 简介
 
-本项目demo是基于webpack的angular项目，语言为typescript+es6  
-本项目为单页应用，历史纪录基于angular默认的html5 history api，在正式发布后，后台需配置相关页面解析逻辑，防止404页面出现
+`@tanbo/ui-native` 是基于 angular 开发的移动端开发框架，支持常见的如路由转场动画、触摸手势、上拉加载、下拉刷新等功能。文档地址：[https://www.tanboui.com/native](https://www.tanboui.com/native)。
 
-## 如何使用？
+### 安装
 
-1. 打开控制台，并进入项目根目录
-2. 在控制台输入以下代码`npm install`并回车，等待安装完毕 
-3. 确保安装没有错误，运行`npm start`，如无意外，这时将自动打开chrome浏览器，并显示出demo的默认页面了
-
-## 项目约定
-
-+ assets目录存放公共的图片和样式表
-+ modules 公共模块目录
-+ views存放页面文件夹  
-
-你可以在src内扩展你需要的目录
-
-## 代码风格
-+ 项目采用了**tslint**作为代码检查工具
-+ 请确保代码风格符合[codelyzer](https://angular.cn/docs/ts/latest/guide/style-guide.html)标准，否则启动和构建会不成功，如果不小心写出的代码不符合代码规范，请注意控制台输出错误的信息，并做出相应更改，直到没有代码语法错误
-
-## 自动化测试
-`npm run test`
-为确保项目的健壮性、可维护性和可预期，建议为每一个项目中的文件写单元测试，测试工具为karma，框架为jasmine，相关文档可上互联网上搜索  
-
-默认情况下，单元测试文件以XXX.spec.ts命名
-
-## 构建发布
-
-1. 确认本地在开发过程中，没有代码错误，及编译警告
-2. 在控制台输入`npm run build`
-3. 等编译完成后，会在根目录下生成一个dist的目录，里面存有打包编译后的文件
-
-## 直接运行打包后的代码
 ```bash
-npm run production
+npm install @tanbo/ui-native --save
 ```
 
-## 调试代理
+## 页面结构
 
-接口代理默认拦截以`/api/`开头的请求，并会重写url为`/`,你需要把全局的api请求加上`/api`前缀，并在上线发布时去掉这个请求头，推荐的做法是通过配置环境变量的方式实现。
+```html
+<ui-page>
+  <ui-header>
+    <!-- 如果不需要头部，ui-header 是可选的 -->
+    <ui-navbar>
+      <!-- ui-back 组件是可选的，只有在需要返回父页面才声明-->
+      <ui-back>返回</ui-back>
+      <!-- ui-buttons 组件不是必需的，只有在需要左上角有按扭时才声明-->
+      <ui-buttons>
+        <button>按扭</button>
+      </ui-buttons>
+      <!-- 如果需要头部，ui-navbar 是必需的，因为在 webview 全屏的情况下，ui-header 会有 20px 的 padding-top，用来显示手机的状态栏。如果你需要设置整个头部的背景颜色，则应该设置 ui-header 的背景，而不是 ui-navbar -->
+      <ui-title>标题</ui-title>
+      <!-- ui-buttons 组件不是必需的，只有在需要右上角有按扭时才声明-->
+      <ui-buttons>
+        <button>按扭</button>
+      </ui-buttons>
+    </ui-navbar>
+  </ui-header>
+  <ui-content>
+    <!-- ui-content 是必需的，页面的主要内容应该放在这里 -->
+    <ui-scroll>
+    <!--ui-content 的内容是不可滚动的，如果需要内容可滚动，则需要把内容放在 ui-scroll 内。-->
+    </ui-scroll>
+  </ui-content>
+  <ui-footer>
+    <!-- 如果不需要固定底部，ui-footer 是可选的 -->
+  </ui-footer>
+</ui-page>
+```
 
 
+### 在项目中导入 @tanbo/ui-native
+
+tanbo-ui-native 主要分为三个模块，分别是 `UIComponentsModule`、`UIDirectivesModule`、`UIFormsModule`。
++ `UIComponentsModule` 主要提供了 native 页面常用的 ui 组件
++ `UIDirectivesModule` 主要提供了一些常用指令
++ `UIFormsModule` 主要提供了一些表单组件，及一些表单校验的指令
+
+```typescript
+// # app.module.ts 入口模块
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { UIComponentsModule, UIDirectivesModule, UIFormsModule } from '@tanbo/ui-native';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+    imports: [
+        UIComponentsModule.forRoot(), // 如果是异步模块，如路由模块，请调用 `forChild()` 方法
+        UIDirectivesModule,
+        UIFormsModule, // UIFormsModule 一定要写在 FormsModule 之前，否则会导致部分校验指令不能正常工作
+        BrowserModule,
+        FormsModule
+    ],
+    declarations: [
+        AppComponent
+    ],
+    bootstrap: [AppComponent]
+})
+
+export class AppModule {
+}
+```
+
+```typescript
+// # app.component.ts 根组件
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: '<my-app></my-app>',
+    template: '<ui-app></ui-app>'
+})
+export class AppComponent {
+}
+```
+
+
+### 在项目中导入 @tanbo/ui-native 的样式表
+
+tanbo-ui-native 的样式表采用 sass 开发，你可以导入 sass 源文件，进行定制化开发，也可以直接导入已编译好的 css 文件。
+
+在 ts 文件中导入编译好的 css 文件
+```typescript
+// # main.ts
+// 按照 angular 项目的约定，在 main.ts 里导入全局样式表
+import '@tanbo/ui-native/index.min.css';
+```
+
+在 global.scss 中导入 scss 源文件和字体 css 文件，然后导入 global.scss 到 main.ts
+```scss
+// # global.scss
+@import "~@tanbo/ui-native/assets/scss/varibles";
+@import "~@tanbo/ui-native/assets/scss/custom-index";
+@import "~@tanbo/ui-native/assets/fonts/style.css";
+```
+```typescript
+// # main.ts
+// 按照 angular 项目的约定，在 main.ts 里导入全局样式表
+import './global.scss';
+```
 
