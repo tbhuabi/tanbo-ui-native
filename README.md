@@ -55,15 +55,14 @@ tanbo-ui-native 主要分为三个模块，分别是 `UIComponentsModule`、`UID
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { UIComponentsModule, UIDirectivesModule, UIFormsModule } from '@tanbo/ui-native';
+import { UINativeModule } from '@tanbo/ui-native';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
     imports: [
-        UIComponentsModule.forRoot(), // 如果是异步模块，如路由模块，请调用 `forChild()` 方法
-        UIDirectivesModule,
-        UIFormsModule, // UIFormsModule 一定要写在 FormsModule 之前，否则会导致部分校验指令不能正常工作
+        /* ... 其它模块 */
+        UINativeModule.forRoot(), // 如果是异步模块，如路由模块，请调用 `forChild()` 方法
         BrowserModule,
         FormsModule
     ],
@@ -93,7 +92,7 @@ export class AppComponent {
 
 ### 在项目中导入 @tanbo/ui-native 的样式表
 
-tanbo-ui-native 的样式表采用 sass 开发，你可以导入 sass 源文件，进行定制化开发，也可以直接导入已编译好的 css 文件。
+@tanbo/ui-native 的样式表采用 sass 开发，你可以导入 sass 源文件，进行定制化开发，也可以直接导入已编译好的 css 文件。
 
 在 ts 文件中导入编译好的 css 文件
 ```typescript
