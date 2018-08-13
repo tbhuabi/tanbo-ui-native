@@ -10,7 +10,7 @@
     "@angular/router": "^5.0.0 || ^6.0.0-rc.0 || ^6.0.0",
     "@tweenjs/tween.js": "^17.0.0",
     "@types/tween.js": "^16.0.0",
-    "better-scroll": "^1.0.0",
+    "better-scroll": "^1.12.6",
     "rxjs": "^5.0.0 || ^6.0.0",
     "tanbo-bezier": "^0.0.5"
   },
