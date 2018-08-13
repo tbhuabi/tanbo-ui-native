@@ -1,10 +1,10 @@
 <div class="ui-select-fixed" (click)="showOptions()">
   <div class="ui-raw-input-wrap">
     <input class="ui-raw-input" [disabled]="disabled"
-           [name]="name"
+           [attr.name]="name"
            [placeholder]="placeholder"
            readonly
-           [id]="forId"
+           [attr.id]="forId"
            type="text"
            [value]="text">
     <div class="ui-raw-input-mask"></div>

@@ -5,7 +5,7 @@
     </div>
     <input [ngClass]="{'ui-show': !value || !value.length}"
            type="text" class="ui-picker-input"
-           [name]="name" [id]="forId"
+           [attr.name]="name" [attr.id]="forId"
            [disabled]="disabled" readonly
            [placeholder]="placeholder">
     <div class="ui-picker-input-mask"></div>

@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 
 import { SelectService } from '../select/select.service';
+import { inputAttrToBoolean } from '../helper';
 
 @Component({
   selector: 'ui-option',
@@ -22,31 +23,29 @@ export class OptionComponent implements AfterViewInit {
   @Input()
   @HostBinding('class.ui-disabled')
   set disabled(isDisabled: any) {
-    this._disabled = isDisabled;
+    this._disabled = inputAttrToBoolean(isDisabled);
   }
 
   get disabled() {
-    const isDisabled = (this as any).hasOwnProperty('_disabled');
-    return isDisabled && this._disabled !== false;
+    return this._disabled;
   }
 
   @Input()
   @HostBinding('class.ui-selected')
   set selected(isSelected: any) {
-    this._selected = isSelected;
+    this._selected = inputAttrToBoolean(isSelected);
   }
 
   get selected() {
-    const isSelected = (this as any).hasOwnProperty('_selected');
-    return isSelected && this._selected !== false;
+    return this._selected;
   }
 
   @Output()
   uiChecked = new EventEmitter<OptionComponent>();
   nativeElement: HTMLElement;
 
-  private _disabled: boolean;
-  private _selected: boolean;
+  private _disabled: boolean = false;
+  private _selected: boolean = false;
 
   constructor(private elementRef: ElementRef,
               private selectService: SelectService) {

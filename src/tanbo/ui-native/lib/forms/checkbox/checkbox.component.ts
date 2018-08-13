@@ -14,13 +14,13 @@ import { inputAttrToBoolean } from '../helper';
 })
 export class CheckboxComponent implements ControlValueAccessor {
   @Input()
-  name: string = '';
+  name: string;
   @Input()
   text: string = '';
   @Input()
   value: string = '';
   @Input()
-  forId: string = '';
+  forId: string;
 
   @Input()
   @HostBinding('class.ui-disabled')

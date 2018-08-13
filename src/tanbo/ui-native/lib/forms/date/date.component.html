@@ -1,8 +1,8 @@
 <div class="ui-date-fixed" (click)="show()">
   <div class="ui-date-input-wrap">
     <input class="ui-date-input" [disabled]="disabled"
-           [name]="name"
-           [id]="forId"
+           [attr.name]="name"
+           [attr.id]="forId"
            [placeholder]="placeholder"
            readonly
            type="text"

@@ -16,14 +16,14 @@ import { RangeComponent } from './range/range.component';
 import { SelectComponent } from './select/select.component';
 import { SwitchComponent } from './switch/switch.component';
 // 指令
-import { FormValidatorDirective } from './form-validator.directive';
-import { ModelValidatorDirective } from './model-validator.directive';
 import {
-  UICheckboxRequiredValidatorDirective,
-  UISelectRequiredValidatorDirective,
-  UIRadioRequiredValidatorDirective,
-  UISwitchRequiredValidatorDirective
+  CheckboxRequiredValidator,
+  SwitchRequiredValidator,
+  RadioRequiredValidator,
+  SelectRequiredValidator,
+  DateRequiredValidator
 } from './required-validator.directive';
+import { SubmitDirective } from './submit.directive';
 // 服务
 import { RadioStateService } from './radio/radio-state.service';
 
@@ -50,12 +50,12 @@ import { UI_SELECT_ARROW_CLASSNAME } from './helper';
     SwitchComponent,
 
     // 指令
-    FormValidatorDirective,
-    ModelValidatorDirective,
-    UICheckboxRequiredValidatorDirective,
-    UISelectRequiredValidatorDirective,
-    UIRadioRequiredValidatorDirective,
-    UISwitchRequiredValidatorDirective
+    CheckboxRequiredValidator,
+    SwitchRequiredValidator,
+    RadioRequiredValidator,
+    SelectRequiredValidator,
+    DateRequiredValidator,
+    SubmitDirective
   ],
   exports: [
     // 组件
@@ -71,12 +71,12 @@ import { UI_SELECT_ARROW_CLASSNAME } from './helper';
     SwitchComponent,
 
     // 指令
-    FormValidatorDirective,
-    ModelValidatorDirective,
-    UICheckboxRequiredValidatorDirective,
-    UISelectRequiredValidatorDirective,
-    UIRadioRequiredValidatorDirective,
-    UISwitchRequiredValidatorDirective
+    CheckboxRequiredValidator,
+    SwitchRequiredValidator,
+    RadioRequiredValidator,
+    SelectRequiredValidator,
+    DateRequiredValidator,
+    SubmitDirective
   ],
   providers: [
     RadioStateService, {

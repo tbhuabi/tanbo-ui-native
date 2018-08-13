@@ -7,11 +7,11 @@ import { NG_VALIDATORS, AbstractControl, ValidationErrors, Validator } from '@an
   /* tslint:enable */
   providers: [{
     provide: NG_VALIDATORS,
-    useExisting: UICheckboxRequiredValidatorDirective,
+    useExisting: CheckboxRequiredValidator,
     multi: true
   }]
 })
-export class UICheckboxRequiredValidatorDirective implements Validator {
+export class CheckboxRequiredValidator implements Validator {
   private _required: boolean;
   private _onChange: () => void;
 
@@ -45,11 +45,11 @@ export class UICheckboxRequiredValidatorDirective implements Validator {
   /* tslint:enable */
   providers: [{
     provide: NG_VALIDATORS,
-    useExisting: UISwitchRequiredValidatorDirective,
+    useExisting: SwitchRequiredValidator,
     multi: true
   }]
 })
-export class UISwitchRequiredValidatorDirective implements Validator {
+export class SwitchRequiredValidator implements Validator {
   private _required: boolean;
   private _onChange: () => void;
 
@@ -83,11 +83,11 @@ export class UISwitchRequiredValidatorDirective implements Validator {
   /* tslint:enable */
   providers: [{
     provide: NG_VALIDATORS,
-    useExisting: UIRadioRequiredValidatorDirective,
+    useExisting: RadioRequiredValidator,
     multi: true
   }]
 })
-export class UIRadioRequiredValidatorDirective implements Validator {
+export class RadioRequiredValidator implements Validator {
   private _required: boolean;
   private _onChange: () => void;
 
@@ -121,11 +121,49 @@ export class UIRadioRequiredValidatorDirective implements Validator {
   /* tslint:enable */
   providers: [{
     provide: NG_VALIDATORS,
-    useExisting: UISelectRequiredValidatorDirective,
+    useExisting: SelectRequiredValidator,
     multi: true
   }]
 })
-export class UISelectRequiredValidatorDirective implements Validator {
+export class SelectRequiredValidator implements Validator {
+  private _required: boolean;
+  private _onChange: () => void;
+
+  @Input()
+  get required(): boolean | string {
+    return this._required;
+  }
+
+  set required(value: boolean | string) {
+    this._required = value !== false && value !== null;
+    if (this._onChange) {
+      this._onChange();
+    }
+  }
+
+  validate(c: AbstractControl): ValidationErrors | null {
+    if (this.required) {
+      return c.value !== '' && c.value !== undefined && c.value !== null ? null : {'required': true};
+    }
+    return null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onChange = fn;
+  }
+}
+
+@Directive({
+  /* tslint:disable */
+  selector: 'ui-input[type=date][required]',
+  /* tslint:enable */
+  providers: [{
+    provide: NG_VALIDATORS,
+    useExisting: DateRequiredValidator,
+    multi: true
+  }]
+})
+export class DateRequiredValidator implements Validator {
   private _required: boolean;
   private _onChange: () => void;
 

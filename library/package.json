@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:lib": "rimraf dist && ng build @tanbo/ui-native && gulp",
-    "publish:lib": "npm run build:lib && cd dist/tanbo/ui-native && npm publish --access=public"
+    "publish:lib": "npm run build:lib && cd dist/tanbo/ui-native && npm publish --access=public && npm run clean",
+    "clean": "rimraf dist && rimraf projects/tanbo/ui-native/src/lib/"
   },
   "private": true,
   "dependencies": {

@@ -1,6 +1,8 @@
 import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, Renderer2, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { inputAttrToBoolean } from '../helper';
+
 @Component({
   selector: 'ui-input[type=range]',
   templateUrl: './range.component.html',
@@ -12,9 +14,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class RangeComponent implements ControlValueAccessor {
   @Input()
-  name: string = '';
+  name: string;
   @Input()
-  forId: string = '';
+  forId: string;
 
   @Input()
   showProgress: boolean = false;
@@ -25,23 +27,21 @@ export class RangeComponent implements ControlValueAccessor {
   @Input()
   @HostBinding('class.ui-disabled')
   set disabled(isDisabled: any) {
-    this._disabled = isDisabled;
+    this._disabled = inputAttrToBoolean(isDisabled);
   }
 
   get disabled() {
-    const isDisabled = (this as any).hasOwnProperty('_disabled');
-    return isDisabled && this._disabled !== false;
+    return this._readonly;
   }
 
   @Input()
   @HostBinding('class.ui-readonly')
   set readonly(isReadonly: any) {
-    this._readonly = isReadonly;
+    this._readonly = inputAttrToBoolean(isReadonly);
   }
 
   get readonly() {
-    const isReadonly = (this as any).hasOwnProperty('_readonly');
-    return isReadonly && this._readonly !== false;
+    return this._readonly;
   }
 
   @Input()

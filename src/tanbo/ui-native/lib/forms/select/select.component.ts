@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 
 import { OptionComponent } from '../option/option.component';
 import { SelectService } from './select.service';
-import { UI_SELECT_ARROW_CLASSNAME } from '../helper';
+import { UI_SELECT_ARROW_CLASSNAME, inputAttrToBoolean } from '../helper';
 
 @Component({
   selector: 'ui-select',
@@ -33,9 +33,9 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
   @ContentChildren(OptionComponent)
   options: QueryList<OptionComponent>;
   @Input()
-  forId: string = '';
+  forId: string;
   @Input()
-  name: string = '';
+  name: string;
   @Input()
   placeholder: string = '';
   @Input()
@@ -48,23 +48,21 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
   @Input()
   @HostBinding('class.ui-disabled')
   set disabled(isDisabled: any) {
-    this._disabled = isDisabled;
+    this._disabled = inputAttrToBoolean(isDisabled);
   }
 
   get disabled() {
-    const isDisabled = (this as any).hasOwnProperty('_disabled');
-    return isDisabled && this._disabled !== false;
+    return this._disabled;
   }
 
   @Input()
   @HostBinding('class.ui-readonly')
   set readonly(isReadonly: any) {
-    this._readonly = isReadonly;
+    this._readonly = inputAttrToBoolean(isReadonly);
   }
 
   get readonly() {
-    const isReadonly = (this as any).hasOwnProperty('_readonly');
-    return isReadonly && this._readonly !== false;
+    return this._readonly;
   }
 
   @Output()
@@ -72,8 +70,8 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
 
   focus: boolean = false;
   text: string = '';
-  private _disabled: boolean;
-  private _readonly: boolean;
+  private _disabled: boolean = false;
+  private _readonly: boolean = false;
 
   private value: string = '';
   private onChange: (_: any) => any;

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { PickerService, PickerCell } from '../picker/picker.service';
 import { timeAnalysisByTimeString, dateStringFormat, TimeDetails } from './date-utils';
-import { UI_SELECT_ARROW_CLASSNAME } from '../helper';
+import { UI_SELECT_ARROW_CLASSNAME, inputAttrToBoolean } from '../helper';
 
 @Component({
   selector: 'ui-input[type=date]',
@@ -19,7 +19,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input()
   title: string = '';
   @Input()
-  name: string = '';
+  name: string;
 
   @Input()
   set value(value: string | number | Date) {
@@ -46,7 +46,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   }
 
   @Input()
-  forId: string = '';
+  forId: string;
 
   @Input()
   set maxDate(value: string | Date) {
@@ -70,23 +70,21 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input()
   @HostBinding('class.ui-disabled')
   set disabled(isDisabled: any) {
-    this._disabled = isDisabled;
+    this._disabled = inputAttrToBoolean(isDisabled);
   }
 
   get disabled() {
-    const isDisabled = (this as any).hasOwnProperty('_disabled');
-    return isDisabled && this._disabled !== false;
+    return this._disabled;
   }
 
   @Input()
   @HostBinding('class.ui-readonly')
   set readonly(isReadonly: any) {
-    this._readonly = isReadonly;
+    this._readonly = inputAttrToBoolean(isReadonly);
   }
 
   get readonly() {
-    const isReadonly = (this as any).hasOwnProperty('_readonly');
-    return isReadonly && this._readonly !== false;
+    return this._readonly;
   }
 
   @Output()
@@ -105,8 +103,8 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
   displayValue: string = '';
 
-  private _disabled: boolean;
-  private _readonly: boolean;
+  private _disabled: boolean = false;
+  private _readonly: boolean = false;
 
   private _value: string | number | Date;
   private _maxDate: TimeDetails;

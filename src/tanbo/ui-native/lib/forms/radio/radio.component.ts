@@ -27,11 +27,11 @@ import { inputAttrToBoolean } from '../helper';
 })
 export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input()
-  name: string = '';
+  name: string;
   @Input()
   value: string = '';
   @Input()
-  forId: string = '';
+  forId: string;
   @Input()
   text: string = '';
 

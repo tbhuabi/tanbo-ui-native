@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { PickerService, PickerCell } from './picker.service';
-import { UI_SELECT_ARROW_CLASSNAME } from '../helper';
+import { UI_SELECT_ARROW_CLASSNAME, inputAttrToBoolean } from '../helper';
 
 @Component({
   selector: 'ui-picker',
@@ -23,22 +23,20 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
 
   @Input()
   set disabled(isDisabled: any) {
-    this._disabled = isDisabled;
+    this._disabled = inputAttrToBoolean(isDisabled);
   }
 
   get disabled() {
-    const isDisabled = (this as any).hasOwnProperty('_disabled');
-    return isDisabled && this._disabled !== false;
+    return this._disabled;
   }
 
   @Input()
   set readonly(isReadonly: any) {
-    this._readonly = isReadonly;
+    this._readonly = inputAttrToBoolean(isReadonly);
   }
 
   get readonly() {
-    const isReadonly = (this as any).hasOwnProperty('_readonly');
-    return isReadonly && this._readonly !== false;
+    return this._readonly;
   }
 
   @Input()
@@ -46,7 +44,7 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
   @Input()
   placeholder: string = '';
   @Input()
-  forId: string = '';
+  forId: string;
   @Input()
   value: Array<PickerCell> = [];
 
@@ -69,7 +67,7 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
   }
 
   @Input()
-  name: string = '';
+  name: string;
   @Input()
   arrowIconClassName: string = '';
   @Output()
@@ -81,8 +79,8 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
   private _value: Array<PickerCell> = [];
   private onChange: (_: any) => void;
   private onTouched: (_: any) => void;
-  private _disabled: boolean;
-  private _readonly: boolean;
+  private _disabled: boolean = false;
+  private _readonly: boolean = false;
   private timer: any = null;
 
   private sub: Subscription;
