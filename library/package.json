@@ -9,8 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:lib": "rimraf dist && ng build @tanbo/ui-native && gulp",
-    "publish:lib": "npm run build:lib && cd dist/tanbo/ui-native && npm publish --access=public && npm run clean",
-    "clean": "rimraf dist && rimraf projects/tanbo/ui-native/src/lib/"
+    "publish:lib": "npm run build:lib && cd dist/tanbo/ui-native && npm publish --access=public && npm run clean:lib",
+    "clean:lib": "rimraf dist && rimraf projects/tanbo/ui-native/src/lib/"
   },
   "private": true,
   "dependencies": {
@@ -25,7 +25,7 @@
     "@angular/router": "^6.0.3",
     "@tweenjs/tween.js": "^17.2.0",
     "@types/tween.js": "^16.9.0",
-    "better-scroll": "^1.11.1",
+    "better-scroll": "^1.12.6",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
     "tanbo-bezier": "0.0.5",
