@@ -20,6 +20,11 @@ export class AppComponent implements OnInit, OnDestroy {
   @Input()
   baseFontSize: number = 10;
   /**
+   * 屏幕 X 轴默认逻辑像素
+   */
+  @Input()
+  screenWidth = 375;
+  /**
    * angular 路由的 name
    */
   @Input()
@@ -50,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private htmlElement: HTMLElement;
   private get defaultDocWidth() {
-    return 320 * this.scale;
+    return this.screenWidth * this.scale;
   }
 
   private subs: Array<Subscription> = [];
