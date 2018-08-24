@@ -15,13 +15,13 @@ import { Subscription } from 'rxjs';
 import { CubicBezier } from 'tanbo-bezier';
 
 import {
-  UI_ROUTER_ANIMATION_STEPS,
-  UI_BACK_ICON_CLASSNAME,
   ViewState,
   ViewStateService,
   UI_VIEW_INIT_STATE
-} from '../index';
-import { AppController, UI_SCREEN_SCALE } from '../../app/index';
+} from '../view/view-state.service';
+import { UI_SCREEN_SCALE } from '../../helper';
+import { UI_ROUTER_ANIMATION_STEPS, UI_BACK_ICON_CLASSNAME } from '../helper';
+import { AppController } from '../../app/index';
 
 @Component({
   selector: 'ui-back',

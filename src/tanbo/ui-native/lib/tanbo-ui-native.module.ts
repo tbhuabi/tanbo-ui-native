@@ -14,7 +14,8 @@ import { UIScrollModule } from './scroll/scroll.module';
 import { UISegmentModule } from './segment/segment.module';
 import { UISlideModule } from './slide/slide.module';
 
-import { UI_BROWSER_ENV, getDeviceType, AppController, UI_SCREEN_SCALE } from './app/index';
+import { UI_BROWSER_ENV, UI_SCREEN_SCALE } from './helper';
+import { getDeviceType, AppController } from './app/index';
 import { ListActivatedService } from './list/index';
 import {
   UIRouteReuseStrategy,

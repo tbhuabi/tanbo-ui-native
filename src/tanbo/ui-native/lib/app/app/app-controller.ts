@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { BrowserENV } from '../helper';
+import { BrowserENV } from '../../helper';
 
 @Injectable()
 export class AppController {

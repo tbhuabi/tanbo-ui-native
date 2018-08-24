@@ -3,7 +3,7 @@ import BetterScroll, { Position, BScroll } from 'better-scroll';
 import { Subscription } from 'rxjs';
 
 import { PickerService, PickerCell } from '../picker/picker.service';
-import { UI_SCREEN_SCALE } from '../../app/index';
+import { UI_SCREEN_SCALE } from '../../helper';
 @Component({
   selector: 'ui-picker-column',
   templateUrl: './picker-column.component.html'

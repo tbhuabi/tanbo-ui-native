@@ -3,7 +3,7 @@ import { PRIMARY_OUTLET } from '@angular/router';
 import { DOCUMENT, Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
-import { BrowserENV, UI_BROWSER_ENV, UI_SCREEN_SCALE } from '../helper';
+import { BrowserENV, UI_BROWSER_ENV, UI_SCREEN_SCALE } from '../../helper';
 import { ListActivatedService } from '../../list/index';
 import { RouteCacheController } from '../../router/index';
 import { AppController, getDeviceType } from './app-controller';

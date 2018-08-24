@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { ListEventService } from '../list-item/list-event.service';
 import { ListActivatedService } from '../list-item/list-activated.service';
-import { UI_SCREEN_SCALE } from '../../app/index';
+import { UI_SCREEN_SCALE } from '../../helper';
 
 @Component({
   selector: 'ui-list-sliding',

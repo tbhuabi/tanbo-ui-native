@@ -17,7 +17,7 @@ import { CollectionItemComponent } from '../collection-item/collection-item.comp
 import { Observable, Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Easing } from '@tweenjs/tween.js';
-import { UI_SCREEN_SCALE } from '../../app/index';
+import { UI_SCREEN_SCALE } from '../../helper';
 
 @Component({
   selector: 'ui-collection',

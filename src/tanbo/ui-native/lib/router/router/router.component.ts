@@ -17,7 +17,8 @@ import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
-import { ViewState, UI_VIEW_INIT_STATE, UI_VIEW_INIT_TOUCH_BACK, UI_ROUTER_ANIMATION_STEPS } from '../index';
+import { UI_ROUTER_ANIMATION_STEPS } from '../helper';
+import { ViewState, UI_VIEW_INIT_STATE, UI_VIEW_INIT_TOUCH_BACK } from '../view/view-state.service';
 import { RouterService } from './router.service';
 import { RouteCacheController } from './route-cache-controller';
 import { TabViewItemService } from '../tab-view-item/tab-view-item.service';

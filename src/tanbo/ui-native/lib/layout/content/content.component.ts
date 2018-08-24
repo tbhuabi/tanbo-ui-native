@@ -10,7 +10,7 @@ import {
   ViewStateService,
   UI_VIEW_INIT_STATE
 } from '../../router/index';
-import { UI_SCREEN_SCALE } from '../../app/index';
+import { UI_SCREEN_SCALE } from '../../helper';
 
 @Component({
   selector: 'ui-content',

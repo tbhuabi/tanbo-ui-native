@@ -14,7 +14,8 @@ import { Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { Easing } from '@tweenjs/tween.js';
 
-import { AppController, UI_SCREEN_SCALE } from '../../app/index';
+import { UI_SCREEN_SCALE } from '../../helper';
+import { AppController } from '../../app/index';
 import { SlideItemComponent } from '../slide-item/slide-item.component';
 
 @Component({

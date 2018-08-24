@@ -10,8 +10,8 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { PullUpLoadController } from './pull-up-load-controller';
-import { PullDownRefreshController, UI_DO_LOAD_DISTANCE } from '../index';
+import { PullUpLoadController, UI_DO_LOAD_DISTANCE } from './pull-up-load-controller';
+import { PullDownRefreshController } from '../refresher/pull-down-refresh-controller';
 
 @Component({
   selector: 'ui-scroll',

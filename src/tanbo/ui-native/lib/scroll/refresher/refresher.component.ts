@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 import { Easing } from '@tweenjs/tween.js';
 
 import { PullDownRefreshController, UI_DO_REFRESH_DISTANCE } from './pull-down-refresh-controller';
-import { UI_SCREEN_SCALE } from '../../app/index';
+import { UI_SCREEN_SCALE } from '../../helper';
 
 @Component({
   selector: 'ui-refresher',
