@@ -185,7 +185,6 @@ export class RangeComponent implements ControlValueAccessor {
         this.uiChange.emit(value);
       }
       ev.stopPropagation();
-      ev.preventDefault();
     });
 
   }

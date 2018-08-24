@@ -100,7 +100,6 @@ export class ListSlidingComponent implements OnInit, OnDestroy {
       // 设置相应样式，并阻止事件冒泡和默认事件
       this.transform = `translateX(${this.distanceX}px)`;
       isScroll = false;
-      moveEvent.preventDefault();
       moveEvent.stopPropagation();
       return false;
     });

@@ -8,7 +8,7 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
   private caches: { [key: string]: Array<DetachedRouteHandle> } = {};
 
   private isCache: boolean = false;
-  private routerSequence: Array<string> = [];
+  private routeSequence: Array<string> = [];
 
   private static getRouteIdentifier(route: ActivatedRouteSnapshot): string {
     const urls = [];
@@ -41,7 +41,7 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle) {
     const url = UIRouteReuseStrategy.getRouteIdentifier(route);
     if (handle) {
-      this.routerSequence.push(url);
+      this.routeSequence.push(url);
       if (!this.caches[url]) {
         this.caches[url] = [];
       }
@@ -59,9 +59,9 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
     const url = UIRouteReuseStrategy.getRouteIdentifier(route);
 
-    const lastUrl = this.routerSequence[this.routerSequence.length - 1];
+    const lastUrl = this.routeSequence[this.routeSequence.length - 1];
     if (url && this.caches[url] && url === lastUrl) {
-      this.routerSequence.pop();
+      this.routeSequence.pop();
       return true;
     }
     return false;
