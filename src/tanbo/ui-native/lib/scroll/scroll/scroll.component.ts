@@ -62,8 +62,8 @@ export class ScrollComponent implements OnDestroy, OnInit {
   constructor(private renderer: Renderer2,
               private elementRef: ElementRef,
               @Inject(UI_DO_LOAD_DISTANCE) private doLoadDistance: number,
-              private pullUpLoadController: PullUpLoadController,
-              private pullDownRefreshController: PullDownRefreshController) {
+              public pullUpLoadController: PullUpLoadController,
+              public pullDownRefreshController: PullDownRefreshController) {
 
   }
 
