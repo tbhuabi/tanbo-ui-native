@@ -44,11 +44,6 @@ npm install @tanbo/ui-native --save
 
 ### 在项目中导入 @tanbo/ui-native
 
-tanbo-ui-native 主要分为三个模块，分别是 `UIComponentsModule`、`UIDirectivesModule`、`UIFormsModule`。
-+ `UIComponentsModule` 主要提供了 native 页面常用的 ui 组件
-+ `UIDirectivesModule` 主要提供了一些常用指令
-+ `UIFormsModule` 主要提供了一些表单组件，及一些表单校验的指令
-
 ```typescript
 // # app.module.ts 入口模块
 
