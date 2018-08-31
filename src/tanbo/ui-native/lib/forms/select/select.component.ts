@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 import { OptionComponent } from '../option/option.component';
 import { SelectService } from './select.service';
@@ -75,10 +76,10 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
 
   private value: string = '';
   private onChange: (_: any) => any;
-  private onTouched: (_: any) => any;
+  private onTouched: () => any;
   private subs: Array<Subscription> = [];
 
-  private defaultOption: OptionComponent;
+  private selectedOption: OptionComponent;
   private isWrite: boolean = false;
 
   static getTextByElement(element: HTMLElement): string {
@@ -95,64 +96,39 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
   }
 
   ngAfterContentInit() {
-    let defaultOption: OptionComponent;
-    if (this.isWrite) {
-      let isFindDefaultOption: boolean = false;
-      for (const item of this.options.toArray()) {
-        if (item.value === this.value && !isFindDefaultOption) {
-          isFindDefaultOption = true;
-          this.defaultOption = item;
-          item.selected = true;
-        } else {
-          item.selected = false;
-        }
-      }
-    } else {
-      this.options.forEach((option: OptionComponent, index: number) => {
-        if (option.selected) {
-          defaultOption = option;
-          this.selectedIndex = index;
-        }
-      });
-      if (!defaultOption) {
-        defaultOption = this.options.toArray()[this.selectedIndex];
-      }
-      if (!defaultOption) {
-        defaultOption = this.options.first;
-        this.selectedIndex = 0;
-      }
-      if (defaultOption) {
-        this.value = defaultOption.value;
-        setTimeout(() => {
-          defaultOption.selected = true;
-        });
-        this.defaultOption = defaultOption;
-      }
+    if (!this.isWrite) {
+      this.updateBySelf();
     }
     this.subs.push(this.selectService.onChecked.subscribe((option: OptionComponent) => {
       this.options.forEach((op: OptionComponent, index: number) => {
         if (op === option) {
-          op.selected = true;
-          this.value = option.value;
-          this.text = SelectComponent.getTextByElement(option.nativeElement);
-          this.selectedIndex = index;
-          if (this.onChange) {
-            this.onChange(this.value);
+          if (op !== this.selectedOption) {
+            this.selectedOption = op;
+            op.selected = true;
+            this.value = option.value;
+            this.text = SelectComponent.getTextByElement(option.nativeElement);
+            this.selectedIndex = index;
+            if (this.onChange) {
+              this.onChange(this.value);
+            }
+            if (this.onTouched) {
+              this.onTouched();
+            }
+            this.uiChange.emit(this.value);
           }
-          if (this.onTouched) {
-            this.onTouched(this.value);
-          }
-          this.uiChange.emit(this.value);
         } else {
           op.selected = false;
         }
       });
     }));
+    this.subs.push(this.options.changes.pipe(delay(0)).subscribe(() => {
+      this.updateByNgModel();
+    }));
   }
 
   ngAfterViewInit() {
-    if (this.defaultOption) {
-      this.text = SelectComponent.getTextByElement(this.defaultOption.nativeElement);
+    if (this.selectedOption) {
+      this.text = SelectComponent.getTextByElement(this.selectedOption.nativeElement);
       this.changeDetectorRef.detectChanges();
     }
   }
@@ -206,5 +182,51 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
 
   setDisabledState(isDisabled: boolean) {
     this.disabled = isDisabled;
+  }
+
+  private updateByNgModel() {
+    let selectedOption: OptionComponent;
+    this.options.forEach((item: OptionComponent, index: number) => {
+      item.selected = false;
+      if (item.value === this.value || `${item.value}` === this.value || item.value === `${this.value}`) {
+        selectedOption = item;
+        this.selectedIndex = index;
+      }
+    });
+    if (selectedOption) {
+      this.text = SelectComponent.getTextByElement(selectedOption.nativeElement);
+      selectedOption.selected = true;
+      this.selectedOption = selectedOption;
+    } else {
+      this.selectedIndex = -1;
+      this.text = '';
+      this.selectedOption = null;
+    }
+  }
+
+  private updateBySelf() {
+    let defaultOption: OptionComponent;
+    this.options.forEach((option: OptionComponent, index: number) => {
+      if (option.selected) {
+        defaultOption = option;
+        this.selectedIndex = index;
+      }
+    });
+    if (!defaultOption) {
+      defaultOption = this.options.toArray()[this.selectedIndex];
+    }
+    if (!defaultOption) {
+      defaultOption = this.options.first;
+      this.selectedIndex = 0;
+    }
+    if (defaultOption) {
+      this.value = defaultOption.value;
+      setTimeout(() => {
+        if (!this.isWrite) {
+          defaultOption.selected = true;
+        }
+      });
+      this.selectedOption = defaultOption;
+    }
   }
 }

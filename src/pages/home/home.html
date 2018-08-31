@@ -5,23 +5,9 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-refresher style="background-color: green;"></ui-refresher>
-    <ui-scroll [openRefresh]="true" class="ui-container">
-      <ui-input type="date"></ui-input>
-      <br><br>
-      <button class="ui-btn ui-btn-primary" routerLink="../detail">button</button>
-      <br><br>
-      <button class="ui-btn ui-btn-primary ui-btn-sm">button</button>
-      <br><br>
-      <button class="ui-btn ui-btn-primary ui-btn-lg">button</button>
-      <ui-list>
-        <ui-list-item>
-          <ui-list-inner>a</ui-list-inner>
-        </ui-list-item>
-        <ui-list-item>
-          <ui-list-inner>a</ui-list-inner>
-        </ui-list-item>
-      </ui-list>
-    </ui-scroll>
+    <ui-select [(ngModel)]="value">
+      <ui-option value="a">aaa</ui-option>
+      <ui-option *ngFor="let item of data" [value]="item.value">{{ item.text }}</ui-option>
+    </ui-select>
   </ui-content>
 </ui-page>

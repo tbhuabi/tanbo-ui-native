@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
 
 import { ModalController, DialogController, AlertController } from '../../tanbo/ui-native/public_api';
 
@@ -6,23 +6,22 @@ import { ModalController, DialogController, AlertController } from '../../tanbo/
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
 })
-export class HomeComponent {
-  @ViewChild('modal', {read: TemplateRef})
-  modal: TemplateRef<any>;
-  @ViewChild('modal2', {read: TemplateRef})
-  modal2: TemplateRef<any>;
+export class HomeComponent implements OnInit {
+  value = 'bbbb';
+  data: any[] = [];
 
-  constructor(private modalController: ModalController,
-              private alertController: AlertController,
-              private dialogController: DialogController) {
-  }
-
-  show() {
-    this.alertController.show('test');
-    // this.modalController.show(Math.random() > 0.5 ? this.modal : this.modal2);
-  }
-
-  hide() {
-    this.modalController.hide();
+  ngOnInit() {
+    setTimeout(() => {
+      this.data = [{
+        text: 'aaaa',
+        value: 'aaaa'
+      }, {
+        text: 'bbbb',
+        value: 'bbbb'
+      }, {
+        text: 'cccc',
+        value: 'cccc'
+      }]
+    }, 200);
   }
 }
