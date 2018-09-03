@@ -10,5 +10,5 @@ export * from './lib/router/index';
 export * from './lib/scroll/index';
 export * from './lib/segment/index';
 export * from './lib/slide/index';
-
+export * from './lib/helper';
 export { UINativeModule } from './lib/tanbo-ui-native.module';
