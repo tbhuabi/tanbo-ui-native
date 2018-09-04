@@ -58,9 +58,8 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
   // 是否还原当前路由
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
     const url = UIRouteReuseStrategy.getRouteIdentifier(route);
-
     const lastUrl = this.routeSequence[this.routeSequence.length - 1];
-    if (url && this.caches[url] && url === lastUrl) {
+    if (this.caches[url] && url === lastUrl) {
       this.routeSequence.pop();
       return true;
     }

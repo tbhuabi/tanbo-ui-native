@@ -202,7 +202,6 @@ export class RouterComponent implements OnInit, OnDestroy {
 
     resolver = resolver || this.resolver;
     const childContexts = this.parentContexts.getOrCreateContext(this.name).children;
-
     if (this.isBack) {
       this.setViewState([ViewState.Destroy]);
       this.views.unshift({

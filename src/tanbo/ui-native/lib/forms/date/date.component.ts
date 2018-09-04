@@ -228,14 +228,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
     if (this.format) {
       value = this.currentDate.toStringByFormatString(this.format);
     } else {
-      const date = new Date();
-      date.setFullYear(this.currentDate.year);
-      date.setMonth(this.currentDate.month);
-      date.setDate(this.currentDate.day);
-      date.setHours(this.currentDate.hours);
-      date.setMinutes(this.currentDate.minutes);
-      date.setSeconds(this.currentDate.seconds);
-      value = date.getTime();
+      value = this.currentDate.timestamp;
     }
 
     this.displayValue = this.currentDate.toStringByFormatString(this.displayFormat || this.format);
