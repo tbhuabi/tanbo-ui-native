@@ -10,6 +10,8 @@ export class HomeComponent implements OnInit {
   value = 'bbbb';
   data: any[] = [];
 
+  date = new Date();
+
   ngOnInit() {
     setTimeout(() => {
       this.data = [{
@@ -21,7 +23,7 @@ export class HomeComponent implements OnInit {
       }, {
         text: 'cccc',
         value: 'cccc'
-      }]
+      }];
     }, 200);
   }
 }

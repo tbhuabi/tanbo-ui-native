@@ -5,9 +5,6 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-select [(ngModel)]="value">
-      <ui-option value="a">aaa</ui-option>
-      <ui-option *ngFor="let item of data" [value]="item.value">{{ item.text }}</ui-option>
-    </ui-select>
+    <ui-input type="date" [maxDate]="date"></ui-input>
   </ui-content>
 </ui-page>

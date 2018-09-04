@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { PickerService, PickerCell } from '../picker/picker.service';
-import { timeAnalysisByTimeString, dateStringFormat, TimeDetails } from './date-utils';
+import { UIDate } from './date-utils';
 import { UI_SELECT_ARROW_CLASSNAME, inputAttrToBoolean } from '../helper';
 
 @Component({
@@ -23,22 +23,9 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
   @Input()
   set value(value: string | number | Date) {
-    if (value === null || value === undefined || value === '') {
-      return;
-    }
-    if (typeof value === 'string') {
-      this._value = value;
-      this.currentDate = timeAnalysisByTimeString(value);
-    } else if (typeof value === 'number') {
-      const date = new Date();
-      date.setTime(value);
-      this.currentDate = timeAnalysisByTimeString(date);
-      this._value = dateStringFormat(this.format, this.currentDate);
-    } else {
-      this.currentDate = timeAnalysisByTimeString(value);
-      this._value = dateStringFormat(this.format, timeAnalysisByTimeString(value));
-    }
-    this.displayValue = dateStringFormat(this.displayFormat || this.format, this.currentDate);
+    this.currentDate = new UIDate(value);
+    this._value = value;
+    this.displayValue = this.currentDate.toStringByFormatString(this.displayFormat || this.format);
   }
 
   get value() {
@@ -50,12 +37,12 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
   @Input()
   set maxDate(value: string | Date) {
-    this._maxDate = timeAnalysisByTimeString(value);
+    this._maxDate = new UIDate(value);
   }
 
   @Input()
   set minDate(value: string | Date) {
-    this._minDate = timeAnalysisByTimeString(value);
+    this._minDate = new UIDate(value);
   }
 
   @Input()
@@ -99,7 +86,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   minutes: Array<PickerCell> = [];
   seconds: Array<PickerCell> = [];
 
-  currentDate: TimeDetails;
+  currentDate: UIDate;
 
   displayValue: string = '';
 
@@ -107,8 +94,8 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   private _readonly: boolean = false;
 
   private _value: string | number | Date;
-  private _maxDate: TimeDetails;
-  private _minDate: TimeDetails;
+  private _maxDate: UIDate;
+  private _minDate: UIDate;
 
   private onChange: (_: any) => any;
   private onTouched: (_: any) => any;
@@ -116,17 +103,6 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
   private sub: Subscription;
   private isScrolling: boolean = false;
-
-  static createList(arr: Array<PickerCell>, min: number, max: number, unit: string) {
-    arr.length = 0;
-    for (let i = min; i <= max; i++) {
-      arr.push({
-        text: (unit === '月' ? i + 1 : i) + unit,
-        value: i
-      });
-    }
-    return arr;
-  }
 
   constructor(@Inject(UI_SELECT_ARROW_CLASSNAME) arrowIcon: string,
               private pickerService: PickerService) {
@@ -137,21 +113,19 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
     this.sub = this.pickerService.onScroll.subscribe(b => {
       this.isScrolling = b;
     });
-
-    let currentDate: Date;
+    if (!this.currentDate) {
+      this.currentDate = new UIDate();
+    }
+    let d: Date;
     if (!this._maxDate) {
-      currentDate = new Date();
-      currentDate.setFullYear(currentDate.getFullYear() + 20);
-      this._maxDate = timeAnalysisByTimeString(currentDate);
+      d = new Date(this.currentDate.timestamp);
+      d.setFullYear(d.getFullYear() + 20);
+      this._maxDate = new UIDate(d);
     }
     if (!this._minDate) {
-      currentDate = new Date();
-      currentDate.setFullYear(currentDate.getFullYear() - 80);
-      this._minDate = timeAnalysisByTimeString(currentDate);
-    }
-
-    if (!this.currentDate) {
-      this.currentDate = timeAnalysisByTimeString(new Date());
+      d = new Date(this.currentDate.timestamp);
+      d.setFullYear(d.getFullYear() - 80);
+      this._minDate = new UIDate(d);
     }
 
     this.initYears();
@@ -163,27 +137,40 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
   initYears() {
     if (/yy|yyyy/.test(this.format)) {
-      DateComponent.createList(this.years, this._minDate.year, this._maxDate.year, '年');
+      this.years.length = 0;
+      for (let i = this._minDate.year; i <= this._maxDate.year; i++) {
+        this.years.push({
+          value: i,
+          text: i + '年'
+        });
+      }
     }
     this.initMonths();
   }
 
   initMonths() {
     if (/M|MM/.test(this.format)) {
-      DateComponent.createList(this.months, 0, 11, '月');
-      // if (this.currentDate.year === this._maxDate.year) {
-      //     months.forEach(item => {
-      //         if (item.value > this._maxDate.month) {
-      //             item.disabled = true;
-      //         }
-      //     });
-      // } else if (this.currentDate.year === this._minDate.year) {
-      //     months.forEach(item => {
-      //         if (item.value < this._minDate.month) {
-      //             item.disabled = true;
-      //         }
-      //     });
-      // }
+      this.months.length = 0;
+      let startMonth: number = 0;
+      let endMonth = 11;
+      if (this.currentDate.year <= this._minDate.year) {
+        startMonth = this._minDate.month;
+        if (this.currentDate.month < startMonth) {
+          this.currentDate.month = startMonth;
+        }
+      }
+      if (this.currentDate.year >= this._maxDate.year) {
+        endMonth = this._maxDate.month;
+        if (this.currentDate.month > endMonth) {
+          this.currentDate.month = endMonth;
+        }
+      }
+      for (; startMonth <= endMonth; startMonth++) {
+        this.months.push({
+          value: startMonth ,
+          text: startMonth + 1 + '月'
+        });
+      }
     }
 
     this.initDays();
@@ -191,30 +178,33 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
   initDays() {
     if (/d|dd/.test(this.format)) {
+      this.days.length = 0;
+      // 获取当前选中月总共有多少天
       const date = new Date();
       date.setFullYear(this.currentDate.year);
       date.setDate(1);
       date.setMonth(this.currentDate.month + 1);
       date.setDate(0);
-      const maxDay = date.getDate();
-      if (this.currentDate.day > maxDay) {
-        this.currentDate.day = maxDay;
+      let startDay = 1;
+      let endDay = date.getDate();
+
+      if (this.currentDate.year <= this._minDate.year) {
+        if (this.currentDate.month <= this._minDate.month) {
+          startDay = this._minDate.day;
+        }
       }
-      DateComponent.createList(this.days, 1, maxDay, '日');
-      // if (this.currentDate.year === this._maxDate.year && this.currentDate.month === this._maxDate.month) {
-      //     days.forEach(item => {
-      //         if (item.value > this._maxDate.day) {
-      //             item.disabled = true;
-      //         }
-      //     });
-      // } else if (this.currentDate.year === this._minDate.year &&
-      // this.currentDate.month === this._minDate.month) {
-      //     days.forEach(item => {
-      //         if (item.value < this._minDate.day) {
-      //             item.disabled = true;
-      //         }
-      //     });
-      // }
+      if (this.currentDate.year >= this._maxDate.year) {
+        if (this.currentDate.month >= this._maxDate.month) {
+          endDay = this._maxDate.day;
+        }
+      }
+
+      for (; startDay <= endDay; startDay++) {
+        this.days.push({
+          text: startDay + '日',
+          value: startDay
+        });
+      }
     }
   }
 
@@ -236,7 +226,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
     }
     let value: string | number;
     if (this.format) {
-      value = dateStringFormat(this.format, this.currentDate);
+      value = this.currentDate.toStringByFormatString(this.format);
     } else {
       const date = new Date();
       date.setFullYear(this.currentDate.year);
@@ -248,7 +238,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
       value = date.getTime();
     }
 
-    this.displayValue = dateStringFormat(this.displayFormat || this.format, this.currentDate);
+    this.displayValue = this.currentDate.toStringByFormatString(this.displayFormat || this.format);
     if (this.onChange) {
       this.onChange(value);
     }
