@@ -29,6 +29,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
     } else {
       this.currentDate = new UIDate(value);
       this.displayValue = this.currentDate.toStringByFormatString(this.displayFormat || this.format);
+      this.initYears();
     }
   }
 
@@ -42,11 +43,13 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input()
   set maxDate(value: string | Date) {
     this._maxDate = new UIDate(value);
+    this.initYears();
   }
 
   @Input()
   set minDate(value: string | Date) {
     this._minDate = new UIDate(value);
+    this.initYears();
   }
 
   @Input()
@@ -111,26 +114,22 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   constructor(@Inject(UI_SELECT_ARROW_CLASSNAME) arrowIcon: string,
               private pickerService: PickerService) {
     this.arrowIconClassName = arrowIcon;
+    this.currentDate = new UIDate();
+
+    let d = new Date(this.currentDate.timestamp);
+    d.setFullYear(d.getFullYear() + 20);
+    this._maxDate = new UIDate(d);
+
+    d = new Date(this.currentDate.timestamp);
+    d.setFullYear(d.getFullYear() - 80);
+    this._minDate = new UIDate(d);
   }
 
   ngOnInit() {
+
     this.sub = this.pickerService.onScroll.subscribe(b => {
       this.isScrolling = b;
     });
-    if (!this.currentDate) {
-      this.currentDate = new UIDate();
-    }
-    let d: Date;
-    if (!this._maxDate) {
-      d = new Date(this.currentDate.timestamp);
-      d.setFullYear(d.getFullYear() + 20);
-      this._maxDate = new UIDate(d);
-    }
-    if (!this._minDate) {
-      d = new Date(this.currentDate.timestamp);
-      d.setFullYear(d.getFullYear() - 80);
-      this._minDate = new UIDate(d);
-    }
 
     this.initYears();
   }
@@ -185,13 +184,13 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
       this.days.length = 0;
       // 获取当前选中月总共有多少天
       const date = new Date();
-      date.setFullYear(this.currentDate.year);
+      // 设置为当月1日，防止溢出
       date.setDate(1);
+      date.setFullYear(this.currentDate.year);
       date.setMonth(this.currentDate.month + 1);
       date.setDate(0);
       let startDay = 1;
       let endDay = date.getDate();
-
       if (this.currentDate.year <= this._minDate.year) {
         if (this.currentDate.month <= this._minDate.month) {
           startDay = this._minDate.day;
