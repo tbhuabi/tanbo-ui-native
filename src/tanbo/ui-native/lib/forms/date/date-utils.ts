@@ -115,7 +115,7 @@ export class UIDate {
   }
 
   private stringToDate(s: string): Date {
-    let dateArr: Array<number> = s.match(/\d+/g).map(item => {
+    let dateArr: Array<number> = (s.match(/\d+/g) || []).map(item => {
       return +item;
     });
     const arr = [0, 0, 1, 0, 0, 0];

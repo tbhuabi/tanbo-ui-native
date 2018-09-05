@@ -23,11 +23,11 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
   @Input()
   set value(value: string | number | Date) {
-    this.currentDate = new UIDate(value);
     this._value = value;
     if (value === '' || value === null || value === undefined) {
       this.displayValue = '';
     } else {
+      this.currentDate = new UIDate(value);
       this.displayValue = this.currentDate.toStringByFormatString(this.displayFormat || this.format);
     }
   }
@@ -102,7 +102,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   private _minDate: UIDate;
 
   private onChange: (_: any) => any;
-  private onTouched: (_: any) => any;
+  private onTouched: () => any;
   private timer: any = null;
 
   private sub: Subscription;
@@ -240,7 +240,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
       this.onChange(value);
     }
     if (this.onTouched) {
-      this.onTouched(value);
+      this.onTouched();
     }
     this._value = value;
     this.uiChange.emit(value);
