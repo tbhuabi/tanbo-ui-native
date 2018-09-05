@@ -25,7 +25,11 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   set value(value: string | number | Date) {
     this.currentDate = new UIDate(value);
     this._value = value;
-    this.displayValue = this.currentDate.toStringByFormatString(this.displayFormat || this.format);
+    if (value === '' || value === null || value === undefined) {
+      this.displayValue = '';
+    } else {
+      this.displayValue = this.currentDate.toStringByFormatString(this.displayFormat || this.format);
+    }
   }
 
   get value() {
@@ -167,7 +171,7 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
       }
       for (; startMonth <= endMonth; startMonth++) {
         this.months.push({
-          value: startMonth ,
+          value: startMonth,
           text: startMonth + 1 + '月'
         });
       }
