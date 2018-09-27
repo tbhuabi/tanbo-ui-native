@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, Optional } from '@angular/core';
+import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { DialogConfig, DialogController } from './dialog-controller';
@@ -24,14 +25,22 @@ export class DialogComponent implements OnInit, OnDestroy {
     return typeof this.content === 'string';
   }
 
-  private sub: Subscription;
+  private subs: Subscription[] = [];
 
-  constructor(private dialogController: DialogController) {
+  constructor(private dialogController: DialogController,
+              @Optional() private router: Router) {
   }
 
   ngOnInit() {
+    if (this.router) {
+      this.subs.push(this.router.events.subscribe(event => {
+        if (event instanceof NavigationStart) {
+          this.show = false;
+        }
+      }));
+    }
     // 订阅用户事件
-    this.sub = this.dialogController.config.subscribe((params: DialogConfig) => {
+    this.subs.push(this.dialogController.config.subscribe((params: DialogConfig) => {
       // 设置动画状态
       this.show = true;
 
@@ -41,12 +50,11 @@ export class DialogComponent implements OnInit, OnDestroy {
       if (params.btnsText) {
         this.btnsText = params.btnsText;
       }
-
-    });
+    }));
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.subs.forEach(item => item.unsubscribe());
   }
 
   checked(result: boolean) {

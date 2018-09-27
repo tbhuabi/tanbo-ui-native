@@ -5,7 +5,11 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-input type="date" [(ngModel)]="date"></ui-input>
-    <button routerLink="/detail">button</button>
+    <ui-select #select>
+      <ui-option>aaa</ui-option>
+      <ui-option>bbb</ui-option>
+    </ui-select>
+    <a routerLink="../detail">detail</a>
+    <button class="ui-btn" (click)="show()">button</button>
   </ui-content>
 </ui-page>

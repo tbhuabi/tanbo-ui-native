@@ -1,29 +1,17 @@
-import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { Component, TemplateRef, ViewChild, OnInit, ComponentRef } from '@angular/core';
 
 import { ModalController, DialogController, AlertController } from '../../tanbo/ui-native/public_api';
+import { SelectComponent } from '../../tanbo/ui-native/lib/forms/select/select.component';
 
 @Component({
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
 })
-export class HomeComponent implements OnInit {
-  value = 'bbbb';
-  data: any[] = [];
+export class HomeComponent {
+  @ViewChild('select')
+  select: SelectComponent;
 
-  date = '2013-02-3';
-
-  ngOnInit() {
-    setTimeout(() => {
-      this.data = [{
-        text: 'aaaa',
-        value: 'aaaa'
-      }, {
-        text: 'bbbb',
-        value: 'bbbb'
-      }, {
-        text: 'cccc',
-        value: 'cccc'
-      }];
-    }, 200);
+  show() {
+    this.select.showOptions();
   }
 }

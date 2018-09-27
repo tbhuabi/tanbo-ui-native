@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, Optional } from '@angular/core';
+import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AlertConfig, AlertController } from './alert-controller';
@@ -22,25 +23,33 @@ export class AlertComponent implements OnInit, OnDestroy {
     return typeof this.content === 'string';
   }
 
-  private sub: Subscription;
+  private subs: Subscription[] = [];
 
-  constructor(private alertController: AlertController) {
+  constructor(private alertController: AlertController,
+              @Optional() private router: Router) {
   }
 
   ngOnInit() {
+    if (this.router) {
+      this.subs.push(this.router.events.subscribe(event => {
+        if (event instanceof NavigationStart) {
+          this.checked();
+        }
+      }));
+    }
     // 订阅alert事件
-    this.sub = this.alertController.alertConfig.subscribe((params: AlertConfig) => {
+    this.subs.push(this.alertController.alertConfig.subscribe((params: AlertConfig) => {
       // 设置状态，以弹出对话框
       this.show = true;
 
       this.title = params.title;
       this.content = params.content;
       this.btnText = params.btnText;
-    });
+    }));
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.subs.forEach(item => item.unsubscribe());
   }
 
   checked() {
