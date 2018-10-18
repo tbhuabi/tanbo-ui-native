@@ -24,27 +24,25 @@ import { UI_SCREEN_SCALE } from '../../helper';
   templateUrl: './collection.component.html'
 })
 export class CollectionComponent implements AfterContentInit, OnDestroy {
+  @ContentChildren(CollectionItemComponent) items: QueryList<CollectionItemComponent>;
+  @ViewChild('container') container: ElementRef;
   /**
    * 拖动事件 $event 为当前拖动的进度
    */
-  @Output()
-  uiSliding = new EventEmitter<number>();
+  @Output() uiSliding = new EventEmitter<number>();
   /**
    * 当完成整屏切换时，触发事件， $event 为当前拖动的进度
    */
-  @Output()
-  uiSlidingFinish = new EventEmitter<number>();
+  @Output() uiSlidingFinish = new EventEmitter<number>();
   /**
    * 是否为垂直翻页，默认为 false，即为水平翻页
    */
-  @Input()
-  vertical: boolean = false;
+  @Input() vertical: boolean = false;
   /**
    * 是否填满整个容器，默认不填充，如设置为 true，那么会填充满第一个有定位的父级元素
    */
   @Input()
-  @HostBinding('class.ui-fill')
-  fill: boolean = false;
+  @HostBinding('class.ui-fill') fill: boolean = false;
 
   /**
    * 显示第几屏的索引
@@ -61,12 +59,6 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
   get index() {
     return this._index;
   }
-
-  @ContentChildren(CollectionItemComponent)
-  items: QueryList<CollectionItemComponent>;
-
-  @ViewChild('container')
-  container: ElementRef;
 
   // 通过子级的多少，计算自身的盒子大小
   get width() {

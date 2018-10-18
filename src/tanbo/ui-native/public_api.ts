@@ -2,6 +2,7 @@ export * from './lib/app/index';
 export * from './lib/collection/index';
 export * from './lib/flex/index';
 export * from './lib/forms/index';
+export * from './lib/image-viewer/index';
 export * from './lib/layout/index';
 export * from './lib/list/index';
 export * from './lib/modal/index';

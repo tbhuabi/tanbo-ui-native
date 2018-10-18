@@ -58,7 +58,7 @@ export class UINativeModule {
         useValue: 30
       }, {
         provide: UI_DO_REFRESH_DISTANCE,
-        useValue: 80
+        useValue: 40
       }, {
         provide: UI_DO_LOAD_DISTANCE,
         useValue: 600
@@ -67,7 +67,7 @@ export class UINativeModule {
         useFactory: getDeviceType
       }, {
         provide: UI_SCREEN_SCALE,
-        useValue: 2
+        useValue: 1
       },
         AppController,
         RouteCacheController,

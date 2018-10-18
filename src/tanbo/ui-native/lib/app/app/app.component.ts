@@ -17,18 +17,15 @@ export class AppComponent implements OnInit, OnDestroy {
    * 根据不同的屏幕宽度，设置 html 元素的 font-size
    * 主要用于 rem 布局，默认为 10
    */
-  @Input()
-  baseFontSize: number = 10;
+  @Input() baseFontSize: number = 10;
   /**
    * 屏幕 X 轴默认逻辑像素
    */
-  @Input()
-  screenWidth = 375;
+  @Input() screenWidth = 375;
   /**
    * angular 路由的 name
    */
-  @Input()
-  name: string = PRIMARY_OUTLET;
+  @Input() name: string = PRIMARY_OUTLET;
 
   // 根据不同环境，需要把页面头部增高相对尺寸，以显示时间，电池电量等信息，这里通过样式来控制
   @HostBinding('class.ui-iphone')
