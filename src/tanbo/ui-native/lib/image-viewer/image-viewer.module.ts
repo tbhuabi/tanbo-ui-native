@@ -1,11 +1,25 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { UISlideModule } from '../slide/slide.module';
+
+import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 
 import { ImageViewableDirective } from './image-viewable.directive';
 
 @NgModule({
+  imports: [
+    UISlideModule,
+    CommonModule
+  ],
   declarations: [
+    ImageViewerComponent,
+    ImageViewableDirective
+  ],
+  exports: [
+    ImageViewerComponent,
     ImageViewableDirective
   ]
 })
-export class ImageViewerModule {
+export class UIImageViewerModule {
 }

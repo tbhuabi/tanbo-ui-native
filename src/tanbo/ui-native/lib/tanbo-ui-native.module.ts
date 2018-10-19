@@ -5,6 +5,7 @@ import { UIAppModule } from './app/app.module';
 import { UICollectionModule } from './collection/collection.module';
 import { UIFlexModule } from './flex/flex.module';
 import { UIFormsModule } from './forms/forms.module';
+import { UIImageViewerModule } from './image-viewer/image-viewer.module';
 import { UILayoutModule } from './layout/layout.module';
 import { UIListModule } from './list/list.module';
 import { UIModalModule } from './modal/modal.module';
@@ -27,12 +28,15 @@ import {
 import { UI_DO_REFRESH_DISTANCE, UI_DO_LOAD_DISTANCE } from './scroll/index';
 import { AlertController, DialogController, ToastController, ModalController } from './modal/index';
 
+import { ImageViewerController } from './image-viewer/image-viewer-controller';
+
 @NgModule({
   exports: [
     UIAppModule,
     UICollectionModule,
     UIFlexModule,
     UIFormsModule,
+    UIImageViewerModule,
     UILayoutModule,
     UIListModule,
     UIModalModule,
@@ -76,7 +80,8 @@ export class UINativeModule {
         ListActivatedService,
         ModalController,
         ToastController,
-        ViewStateService
+        ViewStateService,
+        ImageViewerController
       ]
     };
   }

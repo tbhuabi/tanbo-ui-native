@@ -10,10 +10,8 @@ import { UI_SCREEN_SCALE } from '../../helper';
   templateUrl: './list-sliding.component.html'
 })
 export class ListSlidingComponent implements OnInit, OnDestroy {
-  @HostBinding('style.transitionDuration')
-  transitionDuration: string;
-  @HostBinding('style.transform')
-  transform: string;
+  @HostBinding('style.transitionDuration') transitionDuration: string;
+  @HostBinding('style.transform') transform: string;
 
   private subs: Array<Subscription> = [];
   private distanceX: number = 0;

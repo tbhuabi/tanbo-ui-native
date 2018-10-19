@@ -17,9 +17,14 @@ import { UI_SELECT_ARROW_CLASSNAME, inputAttrToBoolean } from '../helper';
   ]
 })
 export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit {
-  focus: boolean = false;
-  @Input()
-  title: string = '';
+  @Output() uiChange = new EventEmitter<Array<PickerCell>>();
+  @Input() name: string;
+  @Input() arrowIconClassName: string = '';
+  @Input() columnSize: number = 3;
+  @Input() placeholder: string = '';
+  @Input() forId: string;
+  @Input() value: Array<PickerCell> = [];
+  @Input() title: string = '';
 
   @Input()
   set disabled(isDisabled: any) {
@@ -40,15 +45,6 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
   }
 
   @Input()
-  columnSize: number = 3;
-  @Input()
-  placeholder: string = '';
-  @Input()
-  forId: string;
-  @Input()
-  value: Array<PickerCell> = [];
-
-  @Input()
   set data(list: Array<PickerCell>) {
     this._data = list;
     if (this.value.length >= this.columnSize) {
@@ -66,13 +62,7 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
     return this._data;
   }
 
-  @Input()
-  name: string;
-  @Input()
-  arrowIconClassName: string = '';
-  @Output()
-  uiChange = new EventEmitter<Array<PickerCell>>();
-
+  focus: boolean = false;
   list: Array<Array<PickerCell>> = [];
 
   private _data: Array<PickerCell>;

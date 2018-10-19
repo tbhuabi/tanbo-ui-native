@@ -16,10 +16,14 @@ import { UI_SELECT_ARROW_CLASSNAME, inputAttrToBoolean } from '../helper';
   }, PickerService]
 })
 export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
-  @Input()
-  title: string = '';
-  @Input()
-  name: string;
+  @Output() uiChange = new EventEmitter<string | number>();
+  @Input() title: string = '';
+  @Input() name: string;
+  @Input() forId: string;
+  @Input() format: string = 'yyyy-MM-dd';
+  @Input() displayFormat: string = '';
+  @Input() placeholder: string = '';
+  @Input() arrowIconClassName: string = '';
 
   @Input()
   set value(value: string | number | Date) {
@@ -38,9 +42,6 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   }
 
   @Input()
-  forId: string;
-
-  @Input()
   set maxDate(value: string | Date) {
     this._maxDate = new UIDate(value);
     this.initYears();
@@ -51,15 +52,6 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
     this._minDate = new UIDate(value);
     this.initYears();
   }
-
-  @Input()
-  format: string = 'yyyy-MM-dd';
-  @Input()
-  displayFormat: string = '';
-  @Input()
-  placeholder: string = '';
-  @Input()
-  arrowIconClassName: string = '';
 
   @Input()
   @HostBinding('class.ui-disabled')
@@ -80,9 +72,6 @@ export class DateComponent implements ControlValueAccessor, OnInit, OnDestroy {
   get readonly() {
     return this._readonly;
   }
-
-  @Output()
-  uiChange = new EventEmitter<string | number>();
 
   focus: boolean = false;
 

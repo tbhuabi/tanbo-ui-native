@@ -2,7 +2,6 @@ export * from './helper';
 export { PickerCell, PickerService } from './picker/picker.service';
 
 // 组件
-export { ButtonComponent } from './button/button.component';
 export { CheckboxComponent } from './checkbox/checkbox.component';
 export { DateComponent } from './date/date.component';
 export { OptionComponent } from './option/option.component';

@@ -20,11 +20,8 @@ import { UI_SCREEN_SCALE } from '../../helper';
   templateUrl: './refresher.component.html'
 })
 export class RefresherComponent implements OnInit, OnDestroy, AfterViewInit {
-  @Input()
-  color: string = '#80848f';
-
-  @ViewChild('canvas')
-  canvas: ElementRef;
+  @ViewChild('canvas') canvas: ElementRef;
+  @Input() color: string = '#80848f';
 
   @HostBinding('style.height')
   get height() {

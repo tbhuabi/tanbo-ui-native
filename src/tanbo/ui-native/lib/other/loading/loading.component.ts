@@ -5,10 +5,8 @@ import { Component, HostBinding, Input } from '@angular/core';
   templateUrl: './loading.component.html'
 })
 export class LoadingComponent {
-  @Input()
-  scale: number = 1;
-  @Input()
-  color: string = '';
+  @Input() scale: number = 1;
+  @Input() color: string = '';
 
   @HostBinding('style.transform')
   @HostBinding('style.webkitTransform')

@@ -1,4 +1,4 @@
-import { Directive, HostListener, Input, OnDestroy } from '@angular/core';
+import { Directive, HostListener, Input, OnDestroy, ElementRef } from '@angular/core';
 
 import { ImageViewerController } from './image-viewer-controller';
 
@@ -11,7 +11,7 @@ export class ImageViewableDirective implements OnDestroy {
     if (v && typeof v === 'string') {
       this.imageViewerService.removeImage(this._src);
       this._src = v;
-      this.imageViewerService.addImage(v);
+      this.imageViewerService.addImage(v, this.elementRef.nativeElement);
     }
   }
 
@@ -21,7 +21,8 @@ export class ImageViewableDirective implements OnDestroy {
 
   private _src: string;
 
-  constructor(private imageViewerService: ImageViewerController) {
+  constructor(private imageViewerService: ImageViewerController,
+              private elementRef: ElementRef) {
   }
 
   ngOnDestroy() {
@@ -30,6 +31,6 @@ export class ImageViewableDirective implements OnDestroy {
 
   @HostListener('click')
   click() {
-    this.imageViewerService.show();
+    this.imageViewerService.show(this.src);
   }
 }

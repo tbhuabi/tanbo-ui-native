@@ -3,12 +3,14 @@ import {
   ContentChildren,
   QueryList,
   AfterViewInit,
+  OnInit,
+  Output,
   Input,
   Inject,
   OnDestroy,
   ElementRef,
   HostListener,
-  Renderer2
+  Renderer2, EventEmitter
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -22,15 +24,24 @@ import { SlideItemComponent } from '../slide-item/slide-item.component';
   selector: 'ui-slide',
   templateUrl: './slide.component.html'
 })
-export class SlideComponent implements AfterViewInit, OnDestroy {
-  @ContentChildren(SlideItemComponent)
-  items: QueryList<SlideItemComponent>;
+export class SlideComponent implements AfterViewInit, OnDestroy, OnInit {
+  @ContentChildren(SlideItemComponent) items: QueryList<SlideItemComponent>;
+  @Output() uiPlayed = new EventEmitter<number>();
+  @Input() initIndex = 0;
+  @Input() speed = 2000;
+  @Input() steps = 35;
+
   @Input()
-  initIndex: number = 0;
-  @Input()
-  speed: number = 2000;
-  @Input()
-  steps: number = 35;
+  set autoPlay(v: boolean) {
+    this._autoPay = v;
+    if (v) {
+      this.play();
+    }
+  }
+
+  get autoPlay() {
+    return this._autoPay;
+  }
 
   get index(): number {
     return Math.ceil(this.progress - 0.5) % this.items.length;
@@ -41,6 +52,7 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
   private animateId: number;
   private containerWidth: number;
   private subs: Subscription[] = [];
+  private _autoPay = true;
 
   constructor(private elementRef: ElementRef,
               @Inject(UI_SCREEN_SCALE) private scale: number,
@@ -48,14 +60,17 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
               private appController: AppController) {
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.progress = this.initIndex;
+  }
+
+  ngAfterViewInit() {
     this.containerWidth = this.elementRef.nativeElement.offsetWidth;
     this.subs.push(this.appController.onResize.subscribe(() => {
       this.containerWidth = this.elementRef.nativeElement.offsetWidth;
     }));
     setTimeout(() => {
-      this.updateChildrenStyle(0);
+      this.updateChildrenStyle(this.progress);
       this.play();
     });
     this.subs.push(this.items.changes.pipe(delay(0)).subscribe(() => {
@@ -79,9 +94,11 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
     const element = this.elementRef.nativeElement;
     this.containerWidth = element.offsetWidth;
     const startX = event.touches[0].pageX;
+    const startY = event.touches[0].pageY;
     const len = this.items.length;
 
     let moveX: number;
+    let moveY: number;
 
     const startTime: number = Date.now();
     let entTime: number;
@@ -113,13 +130,14 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
 
       const updateStyle = () => {
         min++;
+        this.progress = (p + Easing.Cubic.Out(min / max) * distance) % len;
+        this.updateChildrenStyle(this.progress);
         if (min < max) {
           this.animateId = requestAnimationFrame(updateStyle);
         } else {
+          this.uiPlayed.emit(this.progress);
           this.play();
         }
-        this.progress = (p + Easing.Cubic.Out(min / max) * distance) % len;
-        this.updateChildrenStyle(this.progress);
       };
       this.animateId = requestAnimationFrame(updateStyle);
     };
@@ -133,9 +151,19 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
       autoUpdateStyle();
     };
 
+    let isFirstMoving = true;
+
     unTouchMoveFn = this.renderer.listen(element, 'touchmove', (moveEvent: any) => {
       moveX = moveEvent.touches[0].pageX;
-      this.progress = oldProgress - (moveX - startX) / this.containerWidth;
+      moveY = moveEvent.touches[0].pageY;
+      const distanceX = moveX - startX;
+      const distanceY = moveY - startY;
+      if (Math.abs(distanceY) > Math.abs(distanceX) && isFirstMoving) {
+        unTouchMoveFn();
+        return;
+      }
+      isFirstMoving = false;
+      this.progress = oldProgress - (distanceX) / this.containerWidth;
       if (this.progress < 0) {
         this.progress += len;
       }
@@ -151,6 +179,9 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
 
   play() {
     clearTimeout(this.timer);
+    if (!this.autoPlay) {
+      return;
+    }
     if (this.items.length < 2) {
       return;
     }
@@ -169,6 +200,7 @@ export class SlideComponent implements AfterViewInit, OnDestroy {
       if (i < this.steps) {
         this.animateId = requestAnimationFrame(animateFn);
       } else {
+        this.uiPlayed.emit(this.progress);
         this.play();
       }
     };

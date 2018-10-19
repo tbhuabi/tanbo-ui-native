@@ -5,11 +5,9 @@ import { Component, EventEmitter, HostBinding, HostListener, Input, Output } fro
   templateUrl: './tab-bar-item.component.html'
 })
 export class TabBarItemComponent {
-  @HostBinding('class.ui-active')
+  @Output() uiSelected = new EventEmitter();
   @Input()
-  active: boolean = false;
-  @Output()
-  uiSelected = new EventEmitter();
+  @HostBinding('class.ui-active') active: boolean = false;
 
   @HostListener('click')
   click() {

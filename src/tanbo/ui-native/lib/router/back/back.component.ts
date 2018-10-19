@@ -28,16 +28,12 @@ import { AppController } from '../../app/index';
   templateUrl: './back.component.html'
 })
 export class BackComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('text') textElement: ElementRef;
+  @Input() icon: string = '';
+  @Input() closeBackHandle: boolean = false;
+
   opacity: number = 1;
   translate: string;
-  @ViewChild('text')
-  textElement: ElementRef;
-
-  @Input()
-  icon: string = '';
-
-  @Input()
-  closeBackHandle: boolean = false;
 
   private subs: Array<Subscription> = [];
   private docWidth: number;

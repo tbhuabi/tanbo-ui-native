@@ -18,10 +18,8 @@ import { UI_SCREEN_SCALE } from '../../helper';
 })
 export class ContentComponent implements OnDestroy, OnInit {
   @HostBinding('style.transform')
-  @HostBinding('style.webkitTransform')
-  translate: string;
-  @HostBinding('style.opacity')
-  opacity: number;
+  @HostBinding('style.webkitTransform') translate: string;
+  @HostBinding('style.opacity') opacity: number;
   private subs: Array<Subscription> = [];
   private distanceX: number = 0;
   private animationId: number;

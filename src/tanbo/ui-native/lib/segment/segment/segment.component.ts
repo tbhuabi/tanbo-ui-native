@@ -24,14 +24,11 @@ import { SegmentButtonComponent } from '../segment-button/segment-button.compone
   }, SegmentService]
 })
 export class SegmentComponent implements ControlValueAccessor, AfterContentInit, OnDestroy {
-  @Input()
-  selectedIndex: number = 0;
-  @ContentChildren(SegmentButtonComponent)
-  options: QueryList<SegmentButtonComponent>;
-  value: any;
+  @ContentChildren(SegmentButtonComponent) options: QueryList<SegmentButtonComponent>;
+  @Output() uiChange = new EventEmitter<string>();
+  @Input() selectedIndex: number = 0;
 
-  @Output()
-  uiChange = new EventEmitter<string>();
+  value: any;
 
   private onChange: (_: any) => any;
   private onTouched: (_: any) => any;

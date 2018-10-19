@@ -10,8 +10,7 @@ import { TabViewItemComponent } from '../tab-view-item/tab-view-item.component';
   providers: []
 })
 export class TabViewComponent implements AfterContentInit, OnDestroy {
-  @ContentChildren(TabViewItemComponent)
-  tabViewItems: QueryList<TabViewItemComponent>;
+  @ContentChildren(TabViewItemComponent) tabViewItems: QueryList<TabViewItemComponent>;
 
   private subs: Array<Subscription> = [];
 

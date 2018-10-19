@@ -9,16 +9,10 @@ import { UI_SCREEN_SCALE } from '../../helper';
   templateUrl: './picker-column.component.html'
 })
 export class PickerColumnComponent implements AfterViewInit, OnDestroy {
-  @Input()
-  cells: Array<PickerCell> = [];
-  @Input()
-  cellHeight: number = 36;
-
-  @Input()
-  value: PickerCell;
-
-  @Output()
-  uiSelected = new EventEmitter<PickerCell>();
+  @Output() uiSelected = new EventEmitter<PickerCell>();
+  @Input() cells: Array<PickerCell> = [];
+  @Input() cellHeight: number = 36;
+  @Input() value: PickerCell;
 
   distanceTop: number = 0;
 
