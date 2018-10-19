@@ -5,7 +5,6 @@ import {
 import { Subscription } from 'rxjs';
 
 import { ImageViewerController, ImageViewItem } from '../image-viewer-controller';
-import { it } from '@angular/core/testing/src/testing_internal';
 
 export interface ImageViewProp extends ImageViewItem {
   styles?: { [key: string]: string | number };
