@@ -1,13 +1,21 @@
 import {
-  Component, OnInit, OnDestroy, HostBinding, HostListener, ElementRef, ViewChildren, Renderer2,
+  Component,
+  OnInit,
+  OnDestroy,
+  HostBinding,
+  HostListener,
+  ElementRef,
+  ViewChildren,
+  Renderer2,
   QueryList
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { ImageViewerController, ImageViewItem } from '../image-viewer-controller';
+import { PanEvent } from '../../touch/index';
 
 export interface ImageViewProp extends ImageViewItem {
-  styles?: { [key: string]: string | number };
+  styles?: { [key: string]: string };
 }
 
 @Component({
@@ -75,6 +83,22 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
     this.imageViewerService.hide();
   }
 
+  drag(ev: PanEvent, imageView: ImageViewProp) {
+    if (ev.firstDirection === 'down') {
+      const scale = ev.cumulativeY < 0 ? 1 : (1 - ev.cumulativeY / parseFloat(imageView.styles.height));
+      imageView.styles.transition = 'none';
+      imageView.styles.transform = `translate(${ev.cumulativeX}px, ${ev.cumulativeY}px) scale(${scale})`;
+      ev.srcEvent.stopPropagation();
+      if (ev.type === 'touchend') {
+        ev.resetCumulative();
+        imageView.styles.transform = 'none';
+        imageView.styles.transition = 'all .3s';
+      }
+    } else {
+      ev.stop();
+    }
+  }
+
   setViewIndex(index: number) {
     this.viewIndex = index;
   }
@@ -117,21 +141,31 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
           }
 
           const containerRect = this.elementRef.nativeElement.getBoundingClientRect();
-          const contentWidth = item.srcElement.width;
-          const contentHeight = item.srcElement.height;
+          const contentWidth = item.srcElement.naturalWidth;
+          const contentHeight = item.srcElement.naturalHeight;
           const proportion = (containerRect.width / containerRect.height) / (contentWidth / contentHeight);
-          if (proportion > 1) {
-            const width = contentWidth * containerRect.height / contentHeight;
-            item.styles.height = containerRect.height + 'px';
-            item.styles.width = width + 'px';
-            item.styles.top = 0;
-            item.styles.left = (containerRect.width - width) / 2 + 'px';
+
+          if (contentHeight <= containerRect.height && contentWidth <= containerRect.width) {
+            item.styles.height = contentHeight + 'px';
+            item.styles.width = contentWidth + 'px';
+            item.styles.top = (containerRect.height - contentHeight) / 2 + 'px';
+            item.styles.left = (containerRect.width - contentWidth) / 2 + 'px';
           } else {
-            const height = contentHeight * containerRect.width / contentWidth;
-            item.styles.height = height + 'px';
-            item.styles.width = containerRect.width + 'px';
-            item.styles.top = (containerRect.height - height) / 2 + 'px';
-            item.styles.left = 0;
+            if (proportion > 1) {
+              // 高比宽大
+              const width = contentWidth * containerRect.height / contentHeight;
+              item.styles.height = containerRect.height + 'px';
+              item.styles.width = width + 'px';
+              item.styles.top = '0px';
+              item.styles.left = (containerRect.width - width) / 2 + 'px';
+            } else {
+              // 高比宽小
+              const height = contentHeight * containerRect.width / contentWidth;
+              item.styles.height = height + 'px';
+              item.styles.width = containerRect.width + 'px';
+              item.styles.top = (containerRect.height - height) / 2 + 'px';
+              item.styles.left = '0';
+            }
           }
         }
         requestAnimationFrame(() => {

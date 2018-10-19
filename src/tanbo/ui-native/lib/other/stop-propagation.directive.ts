@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Renderer2, OnDestroy, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[ui-stop-propagation]'
+  selector: '[uiStopPropagation]'
 })
 export class StopPropagationDirective implements OnInit, OnDestroy {
-  @Input('ui-stop-propagation')
+  @Input()
   uiStopPropagation: Array<string> | string;
 
   private callbacks: Array<any> = [];

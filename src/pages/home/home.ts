@@ -8,10 +8,4 @@ import { SelectComponent } from '../../tanbo/ui-native/lib/forms/select/select.c
   styleUrls: ['./home.scss']
 })
 export class HomeComponent {
-  @ViewChild('select')
-  select: SelectComponent;
-
-  show() {
-    this.select.showOptions();
-  }
 }

@@ -3,7 +3,7 @@ import { Directive, HostListener, Input, OnDestroy, ElementRef } from '@angular/
 import { ImageViewerController } from './image-viewer-controller';
 
 @Directive({
-  selector: '[ui-image-viewable]'
+  selector: '[uiImageViewable]'
 })
 export class ImageViewableDirective implements OnDestroy {
   @Input()

@@ -14,6 +14,7 @@ import { UIRouterModule } from './router/router.module';
 import { UIScrollModule } from './scroll/scroll.module';
 import { UISegmentModule } from './segment/segment.module';
 import { UISlideModule } from './slide/slide.module';
+import { UITouchModule } from './touch/touch.module';
 
 import { UI_BROWSER_ENV, UI_SCREEN_SCALE } from './helper';
 import { getDeviceType, AppController } from './app/index';
@@ -44,7 +45,8 @@ import { ImageViewerController } from './image-viewer/image-viewer-controller';
     UIRouterModule,
     UIScrollModule,
     UISegmentModule,
-    UISlideModule
+    UISlideModule,
+    UITouchModule
   ]
 })
 export class UINativeModule {
