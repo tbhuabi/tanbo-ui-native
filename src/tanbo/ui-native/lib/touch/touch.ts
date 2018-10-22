@@ -18,7 +18,6 @@ export abstract class Touch {
       .pipe(debounceTime(300), filter(() => !isLock), tap(() => {
         isLock = true;
       }), filter(ev => {
-        console.log(ev);
         return ev.touches.length === points;
       }))
       .subscribe(touchStartEvent => {
