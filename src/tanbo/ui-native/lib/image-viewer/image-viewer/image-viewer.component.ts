@@ -85,14 +85,33 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
 
   drag(ev: PanEvent, imageView: ImageViewProp) {
     if (ev.firstDirection === 'down') {
-      const scale = ev.cumulativeY < 0 ? 1 : (1 - ev.cumulativeY / parseFloat(imageView.styles.height));
+      const scale = ev.cumulativeY < 0 ? 1 : (1 - ev.cumulativeY / 5 / parseFloat(imageView.styles.height));
       imageView.styles.transition = 'none';
       imageView.styles.transform = `translate(${ev.cumulativeX}px, ${ev.cumulativeY}px) scale(${scale})`;
       ev.srcEvent.stopPropagation();
       if (ev.type === 'touchend') {
-        ev.resetCumulative();
-        imageView.styles.transform = 'none';
-        imageView.styles.transition = 'all .3s';
+        if(ev.cumulativeY > this.elementRef.nativeElement.offsetHeight / 3) {
+          this.imageViewerService.hide();
+          const rect = imageView.srcElement.getBoundingClientRect();
+          const fn = this.renderer2.listen(
+            this.imgElements.toArray()[this.viewIndex].nativeElement, 'transitionend', () => {
+              this.opacity = 0;
+              this.isShowSlide = false;
+              this.renderer2.setStyle(imageView.srcElement, 'opacity', 1);
+              fn();
+            });
+          imageView.styles = {
+            width: rect.width + 'px',
+            height: rect.height + 'px',
+            left: rect.left + 'px',
+            top: rect.top + 'px',
+            transition: 'all .3s'
+          };
+        } else {
+          ev.resetCumulative();
+          imageView.styles.transform = 'none';
+          imageView.styles.transition = 'all .3s';
+        }
       }
     } else {
       ev.stop();
