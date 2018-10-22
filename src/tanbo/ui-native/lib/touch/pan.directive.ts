@@ -1,110 +1,124 @@
-import { Directive, Renderer2, Output, EventEmitter, HostListener } from '@angular/core';
+import { Directive, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
 
 import { PanEvent, PanEventDirection } from './helper';
+import { Touch } from './touch';
 
 @Directive({
   selector: '[uiPan]'
 })
-export class PanDirective {
+export class PanDirective extends Touch implements OnInit {
   @Output() uiPan = new EventEmitter<PanEvent>();
-
   private cumulativeX = 0;
   private cumulativeY = 0;
 
-  constructor(private renderer: Renderer2) {
+  private startX: number;
+  private startY: number;
+
+  private moveX: number;
+  private moveY: number;
+
+  private distanceX = 0;
+  private distanceY = 0;
+
+  private oldMoveX = 0;
+  private oldMoveY = 0;
+
+  private direction: PanEventDirection = 'origin';
+  private isFirst = true;
+
+  constructor(public elementRef: ElementRef) {
+    super();
   }
 
-  @HostListener('touchstart', ['$event'])
+  ngOnInit() {
+    super.init(1);
+  }
+
   touchStart(event: TouchEvent) {
     const startPoint = event.touches[0];
-    const startX = startPoint.pageX;
-    const startY = startPoint.pageY;
+    this.startX = startPoint.pageX;
+    this.startY = startPoint.pageY;
 
-    let moveX = startX;
-    let moveY = startY;
+    this.moveX = this.startX;
+    this.moveY = this.startY;
 
-    let distanceX = 0;
-    let distanceY = 0;
+    this.distanceX = 0;
+    this.distanceY = 0;
 
-    let oldMoveX = 0;
-    let oldMoveY = 0;
+    this.oldMoveX = 0;
+    this.oldMoveY = 0;
 
-    let direction: PanEventDirection = 'origin';
+    this.direction = 'origin';
+    this.isFirst = true;
+  }
 
-    const reset = () => {
-      this.cumulativeY = 0;
-      this.cumulativeX = 0;
-    };
-    const unBindFn = (endEvent: TouchEvent) => {
-      stopFn();
-      if (isFirst) {
-        return;
+  touchMove(moveEvent: TouchEvent, unListen: Function) {
+    const movePoint = moveEvent.touches[0];
+    this.oldMoveX = this.moveX;
+    this.oldMoveY = this.moveY;
+    this.moveX = movePoint.pageX;
+    this.moveY = movePoint.pageY;
+
+    this.distanceX = this.moveX - this.startX;
+    this.distanceY = this.moveY - this.startY;
+
+    if (this.isFirst) {
+      this.isFirst = false;
+      if (Math.abs(this.distanceX) > Math.abs(this.distanceY)) {
+        this.direction = this.distanceX > 0 ? 'right' : 'left';
+      } else {
+        this.direction = this.distanceY > 0 ? 'down' : 'up';
       }
-      this.uiPan.emit({
-        firstDirection: direction,
-        startX,
-        startY,
-        moveX,
-        moveY,
-        distanceX,
-        distanceY,
-        cumulativeX: this.cumulativeX,
-        cumulativeY: this.cumulativeY,
-        srcEvent: endEvent,
-        type: 'touchend',
-        stop: function noop() {
-        },
-        resetCumulative: reset
-      });
-    };
-
-    function stopFn() {
-      unBindTouchMoveFn();
-      unBindTouchEndFn();
-      unBindTouchCancelFn();
     }
 
-    let isFirst = true;
-
-    const unBindTouchMoveFn = this.renderer.listen(event.srcElement, 'touchmove', (moveEvent: TouchEvent) => {
-      const movePoint = moveEvent.touches[0];
-      oldMoveX = moveX;
-      oldMoveY = moveY;
-      moveX = movePoint.pageX;
-      moveY = movePoint.pageY;
-
-      distanceX = moveX - startX;
-      distanceY = moveY - startY;
-
-      if (isFirst) {
-        isFirst = false;
-        if (Math.abs(distanceX) > Math.abs(distanceY)) {
-          direction = distanceX > 0 ? 'right' : 'left';
-        } else {
-          direction = distanceY > 0 ? 'down' : 'up';
-        }
+    this.cumulativeX += this.moveX - this.oldMoveX;
+    this.cumulativeY += this.moveY - this.oldMoveY;
+    this.uiPan.emit({
+      eventName: 'uiPan',
+      firstDirection: this.direction,
+      startX: this.startX,
+      startY: this.startY,
+      moveX: this.moveX,
+      moveY: this.moveY,
+      distanceX: this.distanceX,
+      distanceY: this.distanceY,
+      cumulativeX: this.cumulativeX,
+      cumulativeY: this.cumulativeY,
+      srcEvent: moveEvent,
+      type: 'touchmove',
+      stop: unListen,
+      resetCumulative: () => {
+        this.reset();
       }
-
-      this.cumulativeX += moveX - oldMoveX;
-      this.cumulativeY += moveY - oldMoveY;
-      this.uiPan.emit({
-        firstDirection: direction,
-        startX,
-        startY,
-        moveX,
-        moveY,
-        distanceX,
-        distanceY,
-        cumulativeX: this.cumulativeX,
-        cumulativeY: this.cumulativeY,
-        srcEvent: moveEvent,
-        type: 'touching',
-        stop: stopFn,
-        resetCumulative: reset
-      });
     });
+  }
 
-    const unBindTouchEndFn = this.renderer.listen(event.srcElement, 'touchend', unBindFn);
-    const unBindTouchCancelFn = this.renderer.listen(event.srcElement, 'touchcancel', unBindFn);
+  touchEnd(event: TouchEvent) {
+    this.uiPan.emit({
+      eventName: 'uiPan',
+      firstDirection: this.direction,
+      startX: this.startX,
+      startY: this.startY,
+      moveX: this.moveX,
+      moveY: this.moveY,
+      distanceX: this.distanceX,
+      distanceY: this.distanceY,
+      cumulativeX: this.cumulativeX,
+      cumulativeY: this.cumulativeY,
+      srcEvent: event,
+      type: 'touchend',
+      /*tslint:disable*/
+      stop: function noop() {
+      },
+      /*tslint:enable*/
+      resetCumulative: () => {
+        this.reset();
+      }
+    });
+  }
+
+  reset() {
+    this.cumulativeY = 0;
+    this.cumulativeX = 0;
   }
 }

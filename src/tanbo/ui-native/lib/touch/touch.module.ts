@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 
 import { PanDirective } from './pan.directive';
+import { PinchDirective } from './pinch.directive';
 
 @NgModule({
   declarations: [
-    PanDirective
+    PanDirective,
+    PinchDirective,
   ],
   exports: [
-    PanDirective
+    PanDirective,
+    PinchDirective,
   ]
 })
 export class UITouchModule {

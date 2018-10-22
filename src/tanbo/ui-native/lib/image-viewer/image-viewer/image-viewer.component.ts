@@ -83,6 +83,10 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
     this.imageViewerService.hide();
   }
 
+  show(ev: any) {
+    console.log(ev);
+  }
+
   drag(ev: PanEvent, imageView: ImageViewProp) {
     if (ev.firstDirection === 'down') {
       const scale = ev.cumulativeY < 0 ? 1 : (1 - ev.cumulativeY / 5 / parseFloat(imageView.styles.height));
@@ -90,7 +94,8 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
       imageView.styles.transform = `translate(${ev.cumulativeX}px, ${ev.cumulativeY}px) scale(${scale})`;
       ev.srcEvent.stopPropagation();
       if (ev.type === 'touchend') {
-        if(ev.cumulativeY > this.elementRef.nativeElement.offsetHeight / 3) {
+        ev.resetCumulative();
+        if (ev.cumulativeY > this.elementRef.nativeElement.offsetHeight / 3) {
           this.imageViewerService.hide();
           const rect = imageView.srcElement.getBoundingClientRect();
           const fn = this.renderer2.listen(
@@ -108,12 +113,12 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
             transition: 'all .3s'
           };
         } else {
-          ev.resetCumulative();
           imageView.styles.transform = 'none';
           imageView.styles.transition = 'all .3s';
         }
       }
     } else {
+      ev.resetCumulative();
       ev.stop();
     }
   }

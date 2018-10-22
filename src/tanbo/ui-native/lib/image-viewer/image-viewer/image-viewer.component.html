@@ -1,5 +1,5 @@
 <ui-slide (uiPlayed)="setViewIndex($event)" *ngIf="isShowSlide" [autoPlay]="false" [initIndex]="viewIndex">
   <ui-slide-item (uiPan)="drag($event, item)" class="ui-image-viewer-item" [ngStyle]="{opacity: opacity}" *ngFor="let item of images">
-    <img #img [ngStyle]="item.styles" class="ui-image-viewer-img" [src]="item.src">
+    <img #img (uiPinch)="show($event)" [ngStyle]="item.styles" class="ui-image-viewer-img" [src]="item.src">
   </ui-slide-item>
 </ui-slide>
