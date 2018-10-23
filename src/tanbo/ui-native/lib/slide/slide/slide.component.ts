@@ -33,14 +33,14 @@ export class SlideComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @Input()
   set autoPlay(v: boolean) {
-    this._autoPay = v;
+    this._autoPlay = v;
     if (v) {
       this.play();
     }
   }
 
   get autoPlay() {
-    return this._autoPay;
+    return this._autoPlay;
   }
 
   get index(): number {
@@ -52,7 +52,7 @@ export class SlideComponent implements AfterViewInit, OnDestroy, OnInit {
   private animateId: number;
   private containerWidth: number;
   private subs: Subscription[] = [];
-  private _autoPay = true;
+  private _autoPlay = true;
 
   constructor(private elementRef: ElementRef,
               @Inject(UI_SCREEN_SCALE) private scale: number,

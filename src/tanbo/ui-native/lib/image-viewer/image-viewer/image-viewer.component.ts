@@ -61,6 +61,7 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
 
   @HostListener('click')
   click() {
+    document.title = 'click';
     const current = this.images[this.viewIndex];
     if (current.srcElement) {
       const rect = current.srcElement.getBoundingClientRect();
@@ -84,10 +85,14 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
   }
 
   scale(ev: PinchEvent) {
+    document.title = 'pinch';
     this.images[this.viewIndex].styles.transform = `scale(${ev.cumulativeScale})`;
+    ev.srcEvent.stopPropagation();
   }
 
   drag(ev: PanEvent, imageView: ImageViewProp) {
+    document.title = 'pan';
+    ev.srcEvent.stopPropagation();
     if (ev.firstDirection === 'down') {
       const scale = ev.cumulativeY < 0 ? 1 : (1 - ev.cumulativeY / 5 / parseFloat(imageView.styles.height));
       imageView.styles.transition = 'none';
