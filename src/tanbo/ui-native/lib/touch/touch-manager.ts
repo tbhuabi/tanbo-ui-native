@@ -1,9 +1,8 @@
-import { fromEvent, merge } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
-import { debounceTime } from 'rxjs/internal/operators';
 import { ElementRef } from '@angular/core';
+import { fromEvent, merge } from 'rxjs';
+import { filter, tap, debounceTime } from 'rxjs/operators';
 
-export abstract class Touch {
+export abstract class TouchManager {
   abstract elementRef: ElementRef<any>;
 
   abstract touchStart(event: TouchEvent): any;
@@ -15,7 +14,7 @@ export abstract class Touch {
   init(points: number) {
     let isLock = false;
     fromEvent<TouchEvent>(this.elementRef.nativeElement, 'touchstart')
-      .pipe(debounceTime(300), filter(() => !isLock), tap(() => {
+      .pipe(debounceTime(200), filter(() => !isLock), tap(() => {
         isLock = true;
       }), filter(ev => {
         return ev.touches.length === points;

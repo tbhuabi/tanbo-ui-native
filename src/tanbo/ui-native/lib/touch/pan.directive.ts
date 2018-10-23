@@ -1,12 +1,26 @@
 import { Directive, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
 
-import { PanEvent, PanEventDirection } from './helper';
-import { Touch } from './touch';
+import { UITouchEvent } from './helper';
+import { TouchManager } from './touch-manager';
+
+export type PanEventDirection = 'up' | 'down' | 'left' | 'right' | 'origin';
+
+export interface PanEvent extends UITouchEvent {
+  firstDirection: PanEventDirection;
+  startX: number;
+  startY: number;
+  moveX: number;
+  moveY: number;
+  distanceX: number;
+  distanceY: number;
+  cumulativeX: number;
+  cumulativeY: number;
+}
 
 @Directive({
   selector: '[uiPan]'
 })
-export class PanDirective extends Touch implements OnInit {
+export class PanDirective extends TouchManager implements OnInit {
   @Output() uiPan = new EventEmitter<PanEvent>();
   private cumulativeX = 0;
   private cumulativeY = 0;

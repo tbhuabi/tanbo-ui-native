@@ -10,3 +10,7 @@ p {
 img {
   max-width: 100%;
 }
+
+::ng-deep .ui-slide-group {
+  position: fixed;
+}

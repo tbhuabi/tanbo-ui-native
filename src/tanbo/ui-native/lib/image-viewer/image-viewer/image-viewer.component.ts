@@ -12,7 +12,7 @@ import {
 import { Subscription } from 'rxjs';
 
 import { ImageViewerController, ImageViewItem } from '../image-viewer-controller';
-import { PanEvent } from '../../touch/index';
+import { PanEvent, PinchEvent } from '../../touch/index';
 
 export interface ImageViewProp extends ImageViewItem {
   styles?: { [key: string]: string };
@@ -83,8 +83,8 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
     this.imageViewerService.hide();
   }
 
-  show(ev: any) {
-    console.log(ev);
+  scale(ev: PinchEvent) {
+    this.images[this.viewIndex].styles.transform = `scale(${ev.cumulativeScale})`;
   }
 
   drag(ev: PanEvent, imageView: ImageViewProp) {

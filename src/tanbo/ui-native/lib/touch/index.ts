@@ -1,2 +1,3 @@
-export { PanEvent } from './helper';
-export { PanDirective } from './pan.directive';
+export { UITouchEvent } from './helper';
+export { PanDirective, PanEventDirection, PanEvent } from './pan.directive';
+export { PinchEvent, PinchDirective } from './pinch.directive';

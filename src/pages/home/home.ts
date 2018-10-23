@@ -8,4 +8,7 @@ import { SelectComponent } from '../../tanbo/ui-native/lib/forms/select/select.c
   styleUrls: ['./home.scss']
 })
 export class HomeComponent {
+  show(n: any) {
+    document.title = n.scale;
+  }
 }
