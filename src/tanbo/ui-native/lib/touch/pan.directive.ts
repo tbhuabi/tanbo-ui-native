@@ -81,7 +81,6 @@ export class PanDirective extends TouchManager implements OnInit, OnDestroy {
     this.distanceY = this.moveY - this.startY;
 
     if (this.isFirst) {
-      this.isFirst = false;
       if (Math.abs(this.distanceX) > Math.abs(this.distanceY)) {
         this.direction = this.distanceX > 0 ? 'right' : 'left';
       } else {
@@ -92,6 +91,7 @@ export class PanDirective extends TouchManager implements OnInit, OnDestroy {
     this.cumulativeDistanceX += this.moveX - this.oldMoveX;
     this.cumulativeDistanceY += this.moveY - this.oldMoveY;
     this.uiPan.emit({
+      first: this.isFirst,
       eventName: 'uiPan',
       firstDirection: this.direction,
       startX: this.startX,
@@ -109,10 +109,13 @@ export class PanDirective extends TouchManager implements OnInit, OnDestroy {
         this.reset();
       }
     });
+
+    this.isFirst = false;
   }
 
   touchEnd(event: TouchEvent) {
     this.uiPan.emit({
+      first: false,
       eventName: 'uiPan',
       firstDirection: this.direction,
       startX: this.startX,

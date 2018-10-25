@@ -92,25 +92,29 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
   }
 
   pinch(ev: PinchEvent, imageView: ImageViewProp) {
-
-    const containerRect = this.elementRef.nativeElement.getBoundingClientRect();
     const imgRect = this.imgElements.toArray()[this.viewIndex].nativeElement.getBoundingClientRect();
+    if (ev.first) {
+      imageView.styles.transformOrigin = `${ev.moveX - imgRect.left}px ${ev.moveY - imgRect.top}px`;
+    }
 
-    const left = Math.min(containerRect.left, imgRect.left);
-    const top = Math.min(containerRect.top, imgRect.top);
-    const right = Math.max(containerRect.right, imgRect.right);
-    const bottom = Math.max(containerRect.bottom, imgRect.bottom);
+    if (ev.type === 'touchmove') {
+      const transforms = [
+        `scale(${ev.scale})`,
+        `translate(${ev.distanceX / ev.scale}px, ${ev.distanceY / ev.scale}px)`
+      ];
 
-    const px = (ev.moveX - left) / (right - left);
-    const py = (ev.moveY - top) / (bottom - top);
+      imageView.styles.transition = 'none';
+      imageView.styles.transform = transforms.join(' ');
+    }
 
-    // const rect =
-
-    imageView.styles.transition = 'none';
-    imageView.styles.width = ev.cumulativeScale * imageView.defaultStyles.width;
-    imageView.styles.height = ev.cumulativeScale * imageView.defaultStyles.height;
-    imageView.styles.left = ev.moveX + -imageView.styles.width * px;
-    imageView.styles.top = ev.moveY + -imageView.styles.height * py;
+    if (ev.type === 'touchend') {
+      imageView.styles = {
+        width: imgRect.width,
+        height: imgRect.height,
+        left: imgRect.left,
+        top: imgRect.top
+      };
+    }
     ev.srcEvent.stopPropagation();
   }
 

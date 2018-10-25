@@ -2,7 +2,7 @@
   <ui-slide-item class="ui-image-viewer-item" [ngStyle]="{opacity: opacity}"
                  (uiPinch)="pinch($event, item)" (uiPan)="drag($event, item)"
                  *ngFor="let item of images">
-    {{ item.styles | json }}
+    <div style="position: relative; z-index: 10; pointer-events: none; background:rgba(255,255,255,.8)">{{ item.styles | json }}</div>
     <img #img
          class="ui-image-viewer-img"
          [src]="item.src"
@@ -12,7 +12,8 @@
             left: item.styles.left + 'px',
             top: item.styles.top + 'px',
             transition: item.styles.transition,
-            transform: item.styles.transform
+            transform: item.styles.transform,
+            transformOrigin: item.styles.transformOrigin
            }">
   </ui-slide-item>
 </ui-slide>

@@ -40,6 +40,8 @@ export class PinchDirective extends TouchManager implements OnInit, OnDestroy {
   private oldMoveX: number = 0;
   private oldMoveY: number = 0;
 
+  private isFirst = true;
+
   constructor(public elementRef: ElementRef) {
     super();
   }
@@ -66,6 +68,7 @@ export class PinchDirective extends TouchManager implements OnInit, OnDestroy {
 
     this.startDistance = this.getChordLength(p1, p2);
     this.scale = 1;
+    this.isFirst = true;
     event.preventDefault();
   }
 
@@ -91,6 +94,7 @@ export class PinchDirective extends TouchManager implements OnInit, OnDestroy {
     this.scale = moveArea / this.startDistance;
 
     this.uiPinch.emit({
+      first: this.isFirst,
       eventName: 'uiPinch',
       startX: this.startX,
       startY: this.startY,
@@ -111,12 +115,14 @@ export class PinchDirective extends TouchManager implements OnInit, OnDestroy {
       scale: this.scale,
       cumulativeScale: this.cumulativeScale * this.scale
     });
+    this.isFirst = false;
   }
 
   touchEnd(event: TouchEvent) {
     this.cumulativeScale = this.cumulativeScale * this.scale;
 
     this.uiPinch.emit({
+      first: false,
       eventName: 'uiPinch',
       startX: this.startX,
       startY: this.startY,

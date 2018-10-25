@@ -4,4 +4,5 @@ export interface UITouchEvent {
   stop: Function;
   resetCumulative: Function;
   type: 'touchmove' | 'touchend';
+  first: boolean;
 }
