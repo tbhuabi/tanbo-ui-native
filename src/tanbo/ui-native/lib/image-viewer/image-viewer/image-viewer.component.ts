@@ -92,8 +92,8 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
   }
 
   pinch(ev: PinchEvent, imageView: ImageViewProp) {
-    const imgRect = this.imgElements.toArray()[this.viewIndex].nativeElement.getBoundingClientRect();
     if (ev.first) {
+      const imgRect = this.imgElements.toArray()[this.viewIndex].nativeElement.getBoundingClientRect();
       imageView.styles.transformOrigin = `${ev.moveX - imgRect.left}px ${ev.moveY - imgRect.top}px`;
     }
 
@@ -105,9 +105,8 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
 
       imageView.styles.transition = 'none';
       imageView.styles.transform = transforms.join(' ');
-    }
-
-    if (ev.type === 'touchend') {
+    } else if (ev.type === 'touchend') {
+      const imgRect = this.imgElements.toArray()[this.viewIndex].nativeElement.getBoundingClientRect();
       imageView.styles = {
         width: imgRect.width,
         height: imgRect.height,
