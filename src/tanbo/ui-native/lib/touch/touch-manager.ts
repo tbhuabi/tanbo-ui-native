@@ -1,8 +1,9 @@
 import { ElementRef } from '@angular/core';
-import { fromEvent, merge } from 'rxjs';
-import { filter, tap, debounceTime } from 'rxjs/operators';
+import { fromEvent, merge, Subscription } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
 
 export abstract class TouchManager {
+  touchSubscription: Subscription;
   abstract elementRef: ElementRef<any>;
 
   abstract touchStart(event: TouchEvent): any;
@@ -13,17 +14,16 @@ export abstract class TouchManager {
 
   init(points: number) {
     let isLock = false;
-    fromEvent<TouchEvent>(this.elementRef.nativeElement, 'touchstart')
-      .pipe(debounceTime(200), filter(() => !isLock), tap(() => {
-        isLock = true;
-      }), filter(ev => {
+    this.touchSubscription = fromEvent<TouchEvent>(this.elementRef.nativeElement, 'touchstart')
+      .pipe(filter(ev => {
         return ev.touches.length === points;
       }))
+      .pipe(filter(() => !isLock), tap(() => {
+        isLock = true;
+      }))
       .subscribe(touchStartEvent => {
-        const eventPoints = touchStartEvent.touches.length;
-        if (points === eventPoints) {
-          this.touchStart(touchStartEvent);
-        }
+        this.touchStart(touchStartEvent);
+
         const unSubMove = fromEvent<TouchEvent>(this.elementRef.nativeElement, 'touchmove')
           .subscribe(touchMoveEvent => {
             this.touchMove(touchMoveEvent, unListen);
@@ -41,5 +41,11 @@ export abstract class TouchManager {
           unSubEnd.unsubscribe();
         };
       });
+  }
+
+  destroy() {
+    if (this.touchSubscription) {
+      this.touchSubscription.unsubscribe();
+    }
   }
 }

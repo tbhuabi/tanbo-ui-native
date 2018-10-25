@@ -1,23 +1,44 @@
-import { Directive, EventEmitter, Output, ElementRef, OnInit } from '@angular/core';
+import { Directive, EventEmitter, Output, ElementRef, OnInit, OnDestroy } from '@angular/core';
 
 import { UITouchEvent } from './helper';
 import { TouchManager } from './touch-manager';
 
 export interface PinchEvent extends UITouchEvent {
-  scale: number;
+  startX: number;
+  startY: number;
+  moveX: number;
+  moveY: number;
+  distanceX: number;
+  distanceY: number;
+  cumulativeDistanceX: number;
+  cumulativeDistanceY: number;
   cumulativeScale: number;
+  scale: number;
 }
 
 @Directive({
   selector: '[uiPinch]'
 })
-export class PinchDirective extends TouchManager implements OnInit {
+export class PinchDirective extends TouchManager implements OnInit, OnDestroy {
   @Output() uiPinch = new EventEmitter<PinchEvent>();
 
-  private cumulative = 1;
+  private cumulativeScale = 1;
   private scale = 1;
   private oldScale = 1;
-  private startArea: number;
+  private startDistance: number;
+
+  private startX: number;
+  private startY: number;
+
+  private moveX: number;
+  private moveY: number;
+  private distanceX: number = 0;
+  private distanceY: number = 0;
+  private cumulativeDistanceX: number = 0;
+  private cumulativeDistanceY: number = 0;
+
+  private oldMoveX: number = 0;
+  private oldMoveY: number = 0;
 
   constructor(public elementRef: ElementRef) {
     super();
@@ -27,35 +48,84 @@ export class PinchDirective extends TouchManager implements OnInit {
     super.init(2);
   }
 
+  ngOnDestroy() {
+    super.destroy();
+  }
+
   touchStart(event: TouchEvent) {
-    this.startArea = this.getChordLength(event);
+    const p1 = event.touches[0];
+    const p2 = event.touches[1];
+
+    const centerPoint = this.getCenterPoint(p1, p2);
+
+    this.startX = centerPoint.x;
+    this.startY = centerPoint.y;
+
+    this.moveX = this.startX;
+    this.moveY = this.startY;
+
+    this.startDistance = this.getChordLength(p1, p2);
     this.scale = 1;
+    event.preventDefault();
   }
 
   touchMove(event: TouchEvent, unListen: Function) {
-    const moveArea = this.getChordLength(event);
+    const p1 = event.touches[0];
+    const p2 = event.touches[1];
+    const centerPoint = this.getCenterPoint(p1, p2);
+
+    this.oldMoveX = this.moveX;
+    this.oldMoveY = this.moveY;
+    this.moveX = centerPoint.x;
+    this.moveY = centerPoint.y;
+
+    this.distanceX = this.moveX - this.startX;
+    this.distanceY = this.moveY - this.startY;
+
+    this.cumulativeDistanceX += this.moveX - this.oldMoveX;
+    this.cumulativeDistanceY += this.moveY - this.oldMoveY;
+
+    const moveArea = this.getChordLength(p1, p2);
 
     this.oldScale = this.scale;
-    this.scale = moveArea / this.startArea;
+    this.scale = moveArea / this.startDistance;
 
     this.uiPinch.emit({
       eventName: 'uiPinch',
+      startX: this.startX,
+      startY: this.startY,
+      moveX: this.moveX,
+      moveY: this.moveY,
+      distanceX: this.distanceX,
+      distanceY: this.distanceY,
+      cumulativeDistanceX: this.cumulativeDistanceX,
+      cumulativeDistanceY: this.cumulativeDistanceY,
       stop: unListen,
       srcEvent: event,
       type: 'touchmove',
       resetCumulative: () => {
-        this.cumulative = 1;
+        this.cumulativeScale = 1;
+        this.cumulativeDistanceX = 0;
+        this.cumulativeDistanceY = 0;
       },
       scale: this.scale,
-      cumulativeScale: this.cumulative * this.scale
+      cumulativeScale: this.cumulativeScale * this.scale
     });
   }
 
   touchEnd(event: TouchEvent) {
-    this.cumulative = this.cumulative * this.scale;
+    this.cumulativeScale = this.cumulativeScale * this.scale;
 
     this.uiPinch.emit({
       eventName: 'uiPinch',
+      startX: this.startX,
+      startY: this.startY,
+      moveX: this.moveX,
+      moveY: this.moveY,
+      distanceX: this.distanceX,
+      distanceY: this.distanceY,
+      cumulativeDistanceX: this.cumulativeDistanceX,
+      cumulativeDistanceY: this.cumulativeDistanceY,
       /*tslint:disable*/
       stop: function noop() {
 
@@ -64,19 +134,24 @@ export class PinchDirective extends TouchManager implements OnInit {
       srcEvent: event,
       type: 'touchend',
       resetCumulative: () => {
-        this.cumulative = 1;
+        this.cumulativeScale = 1;
       },
       scale: this.scale,
-      cumulativeScale: this.cumulative
+      cumulativeScale: this.cumulativeScale
     });
   }
 
-  private getChordLength(event: TouchEvent): number {
-    const p1 = event.touches[0];
-    const p2 = event.touches[1];
-    const x = Math.abs(p1.pageX - p2.pageX);
-    const y = Math.abs(p1.pageY - p2.pageY);
+  private getChordLength(p1: Touch, p2: Touch): number {
+    const x = Math.abs(p1.clientX - p2.clientX);
+    const y = Math.abs(p1.clientY - p2.clientY);
 
     return Math.sqrt(x * x + y * y);
+  }
+
+  private getCenterPoint(p1: Touch, p2: Touch) {
+    return {
+      x: (p1.clientX + p2.clientX) / 2,
+      y: (p1.clientY + p2.clientY) / 2
+    };
   }
 }

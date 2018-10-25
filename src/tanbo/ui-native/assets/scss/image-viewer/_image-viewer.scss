@@ -5,10 +5,10 @@ ui-image-viewer {
   right: 0;
   bottom: 0;
   z-index: $image-viewer-z-index;
-  background-color: rgba(0, 0, 0, 0);
-  position: absolute;
+  position: fixed;
   pointer-events: none;
   transition: background .3s;
+  touch-action: auto;
   &.ui-show {
     background-color: rgba(0, 0, 0, 1);
     pointer-events: auto;
@@ -21,15 +21,10 @@ ui-image-viewer {
 }
 
 .ui-image-viewer-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   overflow: hidden;
+  touch-action: pinch-zoom;
 }
 
 .ui-image-viewer-img {
-  max-width: 100%;
-  max-height: 100%;
   position: absolute;
-  flex: 1;
 }

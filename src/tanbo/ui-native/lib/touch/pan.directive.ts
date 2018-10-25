@@ -1,4 +1,4 @@
-import { Directive, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
+import { Directive, Output, EventEmitter, OnInit, ElementRef, OnDestroy } from '@angular/core';
 
 import { UITouchEvent } from './helper';
 import { TouchManager } from './touch-manager';
@@ -13,17 +13,17 @@ export interface PanEvent extends UITouchEvent {
   moveY: number;
   distanceX: number;
   distanceY: number;
-  cumulativeX: number;
-  cumulativeY: number;
+  cumulativeDistanceX: number;
+  cumulativeDistanceY: number;
 }
 
 @Directive({
   selector: '[uiPan]'
 })
-export class PanDirective extends TouchManager implements OnInit {
+export class PanDirective extends TouchManager implements OnInit, OnDestroy {
   @Output() uiPan = new EventEmitter<PanEvent>();
-  private cumulativeX = 0;
-  private cumulativeY = 0;
+  private cumulativeDistanceX = 0;
+  private cumulativeDistanceY = 0;
 
   private startX: number;
   private startY: number;
@@ -48,10 +48,14 @@ export class PanDirective extends TouchManager implements OnInit {
     super.init(1);
   }
 
+  ngOnDestroy() {
+    super.destroy();
+  }
+
   touchStart(event: TouchEvent) {
     const startPoint = event.touches[0];
-    this.startX = startPoint.pageX;
-    this.startY = startPoint.pageY;
+    this.startX = startPoint.clientX;
+    this.startY = startPoint.clientY;
 
     this.moveX = this.startX;
     this.moveY = this.startY;
@@ -70,8 +74,8 @@ export class PanDirective extends TouchManager implements OnInit {
     const movePoint = moveEvent.touches[0];
     this.oldMoveX = this.moveX;
     this.oldMoveY = this.moveY;
-    this.moveX = movePoint.pageX;
-    this.moveY = movePoint.pageY;
+    this.moveX = movePoint.clientX;
+    this.moveY = movePoint.clientY;
 
     this.distanceX = this.moveX - this.startX;
     this.distanceY = this.moveY - this.startY;
@@ -85,8 +89,8 @@ export class PanDirective extends TouchManager implements OnInit {
       }
     }
 
-    this.cumulativeX += this.moveX - this.oldMoveX;
-    this.cumulativeY += this.moveY - this.oldMoveY;
+    this.cumulativeDistanceX += this.moveX - this.oldMoveX;
+    this.cumulativeDistanceY += this.moveY - this.oldMoveY;
     this.uiPan.emit({
       eventName: 'uiPan',
       firstDirection: this.direction,
@@ -96,8 +100,8 @@ export class PanDirective extends TouchManager implements OnInit {
       moveY: this.moveY,
       distanceX: this.distanceX,
       distanceY: this.distanceY,
-      cumulativeX: this.cumulativeX,
-      cumulativeY: this.cumulativeY,
+      cumulativeDistanceX: this.cumulativeDistanceX,
+      cumulativeDistanceY: this.cumulativeDistanceY,
       srcEvent: moveEvent,
       type: 'touchmove',
       stop: unListen,
@@ -117,8 +121,8 @@ export class PanDirective extends TouchManager implements OnInit {
       moveY: this.moveY,
       distanceX: this.distanceX,
       distanceY: this.distanceY,
-      cumulativeX: this.cumulativeX,
-      cumulativeY: this.cumulativeY,
+      cumulativeDistanceX: this.cumulativeDistanceX,
+      cumulativeDistanceY: this.cumulativeDistanceY,
       srcEvent: event,
       type: 'touchend',
       /*tslint:disable*/
@@ -132,7 +136,7 @@ export class PanDirective extends TouchManager implements OnInit {
   }
 
   reset() {
-    this.cumulativeY = 0;
-    this.cumulativeX = 0;
+    this.cumulativeDistanceY = 0;
+    this.cumulativeDistanceX = 0;
   }
 }

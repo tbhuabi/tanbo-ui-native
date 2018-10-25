@@ -3,6 +3,7 @@ import { Subject, Observable } from 'rxjs';
 
 export interface ImageViewItem {
   src: string;
+  scale: number;
   srcElement?: HTMLImageElement;
 }
 
@@ -23,7 +24,8 @@ export class ImageViewerController {
     if (this.findIndex(src) === -1) {
       this.imageList.push({
         srcElement,
-        src
+        src,
+        scale: 1
       });
       this.imageSource.next(this.imageList);
     }

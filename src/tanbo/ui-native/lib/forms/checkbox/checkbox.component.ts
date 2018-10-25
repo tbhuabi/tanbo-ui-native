@@ -56,7 +56,7 @@ export class CheckboxComponent implements ControlValueAccessor {
   private _checked: boolean = false;
 
   private onChange: (_: any) => any;
-  private onTouched: (_: any) => any;
+  private onTouched: () => any;
 
   click() {
     if (this.disabled || this.readonly) {
@@ -67,7 +67,7 @@ export class CheckboxComponent implements ControlValueAccessor {
       this.onChange(this.checked);
     }
     if (this.onTouched) {
-      this.onTouched(this.checked);
+      this.onTouched();
     }
     this.uiChange.emit(this.checked);
   }

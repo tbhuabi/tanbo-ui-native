@@ -15,7 +15,8 @@ import { ImageViewerController, ImageViewItem } from '../image-viewer-controller
 import { PanEvent, PinchEvent } from '../../touch/index';
 
 export interface ImageViewProp extends ImageViewItem {
-  styles?: { [key: string]: string };
+  styles?: { [key: string]: string | number };
+  defaultStyles?: { [key: string]: number };
 }
 
 @Component({
@@ -27,12 +28,19 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
   imgElements: QueryList<ElementRef<HTMLImageElement>>;
   @HostBinding('class.ui-show')
   isShow = false;
+  @HostBinding('style.backgroundColor')
+  bgColor = '';
+
+  @HostBinding('style.transition')
+  get transition() {
+    return this.bgColor ? 'none' : '';
+  };
+
   isShowSlide = false;
   images: ImageViewProp[] = [];
   viewIndex = 0;
 
   opacity = 0;
-
   private subs: Subscription[] = [];
 
   constructor(private imageViewerService: ImageViewerController,
@@ -61,7 +69,6 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
 
   @HostListener('click')
   click() {
-    document.title = 'click';
     const current = this.images[this.viewIndex];
     if (current.srcElement) {
       const rect = current.srcElement.getBoundingClientRect();
@@ -74,33 +81,59 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
           fn();
         });
       current.styles = {
-        left: rect.left + 'px',
-        top: rect.top + 'px',
-        width: rect.width + 'px',
-        height: rect.height + 'px',
+        left: rect.left,
+        top: rect.top,
+        width: rect.width,
+        height: rect.height,
         transition: 'all .3s'
       };
     }
     this.imageViewerService.hide();
   }
 
-  scale(ev: PinchEvent) {
-    document.title = 'pinch';
-    this.images[this.viewIndex].styles.transform = `scale(${ev.cumulativeScale})`;
+  pinch(ev: PinchEvent, imageView: ImageViewProp) {
+
+    const containerRect = this.elementRef.nativeElement.getBoundingClientRect();
+    const imgRect = this.imgElements.toArray()[this.viewIndex].nativeElement.getBoundingClientRect();
+
+    const left = Math.min(containerRect.left, imgRect.left);
+    const top = Math.min(containerRect.top, imgRect.top);
+    const right = Math.max(containerRect.right, imgRect.right);
+    const bottom = Math.max(containerRect.bottom, imgRect.bottom);
+
+    const px = (ev.moveX - left) / (right - left);
+    const py = (ev.moveY - top) / (bottom - top);
+
+    // const rect =
+
+    imageView.styles.transition = 'none';
+    imageView.styles.width = ev.cumulativeScale * imageView.defaultStyles.width;
+    imageView.styles.height = ev.cumulativeScale * imageView.defaultStyles.height;
+    imageView.styles.left = ev.moveX + -imageView.styles.width * px;
+    imageView.styles.top = ev.moveY + -imageView.styles.height * py;
     ev.srcEvent.stopPropagation();
   }
 
   drag(ev: PanEvent, imageView: ImageViewProp) {
-    document.title = 'pan';
-    ev.srcEvent.stopPropagation();
+
     if (ev.firstDirection === 'down') {
-      const scale = ev.cumulativeY < 0 ? 1 : (1 - ev.cumulativeY / 5 / parseFloat(imageView.styles.height));
+      const scale = ev.cumulativeDistanceY < 0 ? 1 :
+        (1 - ev.cumulativeDistanceY / 4 / Number(imageView.styles.height));
+      const transforms = [
+        `translate(${ev.cumulativeDistanceX}px, ${ev.cumulativeDistanceY}px)`,
+        `scale(${scale})`
+      ];
       imageView.styles.transition = 'none';
-      imageView.styles.transform = `translate(${ev.cumulativeX}px, ${ev.cumulativeY}px) scale(${scale})`;
-      ev.srcEvent.stopPropagation();
+      imageView.styles.transform = transforms.join(' ');
+
+      const alpha = ev.cumulativeDistanceY < 0 ? 1 : (1 - ev.cumulativeDistanceY / Number(imageView.styles.height));
+
+      this.bgColor = `rgba(0,0,0,${alpha < 0.5 ? 0.5 : alpha})`;
+
       if (ev.type === 'touchend') {
+        this.bgColor = '';
         ev.resetCumulative();
-        if (ev.cumulativeY > this.elementRef.nativeElement.offsetHeight / 3) {
+        if (ev.cumulativeDistanceY > this.elementRef.nativeElement.offsetHeight / 4) {
           this.imageViewerService.hide();
           const rect = imageView.srcElement.getBoundingClientRect();
           const fn = this.renderer2.listen(
@@ -111,10 +144,10 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
               fn();
             });
           imageView.styles = {
-            width: rect.width + 'px',
-            height: rect.height + 'px',
-            left: rect.left + 'px',
-            top: rect.top + 'px',
+            width: rect.width,
+            height: rect.height,
+            left: rect.left,
+            top: rect.top,
             transition: 'all .3s'
           };
         } else {
@@ -148,10 +181,10 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
         if (item.srcElement) {
           const rect = item.srcElement.getBoundingClientRect();
           item.styles = {
-            left: rect.left + 'px',
-            top: rect.top + 'px',
-            width: rect.width + 'px',
-            height: rect.height + 'px',
+            left: rect.left,
+            top: rect.top,
+            width: rect.width,
+            height: rect.height,
             transition: 'all .3s'
           };
         }
@@ -173,29 +206,30 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
           const contentWidth = item.srcElement.naturalWidth;
           const contentHeight = item.srcElement.naturalHeight;
           const proportion = (containerRect.width / containerRect.height) / (contentWidth / contentHeight);
-
+          item.defaultStyles = {};
           if (contentHeight <= containerRect.height && contentWidth <= containerRect.width) {
-            item.styles.height = contentHeight + 'px';
-            item.styles.width = contentWidth + 'px';
-            item.styles.top = (containerRect.height - contentHeight) / 2 + 'px';
-            item.styles.left = (containerRect.width - contentWidth) / 2 + 'px';
+            item.defaultStyles.height = contentHeight;
+            item.defaultStyles.width = contentWidth;
+            item.defaultStyles.top = (containerRect.height - contentHeight) / 2;
+            item.defaultStyles.left = (containerRect.width - contentWidth) / 2;
           } else {
             if (proportion > 1) {
               // 高比宽大
               const width = contentWidth * containerRect.height / contentHeight;
-              item.styles.height = containerRect.height + 'px';
-              item.styles.width = width + 'px';
-              item.styles.top = '0px';
-              item.styles.left = (containerRect.width - width) / 2 + 'px';
+              item.defaultStyles.height = containerRect.height;
+              item.defaultStyles.width = width;
+              item.defaultStyles.top = 0;
+              item.defaultStyles.left = (containerRect.width - width) / 2;
             } else {
               // 高比宽小
               const height = contentHeight * containerRect.width / contentWidth;
-              item.styles.height = height + 'px';
-              item.styles.width = containerRect.width + 'px';
-              item.styles.top = (containerRect.height - height) / 2 + 'px';
-              item.styles.left = '0';
+              item.defaultStyles.height = height;
+              item.defaultStyles.width = containerRect.width;
+              item.defaultStyles.top = (containerRect.height - height) / 2;
+              item.defaultStyles.left = 0;
             }
           }
+          Object.assign(item.styles, item.defaultStyles);
         }
         requestAnimationFrame(() => {
           this.opacity = 1;
