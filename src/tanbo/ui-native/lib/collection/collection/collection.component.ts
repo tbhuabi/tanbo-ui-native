@@ -138,7 +138,6 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
       // 发送事件，并传出当前已滑动到第几屏的进度
       this.slidingEventSource.next(distance / this.stepDistance * -1);
     } else if (event.type === 'touchend') {
-      // swipe
       if (this.distance > this.max) {
         this.autoUpdateStyle(this.max);
         return;
@@ -150,6 +149,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
       const targetIndex = Math.ceil(this.distance / this.stepDistance);
       const offset = Math.abs(this.distance % this.stepDistance);
       if (event.durationTime < 200 && Math.abs(this.vertical ? event.distanceY : event.distanceX) > 50 * this.scale) {
+        // swipe
         if (this.oldDistance < this.distance) {
           translateDistance = targetIndex * this.stepDistance;
         } else {
