@@ -7,17 +7,16 @@ import {
   Input,
   Inject,
   OnDestroy,
-  ViewChild,
   HostBinding,
   Output,
-  QueryList,
-  Renderer2
+  QueryList
 } from '@angular/core';
 import { CollectionItemComponent } from '../collection-item/collection-item.component';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Easing } from '@tweenjs/tween.js';
 import { UI_SCREEN_SCALE } from '../../helper';
+import { PanEvent } from '../../touch/index';
 
 @Component({
   selector: 'ui-collection',
@@ -25,7 +24,6 @@ import { UI_SCREEN_SCALE } from '../../helper';
 })
 export class CollectionComponent implements AfterContentInit, OnDestroy {
   @ContentChildren(CollectionItemComponent) items: QueryList<CollectionItemComponent>;
-  @ViewChild('container') container: ElementRef;
   /**
    * 拖动事件 $event 为当前拖动的进度
    */
@@ -42,7 +40,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
    * 是否填满整个容器，默认不填充，如设置为 true，那么会填充满第一个有定位的父级元素
    */
   @Input()
-  @HostBinding('class.ui-fill') fill: boolean = false;
+  @HostBinding('class.ui-fill') fill: boolean = true;
 
   /**
    * 显示第几屏的索引
@@ -62,25 +60,32 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
 
   // 通过子级的多少，计算自身的盒子大小
   get width() {
-    return this.vertical ? 'auto' : this.childrenLength * 100 + '%';
+    return this.vertical ? 'auto' : this.childrenCount * 100 + '%';
   }
 
   get height() {
-    return this.vertical ? this.childrenLength * 100 + '%' : 'auto';
+    return this.vertical ? this.childrenCount * 100 + '%' : 'auto';
   }
 
-  childrenLength: number = 0;
-
   transform: string = '';
+
+  private get childrenCount() {
+    if (this.items) {
+      return this.items.length;
+    }
+    return 0;
+  }
+
+  private get stepDistance() {
+    return this.vertical ? this.element.offsetHeight : this.element.offsetWidth;
+  }
 
   private max: number = 0;
 
   private get min(): number {
-    return -this.stepDistance * (this.childrenLength - 1);
+    return -this.stepDistance * (this.childrenCount - 1);
   }
 
-  // 每一页的距离
-  private stepDistance: number;
   // 记录已拖动的距离
   private distance: number = 0;
   private slidingEvent$: Observable<number>;
@@ -88,30 +93,21 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
 
   private subs: Array<Subscription> = [];
   private element: HTMLElement;
-  private containerElement: HTMLElement;
   private animationId: number;
   private _index: number = 0;
 
-  constructor(private renderer: Renderer2,
-              @Inject(UI_SCREEN_SCALE) private scale: number,
+  private oldDistance = 0;
+
+  constructor(@Inject(UI_SCREEN_SCALE) private scale: number,
               private elementRef: ElementRef) {
     this.slidingEvent$ = this.slidingEventSource.asObservable();
   }
 
   ngAfterContentInit() {
     this.element = this.elementRef.nativeElement;
-    this.containerElement = this.container.nativeElement;
     this.subs.push(this.slidingEvent$.pipe(distinctUntilChanged()).subscribe((n: number) => {
       this.uiSliding.emit(n);
     }));
-
-    this.subs.push(this.items.changes.subscribe(_ => {
-      this.childrenLength = this.items.length;
-    }));
-
-    this.childrenLength = this.items.length;
-    this.bindingDragEvent();
-    this.stepDistance = this.vertical ? this.element.offsetHeight : this.element.offsetWidth;
     this.setStyle();
   }
 
@@ -119,105 +115,60 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     this.subs.forEach(item => item.unsubscribe());
   }
 
+  drag(event: PanEvent) {
+    if (event.first) {
+      this.oldDistance = this.distance;
+    }
+    if ((this.vertical && event.firstDirection !== 'up' && event.firstDirection !== 'down') ||
+      (!this.vertical && event.firstDirection !== 'left' && event.firstDirection !== 'right')) {
+      event.stop();
+      return;
+    }
+
+    if (event.type === 'touchmove') {
+      let distance = this.oldDistance + (this.vertical ? event.distanceY : event.distanceX);
+      if (distance > this.max) {
+        distance /= 3;
+      } else if (distance < this.min) {
+        distance = this.min + (distance - this.min) / 3;
+      }
+      this.distance = distance;
+
+      this.transform = `translate${this.vertical ? 'Y' : 'X'}(${distance}px)`;
+      // 发送事件，并传出当前已滑动到第几屏的进度
+      this.slidingEventSource.next(distance / this.stepDistance * -1);
+    } else if (event.type === 'touchend') {
+      // swipe
+      if (this.distance > this.max) {
+        this.autoUpdateStyle(this.max);
+        return;
+      } else if (this.distance < this.min) {
+        this.autoUpdateStyle(this.min);
+        return;
+      }
+      let translateDistance: number;
+      const targetIndex = Math.ceil(this.distance / this.stepDistance);
+      const offset = Math.abs(this.distance % this.stepDistance);
+      if (event.durationTime < 200 && Math.abs(this.vertical ? event.distanceY : event.distanceX) > 50 * this.scale) {
+        if (this.oldDistance < this.distance) {
+          translateDistance = targetIndex * this.stepDistance;
+        } else {
+          translateDistance = targetIndex * this.stepDistance - this.stepDistance;
+        }
+      } else {
+        if (offset < (this.stepDistance / 2)) {
+          translateDistance = targetIndex * this.stepDistance;
+        } else {
+          translateDistance = targetIndex * this.stepDistance - this.stepDistance;
+        }
+      }
+      this.autoUpdateStyle(translateDistance);
+    }
+  }
+
   setStyle() {
     this.distance = this.index * -1 * this.stepDistance;
     this.transform = `translate${this.vertical ? 'Y' : 'X'}(${this.distance}px)`;
-  }
-
-  bindingDragEvent() {
-    const element = this.element;
-
-    this.renderer.listen(element, 'touchstart', (event: any) => {
-
-      cancelAnimationFrame(this.animationId);
-
-      const startTime = Date.now();
-      const point = event.touches[0];
-      const startX = point.pageX;
-      const startY = point.pageY;
-      const oldDistance = this.distance;
-
-      let unTouchMoveFn: () => void;
-      let unTouchEndFn: () => void;
-      let unTouchCancelFn: () => void;
-
-      let isMoved: boolean = false;
-      const unbindFn = () => {
-        const endTime = Date.now();
-        isMoved = false;
-        unTouchMoveFn();
-        unTouchEndFn();
-        unTouchCancelFn();
-
-        if (this.distance > this.max) {
-          this.autoUpdateStyle(this.max);
-          return;
-        } else if (this.distance < this.min) {
-          this.autoUpdateStyle(this.min);
-          return;
-        }
-
-        const targetIndex = Math.ceil(this.distance / this.stepDistance);
-        const offset = Math.abs(this.distance % this.stepDistance);
-
-        let translateDistance: number;
-        // 如果拖动的时间小于 200ms，且距离大于100px，则按当前拖动的方向计算，并直接设置对应的值
-        if (endTime - startTime < 200 && offset > 100 * this.scale) {
-          if (oldDistance < this.distance) {
-            translateDistance = targetIndex * this.stepDistance;
-          } else {
-            translateDistance = targetIndex * this.stepDistance - this.stepDistance;
-          }
-        } else {
-          if (offset < (this.stepDistance / 2)) {
-            translateDistance = targetIndex * this.stepDistance;
-          } else {
-            translateDistance = targetIndex * this.stepDistance - this.stepDistance;
-          }
-        }
-
-        this.autoUpdateStyle(translateDistance);
-      };
-
-      unTouchMoveFn = this.renderer.listen(element, 'touchmove', (ev: any) => {
-        const movePoint = ev.touches[0];
-        let distance: number;
-
-        if (this.vertical) {
-          // 如果开启的是垂直方向拖动，但 x 轴的距离大于 y 轴，则取消触摸
-          if ((Math.abs(movePoint.pageX - startX) > Math.abs(movePoint.pageY - startY)) && !isMoved) {
-            unbindFn();
-            return;
-          } else {
-            isMoved = true;
-          }
-          distance = oldDistance + movePoint.pageY - startY;
-        } else {
-          // 如果开启的是水平方向拖动，但 y 轴的距离大于 x 轴，则取消触摸
-          if ((Math.abs(movePoint.pageX - startX) < Math.abs(movePoint.pageY - startY)) && !isMoved) {
-            unbindFn();
-            return;
-          } else {
-            isMoved = true;
-          }
-          distance = oldDistance + movePoint.pageX - startX;
-        }
-
-        if (distance > this.max) {
-          distance /= 3;
-        } else if (distance < this.min) {
-          distance = this.min + (distance - this.min) / 3;
-        }
-
-        this.distance = distance;
-        this.transform = `translate${this.vertical ? 'Y' : 'X'}(${distance}px)`;
-        // 发送事件，并传出当前已滑动到第几屏的进度
-        this.slidingEventSource.next(distance / this.stepDistance * -1);
-        return false;
-      });
-      unTouchEndFn = this.renderer.listen(element, 'touchend', unbindFn);
-      unTouchCancelFn = this.renderer.listen(element, 'touchcancel', unbindFn);
-    });
   }
 
   private autoUpdateStyle(translateDistance: number) {

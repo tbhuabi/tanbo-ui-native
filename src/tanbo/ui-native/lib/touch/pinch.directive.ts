@@ -96,7 +96,7 @@ export class PinchDirective extends TouchManager implements OnInit, OnDestroy {
     this.scale = moveArea / this.startDistance;
 
     this.uiPinch.emit({
-      time: event.timeStamp - this.startTime,
+      durationTime: event.timeStamp - this.startTime,
       first: this.isFirst,
       eventName: 'uiPinch',
       startX: this.startX,
@@ -125,7 +125,7 @@ export class PinchDirective extends TouchManager implements OnInit, OnDestroy {
     this.cumulativeScale = this.cumulativeScale * this.scale;
 
     this.uiPinch.emit({
-      time: event.timeStamp - this.startTime,
+      durationTime: event.timeStamp - this.startTime,
       first: false,
       eventName: 'uiPinch',
       startX: this.startX,

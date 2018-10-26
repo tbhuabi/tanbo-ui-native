@@ -15,12 +15,15 @@ export abstract class TouchManager {
   init(points: number) {
     let isLock = false;
     this.touchSubscription = fromEvent<TouchEvent>(this.elementRef.nativeElement, 'touchstart')
-      .pipe(debounceTime(100), filter(ev => {
-        return ev.touches.length === points;
-      }))
-      .pipe(filter(() => !isLock), tap(() => {
-        isLock = true;
-      }))
+      .pipe(
+        filter(() => !isLock),
+        debounceTime(points === 1 ? 0 : 100),
+        filter(ev => {
+          return ev.touches.length === points;
+        }),
+        tap(() => {
+          isLock = true;
+        }))
       .subscribe(touchStartEvent => {
         this.touchStart(touchStartEvent);
 

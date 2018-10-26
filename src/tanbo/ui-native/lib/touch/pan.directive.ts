@@ -94,7 +94,7 @@ export class PanDirective extends TouchManager implements OnInit, OnDestroy {
     this.cumulativeDistanceX += this.moveX - this.oldMoveX;
     this.cumulativeDistanceY += this.moveY - this.oldMoveY;
     this.uiPan.emit({
-      time: event.timeStamp - this.startTime,
+      durationTime: event.timeStamp - this.startTime,
       first: this.isFirst,
       eventName: 'uiPan',
       firstDirection: this.direction,
@@ -119,7 +119,7 @@ export class PanDirective extends TouchManager implements OnInit, OnDestroy {
 
   touchEnd(event: TouchEvent) {
     this.uiPan.emit({
-      time: event.timeStamp - this.startTime,
+      durationTime: event.timeStamp - this.startTime,
       first: false,
       eventName: 'uiPan',
       firstDirection: this.direction,
