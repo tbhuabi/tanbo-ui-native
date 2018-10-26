@@ -1,64 +1,43 @@
-ui-button {
-    @extend .ui-btn;
-    position: relative;
-    &.ui-loading {
-        opacity: .8;
-        .ui-button-text {
-            transform: scale(0);
-        }
-
-        .ui-button-loading {
-            transform: scale(1);
-        }
+[ui-button] {
+  > .ui-loading-bar {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    vertical-align: middle;
+    transition: all .3s;
+    &:before {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      border-width: 2px;
+      border-style: solid;
+      border-color: #fff transparent transparent transparent;
+      border-radius: 50%;
+      animation: ui-button-loading-bar linear 1s infinite;
+      vertical-align: top;
     }
+  }
+  &.ui-btn-default > .ui-loading-bar:before {
+    border-top-color: $color-gray;
+  }
+  &.ui-loading > .ui-loading-bar {
+    height: 1em;
+    width: 1em;
+    margin-right: .5em;
+  }
 }
 
-.ui-button {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: inherit;
-    z-index: 1;
-}
-
-.ui-button-text {
-    position: relative;
-    z-index: 0;
-    transition: all .2s;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.ui-button-loading {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    padding: inherit;
-    text-align: inherit;
-    line-height: inherit;
-    transform: scale(0);
-    transition: all .2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    > .ui-icon {
-        display: inline-block;
-        animation: btn-loading 1s infinite linear;
-    }
-}
-
-@keyframes btn-loading {
-    0% {
-        transform: rotateZ(0deg);
-    }
-    100% {
-        transform: rotateZ(-360deg);
-    }
+@keyframes ui-button-loading-bar {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  50% {
+    transform: rotateZ(180deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
 }

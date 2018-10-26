@@ -20,8 +20,8 @@ function inputAttrToBoolean(value: any) {
   templateUrl: './segment-button.component.html'
 })
 export class SegmentButtonComponent implements AfterViewInit {
-  @Input()
-  value: any = '';
+  @Output() uiChecked = new EventEmitter<SegmentButtonComponent>();
+  @Input() value: any = '';
 
   @Input()
   @HostBinding('class.ui-disabled')
@@ -43,8 +43,6 @@ export class SegmentButtonComponent implements AfterViewInit {
     return this._selected;
   }
 
-  @Output()
-  uiChecked = new EventEmitter<SegmentButtonComponent>();
   nativeElement: HTMLElement;
 
   private _disabled: boolean = false;

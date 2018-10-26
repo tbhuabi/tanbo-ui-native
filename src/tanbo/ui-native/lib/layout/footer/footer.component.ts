@@ -10,10 +10,8 @@ import { UI_ROUTER_ANIMATION_STEPS, ViewState, ViewStateService, UI_VIEW_INIT_ST
 })
 export class FooterComponent implements OnDestroy, OnInit {
   @HostBinding('style.transform')
-  @HostBinding('style.webkitTransform')
-  translate: string;
-  @HostBinding('style.opacity')
-  opacity: number;
+  @HostBinding('style.webkitTransform') translate: string;
+  @HostBinding('style.opacity') opacity: number;
 
   private subs: Array<Subscription> = [];
 

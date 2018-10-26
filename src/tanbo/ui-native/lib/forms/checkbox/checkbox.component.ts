@@ -13,14 +13,13 @@ import { inputAttrToBoolean } from '../helper';
   }]
 })
 export class CheckboxComponent implements ControlValueAccessor {
-  @Input()
-  name: string;
-  @Input()
-  text: string = '';
-  @Input()
-  value: string = '';
-  @Input()
-  forId: string;
+  @Output() uiChange = new EventEmitter<boolean>();
+  @Input() checkedIcon: string = 'ui-icon-checkbox-checked';
+  @Input() uncheckedIcon: string = 'ui-icon-checkbox-unchecked';
+  @Input() name: string;
+  @Input() text: string = '';
+  @Input() value: string = '';
+  @Input() forId: string;
 
   @Input()
   @HostBinding('class.ui-disabled')
@@ -52,20 +51,12 @@ export class CheckboxComponent implements ControlValueAccessor {
     return this._checked;
   }
 
-  @Input()
-  checkedIcon: string = 'ui-icon-checkbox-checked';
-  @Input()
-  uncheckedIcon: string = 'ui-icon-checkbox-unchecked';
-
-  @Output()
-  uiChange = new EventEmitter<boolean>();
-
   private _disabled: boolean = false;
   private _readonly: boolean = false;
   private _checked: boolean = false;
 
   private onChange: (_: any) => any;
-  private onTouched: (_: any) => any;
+  private onTouched: () => any;
 
   click() {
     if (this.disabled || this.readonly) {
@@ -76,7 +67,7 @@ export class CheckboxComponent implements ControlValueAccessor {
       this.onChange(this.checked);
     }
     if (this.onTouched) {
-      this.onTouched(this.checked);
+      this.onTouched();
     }
     this.uiChange.emit(this.checked);
   }

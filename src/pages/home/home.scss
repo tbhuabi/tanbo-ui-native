@@ -6,3 +6,11 @@ p {
 .ui-fixed-bar {
   background-color: red;
 }
+
+img {
+  max-width: 100%;
+}
+
+::ng-deep .ui-slide-group {
+  position: fixed;
+}

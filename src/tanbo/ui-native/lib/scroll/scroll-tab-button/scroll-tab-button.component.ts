@@ -7,9 +7,8 @@ import { ScrollTabService } from '../scroll-tab/scroll-tab.service';
   templateUrl: './scroll-tab-button.component.html'
 })
 export class ScrollTabButtonComponent {
-  @HostBinding('class.ui-selected')
   @Input()
-  selected: boolean = false;
+  @HostBinding('class.ui-selected') selected: boolean = false;
 
   constructor(public elementRef: ElementRef,
               private scrollTabService: ScrollTabService) {

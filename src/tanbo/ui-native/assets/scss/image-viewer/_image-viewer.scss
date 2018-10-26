@@ -1,0 +1,32 @@
+ui-image-viewer {
+  display: block;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $image-viewer-z-index;
+  position: fixed;
+  pointer-events: none;
+  transition: background .3s;
+  touch-action: auto;
+  &.ui-show {
+    background-color: rgba(0, 0, 0, 1);
+    pointer-events: auto;
+  }
+  .ui-slide-btn {
+    &.ui-active {
+      background-color: #fff;
+    }
+  }
+}
+
+.ui-image-viewer-item {
+  overflow: hidden;
+  touch-action: pinch-zoom;
+}
+
+.ui-image-viewer-img {
+  width: 0;
+  height: 0;
+  position: absolute;
+}

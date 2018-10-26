@@ -1,26 +1,32 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, Input, Renderer2, ElementRef, HostBinding } from '@angular/core';
+
+import { inputAttrToBoolean } from '../helper';
 
 @Component({
-  selector: 'ui-button',
+  /* tslint:disable */
+  selector: '[ui-button]',
+  /* tslint:enable */
   templateUrl: './button.component.html'
 })
 export class ButtonComponent {
   @Input()
-  type: string = 'button';
-  @Input()
   @HostBinding('class.ui-loading')
-  loading: boolean = false;
-
-  @Input()
-  @HostBinding('class.ui-disabled')
-  set disabled(isDisabled: any) {
-    this._disabled = isDisabled;
+  set loading(v: any) {
+    this._loading = inputAttrToBoolean(v);
+    this.updateState();
   }
 
-  get disabled() {
-    const isDisabled = (this as any).hasOwnProperty('_disabled');
-    return isDisabled && this._disabled !== false;
+  get loading() {
+    return this._loading;
   }
 
-  private _disabled: boolean;
+  private _loading = false;
+
+  constructor(private renderer: Renderer2,
+              private elementRef: ElementRef) {
+  }
+
+  updateState() {
+    this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', this._loading);
+  }
 }

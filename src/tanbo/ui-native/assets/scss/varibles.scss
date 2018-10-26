@@ -1,5 +1,5 @@
 // 全局配置
-$screen-scale: 2 !default;
+$screen-scale: 1 !default;
 $font-size-base: 14px * $screen-scale !default; // 基础文字大小
 $font-size-small: 12px * $screen-scale !default;
 $font-size-large: 16px * $screen-scale !default;
@@ -16,6 +16,7 @@ $container-vertical-padding: 6px * $screen-scale !default;
 $mask-z-index: 1000 !default;
 $toast-z-index: 1100 !default;
 $page-loading-z-index: 900 !default;
+$image-viewer-z-index: 800 !default;
 $mask-background-color: rgba(0, 0, 0, .4) !default;
 
 // 基础颜色

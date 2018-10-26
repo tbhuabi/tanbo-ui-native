@@ -9,8 +9,7 @@ import { UI_ROUTER_ANIMATION_STEPS, ViewState, ViewStateService, UI_VIEW_INIT_ST
 })
 
 export class HeaderComponent implements OnInit, OnDestroy {
-  @HostBinding('style.opacity')
-  opacity: number;
+  @HostBinding('style.opacity') opacity: number;
 
   private subs: Array<Subscription> = [];
 

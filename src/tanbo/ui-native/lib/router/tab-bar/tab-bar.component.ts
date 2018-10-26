@@ -22,17 +22,12 @@ import { ViewState, ViewStateService, UI_VIEW_INIT_STATE } from '../view/view-st
   templateUrl: './tab-bar.component.html'
 })
 export class TabBarComponent implements AfterContentInit, OnDestroy, OnInit {
-  @Input()
-  tabIndex: number = 0;
-
   @HostBinding('style.transform')
-  @HostBinding('style.webkitTransform')
-  translate: string;
-  @HostBinding('style.opacity')
-  opacity: number;
+  @HostBinding('style.webkitTransform') translate: string;
+  @HostBinding('style.opacity') opacity: number;
+  @ContentChildren(TabBarItemComponent) tabBarItems: QueryList<TabBarItemComponent>;
 
-  @ContentChildren(TabBarItemComponent)
-  tabBarItems: QueryList<TabBarItemComponent>;
+  @Input() tabIndex: number = 0;
 
   private subs: Array<Subscription> = [];
 

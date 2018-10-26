@@ -18,6 +18,7 @@ import { PullDownRefreshController } from '../refresher/pull-down-refresh-contro
   templateUrl: './scroll.component.html'
 })
 export class ScrollComponent implements OnDestroy, OnInit {
+  @HostBinding('style.paddingTop') paddingTop: string;
   // 是否开启下拉刷新
   @Input()
   set openRefresh(value: boolean) {
@@ -45,9 +46,6 @@ export class ScrollComponent implements OnDestroy, OnInit {
   get openInfinite() {
     return this._openInfinite;
   }
-
-  @HostBinding('style.paddingTop')
-  paddingTop: string;
 
   private sub: Subscription;
   private distanceY: number = 0;

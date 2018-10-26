@@ -40,14 +40,11 @@ export interface RouterItemConfig {
 })
 export class RouterComponent implements OnInit, OnDestroy {
   /* tslint:disable */
-  @Output('activate')
-  activateEvents = new EventEmitter<any>();
-  @Output('deactivate')
-  deactivateEvents = new EventEmitter<any>();
+  @Output('activate') activateEvents = new EventEmitter<any>();
+  @Output('deactivate') deactivateEvents = new EventEmitter<any>();
   /* tslint:enable */
 
-  @Input()
-  name: string = PRIMARY_OUTLET;
+  @Input() name: string = PRIMARY_OUTLET;
 
   views: Array<RouterItemConfig> = [];
 

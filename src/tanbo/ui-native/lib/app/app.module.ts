@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UIModalModule } from '../modal/modal.module';
 import { UIRouterModule } from '../router/router.module';
+import { UIImageViewerModule } from '../image-viewer/image-viewer.module';
 
 import { AppComponent } from './app/app.component';
 
@@ -10,7 +11,8 @@ import { AppComponent } from './app/app.component';
   imports: [
     UIRouterModule,
     UIModalModule,
-    CommonModule
+    CommonModule,
+    UIImageViewerModule
   ],
   declarations: [
     AppComponent

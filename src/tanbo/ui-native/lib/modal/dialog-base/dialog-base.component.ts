@@ -5,6 +5,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './dialog-base.component.html'
 })
 export class DialogBaseComponent {
+  @Output() uiHide = new EventEmitter<void>();
+
   @Input()
   set show(value: boolean) {
     this._show = value;
@@ -16,9 +18,6 @@ export class DialogBaseComponent {
   get show() {
     return this._show;
   }
-
-  @Output()
-  uiHide = new EventEmitter<void>();
 
   display: boolean = false;
 

@@ -25,6 +25,10 @@ import { ScrollTabButtonComponent } from '../scroll-tab-button/scroll-tab-button
   ]
 })
 export class ScrollTabComponent implements AfterContentInit, OnDestroy {
+  @Output() uiChange = new EventEmitter<number>();
+  @ContentChildren(ScrollTabButtonComponent) children: QueryList<ScrollTabButtonComponent>;
+  @ViewChild('wrap') wrap: ElementRef;
+
   @Input()
   set index(value: number) {
     if (this.children) {
@@ -36,14 +40,6 @@ export class ScrollTabComponent implements AfterContentInit, OnDestroy {
   get index() {
     return this._index;
   }
-
-  @Output()
-  uiChange = new EventEmitter<number>();
-
-  @ContentChildren(ScrollTabButtonComponent)
-  children: QueryList<ScrollTabButtonComponent>;
-  @ViewChild('wrap')
-  wrap: ElementRef;
 
   left: number = 0;
   lineWidth: number = 0;

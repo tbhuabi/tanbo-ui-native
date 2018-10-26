@@ -31,20 +31,14 @@ import { UI_SELECT_ARROW_CLASSNAME, inputAttrToBoolean } from '../helper';
   ]
 })
 export class SelectComponent implements ControlValueAccessor, AfterContentInit, OnDestroy, AfterViewInit {
-  @ContentChildren(OptionComponent)
-  options: QueryList<OptionComponent>;
-  @Input()
-  forId: string;
-  @Input()
-  name: string;
-  @Input()
-  placeholder: string = '';
-  @Input()
-  selectedIndex: number = 0;
-  @Input()
-  cancelText: string = '取消';
-  @Input()
-  arrowIconClassName: string = '';
+  @ContentChildren(OptionComponent) options: QueryList<OptionComponent>;
+  @Output() uiChange = new EventEmitter<string>();
+  @Input() forId: string;
+  @Input() name: string;
+  @Input() placeholder: string = '';
+  @Input() selectedIndex: number = 0;
+  @Input() cancelText: string = '取消';
+  @Input() arrowIconClassName: string = '';
 
   @Input()
   @HostBinding('class.ui-disabled')
@@ -65,9 +59,6 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
   get readonly() {
     return this._readonly;
   }
-
-  @Output()
-  uiChange = new EventEmitter<string>();
 
   focus: boolean = false;
   text: string = '';

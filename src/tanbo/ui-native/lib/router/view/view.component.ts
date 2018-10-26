@@ -62,14 +62,12 @@ class ViewInjector implements Injector {
   ]
 })
 export class ViewComponent implements OnInit, OnDestroy {
-  @Input()
-  componentFactory: any;
-  @Input()
-  openMoveBack: boolean = false;
-  @Input()
-  parentContexts: any;
-  @Input()
-  activatedRoute: ActivatedRoute;
+  @ViewChild(ComponentHostDirective) componentHost: ComponentHostDirective;
+
+  @Input() componentFactory: any;
+  @Input() openMoveBack: boolean = false;
+  @Input() parentContexts: any;
+  @Input() activatedRoute: ActivatedRoute;
 
   @Input()
   set state(value) {
@@ -105,9 +103,6 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     this._state = value;
   }
-
-  @ViewChild(ComponentHostDirective)
-  componentHost: ComponentHostDirective;
 
   get state() {
     return this._state;

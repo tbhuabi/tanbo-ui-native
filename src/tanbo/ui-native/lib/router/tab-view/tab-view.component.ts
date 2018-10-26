@@ -6,11 +6,11 @@ import { TabViewItemComponent } from '../tab-view-item/tab-view-item.component';
 
 @Component({
   selector: 'ui-tab-view',
-  templateUrl: './tab-view.component.html'
+  templateUrl: './tab-view.component.html',
+  providers: []
 })
 export class TabViewComponent implements AfterContentInit, OnDestroy {
-  @ContentChildren(TabViewItemComponent)
-  tabViewItems: QueryList<TabViewItemComponent>;
+  @ContentChildren(TabViewItemComponent) tabViewItems: QueryList<TabViewItemComponent>;
 
   private subs: Array<Subscription> = [];
 

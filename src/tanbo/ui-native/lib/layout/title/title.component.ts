@@ -19,13 +19,9 @@ import { UI_ROUTER_ANIMATION_STEPS, ViewState, ViewStateService, UI_VIEW_INIT_ST
 })
 export class TitleComponent implements OnDestroy, OnInit, AfterViewInit {
   @HostBinding('style.transform')
-  @HostBinding('style.webkitTransform')
-  translate: string;
-  @HostBinding('style.opacity')
-  opacity: number;
-
-  @ViewChild('content')
-  contentElement: ElementRef;
+  @HostBinding('style.webkitTransform') translate: string;
+  @HostBinding('style.opacity') opacity: number;
+  @ViewChild('content') contentElement: ElementRef;
 
   private subs: Array<Subscription> = [];
   private docWidth: number;

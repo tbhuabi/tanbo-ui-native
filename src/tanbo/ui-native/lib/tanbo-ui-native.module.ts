@@ -5,6 +5,7 @@ import { UIAppModule } from './app/app.module';
 import { UICollectionModule } from './collection/collection.module';
 import { UIFlexModule } from './flex/flex.module';
 import { UIFormsModule } from './forms/forms.module';
+import { UIImageViewerModule } from './image-viewer/image-viewer.module';
 import { UILayoutModule } from './layout/layout.module';
 import { UIListModule } from './list/list.module';
 import { UIModalModule } from './modal/modal.module';
@@ -13,6 +14,7 @@ import { UIRouterModule } from './router/router.module';
 import { UIScrollModule } from './scroll/scroll.module';
 import { UISegmentModule } from './segment/segment.module';
 import { UISlideModule } from './slide/slide.module';
+import { UITouchModule } from './touch/touch.module';
 
 import { UI_BROWSER_ENV, UI_SCREEN_SCALE } from './helper';
 import { getDeviceType, AppController } from './app/index';
@@ -27,12 +29,15 @@ import {
 import { UI_DO_REFRESH_DISTANCE, UI_DO_LOAD_DISTANCE } from './scroll/index';
 import { AlertController, DialogController, ToastController, ModalController } from './modal/index';
 
+import { ImageViewerController } from './image-viewer/image-viewer-controller';
+
 @NgModule({
   exports: [
     UIAppModule,
     UICollectionModule,
     UIFlexModule,
     UIFormsModule,
+    UIImageViewerModule,
     UILayoutModule,
     UIListModule,
     UIModalModule,
@@ -40,7 +45,8 @@ import { AlertController, DialogController, ToastController, ModalController } f
     UIRouterModule,
     UIScrollModule,
     UISegmentModule,
-    UISlideModule
+    UISlideModule,
+    UITouchModule
   ]
 })
 export class UINativeModule {
@@ -58,7 +64,7 @@ export class UINativeModule {
         useValue: 30
       }, {
         provide: UI_DO_REFRESH_DISTANCE,
-        useValue: 80
+        useValue: 40
       }, {
         provide: UI_DO_LOAD_DISTANCE,
         useValue: 600
@@ -67,7 +73,7 @@ export class UINativeModule {
         useFactory: getDeviceType
       }, {
         provide: UI_SCREEN_SCALE,
-        useValue: 2
+        useValue: 1
       },
         AppController,
         RouteCacheController,
@@ -76,7 +82,8 @@ export class UINativeModule {
         ListActivatedService,
         ModalController,
         ToastController,
-        ViewStateService
+        ViewStateService,
+        ImageViewerController
       ]
     };
   }

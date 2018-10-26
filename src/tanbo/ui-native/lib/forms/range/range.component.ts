@@ -13,16 +13,11 @@ import { inputAttrToBoolean } from '../helper';
   }]
 })
 export class RangeComponent implements ControlValueAccessor {
-  @Input()
-  name: string;
-  @Input()
-  forId: string;
-
-  @Input()
-  showProgress: boolean = false;
-
-  @ViewChild('rangeBar')
-  rangeBar: ElementRef;
+  @ViewChild('rangeBar') rangeBar: ElementRef;
+  @Output() uiChange = new EventEmitter<string>();
+  @Input() name: string;
+  @Input() forId: string;
+  @Input() showProgress: boolean = false;
 
   @Input()
   @HostBinding('class.ui-disabled')
@@ -102,9 +97,6 @@ export class RangeComponent implements ControlValueAccessor {
 
   position: number = 50;
   isTouching: boolean = false;
-
-  @Output()
-  uiChange = new EventEmitter<string>();
 
   private _disabled: boolean = false;
   private _readonly: boolean = false;
