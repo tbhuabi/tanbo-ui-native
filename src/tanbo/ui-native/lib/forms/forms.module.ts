@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { UIOtherModule } from '../other/other.module';
 import { UIFlexModule } from '../flex/flex.module';
 // 组件
+import { ButtonComponent } from './button/button.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { DateComponent } from './date/date.component';
 import { OptionComponent } from './option/option.component';
@@ -37,6 +38,7 @@ import { UI_SELECT_ARROW_CLASSNAME } from './helper';
   ],
   declarations: [
     // 组件
+    ButtonComponent,
     CheckboxComponent,
     DateComponent,
     OptionComponent,
@@ -57,6 +59,7 @@ import { UI_SELECT_ARROW_CLASSNAME } from './helper';
   ],
   exports: [
     // 组件
+    ButtonComponent,
     CheckboxComponent,
     DateComponent,
     OptionComponent,

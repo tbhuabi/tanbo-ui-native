@@ -1,0 +1,43 @@
+[ui-button] {
+  > .ui-loading-bar {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    vertical-align: middle;
+    transition: all .3s;
+    &:before {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      border-width: 2px;
+      border-style: solid;
+      border-color: #fff transparent transparent transparent;
+      border-radius: 50%;
+      animation: ui-button-loading-bar linear 1s infinite;
+      vertical-align: top;
+    }
+  }
+  &.ui-btn-default > .ui-loading-bar:before {
+    border-top-color: $color-gray;
+  }
+  &.ui-loading > .ui-loading-bar {
+    height: 1em;
+    width: 1em;
+    margin-right: .5em;
+  }
+}
+
+@keyframes ui-button-loading-bar {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  50% {
+    transform: rotateZ(180deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
