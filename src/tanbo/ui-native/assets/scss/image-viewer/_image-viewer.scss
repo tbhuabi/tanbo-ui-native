@@ -26,5 +26,7 @@ ui-image-viewer {
 }
 
 .ui-image-viewer-img {
+  width: 0;
+  height: 0;
   position: absolute;
 }
