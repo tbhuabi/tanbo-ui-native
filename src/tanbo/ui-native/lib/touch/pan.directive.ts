@@ -6,14 +6,23 @@ import { TouchManager } from './touch-manager';
 export type PanEventDirection = 'up' | 'down' | 'left' | 'right' | 'origin';
 
 export interface PanEvent extends UITouchEvent {
+  /** 第一次触发手势时，拖动的方向 */
   firstDirection: PanEventDirection;
+  /** 拖动起点 x 轴相对屏幕左边的距离 */
   startX: number;
+  /** 拖动起点 y 轴相对屏幕上边的距离 */
   startY: number;
+  /** 拖动时 x 轴相对屏幕左边的距离 */
   moveX: number;
+  /** 拖动时 y 轴相对屏幕上边的距离 */
   moveY: number;
+  /** 拖动位置距离起点位置 x 轴的距离 */
   distanceX: number;
+  /** 拖动位置距离起点位置 y 轴的距离 */
   distanceY: number;
+  /** 多次拖动后，距离初始位置 x 轴的距离 */
   cumulativeDistanceX: number;
+  /** 多次拖动后，距离初始位置 y 轴的距离 */
   cumulativeDistanceY: number;
 }
 

@@ -4,15 +4,25 @@ import { UITouchEvent } from './helper';
 import { TouchManager } from './touch-manager';
 
 export interface PinchEvent extends UITouchEvent {
+  /** 手势开始时，双指中心点的 x 轴距离屏幕左边的距离 */
   startX: number;
+  /** 手势开始时，双指中心点的 y 轴距离屏幕上边的距离 */
   startY: number;
+  /** 手势拖动时，双指中心点的 x 轴距离屏幕左边的距离 */
   moveX: number;
+  /** 手势拖动时，双指中心点的 y 轴距离屏幕上边的距离 */
   moveY: number;
+  /** 手势拖动时，双指中心点距离开始位置 x 轴的距离 */
   distanceX: number;
+  /** 手势拖动时，双指中心点距离开始位置 y 轴的距离 */
   distanceY: number;
+  /** 手势多次拖动后，双指中心点距离初始位置 x 轴的距离 */
   cumulativeDistanceX: number;
+  /** 手势多次拖动后，双指中心点距离初始位置 y 轴的距离 */
   cumulativeDistanceY: number;
+  /** 手势多次缩放后，相对于初始缩放系数的比率，初始为 1 */
   cumulativeScale: number;
+  /** 手势缩放后，相对于开始缩放系数的比率，初始为 1 */
   scale: number;
 }
 
