@@ -2,7 +2,6 @@
   <ui-slide-item class="ui-image-viewer-item" [ngStyle]="{opacity: opacity}"
                  (uiPinch)="pinch($event, item)" (uiPan)="drag($event, item)"
                  *ngFor="let item of images">
-    <div style="position: relative; z-index: 10; pointer-events: none; background:rgba(255,255,255,.8)">{{ item.styles | json }}</div>
     <img #img
          class="ui-image-viewer-img"
          [src]="item.src"

@@ -1,6 +1,6 @@
 import { ElementRef } from '@angular/core';
 import { fromEvent, merge, Subscription } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter, tap, debounceTime } from 'rxjs/operators';
 
 export abstract class TouchManager {
   touchSubscription: Subscription;
@@ -15,7 +15,7 @@ export abstract class TouchManager {
   init(points: number) {
     let isLock = false;
     this.touchSubscription = fromEvent<TouchEvent>(this.elementRef.nativeElement, 'touchstart')
-      .pipe(filter(ev => {
+      .pipe(debounceTime(100), filter(ev => {
         return ev.touches.length === points;
       }))
       .pipe(filter(() => !isLock), tap(() => {

@@ -40,6 +40,8 @@ export class PanDirective extends TouchManager implements OnInit, OnDestroy {
   private direction: PanEventDirection = 'origin';
   private isFirst = true;
 
+  private startTime: number;
+
   constructor(public elementRef: ElementRef) {
     super();
   }
@@ -68,14 +70,15 @@ export class PanDirective extends TouchManager implements OnInit, OnDestroy {
 
     this.direction = 'origin';
     this.isFirst = true;
+    this.startTime = event.timeStamp;
   }
 
-  touchMove(moveEvent: TouchEvent, unListen: Function) {
-    const movePoint = moveEvent.touches[0];
+  touchMove(event: TouchEvent, unListen: Function) {
+    const point = event.touches[0];
     this.oldMoveX = this.moveX;
     this.oldMoveY = this.moveY;
-    this.moveX = movePoint.clientX;
-    this.moveY = movePoint.clientY;
+    this.moveX = point.clientX;
+    this.moveY = point.clientY;
 
     this.distanceX = this.moveX - this.startX;
     this.distanceY = this.moveY - this.startY;
@@ -91,6 +94,7 @@ export class PanDirective extends TouchManager implements OnInit, OnDestroy {
     this.cumulativeDistanceX += this.moveX - this.oldMoveX;
     this.cumulativeDistanceY += this.moveY - this.oldMoveY;
     this.uiPan.emit({
+      time: event.timeStamp - this.startTime,
       first: this.isFirst,
       eventName: 'uiPan',
       firstDirection: this.direction,
@@ -102,7 +106,7 @@ export class PanDirective extends TouchManager implements OnInit, OnDestroy {
       distanceY: this.distanceY,
       cumulativeDistanceX: this.cumulativeDistanceX,
       cumulativeDistanceY: this.cumulativeDistanceY,
-      srcEvent: moveEvent,
+      srcEvent: event,
       type: 'touchmove',
       stop: unListen,
       resetCumulative: () => {
@@ -115,6 +119,7 @@ export class PanDirective extends TouchManager implements OnInit, OnDestroy {
 
   touchEnd(event: TouchEvent) {
     this.uiPan.emit({
+      time: event.timeStamp - this.startTime,
       first: false,
       eventName: 'uiPan',
       firstDirection: this.direction,
