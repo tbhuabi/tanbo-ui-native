@@ -127,6 +127,9 @@ export class PanDirective extends TouchManager implements OnInit, OnDestroy {
   }
 
   touchEnd(event: TouchEvent) {
+    if (this.isFirst) {
+      return;
+    }
     this.uiPan.emit({
       durationTime: event.timeStamp - this.startTime,
       first: false,
