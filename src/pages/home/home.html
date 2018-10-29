@@ -5,35 +5,40 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <button type="button" ui-button class="ui-btn ui-btn-primary" routerLink="../detail">button</button>
-    <div class="ui-container">
-      <div class="ui-row">
-        <div class="ui-col-4">
-          <img uiImageViewable
-               src="http://d.hiphotos.baidu.com/image/pic/item/c83d70cf3bc79f3dab11b040b7a1cd11738b29c9.jpg">
-        </div>
-        <div class="ui-col-4">
-          <img uiImageViewable
-               src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539931132920&di=c0349b7b1121d74478b354331413a431&imgtype=0&src=http%3A%2F%2Fpic.1010jiajiao.com%2Fpic5%2Fupload%2F201310%2F52857c25c56a1.png">
-        </div>
-        <div class="ui-col-4">
-          <img uiImageViewable
-               src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539931067410&di=ea7cef22ea887e0a1bb8b91b3c3efc5f&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fbaike%2Fs%253D250%2Fsign%3D4284151c5a82b2b7a39f3ec101accb0a%2F5d6034a85edf8db128d3f17c0a23dd54564e742d.jpg">
-        </div>
-        <div class="ui-col-4">
-          <img uiImageViewable
-               src="http://b.hiphotos.baidu.com/image/pic/item/241f95cad1c8a786b0eb4b016a09c93d71cf50ff.jpg">
-        </div>
-        <div class="ui-col-4">
-          <img uiImageViewable
-               src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539872283126&di=6aee20df4f9b5c8c93822bb7a5e80b76&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01cb11599aaeea0000002129536e52.gif"
-               alt="">
-        </div>
-        <div class="ui-col-4">
-          <img uiImageViewable
-               src="http://b.hiphotos.baidu.com/image/pic/item/d6ca7bcb0a46f21fd757a52ffb246b600c33ae6f.jpg">
-        </div>
+    <ui-scroll>
+      <div class="ui-container">
+        <ui-slide2 [speed]="2000" [initIndex]="0">
+          <ui-slide2-item>
+            <img src="http://d.hiphotos.baidu.com/image/pic/item/c83d70cf3bc79f3dab11b040b7a1cd11738b29c9.jpg">
+          </ui-slide2-item>
+          <ui-slide2-item>
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539931132920&di=c0349b7b1121d74478b354331413a431&imgtype=0&src=http%3A%2F%2Fpic.1010jiajiao.com%2Fpic5%2Fupload%2F201310%2F52857c25c56a1.png">
+          </ui-slide2-item>
+          <ui-slide2-item>
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539931067410&di=ea7cef22ea887e0a1bb8b91b3c3efc5f&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fbaike%2Fs%253D250%2Fsign%3D4284151c5a82b2b7a39f3ec101accb0a%2F5d6034a85edf8db128d3f17c0a23dd54564e742d.jpg">
+          </ui-slide2-item>
+        </ui-slide2>
       </div>
-    </div>
+      <p>1</p>
+      <p>2</p>
+      <p>3</p>
+      <p>4</p>
+      <p>5</p>
+      <p>6</p>
+      <p>7</p>
+      <p>8</p>
+      <p>9</p>
+      <p>10</p>
+      <p>11</p>
+      <p>12</p>
+      <p>13</p>
+      <p>14</p>
+      <p>15</p>
+      <p>16</p>
+      <p>17</p>
+      <p>18</p>
+      <p>19</p>
+      <p>20</p>
+    </ui-scroll>
   </ui-content>
 </ui-page>

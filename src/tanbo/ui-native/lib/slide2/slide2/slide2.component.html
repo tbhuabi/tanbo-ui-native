@@ -1,0 +1,6 @@
+<div class="ui-slide-group" (uiPan)="touch($event)">
+  <ng-content></ng-content>
+</div>
+<div class="ui-slide-buttons" *ngIf="items.length > 1">
+  <div class="ui-slide-btn" *ngFor="let item of items; let i = index" [ngClass]="{'ui-active': i === index}"></div>
+</div>

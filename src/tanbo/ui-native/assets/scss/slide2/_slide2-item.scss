@@ -1,0 +1,12 @@
+ui-slide2-item {
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    &.ui-in {
+        z-index: 2;
+    }
+    &.ui-out {
+        z-index: 1;
+    }
+}

@@ -14,6 +14,7 @@ import { UIRouterModule } from './router/router.module';
 import { UIScrollModule } from './scroll/scroll.module';
 import { UISegmentModule } from './segment/segment.module';
 import { UISlideModule } from './slide/slide.module';
+import { UISlide2Module } from './slide2/slide2.module';
 import { UITouchModule } from './touch/touch.module';
 
 import { UI_BROWSER_ENV, UI_SCREEN_SCALE } from './helper';
@@ -46,6 +47,7 @@ import { ImageViewerController } from './image-viewer/image-viewer-controller';
     UIScrollModule,
     UISegmentModule,
     UISlideModule,
+    UISlide2Module,
     UITouchModule
   ]
 })
