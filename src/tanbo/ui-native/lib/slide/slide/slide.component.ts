@@ -104,7 +104,6 @@ export class SlideComponent implements OnInit, AfterViewInit, OnDestroy{
       const p = this.progress;
       let target: number;
       if (durationTime < 200 && Math.abs(distanceX) > 20 * this.scale) {
-        console.log('快速')
         target = distanceX > 0 ? Math.floor(p) : Math.floor(p) + 1;
       } else {
         target = p % 1 > 0.5 ? Math.ceil(p) : Math.floor(p);
