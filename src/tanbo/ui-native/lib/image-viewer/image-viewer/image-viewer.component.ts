@@ -34,7 +34,7 @@ export class ImageViewerComponent implements OnDestroy, OnInit {
   @HostBinding('style.transition')
   get transition() {
     return this.bgColor ? 'none' : '';
-  };
+  }
 
   isShowSlide = false;
   images: ImageViewProp[] = [];
