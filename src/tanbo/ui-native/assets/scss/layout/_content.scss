@@ -48,9 +48,15 @@ ui-content {
         @media screen and (max-width: 375px * $screen-scale) {
             padding-top: 44px * $screen-scale;
         }
+        @media screen and (max-width: 414px * $screen-scale) {
+            padding-top: 44px * $screen-scale;
+        }
     }
     &:last-child {
         @media screen and (max-width: 375px * $screen-scale) {
+            padding-bottom: 34px * $screen-scale;
+        }
+        @media screen and (max-width: 414px * $screen-scale) {
             padding-bottom: 34px * $screen-scale;
         }
     }
@@ -60,6 +66,9 @@ ui-content {
     ui-tab ui-content {
         &:last-child {
             @media screen and (max-width: 375px * $screen-scale) {
+                padding-bottom: 0;
+            }
+            @media screen and (max-width: 414px * $screen-scale) {
                 padding-bottom: 0;
             }
         }

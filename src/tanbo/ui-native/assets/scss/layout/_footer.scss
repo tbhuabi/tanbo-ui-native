@@ -46,6 +46,9 @@ ui-footer {
         @media screen and (max-width: 375px * $screen-scale) {
             padding-bottom: 34px * $screen-scale;
         }
+        @media screen and (max-width: 414px * $screen-scale) {
+            padding-bottom: 34px * $screen-scale;
+        }
     }
 }
 
@@ -53,6 +56,9 @@ ui-footer {
     ui-tab ui-footer {
         &:last-child {
             @media screen and (max-width: 375px * $screen-scale) {
+                padding-bottom: 0;
+            }
+            @media screen and (max-width: 414px * $screen-scale) {
                 padding-bottom: 0;
             }
         }
