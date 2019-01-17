@@ -46,7 +46,10 @@ export function getDeviceType(): BrowserENV {
   }
   if (isIOS) {
     const screen = window.screen;
-    if (screen.width === 375 && screen.height === 812 || screen.height === 375 && screen.width === 812) {
+    if (screen.width === 375 && screen.height === 812 ||
+      screen.height === 375 && screen.width === 812 ||
+      screen.width === 414 && screen.height === 896 ||
+      screen.height === 414 && screen.width === 896) {
       return BrowserENV.iphoneX;
     }
     return BrowserENV.iphone;
