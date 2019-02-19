@@ -1,4 +1,4 @@
-<div [@toastState]="true" *ngFor="let config of messageList;"
+<div *ngFor="let config of messageList;"
      class="ui-toast"
      [ngClass]="config.type || 'ui-default'">
   {{ config.content }}
