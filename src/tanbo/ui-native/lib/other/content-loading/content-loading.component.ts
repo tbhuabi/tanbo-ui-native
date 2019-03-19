@@ -57,6 +57,7 @@ export class ContentLoadingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    clearTimeout(this.timer);
     this.subs.forEach(item => {
       item.unsubscribe();
     });

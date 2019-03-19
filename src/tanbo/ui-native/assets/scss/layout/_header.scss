@@ -17,6 +17,10 @@ ui-header {
         padding-top: 44px * $screen-scale;
         min-height: $header-height + 44 * $screen-scale;
     }
+    @media screen and (max-width: 414px * $screen-scale) {
+        padding-top: 44px * $screen-scale;
+        min-height: $header-height + 44 * $screen-scale;
+    }
 }
 
 .ui-android {
