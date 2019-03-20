@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostBinding } from '@angular/core';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { ContentLoadingController } from './content-loading.service';
@@ -7,7 +7,7 @@ import { ContentLoadingController } from './content-loading.service';
   selector: 'ui-content-loading',
   templateUrl: './content-loading.component.html',
   animations: [
-    trigger('loadingAnimate', [transition(':enter', animate('0.15s', keyframes([
+    trigger('loadingAnimate', [transition(':enter', animate('5s', keyframes([
       style({
         opacity: 0,
         offset: 0
@@ -31,7 +31,8 @@ import { ContentLoadingController } from './content-loading.service';
 export class ContentLoadingComponent implements OnInit, OnDestroy {
   show: boolean = false;
   text: string = '';
-
+  @HostBinding('class.ui-content-loading-fadein') fadeIn: boolean = false;
+  @HostBinding('class.ui-content-loading-fadeout') fadeOut: boolean = false;
   private subs: Array<Subscription> = [];
   private timer: any = null;
 
@@ -40,6 +41,8 @@ export class ContentLoadingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subs.push(this.contentLoadingController.showLoading.subscribe((text?: string) => {
+      this.fadeOut = false;
+      this.fadeIn = true;
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         this.show = true;
@@ -48,11 +51,13 @@ export class ContentLoadingComponent implements OnInit, OnDestroy {
     }));
 
     this.subs.push(this.contentLoadingController.hideLoading.subscribe(() => {
+      this.fadeIn = false;
+      this.fadeOut = true;
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         this.show = false;
         this.text = '';
-      });
+      }, 150);
     }));
   }
 

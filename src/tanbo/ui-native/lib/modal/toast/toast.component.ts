@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { trigger, style, state, transition, animate } from '@angular/animations';
 
 import { ToastConfig, ToastController, ToastType } from './toast-controller';
@@ -20,6 +20,8 @@ import { ToastConfig, ToastController, ToastType } from './toast-controller';
 })
 export class ToastComponent implements OnInit, OnDestroy {
   messageList: Array<any> = [];
+  @HostBinding('class.ui-toast-fadein') fadeIn: boolean = false;
+  @HostBinding('class.ui-toast-fadeout') fadeOut: boolean = false;
 
   private timer: any = null;
 
@@ -28,6 +30,8 @@ export class ToastComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.toastService.notify.subscribe((config: ToastConfig) => {
+      this.fadeOut = false;
+      this.fadeIn = true;
       const _config: any = {};
       _config.rawConfig = config;
       switch (config.type) {
@@ -63,6 +67,8 @@ export class ToastComponent implements OnInit, OnDestroy {
             return;
           }
         }
+        this.fadeIn = false;
+        this.fadeOut = true;
       }, _config.time);
     });
   }

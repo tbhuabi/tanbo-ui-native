@@ -34,3 +34,27 @@ ui-toast {
     @include toast-theme(warning, $color-warning);
     @include toast-theme(danger, $color-danger);
 }
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.ui-toast-fadein {
+    animation-name: fadeIn;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-duration: 0.15s;
+}
+
+@keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+.ui-toast-fadeout {
+    animation-name: fadeOut;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-duration: 0.15s;
+}
