@@ -136,7 +136,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
       this.transform = `translate${this.vertical ? 'Y' : 'X'}(${distance}px)`;
       // 发送事件，并传出当前已滑动到第几屏的进度
       this.slidingEventSource.next(distance / this.stepDistance * -1);
-      event.srcEvent.stopPropagation();
+      event.srcEvent.preventDefault();
     } else if (event.type === 'touchend') {
       if (this.distance > this.max) {
         this.autoUpdateStyle(this.max);

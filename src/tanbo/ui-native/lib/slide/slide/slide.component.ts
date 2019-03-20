@@ -20,13 +20,12 @@ import { AppController } from '../../app/index';
 import { SlideItemComponent } from '../slide-item/slide-item.component';
 import { PanEvent } from '../../touch';
 
-
 @Component({
   selector: 'ui-slide',
   templateUrl: './slide.component.html'
 })
 
-export class SlideComponent implements OnInit, AfterViewInit, OnDestroy{
+export class SlideComponent implements OnInit, AfterViewInit, OnDestroy {
   @ContentChildren(SlideItemComponent) items: QueryList<SlideItemComponent>;
   @Output() uiPlayed = new EventEmitter<number>();
   @Input() initIndex = 0;
