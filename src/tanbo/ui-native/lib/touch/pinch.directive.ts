@@ -132,6 +132,9 @@ export class PinchDirective extends TouchManager implements OnInit, OnDestroy {
   }
 
   touchEnd(event: TouchEvent) {
+    if (this.isFirst) {
+      return;
+    }
     this.cumulativeScale = this.cumulativeScale * this.scale;
 
     this.uiPinch.emit({

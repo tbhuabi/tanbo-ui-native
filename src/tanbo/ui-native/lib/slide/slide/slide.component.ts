@@ -9,7 +9,6 @@ import {
   Inject,
   OnDestroy,
   ElementRef,
-  HostListener,
   Renderer2, EventEmitter
 } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -19,12 +18,15 @@ import { Easing } from '@tweenjs/tween.js';
 import { UI_SCREEN_SCALE } from '../../helper';
 import { AppController } from '../../app/index';
 import { SlideItemComponent } from '../slide-item/slide-item.component';
+import { PanEvent } from '../../touch';
+
 
 @Component({
   selector: 'ui-slide',
   templateUrl: './slide.component.html'
 })
-export class SlideComponent implements AfterViewInit, OnDestroy, OnInit {
+
+export class SlideComponent implements OnInit, AfterViewInit, OnDestroy{
   @ContentChildren(SlideItemComponent) items: QueryList<SlideItemComponent>;
   @Output() uiPlayed = new EventEmitter<number>();
   @Input() initIndex = 0;
@@ -48,6 +50,7 @@ export class SlideComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   private progress: number = 0;
+  private oldProgress: number = 0;
   private timer: any = null;
   private animateId: number;
   private containerWidth: number;
@@ -84,50 +87,29 @@ export class SlideComponent implements AfterViewInit, OnDestroy, OnInit {
     this.subs.forEach(item => item.unsubscribe());
   }
 
-  @HostListener('touchstart', ['$event'])
-  touchStart(event: any) {
+  touch(event: PanEvent) {
     clearTimeout(this.timer);
     cancelAnimationFrame(this.animateId);
-    if (this.items.length < 2) {
-      return;
-    }
+    event.srcEvent.stopPropagation();
+    const firstDirection = event.firstDirection;
+    const durationTime = event.durationTime;
     const element = this.elementRef.nativeElement;
     this.containerWidth = element.offsetWidth;
-    const startX = event.touches[0].pageX;
-    const startY = event.touches[0].pageY;
     const len = this.items.length;
-
-    let moveX: number;
-    let moveY: number;
-
-    const startTime: number = Date.now();
-    let entTime: number;
-
-    let unTouchMoveFn: () => void;
-    let unTouchEndFn: () => void;
-    let unTouchCancelFn: () => void;
-
-    const oldProgress = this.progress;
-
+    const distanceX = event.distanceX;
+    const isFirstMoving = event.first;
     const autoUpdateStyle = () => {
       let min = 0;
       const max = 20;
       const p = this.progress;
-
-      const offset = startX - moveX;
       let target: number;
-
-      if (entTime - startTime < 200 && Math.abs(offset) > 80 * this.scale) {
-        if (offset > 0) {
-          target = Math.floor(p) + 1;
-        } else {
-          target = Math.floor(p);
-        }
+      if (durationTime < 200 && Math.abs(distanceX) > 20 * this.scale) {
+        target = distanceX > 0 ? Math.floor(p) : Math.floor(p) + 1;
       } else {
         target = p % 1 > 0.5 ? Math.ceil(p) : Math.floor(p);
       }
-      const distance = target - p;
 
+      const distance = target - p;
       const updateStyle = () => {
         min++;
         this.progress = (p + Easing.Cubic.Out(min / max) * distance) % len;
@@ -141,40 +123,30 @@ export class SlideComponent implements AfterViewInit, OnDestroy, OnInit {
       };
       this.animateId = requestAnimationFrame(updateStyle);
     };
+    if (this.items.length < 2) {
+      return;
+    }
+    if (firstDirection === 'up' || firstDirection === 'down') {
+      event.stop();
+      return;
+    }
+    if (isFirstMoving) {
+      this.oldProgress = this.progress;
+    }
+    this.progress = this.oldProgress - (distanceX) / this.containerWidth;
+    if (this.progress < 0) {
+      this.progress += len;
+    }
 
-    const unbindFn = (unBindEvent: any) => {
-      entTime = Date.now();
-      unTouchMoveFn();
-      unTouchEndFn();
-      unTouchCancelFn();
-      unBindEvent.stopPropagation();
+    this.updateChildrenStyle(this.progress);
+
+    if (event.type === 'touchend') {
       autoUpdateStyle();
-    };
-
-    let isFirstMoving = true;
-
-    unTouchMoveFn = this.renderer.listen(element, 'touchmove', (moveEvent: any) => {
-      moveX = moveEvent.touches[0].pageX;
-      moveY = moveEvent.touches[0].pageY;
-      const distanceX = moveX - startX;
-      const distanceY = moveY - startY;
-      if (Math.abs(distanceY) > Math.abs(distanceX) && isFirstMoving) {
-        unTouchMoveFn();
-        return;
-      }
-      isFirstMoving = false;
-      this.progress = oldProgress - (distanceX) / this.containerWidth;
-      if (this.progress < 0) {
-        this.progress += len;
-      }
-      this.updateChildrenStyle(this.progress);
-      moveEvent.stopPropagation();
-    });
-
-    unTouchEndFn = this.renderer.listen(element, 'touchend', unbindFn);
-    unTouchCancelFn = this.renderer.listen(element, 'touchcancel', unbindFn);
-
-    event.stopPropagation();
+    }
+    if (firstDirection === 'left' || firstDirection === 'right') {
+      event.srcEvent.preventDefault();
+      return false;
+    }
   }
 
   play() {

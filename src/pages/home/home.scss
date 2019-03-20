@@ -1,16 +1,3 @@
-p {
-  margin: 0;
-  padding: 10px;
-}
-
-.ui-fixed-bar {
-  background-color: red;
-}
-
-img {
-  max-width: 100%;
-}
-
-::ng-deep .ui-slide-group {
-  position: fixed;
+.ui-container {
+  height: 300px;
 }

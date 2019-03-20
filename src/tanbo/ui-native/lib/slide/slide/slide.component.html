@@ -1,4 +1,4 @@
-<div class="ui-slide-group">
+<div class="ui-slide-group" (uiPan)="touch($event)">
   <ng-content></ng-content>
 </div>
 <div class="ui-slide-buttons" *ngIf="items.length > 1">
