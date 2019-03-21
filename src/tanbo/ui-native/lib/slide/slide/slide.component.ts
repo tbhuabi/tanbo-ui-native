@@ -9,7 +9,7 @@ import {
   Inject,
   OnDestroy,
   ElementRef,
-  Renderer2, EventEmitter
+  EventEmitter
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -48,6 +48,8 @@ export class SlideComponent implements OnInit, AfterViewInit, OnDestroy {
     return Math.ceil(this.progress - 0.5) % this.items.length;
   }
 
+  touchAction: string;
+
   private progress: number = 0;
   private oldProgress: number = 0;
   private timer: any = null;
@@ -58,7 +60,6 @@ export class SlideComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private elementRef: ElementRef,
               @Inject(UI_SCREEN_SCALE) private scale: number,
-              private renderer: Renderer2,
               private appController: AppController) {
   }
 
@@ -126,9 +127,11 @@ export class SlideComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     if (firstDirection === 'up' || firstDirection === 'down') {
+      this.touchAction = undefined;
       event.stop();
       return;
     }
+    this.touchAction = 'pan-x';
     if (isFirstMoving) {
       this.oldProgress = this.progress;
     }
@@ -140,11 +143,8 @@ export class SlideComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateChildrenStyle(this.progress);
 
     if (event.type === 'touchend') {
+      this.touchAction = undefined;
       autoUpdateStyle();
-    }
-    if (firstDirection === 'left' || firstDirection === 'right') {
-      event.srcEvent.preventDefault();
-      return false;
     }
   }
 

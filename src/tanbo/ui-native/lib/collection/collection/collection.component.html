@@ -1,6 +1,6 @@
 <div class="ui-collection"
      (uiPan)="drag($event)"
      [ngClass]="{'ui-vertical': vertical}"
-     [ngStyle]="{width: width, height: height, transform: transform, webkitTransform: transform}">
+     [ngStyle]="{width: width, height: height, transform: transform, webkitTransform: transform, touchAction: touchAction}">
   <ng-content></ng-content>
 </div>

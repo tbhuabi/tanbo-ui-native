@@ -67,6 +67,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     return this.vertical ? this.childrenCount * 100 + '%' : 'auto';
   }
 
+  touchAction: string;
   transform: string = '';
 
   private get childrenCount() {
@@ -121,10 +122,12 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
     }
     if ((this.vertical && event.firstDirection !== 'up' && event.firstDirection !== 'down') ||
       (!this.vertical && event.firstDirection !== 'left' && event.firstDirection !== 'right')) {
+      this.touchAction = undefined;
       event.stop();
       return;
     }
     if (event.type === 'touchmove') {
+      this.touchAction = this.vertical ? 'pan-y' : 'pan-x';
       let distance = this.oldDistance + (this.vertical ? event.distanceY : event.distanceX);
       if (distance > this.max) {
         distance /= 3;
@@ -138,6 +141,7 @@ export class CollectionComponent implements AfterContentInit, OnDestroy {
       this.slidingEventSource.next(distance / this.stepDistance * -1);
       event.srcEvent.preventDefault();
     } else if (event.type === 'touchend') {
+      this.touchAction = undefined;
       if (this.distance > this.max) {
         this.autoUpdateStyle(this.max);
         return;
