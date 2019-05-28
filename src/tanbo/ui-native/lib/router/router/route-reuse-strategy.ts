@@ -18,7 +18,9 @@ export class UIRouteReuseStrategy implements RouteReuseStrategy {
     }
 
     let r = route;
-
+    while (r.firstChild) {
+      r = r.firstChild;
+    }
     while (r && r.routeConfig) {
       urls.unshift(r.routeConfig.path);
       r = r.parent;
