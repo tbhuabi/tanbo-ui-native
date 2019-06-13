@@ -1,0 +1,35 @@
+{
+  "name": "@tanbo/ui-native",
+  "version": "2.0.0-alpha.0",
+  "dependencies": {
+    "@tweenjs/tween.js": "^17.0.0",
+    "@types/tween.js": "^16.0.0",
+    "better-scroll": "^1.12.6",
+    "tanbo-bezier": "^0.0.5"
+  },
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0"
+  },
+  "author": {
+    "name": "Tan Bo",
+    "email": "tanbohb@gmail.com"
+  },
+  "keywords": [
+    "angular components",
+    "native",
+    "angular ui",
+    "ui",
+    "component",
+    "theme",
+    "framework"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tbhuabi/tanbo-ui-native.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tbhuabi/tanbo-ui-native.git/issues"
+  }
+}

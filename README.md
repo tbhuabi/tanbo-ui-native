@@ -1,111 +1,27 @@
-# 简介
+# TanboUiNative
 
-`@tanbo/ui-native` 是基于 angular 开发的移动端开发框架，支持常见的如路由转场动画、触摸手势、上拉加载、下拉刷新等功能。文档地址：[https://www.tanboui.com/native](https://www.tanboui.com/native)。
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
 
-### 安装
+## Development server
 
-```bash
-npm install @tanbo/ui-native --save
-```
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## 页面结构
+## Code scaffolding
 
-```html
-<ui-page>
-  <ui-header>
-    <!-- 如果不需要头部，ui-header 是可选的 -->
-    <ui-navbar>
-      <!-- ui-back 组件是可选的，只有在需要返回父页面才声明-->
-      <ui-back>返回</ui-back>
-      <!-- ui-buttons 组件不是必需的，只有在需要左上角有按扭时才声明-->
-      <ui-buttons>
-        <button>按扭</button>
-      </ui-buttons>
-      <!-- 如果需要头部，ui-navbar 是必需的，因为在 webview 全屏的情况下，ui-header 会有 20px 的 padding-top，用来显示手机的状态栏。如果你需要设置整个头部的背景颜色，则应该设置 ui-header 的背景，而不是 ui-navbar -->
-      <ui-title>标题</ui-title>
-      <!-- ui-buttons 组件不是必需的，只有在需要右上角有按扭时才声明-->
-      <ui-buttons>
-        <button>按扭</button>
-      </ui-buttons>
-    </ui-navbar>
-  </ui-header>
-  <ui-content>
-    <!-- ui-content 是必需的，页面的主要内容应该放在这里 -->
-    <ui-scroll>
-    <!--ui-content 的内容是不可滚动的，如果需要内容可滚动，则需要把内容放在 ui-scroll 内。-->
-    </ui-scroll>
-  </ui-content>
-  <ui-footer>
-    <!-- 如果不需要固定底部，ui-footer 是可选的 -->
-  </ui-footer>
-</ui-page>
-```
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
+## Build
 
-### 在项目中导入 @tanbo/ui-native
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-```typescript
-// # app.module.ts 入口模块
+## Running unit tests
 
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { UINativeModule } from '@tanbo/ui-native';
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-import { AppComponent } from './app.component';
+## Running end-to-end tests
 
-@NgModule({
-    imports: [
-        /* ... 其它模块 */
-        UINativeModule.forRoot(), // 如果是异步模块，如路由模块，请调用 `forChild()` 方法
-        BrowserModule,
-        FormsModule
-    ],
-    declarations: [
-        AppComponent
-    ],
-    bootstrap: [AppComponent]
-})
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-export class AppModule {
-}
-```
+## Further help
 
-```typescript
-// # app.component.ts 根组件
-
-import { Component } from '@angular/core';
-
-@Component({
-    selector: '<my-app></my-app>',
-    template: '<ui-app></ui-app>'
-})
-export class AppComponent {
-}
-```
-
-
-### 在项目中导入 @tanbo/ui-native 的样式表
-
-@tanbo/ui-native 的样式表采用 sass 开发，你可以导入 sass 源文件，进行定制化开发，也可以直接导入已编译好的 css 文件。
-
-在 ts 文件中导入编译好的 css 文件
-```typescript
-// # main.ts
-// 按照 angular 项目的约定，在 main.ts 里导入全局样式表
-import '@tanbo/ui-native/index.min.css';
-```
-
-在 global.scss 中导入 scss 源文件和字体 css 文件，然后导入 global.scss 到 main.ts
-```scss
-// # global.scss
-@import "~@tanbo/ui-native/assets/scss/varibles";
-@import "~@tanbo/ui-native/assets/scss/custom-index";
-@import "~@tanbo/ui-native/assets/fonts/style.css";
-```
-```typescript
-// # main.ts
-// 按照 angular 项目的约定，在 main.ts 里导入全局样式表
-import './global.scss';
-```
-
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
