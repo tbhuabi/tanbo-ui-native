@@ -1,6 +1,6 @@
 {
   "name": "@tanbo/ui-native",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "dependencies": {
     "@tweenjs/tween.js": "^17.0.0",
     "@types/tween.js": "^16.0.0",
@@ -24,6 +24,9 @@
     "theme",
     "framework"
   ],
+  "main": "src/public-api.ts",
+  "module": "src/public-api.ts",
+  "typings": "src/public-api.ts",
   "license": "MIT",
   "repository": {
     "type": "git",

@@ -1,0 +1,37 @@
+<ui-page>
+  <ui-header>
+    <ui-navbar>
+      <ui-title>Home</ui-title>
+    </ui-navbar>
+  </ui-header>
+  <ui-content>
+    <ui-scroll>
+      <div>
+        <span>一级部门：</span>
+        <ui-picker [data]="deptList"
+                   required
+                   name="dept"
+                   columnSize="1"
+                   (uiChange)="deptChange($event)"
+                   placeholder="点击选择部门">
+          <div>{{ deptResult }}</div>
+        </ui-picker>
+      </div>
+
+      <div>
+        <span>二级部门：</span>
+        <ui-picker [data]="currentSubdeptList"
+                   required
+                   [value]="subbalue"
+                   name="subdept"
+                   columnSize="1"
+                   (uiChange)="subDeptChange($event)"
+                   placeholder="点击选择部门">
+          <div>{{ subdeptResult }}</div>
+        </ui-picker>
+      </div>
+
+    </ui-scroll>
+    <a routerLink="/detail">detail</a>
+  </ui-content>
+</ui-page>

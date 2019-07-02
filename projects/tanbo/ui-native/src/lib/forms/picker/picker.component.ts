@@ -19,12 +19,12 @@ import { UI_SELECT_ARROW_CLASSNAME, inputAttrToBoolean } from '../helper';
 export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit {
   @Output() uiChange = new EventEmitter<Array<PickerCell>>();
   @Input() name: string;
-  @Input() arrowIconClassName: string = '';
-  @Input() columnSize: number = 3;
-  @Input() placeholder: string = '';
+  @Input() arrowIconClassName = '';
+  @Input() columnSize = 3;
+  @Input() placeholder = '';
   @Input() forId: string;
   @Input() value: Array<PickerCell> = [];
-  @Input() title: string = '';
+  @Input() title = '';
 
   @Input()
   set disabled(isDisabled: any) {
@@ -51,7 +51,7 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
       this.value.forEach(item => this._value.push(item));
       this.makeList(0, list);
     } else {
-      this.list.push(list);
+      this.list = [list];
       if (list.length) {
         this.cellSelected(list[0], 0);
       }
@@ -62,15 +62,15 @@ export class PickerComponent implements ControlValueAccessor, OnDestroy, OnInit 
     return this._data;
   }
 
-  focus: boolean = false;
+  focus = false;
   list: Array<Array<PickerCell>> = [];
 
   private _data: Array<PickerCell>;
   private _value: Array<PickerCell> = [];
   private onChange: (_: any) => void;
   private onTouched: (_: any) => void;
-  private _disabled: boolean = false;
-  private _readonly: boolean = false;
+  private _disabled = false;
+  private _readonly = false;
   private timer: any = null;
 
   private sub: Subscription;

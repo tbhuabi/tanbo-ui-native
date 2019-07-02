@@ -20,10 +20,10 @@
     ],
     "paths": {
       "@tanbo/ui-native": [
-        "dist/tanbo/ui-native"
+        "projects/tanbo/ui-native"
       ],
       "@tanbo/ui-native/*": [
-        "dist/tanbo/ui-native/*"
+        "projects/tanbo/ui-native/*"
       ]
     }
   }
