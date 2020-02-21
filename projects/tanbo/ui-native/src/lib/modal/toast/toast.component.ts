@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { trigger, style, state, transition, animate } from '@angular/animations';
 
 import { ToastConfig, ToastController, ToastType } from './toast-controller';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'ui-toast',
@@ -29,7 +30,7 @@ export class ToastComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.toastService.notify.subscribe((config: ToastConfig) => {
+    this.toastService.notify.pipe(delay(0)).subscribe((config: ToastConfig) => {
       this.fadeOut = false;
       this.fadeIn = true;
       const _config: any = {};
