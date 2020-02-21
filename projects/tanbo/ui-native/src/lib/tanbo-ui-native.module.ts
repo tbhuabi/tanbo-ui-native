@@ -50,7 +50,7 @@ import { ImageViewerController } from './image-viewer/image-viewer-controller';
   ]
 })
 export class UINativeModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<UINativeModule> {
     return {
       ngModule: UINativeModule,
       providers: [{
