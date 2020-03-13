@@ -81,6 +81,9 @@ export class ContentComponent implements OnDestroy, OnInit {
 
   @HostListener('touchstart', ['$event'])
   touchStart(event: any) {
+    if (navigator.userAgent.indexOf('web-2.0') > -1) {
+      return;
+    }
     const startPoint = event.touches[0];
     const startX = startPoint.pageX;
     const startY = startPoint.pageY;
