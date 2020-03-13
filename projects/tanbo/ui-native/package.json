@@ -4,7 +4,7 @@
   "dependencies": {
     "@tweenjs/tween.js": "^17.0.0",
     "@types/tween.js": "^16.0.0",
-    "better-scroll": "1.12.6",
+    "better-scroll": "2.0.0-beta.6",
     "tanbo-bezier": "^0.0.5"
   },
   "peerDependencies": {

@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "~9.0.2",
     "@angular/router": "~9.0.2",
     "@tweenjs/tween.js": "^17.4.0",
-    "better-scroll": "1.12.6",
+    "better-scroll": "2.0.0-beta.6",
     "rxjs": "~6.5.4",
     "tanbo-bezier": "^1.0.0-alpha.0",
     "tslib": "^1.10.0",
