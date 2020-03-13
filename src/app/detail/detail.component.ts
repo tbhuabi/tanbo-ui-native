@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastController } from '@tanbo/ui-native/src/lib/modal';
 
 @Component({
   selector: 'app-detail',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toast: ToastController) {
+  }
 
   ngOnInit() {
+    this.toast.push({
+      content: 'test'
+    });
   }
 
 }
