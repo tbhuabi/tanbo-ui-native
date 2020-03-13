@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PickerCell } from '@tanbo/ui-native/src/lib/forms';
+import { address } from './address';
 
 @Component({
   selector: 'app-home',
@@ -6,61 +8,68 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  subbalue: Array<any> = [];
-  deptList: Array<any> = [{
-    text: '技术部',
-    value: 1
-  },{
-    text: '业务部',
-    value: 2
+  addressList: PickerCell[] = address;
+  address = '';
+  address1 = '';
+  point = '';
+  point1 = '';
+  viewIndex: number = 0;
+  auditList: any[] = [{
+    checked: false
+  }, {
+    checked: false
+  }, {
+    checked: false
+  }, {
+    checked: false
+  }, {
+    checked: false
+  }, {
+    checked: false
   }];
-  subdeptList: Array<any> = [{
-    parentId: 1,
-    children: [
-      {
-        text: '前端组',
-        value: 10
-      },
-      {
-        text: '中台组',
-        value: 11
-      }
-    ]
-  },
-    {
-      parentId: 2,
-      children: [
-        {
-          text: '销售部',
-          value: 20
-        },
-        {
-          text: '分析部',
-          value: 21
-        }
-      ]
-    }];
-  currentSubdeptList: Array<any> = [];
+  auditedList: any[] = [{
+    checked: false
+  }, {
+    checked: false
+  }, {
+    checked: false
+  }];
 
-  deptResult: string|number = '';
-  subdeptResult: string|number = '';
-
-  deptChange(cells: Array<any>) {
-    const deptId = cells[0]['value'];
-    this.deptResult = cells[0]['text'];
-
-    const currentSubdept = this.subdeptList.filter((item: any) => {
-      return item.parentId === deptId;
-    });
-    this.currentSubdeptList = currentSubdept.length ? currentSubdept[0]['children'] : [];
-    this.subdeptResult = '';
-    this.subbalue = [];
+  setIndex(n: number) {
+    this.viewIndex = n;
   }
 
-  subDeptChange(cells: Array<any>) {
-    const id = parseInt(cells[0]['value'] + '');
-    this.subdeptResult = cells.length ? cells[0]['text'] : '';
-    // this.applyParams['deptId'] = id;
+  selectAll(dataList: any[]) {
+    const b = dataList.map(item => item.checked).includes(false);
+    dataList.forEach(item => item.checked = b);
+  }
+
+  selectAddress(cells: Array<PickerCell>) {
+    this.address = '';
+    cells.forEach(item => {
+      this.address += ' ' + item.text;
+    });
+  }
+
+  selectAddress1(cells: Array<PickerCell>) {
+    this.address1 = '';
+    cells.forEach(item => {
+      this.address1 += ' ' + item.text;
+    });
+  }
+
+  selectPoint(cells: Array<PickerCell>) {
+    this.point = '';
+    cells.forEach(item => {
+      this.point += ' ' + item.text;
+    });
+  }
+
+  selectPoint1(cells: Array<PickerCell>) {
+    this.point1 = '';
+    cells.forEach(item => {
+      this.point1 += ' ' + item.text;
+    });
   }
 
 }

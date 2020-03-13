@@ -1,5 +1,5 @@
 import { Component, Input, Inject, Output, EventEmitter, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
-import BScroll, { Position } from 'better-scroll';
+import BScroll from 'better-scroll';
 import { Subscription } from 'rxjs';
 
 import { PickerService, PickerCell } from '../picker/picker.service';
@@ -57,7 +57,7 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
     this.scrollInstance.on('scrollStart', () => {
       this.pickerService.scroll(true);
     });
-    this.scrollInstance.on('scrollEnd', (position: Position) => {
+    this.scrollInstance.on('scrollEnd', (position: any) => {
       this.pickerService.scroll(false);
       const value = this.cells[Math.abs(position.y / (this.cellHeight * this.scale))];
       if (value.disabled) {
