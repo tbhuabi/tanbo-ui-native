@@ -1,6 +1,6 @@
 {
   "name": "@tanbo/ui-native",
-  "version": "2.1.0-alpha.0",
+  "version": "2.1.0-alpha.2",
   "dependencies": {
     "@tweenjs/tween.js": "^17.0.0",
     "@types/tween.js": "^16.0.0",
@@ -8,8 +8,8 @@
     "tanbo-bezier": "^0.0.5"
   },
   "peerDependencies": {
-    "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0"
+    "@angular/common": "^9.0.0",
+    "@angular/core": "^9.0.0"
   },
   "author": {
     "name": "Tan Bo",
