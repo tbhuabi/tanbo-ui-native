@@ -35,10 +35,10 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
   @Output() uiChange = new EventEmitter<string>();
   @Input() forId: string;
   @Input() name: string;
-  @Input() placeholder: string = '';
-  @Input() selectedIndex: number = 0;
-  @Input() cancelText: string = '取消';
-  @Input() arrowIconClassName: string = '';
+  @Input() placeholder = '';
+  @Input() selectedIndex = 0;
+  @Input() cancelText = '取消';
+  @Input() arrowIconClassName = '';
 
   @Input()
   @HostBinding('class.ui-disabled')
@@ -60,18 +60,18 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
     return this._readonly;
   }
 
-  focus: boolean = false;
-  text: string = '';
-  private _disabled: boolean = false;
-  private _readonly: boolean = false;
+  focus = false;
+  text = '';
+  private _disabled = false;
+  private _readonly = false;
 
-  private value: string = '';
+  private value = '';
   private onChange: (_: any) => any;
   private onTouched: () => any;
   private subs: Array<Subscription> = [];
 
   private selectedOption: OptionComponent;
-  private isWrite: boolean = false;
+  private isWrite = false;
 
   static getTextByElement(element: HTMLElement): string {
     if (element) {
@@ -156,9 +156,11 @@ export class SelectComponent implements ControlValueAccessor, AfterContentInit, 
         this.text = SelectComponent.getTextByElement(selectedOption.nativeElement);
         selectedOption.selected = true;
       } else {
+        this.selectedOption = null;
         this.text = '';
       }
     } else {
+      this.selectedOption = null;
       this.text = '';
     }
   }

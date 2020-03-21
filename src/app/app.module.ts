@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { DetailComponent } from './detail/detail.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DetailComponent } from './detail/detail.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UINativeModule.forRoot()
+    UINativeModule.forRoot(),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

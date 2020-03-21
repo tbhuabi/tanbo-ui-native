@@ -6,107 +6,15 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <ui-scroll-tab [index]="viewIndex" (uiChange)="setIndex($event)">
-      <ui-scroll-tab-button>待审核</ui-scroll-tab-button>
-      <ui-scroll-tab-button>已审核</ui-scroll-tab-button>
-    </ui-scroll-tab>
-    <ui-collection [index]="viewIndex" (uiSlidingFinish)="setIndex($event)">
-      <ui-collection-item>
-        <ui-scroll>
-          <ui-list>
-            <ui-list-item>
-              <ui-list-inner>
-                <div routerLink="/detail">所属区域</div>
-                <div>
-                  <ui-picker placeholder="请选择所属区域" [data]="addressList" (uiChange)="selectAddress($event)">
-                    <div>{{ address }}</div>
-                  </ui-picker>
-                </div>
-              </ui-list-inner>
-            </ui-list-item>
-            <ui-list-item>
-              <ui-list-inner>
-                <div>采集点</div>
-                <div>
-                  <ui-picker placeholder="请选择采集点" [data]="addressList" (uiChange)="selectPoint($event)">
-                    <div>{{ point }}</div>
-                  </ui-picker>
-                </div>
-              </ui-list-inner>
-            </ui-list-item>
-          </ui-list>
-          <ui-flex>
-            <ui-flex-item style="justify-content: flex-start">1/3</ui-flex-item>
-            <ui-flex-item style="justify-content: flex-end">
-              <button type="button" class="ui-btn ui-btn-primary ui-btn-sm">审核</button>&nbsp;
-              <button type="button" class="ui-btn ui-btn-default ui-btn-sm" (click)="selectAll(auditList)">全选</button>
-            </ui-flex-item>
-          </ui-flex>
-          <ui-list>
-            <ui-list-item *ngFor="let item of auditList">
-              <ui-list-inner>
-                <div class="desc">
-                  <div>李四 <img src="../../assets/images/mobile.png"> <a href="tel:18888888888">18888888888</a></div>
-                  <div>采集点：五象总部大厦</div>
-                  <p>54465588854258588</p>
-                  <p>申请时间：2020-10-22 20:88</p>
-                </div>
-                <div class="checkbox-wrap">
-                  <ui-input type="checkbox" [(ngModel)]="item.checked"></ui-input>
-                </div>
-              </ui-list-inner>
-            </ui-list-item>
-          </ui-list>
-        </ui-scroll>
-      </ui-collection-item>
-      <ui-collection-item>
-        <ui-scroll>
-          <ui-list>
-            <ui-list-item>
-              <ui-list-inner>
-                <div>所属区域</div>
-                <div>
-                  <ui-picker placeholder="请选择所属区域" [data]="addressList" (uiChange)="selectAddress1($event)">
-                    <div>{{ address1 }}</div>
-                  </ui-picker>
-                </div>
-              </ui-list-inner>
-            </ui-list-item>
-            <ui-list-item>
-              <ui-list-inner>
-                <div>采集点</div>
-                <div>
-                  <ui-picker placeholder="请选择采集点" [data]="addressList" (uiChange)="selectPoint1($event)">
-                    <div>{{ point1 }}</div>
-                  </ui-picker>
-                </div>
-              </ui-list-inner>
-            </ui-list-item>
-          </ui-list>
-          <ui-flex>
-            <ui-flex-item style="justify-content: flex-start"></ui-flex-item>
-            <ui-flex-item style="justify-content: flex-end">
-              <button type="button" class="ui-btn ui-btn-primary ui-btn-sm">撤销权限</button>&nbsp;
-              <button type="button" class="ui-btn ui-btn-default ui-btn-sm" (click)="selectAll(auditedList)">全选</button>
-            </ui-flex-item>
-          </ui-flex>
-          <ui-list>
-            <ui-list-item *ngFor="let item of auditedList">
-              <ui-list-inner>
-                <div class="desc">
-                  <div>李四 <img src="../../assets/images/mobile.png"> <a href="tel:18888888888">18888888888</a></div>
-                  <div>采集点：五象总部大厦</div>
-                  <p>54465588854258588</p>
-                  <p>申请时间：2020-10-22 20:88</p>
-                </div>
-                <div class="checkbox-wrap">
-                  <ui-input type="checkbox" [(ngModel)]="item.checked"></ui-input>
-                </div>
-              </ui-list-inner>
-            </ui-list-item>
-          </ui-list>
-        </ui-scroll>
-      </ui-collection-item>
-    </ui-collection>
+    <form>
+      <ui-select [(ngModel)]="data" required
+                 name="belongCategory"
+                 placeholder="请选择">
+        <ui-option value="1">新设立企业</ui-option>
+        <ui-option value="2">市内新迁入企业</ui-option>
+        <ui-option value="3">片区内企业</ui-option>
+        <ui-option value="4">外商投资企业</ui-option>
+      </ui-select>
+    </form>
   </ui-content>
 </ui-page>

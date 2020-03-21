@@ -126,8 +126,6 @@ export class RadioRequiredValidator implements Validator {
   }]
 })
 export class SelectRequiredValidator implements Validator {
-  private _required: boolean;
-  private _onChange: () => void;
 
   @Input()
   get required(): boolean | string {
@@ -140,6 +138,9 @@ export class SelectRequiredValidator implements Validator {
       this._onChange();
     }
   }
+
+  private _required: boolean;
+  private _onChange: () => void;
 
   validate(c: AbstractControl): ValidationErrors | null {
     if (this.required) {
