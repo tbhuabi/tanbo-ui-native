@@ -1,9 +1,13 @@
 import { Component, Input, Inject, Output, EventEmitter, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
-import BScroll from 'better-scroll';
+import BScroll from '@better-scroll/core'
+import Wheel from '@better-scroll/wheel'
 import { Subscription } from 'rxjs';
 
 import { PickerService, PickerCell } from '../picker/picker.service';
 import { UI_SCREEN_SCALE } from '../../helper';
+
+BScroll.use(Wheel);
+
 @Component({
   selector: 'ui-picker-column',
   templateUrl: './picker-column.component.html'
@@ -49,17 +53,18 @@ export class PickerColumnComponent implements AfterViewInit, OnDestroy {
       wheel: {
         selectedIndex: 0,
         rotate: 0,
-        adjustTime: 400,
+        // adjustTime: 400,
         wheelWrapperClass: 'ui-picker-column',
         wheelItemClass: 'ui-picker-cell'
-      }
+      },
+      probeType: 3
     });
     this.scrollInstance.on('scrollStart', () => {
       this.pickerService.scroll(true);
     });
     this.scrollInstance.on('scrollEnd', (position: any) => {
       this.pickerService.scroll(false);
-      const value = this.cells[Math.abs(position.y / (this.cellHeight * this.scale))];
+      const value = this.cells[Math.floor(Math.abs(position.y / (this.cellHeight * this.scale)))];
       if (value.disabled) {
         return;
       }
