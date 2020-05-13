@@ -1,64 +1,6 @@
 @import "../../../projects/tanbo/ui-native/src/assets/scss/varibles";
 
-ui-content {
-  background-color: #f2f2f2;
-}
-
-ui-scroll-tab {
-  background-color: #fff;
-}
-
-ui-collection {
-  top: 40px;
-}
-
-::ng-deep .ui-scroll-tab-wrap {
-  display: flex;
-}
-ui-scroll-tab-button {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-::ng-deep .ui-scroll-tab-line {
-  width: 3em;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-
-ui-list-inner {
-  justify-content: space-between;
-
-}
-
-ui-flex {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.desc {
-  div {
-    img {
-      width: 1em;
-      height: 1em;
-    }
-    a {
-      color: $color-primary;
-      text-decoration: none;
-    }
-  }
-  p {
-    color: $color-gray-dark;
-    margin: 0;
-    font-size: 14px;
-  }
-}
-
-.checkbox-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+img {
+  width: 300px;
+  height: 300px;
 }

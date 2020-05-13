@@ -6,18 +6,15 @@
     </ui-navbar>
   </ui-header>
   <ui-content>
-    <form>
-      <ui-select [(ngModel)]="data" required
-                 name="belongCategory"
-                 placeholder="请选择">
-        <ui-option value="1">新设立企业</ui-option>
-        <ui-option value="2">市内新迁入企业</ui-option>
-        <ui-option value="3">片区内企业</ui-option>
-        <ui-option value="4">外商投资企业</ui-option>
-      </ui-select>
-    </form>
-    <div>
-      <ui-input type="date"></ui-input>
-    </div>
+    <ui-scroll>
+      <img [uiLazyLoad]="image" [defaultImage]="defaultImage">
+      <img [uiLazyLoad]="image" [defaultImage]="defaultImage">
+      <img [uiLazyLoad]="image" [defaultImage]="defaultImage">
+      <img [uiLazyLoad]="image" [defaultImage]="defaultImage">
+      <img [uiLazyLoad]="image" [defaultImage]="defaultImage">
+      <img [uiLazyLoad]="image" [defaultImage]="defaultImage">
+      <img [uiLazyLoad]="image" [defaultImage]="defaultImage">
+      <img [uiLazyLoad]="image" [defaultImage]="defaultImage">
+    </ui-scroll>
   </ui-content>
 </ui-page>
