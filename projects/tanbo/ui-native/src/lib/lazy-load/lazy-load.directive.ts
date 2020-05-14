@@ -13,6 +13,7 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
   @Input() offset?: number; // 图片进入视图加载的提前量，单位px
   private elementRef: ElementRef;
   private $pageScroll: any;
+  private $imageError: any;
 
   constructor(private elementRef: ElementRef) {
   }
@@ -36,10 +37,14 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
       return window;
     };
     const scrollAncestorElement = getScrollAncestorElement(this.elementRef.nativeElement);
-    scrollAncestorElement.removeEventListener('scroll', this.checkImage);
     this.$pageScroll = fromEvent(scrollAncestorElement, 'scroll').pipe(throttleTime(500)).subscribe(() => {
       this.checkImage();
     });
+    if (this.errorImage) {
+      this.$imageError = fromEvent(this.elementRef.nativeElement, 'error').subscribe(() => {
+        this.setErrorImage();
+      });
+    }
   }
 
 
@@ -47,11 +52,19 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
     if (this.$pageScroll) {
       this.$pageScroll.unsubscribe();
     }
+    if (this.$imageError) {
+      this.$imageError.unsubscribe();
+    }
   }
 
   handleDefaultImage() {
     const imageElement = this.elementRef.nativeElement;
     imageElement.setAttribute('src', this.defaultImage);
+  }
+
+  setErrorImage() {
+    const imageElement = this.elementRef.nativeElement;
+    imageElement.setAttribute('src', this.errorImage);
   }
 
   // 判断元素是否在可视区域内
