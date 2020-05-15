@@ -15,7 +15,7 @@ import { UIScrollModule } from './scroll/scroll.module';
 import { UISegmentModule } from './segment/segment.module';
 import { UISlideModule } from './slide/slide.module';
 import { UITouchModule } from './touch/touch.module';
-import { UILazyLoadModule } from './lazy-load/lazy-load.module';
+import { UILazySrcModule } from './lazy-src/lazy-src.module';
 
 import { UI_BROWSER_ENV, UI_SCREEN_SCALE } from './helper';
 import { getDeviceType, AppController } from './app/index';
@@ -48,7 +48,7 @@ import { ImageViewerController } from './image-viewer/image-viewer-controller';
     UISegmentModule,
     UISlideModule,
     UITouchModule,
-    UILazyLoadModule
+    UILazySrcModule
   ]
 })
 export class UINativeModule {

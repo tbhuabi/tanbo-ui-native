@@ -1,27 +1,22 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy } from "@angular/core";
-import { fromEvent } from "rxjs";
+import { fromEvent, Subscription } from "rxjs";
 import { throttleTime } from "rxjs/operators";
 
 @Directive({
-  selector: '[uiLazyLoad]'
+  selector: 'img[uiLazySrc]'
 })
 
-export class LazyLoadDirective implements OnInit, OnDestroy {
-  @Input() uiLazyLoad: string; // 需要懒加载的图片
-  @Input() defaultImage?: string; // 没有加载时候的默认图片
+export class LazySrcDirective implements OnInit, OnDestroy {
+  @Input() uiLazySrc: string; // 需要懒加载的图片
   @Input() errorImage?: string; // 加载出错图片
   @Input() offset?: number; // 图片进入视图加载的提前量，单位px
-  private elementRef: ElementRef;
-  private $pageScroll: any;
-  private $imageError: any;
+  private $pageScroll: Subscription;
+  private $imageError: Subscription;
 
   constructor(private elementRef: ElementRef) {
   }
 
   ngOnInit() {
-    if (!!this.defaultImage) {
-      this.handleDefaultImage();
-    }
     this.checkImage();
     const getScrollAncestorElement = (node: HTMLElement) => {
       if (node instanceof Element) {
@@ -36,12 +31,13 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
       }
       return window;
     };
-    const scrollAncestorElement = getScrollAncestorElement(this.elementRef.nativeElement);
+    const element = this.elementRef.nativeElement;
+    const scrollAncestorElement = getScrollAncestorElement(element);
     this.$pageScroll = fromEvent(scrollAncestorElement, 'scroll').pipe(throttleTime(500)).subscribe(() => {
       this.checkImage();
     });
     if (this.errorImage) {
-      this.$imageError = fromEvent(this.elementRef.nativeElement, 'error').subscribe(() => {
+      this.$imageError = fromEvent(element, 'error').subscribe(() => {
         this.setErrorImage();
       });
     }
@@ -55,11 +51,6 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
     if (this.$imageError) {
       this.$imageError.unsubscribe();
     }
-  }
-
-  handleDefaultImage() {
-    const imageElement = this.elementRef.nativeElement;
-    imageElement.setAttribute('src', this.defaultImage);
   }
 
   setErrorImage() {
@@ -79,9 +70,9 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
   checkImage() {
     const imageElement = this.elementRef.nativeElement;
     if (this.isElementInViewport(imageElement, this.offset)) {
-      if (!!this.uiLazyLoad) {
-        imageElement.setAttribute('src', this.uiLazyLoad);
-        this.uiLazyLoad = '';
+      if (!!this.uiLazySrc) {
+        imageElement.setAttribute('src', this.uiLazySrc);
+        this.uiLazySrc = '';
       }
     }
   }
