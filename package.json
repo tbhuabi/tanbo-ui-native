@@ -44,7 +44,7 @@
     "gulp-cssmin": "^0.2.0",
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
-    "ng-packagr": "^9.0.0",
+    "ng-packagr": "^10.1.2",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
